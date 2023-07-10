@@ -1,0 +1,1 @@
+{"version":3,"file":"lib.js","sources":["../src/foundry-table-app/lib/utils.ts"],"sourcesContent":["\nexport function isGameInitialised(game: {} | Game): game is Game {\n  return typeof (game as Game).loading === \"boolean\";\n}\n"],"names":[],"mappings":";;AACM,SAAU,iBAAiB,CAAC,IAAe,EAAA;AAC/C,IAAA,OAAO,OAAQ,IAAa,CAAC,OAAO,KAAK,SAAS,CAAC;AACrD;;;;"}
