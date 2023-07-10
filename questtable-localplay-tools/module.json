@@ -1,0 +1,62 @@
+{
+  "id": "questtable-localplay-tools",
+  "title": "QuestTable LocalPlay Tools",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "11",
+    "verified": "11"
+  },
+  "relationships": {
+    "requires": [
+      {
+        "id": "socketlib",
+        "type": "module"
+      },
+      {
+        "id": "lib-wrapper",
+        "type": "module"
+      }
+    ],
+    "systems": [
+      {
+        "id": "pf2e",
+        "type": "system"
+      },
+      {
+        "id": "dnd5e",
+        "type": "system"
+      }
+    ]
+  },
+  "description": "A module collecting all the features I needed to make in-person play on a map table work smoothly. Borrows liberally from many other modules, picking and choosing the parts that work for our play mode.",
+  "authors": [
+    {
+      "name": "Dion Steel",
+      "discord": "electricmonk",
+      "email": "Dionjsteel@gmail.com"
+    }
+  ],
+  "packs": [
+    {
+      "label": "QuestTable Macros",
+      "name": "questtable-macros",
+      "type": "Macro",
+      "system": "pf2e",
+      "path": "packs/questtable-macros"
+    },
+    {
+      "label": "QuestTable Dnd5E Scenes",
+      "name": "questtable-dnd5e-scenes",
+      "type": "Scene",
+      "system": "dnd5e",
+      "path": "packs/questtable-dnd5e-scenes"
+    },
+    {
+      "label": "QuestTable Pathfinder Scenes",
+      "name": "questtable-pathfinder-scenes",
+      "type": "Scene",
+      "system": "pf2e",
+      "path": "packs/questtable-pathfinder-scenes"
+    }
+  ]
+}
