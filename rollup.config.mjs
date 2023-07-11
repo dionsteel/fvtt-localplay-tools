@@ -8,9 +8,9 @@ import { nodeResolve } from "@rollup/plugin-node-resolve";
 
 export default () => [
   {
-    input: "src/foundry-table-app/lib/index.ts",
+    input: "src/foundry-table-app/preload.ts",
     output: {
-      file: "foundry-table-app/lib.js",
+      file: "preload_deps.js",
       // format: "umd",
       // name:"fvtt-localplay-tools/lib",
       format:'cjs',

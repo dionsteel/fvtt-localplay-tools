@@ -1,0 +1,11 @@
+{
+  "name": "@qrpgt/fvtt-common",
+  "version": "0.0.1",
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false,
+  "devDependencies": {
+    "@league-of-foundry-developers/foundry-vtt-types": "^9.280.0"
+  }
+}

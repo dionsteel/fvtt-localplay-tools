@@ -15,7 +15,7 @@ async function mount() {
   CONFIG.debug.hooks = true;
   console.log("DOMCONTENTLOADED. check for foundry");
   // console.log(window.Hooks, window);
-  Hooks.on("init", (_args) => {
+  Hooks.once("init", (_args) => {
     console.log("init", game);
     if (isGameInitialised(game)) {
       app.get("playerchars", (req, res) => {
@@ -38,12 +38,12 @@ async function mount() {
   Hooks.on("setup", (args) => {
     console.log("setup hook", args);
   });
-  const gmlogin = false;
-  const autologin = false;
+  const gmlogin = true;
+  const autologin = true;
   Hooks.on("renderJoinGameForm", (_args) => {
     try {
       if (isGameInitialised(game)) {
-        console.log("preload script mounted foundry. ", game.users);
+        console.log("preload script mounted foundry. ",_args, game.users);
         if (
           autologin &&
           game &&

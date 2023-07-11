@@ -1,0 +1,65 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": false,
+    "strict": false,
+    "noImplicitOverride": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "paths": {
+      "fvtt-api-bridge": [
+        "dist/fvtt-api-bridge"
+      ],
+      "fvtt-common": [
+        "dist/fvtt-common"
+      ],
+      "fvtt-electron": [
+        "dist/fvtt-electron"
+      ],
+      "fvtt-local-api": [
+        "dist/fvtt-local-api"
+      ],
+      "@qrpgt/fvtt-api-bridge": [
+        "dist/fvtt-api-bridge"
+      ],
+      "@qrpgt/fvtt-common": [
+        "dist/fvtt-common"
+      ],
+      "@qrpgt/fvtt-electron": [
+        "dist/fvtt-electron"
+      ],
+      "@qrpgt/fvtt-local-api": [
+        "dist/fvtt-local-api"
+      ],
+    },
+    "types": [
+      "@league-of-foundry-developers/foundry-vtt-types"
+    ],
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "skipLibCheck": true ,/* Skip type checking all .d.ts files. */
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "useDefineForClassFields": false,
+    "lib": [
+      "ES2022",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}
