@@ -14,20 +14,32 @@ declare global {
   }
   type AnyFunction = (...args: any) => any;
 }
-type SettingValue<K extends keyof typeof InPersonHudSettings = keyof typeof InPersonHudSettings> = PrimitiveOf<(typeof InPersonHudSettings)[K]["type"]>;
-type SettingChange<K extends keyof typeof InPersonHudSettings = keyof typeof InPersonHudSettings> = { settingId: K; value: SettingValue[K] };
+type SettingValue<K extends keyof typeof InPersonHudSettings = keyof typeof InPersonHudSettings> = PrimitiveOf<
+  (typeof InPersonHudSettings)[K]["type"]
+>;
+type SettingChange<K extends keyof typeof InPersonHudSettings = keyof typeof InPersonHudSettings> = {
+  settingId: K;
+  value: SettingValue[K];
+};
 export interface EventSubjectDataTypeMap {
   cycleActions: KeyboardEventContext;
   cycleStrikes: KeyboardEventContext;
   performCurrentStrike: KeyboardEventContext;
   settingChange: SettingChange;
-};
+}
 
 export class EventSubject<M, K extends keyof M = keyof M, T extends M[K] = M[K]> extends Subject<{ type: K; data: T }> {
-  emit(type: K, data: T) { this.next({ type, data }) }
-  on(type: K) { return this.pipe(filter(e => e.type == type), map(e => e?.data)) }
+  emit(type: K, data: T) {
+    this.next({ type, data });
+  }
+  on(type: K) {
+    return this.pipe(
+      filter((e) => e.type == type),
+      map((e) => e?.data),
+    );
+  }
 }
-export class SettingsEventSubject extends EventSubject<EventSubjectDataTypeMap>{ };
+export class SettingsEventSubject extends EventSubject<EventSubjectDataTypeMap> {}
 export interface SeatMappingSeatConfig {
   enabled: boolean;
   actors: string[];
@@ -40,52 +52,76 @@ export interface SeatMappingConfig {
   Seat5: SeatMappingConfig;
 }
 export class SeatMappingForm extends FormApplication<{ pc_actors: Actor[] }> {
+  seat1Enabled: boolean = true;
+  seat1Actors: Actor[] = (SETTINGS.get<string[]>("seat1Actor") || []).map((id) => game.actors.get(id)).filter((i) => i);
+  seat2Enabled: boolean = true;
+  seat2Actors: Actor[] = (SETTINGS.get<string[]>("seat2Actor") || []).map((id) => game.actors.get(id)).filter((i) => i);
+  seat3Enabled: boolean = true;
+  seat3Actors: Actor[] = (SETTINGS.get<string[]>("seat3Actor") || []).map((id) => game.actors.get(id)).filter((i) => i);
+  seat4Enabled: boolean = true;
+  seat4Actors: Actor[] = (SETTINGS.get<string[]>("seat4Actor") || []).map((id) => game.actors.get(id)).filter((i) => i);
+  seat5Enabled: boolean = true;
+  seat5Actors: Actor[] = (SETTINGS.get<string[]>("seat5Actor") || []).map((id) => game.actors.get(id)).filter((i) => i);
   protected override async _updateObject(event: Event, formData: Record<string, boolean | string[]>): Promise<SeatMappingConfig> {
-    console.log('update settings', event, formData);
+    console.log("update settings", event, formData);
     let out: Partial<SeatMappingConfig> = {};
     for (let k in formData) {
       let t = formData[k];
       let path = k.split(/./g);
       path.slice(0, -1).reduce((a, p) => (a[p] = a[p] || {}), out)[path[path.length - 1]] = t;
-
     }
-    SETTINGS.set('seat1Actor', formData['seat1Actors'])
-    SETTINGS.set('seat2Actor', formData['seat2Actors'])
-    SETTINGS.set('seat3Actor', formData['seat3Actors'])
-    SETTINGS.set('seat4Actor', formData['seat4Actors'])
-    SETTINGS.set('seat5Actor', formData['seat5Actors'])
+    SETTINGS.set("seat1Actor", formData["seat1Actors"]);
+    SETTINGS.set("seat2Actor", formData["seat2Actors"]);
+    SETTINGS.set("seat3Actor", formData["seat3Actors"]);
+    SETTINGS.set("seat4Actor", formData["seat4Actors"]);
+    SETTINGS.set("seat5Actor", formData["seat5Actors"]);
 
     return out as SeatMappingConfig;
   }
 
   static override get defaultOptions(): FormApplicationOptions {
     return mergeObject(super.defaultOptions, {
-      closeOnSubmit: true, editable: true,
+      closeOnSubmit: true,
+      editable: true,
       template: "modules/in-person-hud/templates/seat-mapping.hbs",
-
-      id: 'SeatMappingSettings',
-
-    })
+      width: 600,
+      height: 600,
+      minimizable: false,
+      resizable: true,
+      title: "Map Actors to Player Seats",
+      id: "SeatMappingSettings",
+    });
   }
 
   override getData(options?: Partial<FormApplicationOptions>) {
-    const pc_actors = game.actors
-      .filter(
-        (a: ActorV11) => a.hasPlayerOwner
-        // a.document.getUserLevel(game.users.get(SETTINGS.get("tablePlayerUserId"))) >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER
-      )
+    const pc_actors = game.actors.filter(
+      (a: ActorV11) =>
+        a.hasPlayerOwner &&
+        ![...this.seat1Actors, ...this.seat2Actors, ...this.seat3Actors, ...this.seat4Actors, ...this.seat5Actors]
+          .map((a:ActorV11) => a.id)
+          .includes(a.id),
+      // a.document.getUserLevel(game.users.get(SETTINGS.get("tablePlayerUserId"))) >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER
+    );
+
     return {
       options,
-      title: 'Seat Actor Mapping',
+      title: "Seat Actor Mapping",
       seatIdx: [1, 2, 3, 4, 5],
-      pc_actors
+      pc_actors,
+      seat1Enabled: this.seat1Enabled,
+      seat1Actors: this.seat1Actors,
+      seat2Enabled: this.seat2Enabled,
+      seat2Actors: this.seat2Actors,
+      seat3Enabled: this.seat3Enabled,
+      seat3Actors: this.seat3Actors,
+      seat4Enabled: this.seat4Enabled,
+      seat4Actors: this.seat4Actors,
+      seat5Enabled: this.seat5Enabled,
+      seat5Actors: this.seat5Actors,
     };
   }
 
-  static registerSettings() {
-
-  }
-
+  static registerSettings() {}
 }
 export default class SETTINGS {
   static MOD_NAME: string;
@@ -128,13 +164,13 @@ export default class SETTINGS {
 export class SettingSubject<T = any> extends BehaviorSubject<T> {
   constructor(
     public name: keyof typeof InPersonHudSettings,
-    public options: SettingRegistration<Record<string, string>> & { getChoices?: () => Promise<Record<string, string>> }
+    public options: SettingRegistration<Record<string, string>> & { getChoices?: () => Promise<Record<string, string>> },
   ) {
     SETTINGS.register<T>(name as string, {
       ...options,
       onChange: (value: string) => {
         super.next(value as T);
-        SETTINGS.events.emit('settingChange', { settingId: name, value });
+        SETTINGS.events.emit("settingChange", { settingId: name, value });
       },
     });
     super(SETTINGS.get(name as string) || (options.default as T));
@@ -142,7 +178,7 @@ export class SettingSubject<T = any> extends BehaviorSubject<T> {
       Hooks.on("ready", () => this.updateChoices());
     }
   }
-  register() { }
+  register() {}
   override next(value: T) {
     SETTINGS.set(this.name as string, value);
   }
@@ -156,15 +192,18 @@ export class SettingSubject<T = any> extends BehaviorSubject<T> {
     }
   }
 }
-export interface ActorV11 extends Actor<null> {
+export interface ActorV11 extends Actor<null | TokenDocument<Scene>> {
   hasPlayerOwner: boolean;
+  id: string;
 }
 export const SETTINGS_TOKEN = new InjectionToken<SETTINGS>("FOUNDRY_SETTINGS");
-export const InPersonHudSettings: { [key: string]: Partial<SettingRegistration<Record<string, string>> & { getChoices: () => any | void }> } = {
+export const InPersonHudSettings: {
+  [key: string]: Partial<SettingRegistration<Record<string, string>> & { getChoices: () => any | void }>;
+} = {
   tablePlayerUserId: {
     scope: "world",
     name: "Table Player User",
-    config:true,
+    config: true,
     type: String,
     getChoices: () =>
       Object.fromEntries(
@@ -173,13 +212,13 @@ export const InPersonHudSettings: { [key: string]: Partial<SettingRegistration<R
           .map((u) => {
             return [u.id, (u as any)._source.name];
             // return [u._source._id, u._source.name];
-          })
+          }),
       ),
   },
   seat1Actor: {
     scope: "world",
     name: "Seat 1 Player Character",
-    
+
     default: [],
     type: Array<String>,
     getChoices: () =>
@@ -187,7 +226,7 @@ export const InPersonHudSettings: { [key: string]: Partial<SettingRegistration<R
         ["", "None"],
         ...game.actors
           .filter(
-            (a: ActorV11) => a.hasPlayerOwner
+            (a: ActorV11) => a.hasPlayerOwner,
             // a.document.getUserLevel(game.users.get(SETTINGS.get("tablePlayerUserId"))) >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER
           )
           .map((a) => [a._id, a.name]),
@@ -196,7 +235,7 @@ export const InPersonHudSettings: { [key: string]: Partial<SettingRegistration<R
   seat2Actor: {
     scope: "world",
     name: "Seat 2 Player Character",
-    
+
     default: [],
     type: Array<String>,
     getChoices: () =>
@@ -204,7 +243,7 @@ export const InPersonHudSettings: { [key: string]: Partial<SettingRegistration<R
         ["", "None"],
         ...game.actors
           .filter(
-            (a: ActorV11) => a.hasPlayerOwner
+            (a: ActorV11) => a.hasPlayerOwner,
             // a.document.getUserLevel(game.users.get(SETTINGS.get("tablePlayerUserId"))) >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER
           )
           .map((a) => [a.id, a.name]),
@@ -214,14 +253,14 @@ export const InPersonHudSettings: { [key: string]: Partial<SettingRegistration<R
     scope: "world",
     default: [],
     name: "Seat 3 Player Character",
-    
+
     type: Array<String>,
     getChoices: () =>
       Object.fromEntries([
         ["", "None"],
         ...game.actors
           .filter(
-            (a: ActorV11) => a.hasPlayerOwner
+            (a: ActorV11) => a.hasPlayerOwner,
             // a.document.getUserLevel(game.users.get(SETTINGS.get("tablePlayerUserId"))) >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER
           )
           .map((a) => [a._id, a.name]),
@@ -231,14 +270,14 @@ export const InPersonHudSettings: { [key: string]: Partial<SettingRegistration<R
     scope: "world",
     name: "Seat 4Player Character",
     default: [],
-    
+
     type: Array<String>,
     getChoices: () =>
       Object.fromEntries([
         ["", "None"],
         ...game.actors
           .filter(
-            (a: ActorV11) => a.hasPlayerOwner
+            (a: ActorV11) => a.hasPlayerOwner,
             // a.document.getUserLevel(game.users.get(SETTINGS.get("tablePlayerUserId"))) >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER
           )
           .map((a) => [a._id, a.name]),
@@ -247,7 +286,7 @@ export const InPersonHudSettings: { [key: string]: Partial<SettingRegistration<R
   seat5Actor: {
     scope: "world",
     name: "Seat 5 Player Character",
-    
+
     default: [],
     type: Array<String>,
     getChoices: () =>
@@ -255,7 +294,7 @@ export const InPersonHudSettings: { [key: string]: Partial<SettingRegistration<R
         ["", "None"],
         ...game.actors
           .filter(
-            (a: ActorV11) => a.hasPlayerOwner
+            (a: ActorV11) => a.hasPlayerOwner,
             // a.document.getUserLevel(game.users.get(SETTINGS.get("tablePlayerUserId"))) >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER
           )
           .map((a) => [a.id, a.name]),
@@ -264,11 +303,10 @@ export const InPersonHudSettings: { [key: string]: Partial<SettingRegistration<R
 };
 
 export class SeatSettings {
-  constructor(public data) {
-
+  constructor(public data) {}
+  valueOf() {
+    return this;
   }
-  valueOf() { return this; }
-
 }
 Hooks.once("init", async () => {
   SETTINGS.init("in-person-hud");
@@ -290,7 +328,14 @@ Hooks.once("init", async () => {
   }
   // game.keybindings.get('in-person-hud', 'rotateCurrentAction')[0].key
 
-  SETTINGS.registerMenu('seatActorMapping', { label: "Seat to Character Mapping", hint: '', "icon": "fa fa-map", "name": "seatActorMapping", type: SeatMappingForm, restricted: true })
+  SETTINGS.registerMenu("seatActorMapping", {
+    label: "Seat to Character Mapping",
+    hint: "",
+    icon: "fa fa-map",
+    name: "seatActorMapping",
+    type: SeatMappingForm,
+    restricted: true,
+  });
 
   game.keybindings.register("in-person-hud", "rotateCurrentAction", {
     name: "Cycle Player Actions",

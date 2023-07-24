@@ -8,25 +8,26 @@
   color: #fefefe;
   opacity: 0.7;
   &.seat1 {
-    bottom: 10px;
+    bottom: 0px;
     right: 15%;
   }
   &.seat2 {
-    bottom: 10px;
+    bottom: 0px;
     left: 15%;
   }
   &.seat3 {
-    top: 10px;
+    top: 0px;
     left: 15%;
     transform: rotate(180deg);
   }
   &.seat4 {
-    top: 10px;
+    top: 0px;
     right: 15%;
     transform: rotate(180deg);
   }
   &.seat5 {
-    left: -10%;
+    left: 0px;
+    margin-left: 0px;
     top: calc(50% - 40px);
     transform: rotate(90deg);
   }

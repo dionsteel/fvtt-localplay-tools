@@ -1,43 +1,96 @@
 <form name="seatmappings">
-    <div class="seat-config">
-        <input name="seat1Enabled" type="checkbox" title="Enabled" />Seat 1 Enabled?<br>
-        <select name="seat1Actors" multiple="true">
-            {{#each pc_actors}}
-            <option value="{{id}}">{{name}}</option>
-            {{/each}}
-        </select>
+  <div style="display: flex; flex-direction: row; height: 100%; max-height: 500px%;">
+    <div style="display: flex; flex-direction: row; flex-basis: 40%;height: 100%; max-height: 100%; flex-shrink:1;">
+      <select id="iph-setting-player-chars" size="{{pc_actors.length}}" style="min-width: 200px;" multiple="true">
+        {{#each pc_actors}}
+          <option value="{{id}}">{{name}}</option>
+        {{/each}}
+      </select>
+      <div style="flex-direction: column; display:flex; ">
+        <button
+          type="button"
+          onclick="$('select#iph-setting-player-chars option').filter((i,o)=>o.selected).each((i,o)=>$('select#seat1Actors')[0].options.add(o))"
+        >1</button>
+        <button
+          type="button"
+          onclick="$('select#iph-setting-player-chars option').filter((i,o)=>o.selected).each((i,o)=>$('select#seat2Actors')[0].options.add(o))"
+        >2</button>
+        <button
+          type="button"
+          onclick="$('select#iph-setting-player-chars option').filter((i,o)=>o.selected).each((i,o)=>$('select#seat3Actors')[0].options.add(o))"
+        >3</button>
+        <button
+          type="button"
+          onclick="$('select#iph-setting-player-chars option').filter((i,o)=>o.selected).each((i,o)=>$('select#seat4Actors')[0].options.add(o))"
+        >4</button>
+        <button
+          type="button"
+          onclick="$('select#iph-setting-player-chars option').filter((i,o)=>o.selected).each((i,o)=>$('select#seat5Actors')[0].options.add(o))"
+        >5</button>
+      </div>
     </div>
-    <div class="seat-config">
-        <input name="seat2Enabled" type="checkbox" title="Enabled" />Seat 2 Enabled?<br>
-        <select name="seat2Actors" multiple="true">
-            {{#each pc_actors}}
-            <option value="{{id}}">{{name}}</option>
-            {{/each}}
+    <div class="seats-list" style="display: flex; flex-direction: column;height: 100%; max-height: 500px; overflow-y: auto; overflow-x:hidden; flex-grow:1; flex-shrink: 1; flex-basis: fit-content; ">
+      <div class="seat-config" style="display: flex; flex-direction: column; flex-grow:1; flex-shrink:1; flex-basis: fit-content; padding: 3px">
+        <input name="seat1Enabled" type="checkbox" checked title="Enabled" />Seat 1 Enabled?<br />
+        <select style="min-width: 200px;" id="seat1Actors" name="seat1Actors" multiple="true">
+          {{#each seat1Actors}}
+            <option value="{{id}}" selected="true">{{name}}</option>
+          {{/each}}
         </select>
-    </div>
-    <div class="seat-config">
-        <input name="seat3Enabled" type="checkbox" title="Enabled" />Seat 3 Enabled?<br>
-        <select name="seat3Actors" multiple="true">
-            {{#each pc_actors}}
-            <option value="{{id}}">{{name}}</option>
-            {{/each}}
+        <button
+          type="button"
+          onclick="$('select#seat1Actors option').filter((i,o)=>o.selected).each((i,o)=>$('select#iph-setting-player-chars')[0].options.add(o))"
+        >Remove</button>
+      </div>
+      <div class="seat-config" style="display: flex; flex-direction: column; flex-grow:1; flex-shrink:1; flex-basis: fit-content; padding: 3px">
+        <input name="seat2Enabled" type="checkbox" checked title="Enabled" />Seat 2 Enabled?<br />
+        <select style="min-width: 200px;" id="seat2Actors" name="seat2Actors" multiple="true">
+          {{#each seat2Actors}}
+            <option value="{{id}}" selected="true">{{name}}</option>
+          {{/each}}
         </select>
-    </div>
-    <div class="seat-config">
-        <input name="seat4Enabled" type="checkbox" title="Enabled" />Seat 4 Enabled?<br>
-        <select name="seat4Actors" multiple="true">
-            {{#each pc_actors}}
-            <option value="{{id}}">{{name}}</option>
-            {{/each}}
+        <button
+          type="button"
+          onclick="$('select#seat2Actors option').filter((i,o)=>o.selected).each((i,o)=>$('select#iph-setting-player-chars')[0].options.add(o))"
+        >Remove</button>
+      </div>
+      <div class="seat-config" style="display: flex; flex-direction: column; flex-grow:1; flex-shrink:1; flex-basis: fit-content; padding: 3px">
+        <input name="seat3Enabled" type="checkbox" checked title="Enabled" />Seat 3 Enabled?<br />
+        <select style="min-width: 200px;" id="seat3Actors" name="seat3Actors" multiple="true">
+          {{#each seat3Actors}}
+            <option value="{{id}}" selected="true">{{name}}</option>
+          {{/each}}
         </select>
-    </div>
-    <div class="seat-config">
-        <input name="seat5Enabled" type="checkbox" title="Enabled" />Seat 5 Enabled?<br>
-        <select name="seat5Actors" multiple="true">
-            {{#each pc_actors}}
-            <option value="{{id}}">{{name}}</option>
-            {{/each}}
+        <button
+          type="button"
+          onclick="$('select#seat3Actors option').filter((i,o)=>o.selected).each((i,o)=>$('select#iph-setting-player-chars')[0].options.add(o))"
+        >Remove</button>
+      </div>
+      <div class="seat-config" style="display: flex; flex-direction: column; flex-grow:1; flex-shrink:1; flex-basis: fit-content; padding: 3px">
+        <input name="seat4Enabled" type="checkbox" checked title="Enabled" />Seat 4 Enabled?<br />
+        <select style="min-width: 200px;" id="seat4Actors" name="seat4Actors" multiple="true">
+          {{#each seat4Actors}}
+            <option value="{{id}}" selected="true">{{name}}</option>
+          {{/each}}
         </select>
+        <button
+          type="button"
+          onclick="$('select#seat4Actors option').filter((i,o)=>o.selected).each((i,o)=>$('select#iph-setting-player-chars')[0].options.add(o))"
+        >Remove</button>
+      </div>
+      <div class="seat-config" style="display: flex; flex-direction: column; flex-grow:1; flex-shrink:1; flex-basis: fit-content; padding: 3px">
+        <input name="seat5Enabled" type="checkbox" checked title="Enabled" />Seat 5 Enabled?<br />
+        <select style="min-width: 200px;" id="seat5Actors" name="seat5Actors" multiple="true">
+          {{#each seat5Actors}}
+            <option value="{{id}}" selected="true">{{name}}</option>
+          {{/each}}
+        </select>
+        <button
+          type="button"
+          onclick="$('select#seat5Actors option').filter((i,o)=>o.selected).each((i,o)=>$('select#iph-setting-player-chars')[0].options.add(o))"
+        >Remove</button>
+      </div>
     </div>
-    <button type="submit">Submit</button>
+  </div>
+  <button type="submit">Submit</button>
 </form>

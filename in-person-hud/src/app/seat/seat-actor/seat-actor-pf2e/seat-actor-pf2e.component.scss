@@ -4,6 +4,9 @@
   div {
     display: flex;
   }
+  * {
+    transition: all 0.1s ease-in-out;
+  }
 }
 
 .actor {
@@ -36,6 +39,10 @@
 // profile
 // portrait
 .details {
+  display: none;
+  &.controlled {
+    display: flex;
+  }
   flex-direction: column;
   width: 100%;
   .attributes {
@@ -81,12 +88,34 @@
   }
 
   .action {
-    flex-direction: row;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 2px;
     border-radius: 4px;
     flex-grow: 1;
     vertical-align: middle;
     width: 100%;
+    .action-icon {
+      height: auto;
+      width: 22px;
+      vertical-align: text-bottom;
+      padding: 2px;
+      margin: 0px;
+      // display: inline-flex;
+      &.selected {
+        border: 1px solid red;
+        border-radius: 6px;
+      }
+    }
+    .action-icon-list {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      flex-grow: 1;
+      flex-shrink: 1;
+      // flex-basis: 40%;
+      align-items: center;
+    }
     .action-button {
     }
     .action-label {
@@ -96,6 +125,7 @@
       vertical-align: middle;
       padding: 5px;
     }
+
     .action-item-name {
       flex-basis: 10%;
       flex-grow: 1;
@@ -104,14 +134,21 @@
       padding: 5px;
     }
     .action-strikes {
+      flex-shrink: 0;
       flex-direction: row;
+      flex-grow: 1;
+      flex-basis: 60%;
+      min-width: fit-content;
+      flex-wrap: nowrap;
       .strike {
         padding: 4px;
         display: inline-flex;
         border: 1px #fff solid;
         border-radius: 4px;
         margin: 2px 4px;
-        &.current { border: 1px solid red;}
+        &.current {
+          border: 1px solid red;
+        }
       }
     }
     .action-alt-uses {

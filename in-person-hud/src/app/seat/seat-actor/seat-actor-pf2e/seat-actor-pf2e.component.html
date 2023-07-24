@@ -1,9 +1,8 @@
-<div class="actor" *ngIf="wrapper._actor as actor">
-  <!-- <div *ngFor="let attNm; in: actor.system.attributes">{{ attNm }}: {{ actor.system.attributes[attNm] }}</div> -->
+<div class="actor" *ngFor="let actor of wrapper.actors" [class.controlled]="actor == wrapper.focusedActor">
   <div class="profile">
     <img class="portrait" [src]="actor.img" [class.controlled]="isControlled" />
     <span class="name">{{ actor.name }}</span>
-    <span class="level" *ngIf="actor.system.details.level as level">Level {{ level.value }}</span>
+    <span class="level" *ngIf="actor.system.details.level as level">{{ getClass(actor) }} {{ level.value }}</span>
   </div>
   <div class="details">
     <div class="attributes" *ngIf="actor.system.attributes as atts">
@@ -25,13 +24,31 @@
     <!-- <div class="action" *ngFor="let action of wrapper.actions | async">
       <div class="action-button" *ngFor="let button of action.buttons"><img [src]="button.icon" width="15" /> {{ button.title }}</div>
     </div> -->
-    <ng-container *ngFor="let action of actor.system.actions; index as idx">
-      <div class="action" *ngIf="action.ready && idx == activeActionIndex">
+    <!-- <ng-container *ngFor="let action of actor.system.actions; index as idx"> -->
+    <ng-container *ngIf="actor.system.actions[activeActionIndex] as action">
+      <div class="action">
         <!-- <span class="action-item-name">{{ action.item.name }}</span> -->
-        <label class="action-label" [title]="action.description">
-          {{ action.label }}{{ action.item.name != action.label ? "(" + action.item.name + ")" : "" }}
-        </label>
+        <div class="action-icon-list">
+          <ng-container *ngFor="let ao of actor.system.actions; index as idx">
+            <img
+              [class.selected]="idx == activeActionIndex"
+              [title]="ao.description"
+              class="action-icon"
+              [src]="ao.imageUrl"
+              *ngIf="ao.imageUrl && ao.ready"
+            />
+            <i
+              [class.selected]="idx == activeActionIndex"
+              [title]="ao.description"
+              *ngIf="!ao.imageUrl && ao.glyph && ao.ready"
+              [class]="ao.glyph"
+            ></i>
+          </ng-container>
+        </div>
         <span class="action-strikes">
+          <label class="action-label selected">
+            {{ action.label }}{{ action.item.name != action.label ? "(" + action.item.name + ")" : "" }}
+          </label>
           <span
             class="strike"
             *ngFor="let strike of action.variants; index as strikeidx"

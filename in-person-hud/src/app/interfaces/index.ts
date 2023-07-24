@@ -7,10 +7,8 @@ import { ActionItemPF2e, PhysicalItemPF2e, ABCItemPF2e, WeaponPF2e, MeleePF2e } 
 export interface PlayerSeatConfig {
   seatIndex: number;
   userId: string;
-  actorId: string;
-  tokenId: string;
-  actor?: Actor;
-  token?: Token;
+  actorIds: string[];
+  actors?: Actor[];
 }
 // ({} as PlayerSeatConfig).actor
 

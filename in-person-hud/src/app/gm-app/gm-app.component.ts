@@ -17,7 +17,7 @@ export class GMAppComponent {
   selectedTokenIds: string[] = [];
   // tracker:TrackByFunction<Token> = ()
   constructor() {
-    this.dirty.pipe(debounceTime(100)).subscribe(() => ɵdetectChanges(this));
+    this.dirty.pipe(debounceTime(2)).subscribe(() => ɵdetectChanges(this));
     console.log("GM APP CREATED!");
   }
   get system() {

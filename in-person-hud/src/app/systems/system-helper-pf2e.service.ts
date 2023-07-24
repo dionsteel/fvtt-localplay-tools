@@ -60,56 +60,54 @@ export class SystemHelperPF2eService extends SystemHelperService {
 const system = "pf2e";
 
 export class PlayerSeatPF2e extends PlayerSeatWrapper {
-  override actor: Piped<
-    ActorPF2e<TokenDocumentPF2e<ScenePF2e>>,
-    ActorPF2e<TokenDocumentPF2e<ScenePF2e>>,
-    BehaviorSubject<ActorPF2e<TokenDocumentPF2e<ScenePF2e>>>
-  >;
-  override actions: Piped<SeatAction[], SeatAction, BehaviorSubject<SeatAction[]>>;
-  override get _actor(): ActorPF2e {
-    return this.actor.getValue();
+  override actors: ActorPF2e<TokenDocumentPF2e<ScenePF2e>>[];
+  override get focusedActor(): ActorPF2e<TokenDocumentPF2e<ScenePF2e>> {
+    return super.focusedActor as any;
+  }
+  override get _actors(): ActorPF2e[] {
+    return this.actors;
   }
   constructor(helper: SystemHelperPF2eService, api: FoundryAPIService, config: PlayerSeatConfig) {
     super(helper, api, config);
-    this.actor
-      .pipe(
-        mergeMap((a) => {
-          let aid = 0;
-          return a.system.actions.map((_action) => {
-            let baseButton = {};
-            let sa = [];
-            // let mapButtons: SeatActionButton[] = ;
-            // _action.
-            return [_action, ..._action.altUsages].map((action) => {
-              let baseAction: SeatActionPF2e = {
-                item: action.item,
-                system,
-                buttons: [
-                  {
-                    id: action.slug,
-                    system: "pf2e",
-                    description: action.description,
-                    icon: action.imageUrl,
-                    perform: (rc) => action.attack(rc),
-                    title: action.label,
-                  },
-                  ...action.variants.map((variant) => ({
-                    id: `${aid++}`,
-                    system: "pf2e" as "pf2e",
-                    title: variant.label,
-                    perform: (rc) => variant.roll(rc),
-                    icon: action.imageUrl,
-                    description: action.description,
-                  })),
+    // this.actor
+    //   .pipe(
+    //     mergeMap((a) => {
+    //       let aid = 0;
+    //       return a.system.actions.map((_action) => {
+    //         let baseButton = {};
+    //         let sa = [];
+    //         // let mapButtons: SeatActionButton[] = ;
+    //         // _action.
+    //         return [_action, ..._action.altUsages].map((action) => {
+    //           let baseAction: SeatActionPF2e = {
+    //             item: action.item,
+    //             system,
+    //             buttons: [
+    //               {
+    //                 id: action.slug,
+    //                 system: "pf2e",
+    //                 description: action.description,
+    //                 icon: action.imageUrl,
+    //                 perform: (rc) => action.attack(rc),
+    //                 title: action.label,
+    //               },
+    //               ...action.variants.map((variant) => ({
+    //                 id: `${aid++}`,
+    //                 system: "pf2e" as "pf2e",
+    //                 title: variant.label,
+    //                 perform: (rc) => variant.roll(rc),
+    //                 icon: action.imageUrl,
+    //                 description: action.description,
+    //               })),
 
-                  // action.variants.map(variant=>variant)
-                ],
-              };
-              return baseAction;
-            });
-          });
-        })
-      )
-      .subscribe(this.actions);
+    //               // action.variants.map(variant=>variant)
+    //             ],
+    //           };
+    //           return baseAction;
+    //         });
+    //       });
+    //     }),
+    //   )
+    //   .subscribe(this.actions);
   }
 }

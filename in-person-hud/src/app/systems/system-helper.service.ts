@@ -25,38 +25,34 @@ import SETTINGS from "../Settings";
 export class SystemHelperService {
   public static SYSTEM_NAME = "GENERIC";
   seatActorIds = [
-    SETTINGS.get<string>("seat1Actor"),
-    SETTINGS.get<string>("seat2Actor"),
-    SETTINGS.get<string>("seat3Actor"),
-    SETTINGS.get<string>("seat4Actor"),
-    SETTINGS.get<string>("seat5Actor"),
+    SETTINGS.get<string[]>("seat1Actor"),
+    SETTINGS.get<string[]>("seat2Actor"),
+    SETTINGS.get<string[]>("seat3Actor"),
+    SETTINGS.get<string[]>("seat4Actor"),
+    SETTINGS.get<string[]>("seat5Actor"),
   ];
   controlTokenChange = mkState(eventHook("controlToken").pipe(filter(([u, t]) => u.isSelf && t.isOwner)));
   currentControlledToken = this.controlTokenChange.pipe(
     filter(([u, t, c]) => c),
-    map(([u, t, c]) => t)
+    map(([u, t, c]) => t),
   );
   currentControlledCharacter = this.currentControlledToken.pipe(map((t) => t.actor));
   currentControlledSeatIndex = this.currentControlledCharacter.pipe(
     map((a) => this.seatActorIds.findIndex((aid) => (a as any).id == aid)),
-    filter((idx) => idx >= 0)
+    filter((idx) => idx >= 0),
   );
   seats = this.seatActorIds.map((said, seatIndex) => {
-    let actor: Actor = game.actors.get(said, { strict: false });
-    if (!actor) {
-      console.warn("InPersonHUD | actor not found", { actor, actorID: said, seatIndex });
+    let actors: Actor[] = said.map((id) => game.actors.get(id, { strict: false }));
+    if (!actors) {
+      console.warn("InPersonHUD | actor not found", { actors, actorID: said, seatIndex });
     }
-    let tokens = actor?.getActiveTokens();
-    let firstToken: Token = tokens?.at(0) as Token;
-    let tokenId = firstToken?.id;
-    console.log("building seat", { actor, tokens, firstToken, tokenId, said, seatIndex });
+    
+    console.log("building seat", { actors, said, seatIndex });
     return new PlayerSeatWrapper(this, this.api, {
       seatIndex: seatIndex,
-      actorId: said,
+      actorIds: said,
       userId: game.user.id,
-      tokenId,
-      actor,
-      token: firstToken as Token,
+      actors,
     });
   });
   currentControlledSeat = _mkState(this.currentControlledSeatIndex.pipe(map((cs) => this.seats[cs])));
@@ -67,14 +63,27 @@ export class SystemHelperService {
 }
 
 export class PlayerSeatWrapper {
-  actor = state<Actor>(this.config.actor || game.actors.get(this.config.actorId));
-  get _actor() {
-    return this.actor.getValue();
+  actors = this.config.actors || this.config.actorIds.map((aid) => game.actors.get(aid));
+  get _actors() {
+    return this.actors;
   }
-  currentToken = state<Token>((this.config.actor || this._actor)?.getActiveTokens(true, false) as any);
-  fullInventory = state<Item[]>();
-  actions = state<SeatAction[]>();
-  isControlled = _mkState(this.helper.currentControlledSeatIndex.pipe(map((csi) => csi == this.config.seatIndex)));
+
+  focusedActorIndex = 0;
+  get focusedActor() {
+    return this.actors[this.focusedActorIndex];
+  }
+
+  actorTokens: { [actorId: string]: Token } = this.actors.reduce((o, a) => {
+    let cts = a?.getActiveTokens();
+    cts.forEach((t) => (o[(a as any).id] = t));
+    return o;
+  }, {});
+
+  get currentToken() {
+    return this.actorTokens[(this.focusedActor as any).id];
+  }
+
+  isControlled = state<boolean>();
   currentTargets = state<Token[], [User, Token, boolean]>(
     null,
     filter(([u, t, c]) => this.isControlled.value && u.id == game.user.id),
@@ -85,22 +94,28 @@ export class PlayerSeatWrapper {
         if (a.includes(tok)) a.findSplice((e) => e.id == tok.id);
       }
       return a;
-    }, [] as Token[])
+    }, [] as Token[]),
   );
 
   events = new Subject<{ type: string; data: any }>();
 
-  constructor(public helper: SystemHelperService, public api: FoundryAPIService, public config: PlayerSeatConfig) {
+  constructor(
+    public helper: SystemHelperService,
+    public api: FoundryAPIService,
+    public config: PlayerSeatConfig,
+  ) {
     eventHook("targetToken").subscribe(this.currentTargets);
     eventHook("controlToken")
-      .pipe(
-        filter(([u, t, c]) => c && u.id == game.user.id && (t.actor as any).id == this.config.actorId),
-        map(([u, t, c]) => t)
-      )
-      .subscribe(this.currentToken);
-    this.actor.next(this.config.actor || game.actors.get(this.config.actorId));
-    this.actor.pipe(mergeMap((a) => a.getActiveTokens(true, false) || [])).subscribe(this.currentToken);
-    // game.user.targets/;
-    this.currentToken.pipe(map((t) => canvas.tokens.controlled.includes(t))).subscribe(this.isControlled);
+      .pipe(filter(([u, t, c]) => u.id == game.user.id && this.config.actorIds.includes((t.actor as any).id)))
+      .subscribe(([user, token, controlled]) => {
+        this.isControlled.next(controlled);
+        if (controlled) {
+          this.focusedActorIndex = Math.max(
+            0,
+            this.actors.findIndex((a) => (a as any).id == (token.actor as any).id),
+          );
+        } else {
+        }
+      });
   }
 }
