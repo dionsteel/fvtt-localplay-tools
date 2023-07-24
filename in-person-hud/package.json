@@ -1,61 +1,40 @@
 {
-  "private": true,
   "name": "in-person-hud",
-  "description": "<description of the package>",
-  "license": "<please choose an appropriate license. https://choosealicense.com/ is a great place to get more information if you are unsure>",
-  "homepage": "<optionally the URL to your repository or another homepage>",
-  "repository": {
-    "type": "git",
-    "url": "<optionally the URL to your repository>"
-  },
-  "bugs": {
-    "url": "<optionally the URL to your issues list>"
-  },
-  "contributors": [
-    {
-      "name": "<your name>",
-      "email": "<optionally your e-mail address>"
-    }
-  ],
-  "type": "module",
+  "version": "0.0.0",
   "scripts": {
-    "build": "gulp build",
-    "build:watch": "gulp watch",
-    "link-project": "gulp link",
-    "clean": "gulp clean",
-    "clean:link": "gulp link --clean",
-    "typecheck": "tsc --noEmit",
-    "lint": "eslint --ext .ts,.js,.cjs,.mjs .",
-    "lint:fix": "eslint --ext .ts,.js,.cjs,.mjs --fix .",
-    "format": "prettier --write \"./**/*.(ts|js|cjs|mjs|json|yml|scss)\"",
-    "postinstall": "husky install"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^16.1.5",
+    "@angular/common": "^16.1.5",
+    "@angular/compiler": "^16.1.5",
+    "@angular/core": "^16.1.5",
+    "@angular/elements": "^16.1.5",
+    "@angular/forms": "^16.1.5",
+    "@angular/platform-browser": "^16.1.5",
+    "@angular/platform-browser-dynamic": "^16.1.5",
+    "@angular/router": "^16.1.5",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.13.1"
   },
   "devDependencies": {
-    "@league-of-foundry-developers/foundry-vtt-types": "^9.280.0",
-    "@rollup/plugin-node-resolve": "^15.1.0",
-    "@rollup/plugin-typescript": "^11.1.2",
-    "@rollup/stream": "^3.0.0",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "eslint": "^8.44.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^5.0.0",
-    "fs-extra": "^11.1.1",
-    "gulp": "^4.0.2",
-    "gulp-dart-sass": "^1.1.0",
-    "gulp-sourcemaps": "^3.0.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.3",
-    "prettier": "^3.0.0",
-    "rollup": "^2.79.1",
-    "tslib": "^2.6.0",
-    "typescript": "^5.1.6",
-    "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0",
-    "yargs": "^17.7.2"
-  },
-  "lint-staged": {
-    "*.(ts|js|cjs|mjs)": "eslint --fix",
-    "*.(json|yml|scss)": "prettier --write"
+    "@angular-devkit/build-angular": "^16.1.4",
+    "@angular/cli": "~16.1.4",
+    "@angular/compiler-cli": "^16.1.5",
+    "@types/jasmine": "~4.3.0",
+    "@types/jquery": "^3.5.16",
+    "jasmine-core": "~4.5.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.0.0",
+    "typescript": "~4.9.4"
   }
 }

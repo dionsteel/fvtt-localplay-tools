@@ -29,6 +29,6 @@
   },
   "workspaces": [
     "foundry-table-app",
-    "web-sheets",
-    "fvtt-ng"  ]
+    "web-sheets"
+  ]
 }

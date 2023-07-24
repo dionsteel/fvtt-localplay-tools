@@ -1,0 +1,15 @@
+:host {
+  flex-direction: column;
+  .section {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    &.portrait {
+      width: 100px;
+      height: 100px;
+      &.controlled {
+        border: 2px solid red;
+      }
+    }
+  }
+}

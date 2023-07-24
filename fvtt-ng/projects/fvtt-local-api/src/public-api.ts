@@ -4,4 +4,4 @@
 
 export * from './lib/fvtt-local-api.service';
 export * from './lib/fvtt-local-api.component';
-export * from './lib/fvtt-local-api.module';
+

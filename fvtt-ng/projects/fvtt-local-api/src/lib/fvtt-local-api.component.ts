@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'lib-fvtt-local-api',
-  template: `
+    selector: 'lib-fvtt-local-api',
+    template: `
     <p>
       fvtt-local-api works!
     </p>
   `,
-  styles: [
-  ]
+    styles: [],
+    standalone: true
 })
 export class FvttLocalApiComponent {
 

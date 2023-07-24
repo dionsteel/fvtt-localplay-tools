@@ -1,0 +1,10 @@
+{{#if isGM}}
+  <app-gm-app movement="free" class="flexrow"></app-gm-app>
+{{else}}
+  {{#if isTablePlayer}}
+    <app-table-app></app-table-app>
+  {{else}}
+    {{!-- <app-player-app></app-player-app> --}}
+    <!-- normal player -->
+  {{/if}}
+{{/if}}

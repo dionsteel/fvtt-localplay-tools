@@ -8,8 +8,8 @@ describe('FvttLocalApiComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FvttLocalApiComponent]
-    });
+    imports: [FvttLocalApiComponent]
+});
     fixture = TestBed.createComponent(FvttLocalApiComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

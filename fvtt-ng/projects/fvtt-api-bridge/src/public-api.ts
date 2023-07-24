@@ -4,4 +4,4 @@
 
 export * from './lib/fvtt-api-bridge.service';
 export * from './lib/fvtt-api-bridge.component';
-export * from './lib/fvtt-api-bridge.module';
+

@@ -1,0 +1,15 @@
+:host {
+  display: flex;
+  flex-direction: row;
+}
+.token-img {
+  height: 80px;
+  border: 0px;
+  &.controlled {
+    border: 2px solid red;
+  }
+}
+.tokens {
+  display: flex;
+  flex-direction: row;
+}

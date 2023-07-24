@@ -1,32 +1,42 @@
-# SPDX-FileCopyrightText: 2022 Johannes Loher
-#
-# SPDX-License-Identifier: MIT
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# IDE
-.idea/
-.vs/
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
 
-# Node Modules
-node_modules/
+# Node
+/node_modules
 npm-debug.log
+yarn-error.log
 
-# yarn2
-.yarn/*
-!.yarn/patches
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
-.pnp.*
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
-# Local configuration
-foundryconfig.json
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
 
-# Distribution files
-dist
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
 
-# ESLint
-.eslintcache
-
-# Junit results
-junit.xml
+# System files
+.DS_Store
+Thumbs.db

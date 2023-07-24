@@ -1,0 +1,9 @@
+<!-- <div *ngFor="let token of helper.canvas.tokens.ownedTokens; trackBy: _getId"> -->
+<div class="tokens" *ngFor="let token of tokens; trackBy: _getId">
+  <img
+    id="gm-token-image-{{ token.id }}"
+    class="token-img"
+    [class]="{ 'token-img': true, controlled: token.controlled }"
+    [src]="token?.actor?.img"
+  />
+</div>

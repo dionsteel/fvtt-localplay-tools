@@ -8,8 +8,8 @@ describe('FvttApiBridgeComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FvttApiBridgeComponent]
-    });
+    imports: [FvttApiBridgeComponent]
+});
     fixture = TestBed.createComponent(FvttApiBridgeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

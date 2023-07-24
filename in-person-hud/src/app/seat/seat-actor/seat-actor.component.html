@@ -1,0 +1,9 @@
+<!-- <div class="section portrait" [class.controlled]="isControlled"><img [src]="image" height="80"/></div>
+<div class="section stats"></div>
+<div class="section actions"></div>
+<div class="section cards"></div>
+<div class="section manual-roll"></div>
+
+  -->
+{{ game.system.id }}
+<app-seat-actor-pf2e *ngIf="system == 'pf2e'" [wrapper]="wrapper"></app-seat-actor-pf2e>

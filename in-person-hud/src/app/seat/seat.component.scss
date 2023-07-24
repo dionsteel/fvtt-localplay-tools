@@ -1,0 +1,33 @@
+:host {
+  position: fixed;
+  text-align: center;
+  display: flexbox;
+  flex-direction: column;
+  width: 25%;
+  background: #000;
+  color: #fefefe;
+  opacity: 0.7;
+  &.seat1 {
+    bottom: 10px;
+    right: 15%;
+  }
+  &.seat2 {
+    bottom: 10px;
+    left: 15%;
+  }
+  &.seat3 {
+    top: 10px;
+    left: 15%;
+    transform: rotate(180deg);
+  }
+  &.seat4 {
+    top: 10px;
+    right: 15%;
+    transform: rotate(180deg);
+  }
+  &.seat5 {
+    left: -10%;
+    top: calc(50% - 40px);
+    transform: rotate(90deg);
+  }
+}

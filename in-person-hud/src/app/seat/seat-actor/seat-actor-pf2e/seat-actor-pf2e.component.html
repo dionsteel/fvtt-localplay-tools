@@ -1,0 +1,54 @@
+<div class="actor" *ngIf="wrapper._actor as actor">
+  <!-- <div *ngFor="let attNm; in: actor.system.attributes">{{ attNm }}: {{ actor.system.attributes[attNm] }}</div> -->
+  <div class="profile">
+    <img class="portrait" [src]="actor.img" [class.controlled]="isControlled" />
+    <span class="name">{{ actor.name }}</span>
+    <span class="level" *ngIf="actor.system.details.level as level">Level {{ level.value }}</span>
+  </div>
+  <div class="details">
+    <div class="attributes" *ngIf="actor.system.attributes as atts">
+      <span class="attribute armour"> AC: {{ atts.ac.value }} {{ atts.shield.broken ? "" : atts.shield.raised ? "+2 shield" : "" }} </span>
+      <span class="attribute health"
+        >HP: {{ atts.hp.value }} <small>+ {{ atts.hp.temp }}</small> / {{ atts.hp.max }}
+      </span>
+      <span class="attribute perception">PP: {{ atts.perception.value }}</span>
+      <span class="attribute initiative" [title]="atts.initiative.breakdown">IN: {{ atts.initiative.value }}</span>
+    </div>
+    <div class="abilities" *ngIf="actor.system.abilities as abl">
+      <span class="ability str">STR{{ abl.str.mod >= 0 ? "+" : "" }}{{ abl.str.mod }}</span>
+      <span class="ability dex">DEX{{ abl.dex.mod >= 0 ? "+" : "" }}{{ abl.dex.mod }} </span>
+      <span class="ability con">CON{{ abl.con.mod >= 0 ? "+" : "" }}{{ abl.con.mod }} </span>
+      <span class="ability int">INT{{ abl.int.mod >= 0 ? "+" : "" }}{{ abl.int.mod }} </span>
+      <span class="ability wis">WIS{{ abl.wis.mod >= 0 ? "+" : "" }}{{ abl.wis.mod }} </span>
+      <span class="ability cha">CHA{{ abl.cha.mod >= 0 ? "+" : "" }}{{ abl.cha.mod }}</span>
+    </div>
+    <!-- <div class="action" *ngFor="let action of wrapper.actions | async">
+      <div class="action-button" *ngFor="let button of action.buttons"><img [src]="button.icon" width="15" /> {{ button.title }}</div>
+    </div> -->
+    <ng-container *ngFor="let action of actor.system.actions; index as idx">
+      <div class="action" *ngIf="action.ready && idx == activeActionIndex">
+        <!-- <span class="action-item-name">{{ action.item.name }}</span> -->
+        <label class="action-label" [title]="action.description">
+          {{ action.label }}{{ action.item.name != action.label ? "(" + action.item.name + ")" : "" }}
+        </label>
+        <span class="action-strikes">
+          <span
+            class="strike"
+            *ngFor="let strike of action.variants; index as strikeidx"
+            (click)="strike.roll({})"
+            [class.current]="strikeidx == activeStrikeIndex"
+            >{{ strike.label }}</span
+          >
+        </span>
+        <div class="action-alt-uses" *ngIf="action.altUsages.length > 0">
+          <div class="alt-action-use" *ngFor="let altuse of action.altUsages">
+            <label class="action-label" [title]="altuse.description"><small>(alt)</small>{{ altuse.label }}</label>
+            <div class="action-strikes">
+              <span class="strike" *ngFor="let strike of action.variants" (click)="strike.roll({})">{{ strike.label }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

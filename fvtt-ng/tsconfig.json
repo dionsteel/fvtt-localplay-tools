@@ -38,11 +38,14 @@
     "types": [
       "@league-of-foundry-developers/foundry-vtt-types"
     ],
+    "typeRoots": [
+      "../node_modules/types"
+    ],
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
-    "skipLibCheck": true ,/* Skip type checking all .d.ts files. */
+    "skipLibCheck": true, /* Skip type checking all .d.ts files. */
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,

@@ -1,0 +1,128 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  div {
+    display: flex;
+  }
+}
+
+.actor {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  .profile {
+    display: flex;
+    width: 80px;
+    flex-direction: column;
+    text-align: center;
+    .portrait {
+      width: 80px;
+      &.controlled {
+        border: 2px red solid;
+      }
+    }
+    .name {
+    }
+    .level {
+    }
+  }
+}
+
+.action-strikes {
+  flex-direction: row;
+}
+
+// flexbox actor
+// profile
+// portrait
+.details {
+  flex-direction: column;
+  width: 100%;
+  .attributes {
+    flex-direction: row;
+    .attribute {
+      padding: 4px;
+      display: inline-flex;
+      border: 1px #fff solid;
+      border-radius: 4px;
+      margin: 2px 4px;
+      &.armour {
+      }
+      &.health {
+      }
+      &.perception {
+      }
+      &.initiative {
+      }
+    }
+  }
+
+  .abilities {
+    flex-direction: row;
+    .ability {
+      padding: 4px;
+      display: inline-flex;
+      border: 1px #fff solid;
+      border-radius: 4px;
+      margin: 2px 4px;
+      &.str {
+      }
+      &.dex {
+      }
+      &.con {
+      }
+      &.int {
+      }
+      &.wis {
+      }
+      &.cha {
+      }
+    }
+  }
+
+  .action {
+    flex-direction: row;
+    padding: 2px;
+    border-radius: 4px;
+    flex-grow: 1;
+    vertical-align: middle;
+    width: 100%;
+    .action-button {
+    }
+    .action-label {
+      flex-basis: 10%;
+      flex-grow: 1;
+      flex-shrink: 0;
+      vertical-align: middle;
+      padding: 5px;
+    }
+    .action-item-name {
+      flex-basis: 10%;
+      flex-grow: 1;
+      flex-shrink: 0;
+      vertical-align: middle;
+      padding: 5px;
+    }
+    .action-strikes {
+      flex-direction: row;
+      .strike {
+        padding: 4px;
+        display: inline-flex;
+        border: 1px #fff solid;
+        border-radius: 4px;
+        margin: 2px 4px;
+        &.current { border: 1px solid red;}
+      }
+    }
+    .action-alt-uses {
+      .action-label {
+      }
+      .alt-action-use {
+      }
+      .action-strikes {
+      }
+      .strike {
+      }
+    }
+  }
+}
