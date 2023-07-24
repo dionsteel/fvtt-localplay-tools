@@ -1,0 +1,43 @@
+<form name="seatmappings">
+    <div class="seat-config">
+        <input name="seat1Enabled" type="checkbox" title="Enabled" />Seat 1 Enabled?<br>
+        <select name="seat1Actors" multiple="true">
+            {{#each pc_actors}}
+            <option value="{{id}}">{{name}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="seat-config">
+        <input name="seat2Enabled" type="checkbox" title="Enabled" />Seat 2 Enabled?<br>
+        <select name="seat2Actors" multiple="true">
+            {{#each pc_actors}}
+            <option value="{{id}}">{{name}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="seat-config">
+        <input name="seat3Enabled" type="checkbox" title="Enabled" />Seat 3 Enabled?<br>
+        <select name="seat3Actors" multiple="true">
+            {{#each pc_actors}}
+            <option value="{{id}}">{{name}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="seat-config">
+        <input name="seat4Enabled" type="checkbox" title="Enabled" />Seat 4 Enabled?<br>
+        <select name="seat4Actors" multiple="true">
+            {{#each pc_actors}}
+            <option value="{{id}}">{{name}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="seat-config">
+        <input name="seat5Enabled" type="checkbox" title="Enabled" />Seat 5 Enabled?<br>
+        <select name="seat5Actors" multiple="true">
+            {{#each pc_actors}}
+            <option value="{{id}}">{{name}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <button type="submit">Submit</button>
+</form>
