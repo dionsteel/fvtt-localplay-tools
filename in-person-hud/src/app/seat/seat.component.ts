@@ -16,24 +16,24 @@ import { SystemHelperService } from "../systems";
 export class SeatComponent extends CDComponent {
   @Input() seatIndex: number = 0;
   @HostBinding("class.seat1") get isSeat1() {
-    return this.seatIndex == 1-1;
+    return this.seatIndex == 1 - 1;
   }
   @HostBinding("class.seat2") get isSeat2() {
-    return this.seatIndex == 2-1;
+    return this.seatIndex == 2 - 1;
   }
   @HostBinding("class.seat3") get isSeat3() {
-    return this.seatIndex == 3-1;
+    return this.seatIndex == 3 - 1;
   }
   @HostBinding("class.seat4") get isSeat4() {
-    return this.seatIndex == 4-1;
+    return this.seatIndex == 4 - 1;
   }
   @HostBinding("class.seat5") get isSeat5() {
-    return this.seatIndex == 5-1;
+    return this.seatIndex == 5 - 1;
   }
   seatActors: Actor[] = [];
   actorTokens: { [actorId: string]: Token } = {};
 
-  constructor(public helper:SystemHelperService, private fttApi: FoundryAPIService, private settings: SettingsService) {
+  constructor(public helper: SystemHelperService, private fttApi: FoundryAPIService, private settings: SettingsService) {
     super();
     // this.dirty.pipe(debounceTime(100)).subscribe(() => ɵdetectChanges(this));
     // const seatActorId = allSeatActors[this.seatIndex];
@@ -43,14 +43,7 @@ export class SeatComponent extends CDComponent {
   }
   ngOnInit() {
     // const allSeatActors = merge(
-    this.seatActors = [
-      SETTINGS.get<string>(`seat${this.seatIndex+1}Actor`), // this.settings.data.seat1Actor,
-      // SETTINGS.get<string>(`seat${this.seatIndex}Actor`), // this.settings.data.seat2Actor,
-      // SETTINGS.get<string>(`seat${this.seatIndex}Actor`), // this.settings.data.seat3Actor,
-      // SETTINGS.get<string>(`seat${this.seatIndex}Actor`), // this.settings.data.seat4Actor,
-      // SETTINGS.get<string>(`seat${this.seatIndex}Actor`),
-    ]
-      .filter((aid) => aid && aid.length > 1)
+    this.seatActors = SETTINGS.get<string[]>(`seat${this.seatIndex + 1}Actor`).filter((aid) => aid && aid.length > 1)
       .map((aid) => {
         console.log({ aid });
         return game.actors.get(aid);

@@ -55,6 +55,10 @@ export class SeatActorPF2eComponent extends CDComponent {
   get isControlled() {
     return this.wrapper.currentToken.controlled;
   }
+  
+  isActorControlled(actor) {
+    return this.wrapper.helper.canvas.tokens.controlled.map(t=>t.actor.id).includes(actor.id);
+  }
 
   rotateActions() {
     let readyActions = this.wrapper.focusedActor.system.actions?.filter((a) => a.ready);

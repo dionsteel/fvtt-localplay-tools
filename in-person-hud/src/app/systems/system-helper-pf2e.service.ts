@@ -67,6 +67,7 @@ export class PlayerSeatPF2e extends PlayerSeatWrapper {
   override get _actors(): ActorPF2e[] {
     return this.actors;
   }
+  override helper:SystemHelperPF2eService;
   constructor(helper: SystemHelperPF2eService, api: FoundryAPIService, config: PlayerSeatConfig) {
     super(helper, api, config);
     // this.actor
