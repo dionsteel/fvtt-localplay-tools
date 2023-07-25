@@ -17,12 +17,32 @@ import {
 } from "rxjs";
 import { state, mkState, eventHook, _mkState } from "src/lib/state";
 import { ActorPF2e } from "src/types/pf2e/module/documents";
-import SETTINGS from "../Settings";
+import SETTINGS, { EventSubject } from "../Settings";
 
 @Injectable({
   providedIn: "root",
 })
 export class SystemHelperService {
+  get game(): Game<Actor> {
+    return game as Game<Actor>;
+  }
+  get canvas(): Canvas<Scene> {
+    return canvas;
+  }
+  get scene(): Scene {
+    return canvas.scene;
+  }
+  get settings(): SETTINGS {
+    return SETTINGS;
+  }
+  get events() {
+    return SETTINGS.events;
+  }
+
+  public get actors() {
+    return this.game.actors;
+  }
+
   public static SYSTEM_NAME = "GENERIC";
   seatActorIds = [
     SETTINGS.get<string[]>("seat1Actor"),
@@ -46,7 +66,7 @@ export class SystemHelperService {
     if (!actors) {
       console.warn("InPersonHUD | actor not found", { actors, actorID: said, seatIndex });
     }
-    
+
     console.log("building seat", { actors, said, seatIndex });
     return new PlayerSeatWrapper(this, this.api, {
       seatIndex: seatIndex,

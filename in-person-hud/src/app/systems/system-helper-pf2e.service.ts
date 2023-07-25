@@ -18,7 +18,7 @@ import SETTINGS from "../Settings";
 export class SystemHelperPF2eService extends SystemHelperService {
   public static override SYSTEM_NAME: string = "pf2e";
   override seats: PlayerSeatPF2e[];
-  public get game(): Game<
+  public override get game(): Game<
     ActorPF2e<TokenDocumentPF2e<ScenePF2e>>,
     ActorsPF2e<ActorPF2e<null>>,
     ChatMessagePF2e,
@@ -31,15 +31,19 @@ export class SystemHelperPF2eService extends SystemHelperService {
     return game as any;
   }
 
-  public get scene(): ScenePF2e {
+  public override get scene(): ScenePF2e {
     return canvas.scene as any;
   }
-  public get canvas(): CanvasPF2e {
+  public override get canvas(): CanvasPF2e {
     return canvas as any;
   }
-  public get actors() {
+  public override get actors(): Actors<ActorPF2e> {
     return this.game.actors;
   }
+  // () {
+  //   return this.game.actors;
+  // }
+
   constructor(api: FoundryAPIService) {
     super(api);
     console.log("InPersonHud | Pathfinder2e Helper Loaded.");
@@ -67,48 +71,8 @@ export class PlayerSeatPF2e extends PlayerSeatWrapper {
   override get _actors(): ActorPF2e[] {
     return this.actors;
   }
-  override helper:SystemHelperPF2eService;
+  override helper: SystemHelperPF2eService;
   constructor(helper: SystemHelperPF2eService, api: FoundryAPIService, config: PlayerSeatConfig) {
     super(helper, api, config);
-    // this.actor
-    //   .pipe(
-    //     mergeMap((a) => {
-    //       let aid = 0;
-    //       return a.system.actions.map((_action) => {
-    //         let baseButton = {};
-    //         let sa = [];
-    //         // let mapButtons: SeatActionButton[] = ;
-    //         // _action.
-    //         return [_action, ..._action.altUsages].map((action) => {
-    //           let baseAction: SeatActionPF2e = {
-    //             item: action.item,
-    //             system,
-    //             buttons: [
-    //               {
-    //                 id: action.slug,
-    //                 system: "pf2e",
-    //                 description: action.description,
-    //                 icon: action.imageUrl,
-    //                 perform: (rc) => action.attack(rc),
-    //                 title: action.label,
-    //               },
-    //               ...action.variants.map((variant) => ({
-    //                 id: `${aid++}`,
-    //                 system: "pf2e" as "pf2e",
-    //                 title: variant.label,
-    //                 perform: (rc) => variant.roll(rc),
-    //                 icon: action.imageUrl,
-    //                 description: action.description,
-    //               })),
-
-    //               // action.variants.map(variant=>variant)
-    //             ],
-    //           };
-    //           return baseAction;
-    //         });
-    //       });
-    //     }),
-    //   )
-    //   .subscribe(this.actions);
   }
 }
