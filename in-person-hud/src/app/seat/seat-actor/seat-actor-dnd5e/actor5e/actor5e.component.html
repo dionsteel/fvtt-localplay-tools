@@ -5,20 +5,25 @@
 </div>
 <div class="details">
   <div class="attributes" *ngIf="actor.system.attributes as atts">
-    <span class="attribute armour"> AC: {{ atts.ac.value }} {{ atts.shield.broken ? "" : atts.shield.raised ? "+2
-      shield" : "" }} </span>
-    <span class="attribute health">HP: {{ atts.hp.value }} <small>+ {{ atts.hp.temp }}</small> / {{ atts.hp.max }}
+    <span class="attribute armour">
+      AC: {{ atts.ac.flat }}
+      {{ atts.ac.calc }}
     </span>
-    <span class="attribute perception">PP: {{ atts.perception.value }}</span>
-    <span class="attribute initiative" [title]="atts.initiative.breakdown">IN: {{ atts.initiative.value }}</span>
+    <span class="attribute health"
+      >HP: {{ atts.hp.value }} <small>+ {{ atts.hp.temp }}</small> / {{ atts.hp.max }}
+    </span>
+    <span class="attribute perception">PP: {{ actor.system.skills.perception.bonuses.passive }}</span>
+    <span class="attribute initiative" [title]="atts.init.value + '+' + atts.init.bonus"
+      >IN: {{ atts.init.value }} + {{ atts.init.bonus }}</span
+    >
   </div>
   <div class="abilities" *ngIf="actor.system.abilities as abl">
-    <span class="ability str">STR{{ abl.str.mod >= 0 ? "+" : "" }}{{ abl.str.mod }}</span>
-    <span class="ability dex">DEX{{ abl.dex.mod >= 0 ? "+" : "" }}{{ abl.dex.mod }} </span>
-    <span class="ability con">CON{{ abl.con.mod >= 0 ? "+" : "" }}{{ abl.con.mod }} </span>
-    <span class="ability int">INT{{ abl.int.mod >= 0 ? "+" : "" }}{{ abl.int.mod }} </span>
-    <span class="ability wis">WIS{{ abl.wis.mod >= 0 ? "+" : "" }}{{ abl.wis.mod }} </span>
-    <span class="ability cha">CHA{{ abl.cha.mod >= 0 ? "+" : "" }}{{ abl.cha.mod }}</span>
+    <span class="ability str">STR{{ abl.str.value }}</span>
+    <span class="ability dex">DEX{{ abl.dex.value }} </span>
+    <span class="ability con">CON{{ abl.con.value }} </span>
+    <span class="ability int">INT{{ abl.int.value }} </span>
+    <span class="ability wis">WIS{{ abl.wis.value }} </span>
+    <span class="ability cha">CHA{{ abl.cha.value }}</span>
   </div>
   <!-- <div class="action" *ngFor="let action of wrapper.actions | async">
     <div class="action-button" *ngFor="let button of action.buttons"><img [src]="button.icon" width="15" /> {{ button.title }}</div>
@@ -29,26 +34,41 @@
       <!-- <span class="action-item-name">{{ action.item.name }}</span> -->
       <div class="action-icon-list">
         <ng-container *ngFor="let ao of actor.system.actions; index as idx">
-          <img [class.selected]="idx == activeActionIndex" [title]="ao.description" class="action-icon"
-            [src]="ao.imageUrl" *ngIf="ao.imageUrl && ao.ready" />
-          <i [class.selected]="idx == activeActionIndex" [title]="ao.description"
-            *ngIf="!ao.imageUrl && ao.glyph && ao.ready" [class]="ao.glyph"></i>
+          <img
+            [class.selected]="idx == activeActionIndex"
+            [title]="ao.description"
+            class="action-icon"
+            [src]="ao.imageUrl"
+            *ngIf="ao.imageUrl && ao.ready"
+          />
+          <i
+            [class.selected]="idx == activeActionIndex"
+            [title]="ao.description"
+            *ngIf="!ao.imageUrl && ao.glyph && ao.ready"
+            [class]="ao.glyph"
+          ></i>
         </ng-container>
       </div>
       <span class="action-strikes">
         <label class="action-label selected">
           {{ action.label }}{{ action.item.name != action.label ? "(" + action.item.name + ")" : "" }}
         </label>
-        <span class="strike" *ngFor="let strike of action.variants; index as strikeidx" (click)="strike.roll({})"
-          [class.current]="strikeidx == activeStrikeIndex">{{ strike.label }}</span>
+        <span
+          class="strike"
+          *ngFor="let strike of action.variants; index as strikeidx"
+          (click)="strike.roll({})"
+          [class.current]="strikeidx == activeStrikeIndex"
+          >{{ strike.label }}</span
+        >
       </span>
       <div class="action-alt-uses" *ngIf="action.altUsages.length > 0">
         <div class="alt-action-use" *ngFor="let altuse of action.altUsages">
-          <label class="action-label" [title]="altuse.description"><small>{{(altuse.item.altUsageType)}}</small>{{
-            altuse.label }}</label>
+          <label class="action-label" [title]="altuse.description"
+            ><small>{{ altuse.item.altUsageType }}</small
+            >{{ altuse.label }}</label
+          >
           <div class="action-strikes">
-            <span class="strike" *ngFor="let strike of action.variants" (click)="strike.roll({})">{{ strike.label
-              }}</span>
+            <span class="strike" *ngFor="let strike of action.variants" (click)="strike.roll({})">{{ strike.label }}</span>
           </div>
         </div>
       </div>

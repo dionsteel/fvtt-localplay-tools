@@ -1,4 +1,6 @@
 import { Component, Input } from "@angular/core";
+
+import { CharacterData, NPCData, VehicleData } from "src/app/interfaces/5e/actor5e";
 import { Actor5e } from "src/types/dnd5e/module/documents/_module.mjs";
 
 @Component({
@@ -15,9 +17,25 @@ export class Actor5eComponent {
     }
     return false;
   }
-  @Input() actor: Actor5e;
+  @Input() actor: Actor5e<CharacterData>;
+
+  itemCategories: { [type: string]: Item[] };
+
+  get sysdata(): CharacterData | NPCData | VehicleData {
+    return this.actor.system;
+  }
+
+  get attributes() {
+    return (this.sysdata as CharacterData).attributes;
+  }
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.itemCategories = this.actor.items.reduce((a, i) => {
+      a[i.type] = a[i.type] || [];
+      a[i.type].push(i);
+      return a;
+    }, {});
+  }
 }

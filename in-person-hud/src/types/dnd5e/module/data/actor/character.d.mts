@@ -37,31 +37,30 @@
  * @property {CharacterResourceData} resources.secondary  Resource number two.
  * @property {CharacterResourceData} resources.tertiary   Resource number three.
  */
-export default class CharacterData extends CreatureTemplate {
-}
+export default class CharacterData extends CreatureTemplate {}
 /**
  * Data structure for character's resources.
  */
 export type ResourceData = {
-    /**
-     * Available uses of this resource.
-     */
-    value: number;
-    /**
-     * Maximum allowed uses of this resource.
-     */
-    max: number;
-    /**
-     * Does this resource recover on a short rest?
-     */
-    sr: boolean;
-    /**
-     * Does this resource recover on a long rest?
-     */
-    lr: boolean;
-    /**
-     * Displayed name.
-     */
-    label: string;
+  /**
+   * Available uses of this resource.
+   */
+  value: number;
+  /**
+   * Maximum allowed uses of this resource.
+   */
+  max: number;
+  /**
+   * Does this resource recover on a short rest?
+   */
+  sr: boolean;
+  /**
+   * Does this resource recover on a long rest?
+   */
+  lr: boolean;
+  /**
+   * Displayed name.
+   */
+  label: string;
 };
 import CreatureTemplate from "./templates/creature.mjs";

@@ -1,7 +1,27 @@
+import { CharacterData, ActorData, VehicleData, CreatureData, NPCData } from "src/app/interfaces/5e/actor5e";
+import NPCData from "../../data/actor/npc.d.mts";
+import TokenDocument5e from "../token.d.mts";
+import {
+  BackgroundData,
+  ContainerData,
+  ClassData,
+  ConsumableData,
+  EquipmentData,
+  FeatData,
+  LootData,
+  SpellData,
+  SubclassData,
+  ToolData,
+  WeaponData,
+} from "src/types/dnd5e/module/data/item/_module.mjs";
+
 /**
  * Extend the base Actor class to implement additional system-specific logic.
  */
-export default class Actor5e<T extends TokenDocument | null =  TokenDocument | null> extends Actor<T> {
+export default class Actor5e<
+  D extends ActorData = CharacterData | ActorData | VehicleData | CreatureData | NPCData,
+  T extends TokenDocument5e | null = TokenDocument5e | null,
+> extends Actor<T> {
   /**
    * Contribute to the actor's spellcasting progression.
    * @param {object} progression                             Spellcasting progression data. *Will be mutated.*
@@ -816,4 +836,20 @@ export default class Actor5e<T extends TokenDocument | null =  TokenDocument | n
    * @private
    */
   private _displayScrollingDamage;
+  public override system: D;
+  public override itemTypes: ItemTypes;
+}
+
+export interface ItemTypes {
+  background: BackgroundData[];
+  backpack: ContainerData[];
+  class: ClassData[];
+  consumable: ConsumableData[];
+  equipment: EquipmentData[];
+  feat: FeatData[];
+  loot: LootData[];
+  spell: SpellData[];
+  subclass: SubclassData[];
+  tool: ToolData[];
+  weapon: WeaponData[];
 }

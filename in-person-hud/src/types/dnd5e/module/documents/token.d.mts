@@ -1,7 +1,7 @@
 /**
  * Extend the base TokenDocument class to implement system-specific HP bar logic.
  */
-export default class TokenDocument5e {
+export default class TokenDocument5e  extends TokenDocument {
     /** @inheritdoc */
     static getTrackedAttributes(data: any, _path?: any[]): any;
     /** @inheritdoc */
