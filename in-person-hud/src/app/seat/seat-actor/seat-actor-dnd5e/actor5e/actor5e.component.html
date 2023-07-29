@@ -1,7 +1,7 @@
 <div class="profile">
   <img class="portrait" [src]="actor.img" [class.controlled]="isControlled()" />
   <span class="name">{{ actor.name }}</span>
-  <span class="level" *ngIf="actor.system.details.level as level">{{ getClass(actor) }} {{ level.value }}</span>
+  <span class="level" *ngFor="let class of classes">{{ class.name }} {{ class.levels }}</span>
 </div>
 <div class="details">
   <div class="attributes" *ngIf="actor.system.attributes as atts">
@@ -29,46 +29,25 @@
     <div class="action-button" *ngFor="let button of action.buttons"><img [src]="button.icon" width="15" /> {{ button.title }}</div>
   </div> -->
   <!-- <ng-container *ngFor="let action of actor.system.actions; index as idx"> -->
-  <ng-container *ngIf="actor.system.actions[activeActionIndex] as action">
+  <ng-container *ngIf="actions[activeActionIndex] as action">
     <div class="action">
       <!-- <span class="action-item-name">{{ action.item.name }}</span> -->
       <div class="action-icon-list">
-        <ng-container *ngFor="let ao of actor.system.actions; index as idx">
-          <img
-            [class.selected]="idx == activeActionIndex"
-            [title]="ao.description"
-            class="action-icon"
-            [src]="ao.imageUrl"
-            *ngIf="ao.imageUrl && ao.ready"
-          />
-          <i
-            [class.selected]="idx == activeActionIndex"
-            [title]="ao.description"
-            *ngIf="!ao.imageUrl && ao.glyph && ao.ready"
-            [class]="ao.glyph"
-          ></i>
+        <ng-container *ngFor="let item of actor.items; index as idx"> </ng-container>
+        <ng-container *ngFor="let ao of actions; index as idx">
+          <img [class.selected]="idx == activeActionIndex" [title]="ao.description" class="action-icon" [src]="ao.img" />
         </ng-container>
       </div>
       <span class="action-strikes">
         <label class="action-label selected">
-          {{ action.label }}{{ action.item.name != action.label ? "(" + action.item.name + ")" : "" }}
+          {{ action.description.value }}
         </label>
-        <span
-          class="strike"
-          *ngFor="let strike of action.variants; index as strikeidx"
-          (click)="strike.roll({})"
-          [class.current]="strikeidx == activeStrikeIndex"
-          >{{ strike.label }}</span
-        >
+        <span class="strike" (click)="action.rollAttack()" [class.current]="true">{{ action?.actionType }}</span>
       </span>
-      <div class="action-alt-uses" *ngIf="action.altUsages.length > 0">
-        <div class="alt-action-use" *ngFor="let altuse of action.altUsages">
-          <label class="action-label" [title]="altuse.description"
-            ><small>{{ altuse.item.altUsageType }}</small
-            >{{ altuse.label }}</label
-          >
+      <div class="action-alt-uses" *ngIf="action.isVersatile">
+        <div class="alt-action-use">
           <div class="action-strikes">
-            <span class="strike" *ngFor="let strike of action.variants" (click)="strike.roll({})">{{ strike.label }}</span>
+            <span class="strike" (click)="attackVersatile(action)">Versatile</span>
           </div>
         </div>
       </div>

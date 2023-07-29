@@ -26,6 +26,7 @@ export interface Ablilities {
 }
 
 export interface CommonAttributes {
+  name: string;
   init: InitiativeScore;
   movement: ActorMovement;
 }

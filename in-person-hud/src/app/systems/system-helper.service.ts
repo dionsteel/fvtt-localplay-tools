@@ -130,10 +130,16 @@ export class PlayerSeatWrapper {
       .subscribe(([user, token, controlled]) => {
         this.isControlled.next(controlled);
         if (controlled) {
-          this.focusedActorIndex = Math.max(
-            0,
-            this.actors.findIndex((a) => (a as any).id == (token.actor as any).id),
-          );
+          if (this.config.seatIndex > 1) {
+            (document.querySelector(':root') as HTMLElement).style.setProperty("--seat-rotation", "180deg");
+          } else {
+            (document.querySelector(':root') as HTMLElement).style.setProperty("--seat-rotation", "0deg");
+          }
+          let contActor = this.actors.findIndex((a) => (a as any).id == (token.actor as any).id);
+          if (contActor) {
+            this.focusedActorIndex = Math.max(0, contActor);
+
+          }
         } else {
         }
       });

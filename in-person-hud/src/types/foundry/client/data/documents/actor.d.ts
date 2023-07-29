@@ -23,7 +23,31 @@ declare global {
    * let actor = game.actors.get(actorId);
    * ```
    */
-  class Actor<TParent extends TokenDocument<Scene | null> | null = TokenDocument<Scene | null>|null> extends ClientBaseActor<TParent> {
+  class Actor<TParent extends TokenDocument<Scene | null> | null = TokenDocument<Scene | null> | null> extends ClientBaseActor<TParent> {
+    public name: string;
+    public type: string;
+    public img: ImageFilePath;
+    public sort: number;
+
+    public prototypeToken: foundry.data.PrototypeToken<this>;
+
+    /** The default icon used for newly created Actor documents */
+    static DEFAULT_ICON: ImageFilePath;
+
+    static override get metadata(): ActorMetadata;
+
+    /** A Collection of Item embedded Documents */
+    readonly items: abstract.EmbeddedCollection<BaseItem<this>>;
+
+    /** A Collection of ActiveEffect embedded Documents */
+    readonly effects: abstract.EmbeddedCollection<BaseActiveEffect<this>>;
+
+    flags: ActorFlags;
+    readonly _source: ActorSource;
+    system: object;
+
+    get documentName(): (typeof BaseActor)["metadata"]["name"];
+
     /** An object that tracks which tracks the changes to the data model which were applied by active effects */
     overrides: Omit<DeepPartial<this["_source"]>, "prototypeToken">;
 
@@ -149,7 +173,7 @@ declare global {
     protected override _preCreate(
       data: PreDocumentId<this["_source"]>,
       options: DocumentModificationContext<TParent>,
-      user: User
+      user: User,
     ): Promise<boolean | void>;
 
     protected override _onUpdate(changed: DeepPartial<this["_source"]>, options: DocumentUpdateContext<TParent>, userId: string): void;
@@ -160,7 +184,7 @@ declare global {
       documents: ActiveEffect<this>[] | Item<this>[],
       result: ActiveEffect<this>["_source"][] | Item<this>["_source"][],
       options: DocumentModificationContext<this>,
-      userId: string
+      userId: string,
     ): void;
 
     protected override _onUpdateDescendantDocuments(
@@ -169,7 +193,7 @@ declare global {
       documents: ActiveEffect<this>[] | Item<this>[],
       changes: ActiveEffect<this>["_source"][] | Item<this>["_source"][],
       options: DocumentModificationContext<this>,
-      userId: string
+      userId: string,
     ): void;
 
     /** Additional workflows to perform when any descendant document within this Actor changes. */
@@ -181,7 +205,7 @@ declare global {
      * @param [options] The update context.
      */
     protected _updateDependentTokens(update?: Record<string, unknown>, options?: DocumentModificationContext<TParent>): void;
-   
+
     readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffect<this>>;
     readonly items: foundry.abstract.EmbeddedCollection<Item<this>>;
 

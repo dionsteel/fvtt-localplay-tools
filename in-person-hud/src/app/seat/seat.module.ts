@@ -8,9 +8,10 @@ import { SeatActorDnd5eComponent } from './seat-actor/seat-actor-dnd5e/seat-acto
 import { SeatActorDccComponent } from './seat-actor/seat-actor-dcc/seat-actor-dcc.component';
 import { SeatActorStarfinderComponent } from './seat-actor/seat-actor-starfinder/seat-actor-starfinder.component';
 import { Actor5eComponent } from './seat-actor/seat-actor-dnd5e/actor5e/actor5e.component';
+import { Actorpf2eComponent } from './seat-actor/seat-actor-pf2e/actorpf2e/actorpf2e.component';
 
 @NgModule({
-  declarations: [SeatComponent, SeatActorComponent, SeatActorPF2eComponent, SeatActorDnd5eComponent, SeatActorDccComponent, SeatActorStarfinderComponent, Actor5eComponent],
+  declarations: [SeatComponent, SeatActorComponent, SeatActorPF2eComponent, SeatActorDnd5eComponent, SeatActorDccComponent, SeatActorStarfinderComponent, Actor5eComponent, Actorpf2eComponent],
   exports: [SeatActorComponent, SeatComponent],
   imports: [CommonModule],
 })

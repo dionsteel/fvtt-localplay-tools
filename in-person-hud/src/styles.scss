@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+#interface {
+  section#ui-middle {
+    visibility: hidden;
+  }
+  section#ui-left {
+    display: none;
+  }
+  section#ui-right {
+    transform: rotate(var(--seat-rotation));
+  }
+}

@@ -13,7 +13,7 @@
  * @param {boolean} [options.halflingLucky=false]      Allow Halfling Luck to modify this roll?
  * @param {boolean} [options.reliableTalent=false]     Allow Reliable Talent to modify this roll?
  */
-export default class D20Roll {
+export default class D20Roll extends Roll {
     /**
      * Create a D20Roll from a standard Roll instance.
      * @param {Roll} roll

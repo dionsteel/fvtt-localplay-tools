@@ -24,7 +24,10 @@ type SettingChange<K extends keyof typeof InPersonHudSettings = keyof typeof InP
 export interface EventSubjectDataTypeMap {
   cycleActions: KeyboardEventContext;
   cycleStrikes: KeyboardEventContext;
+  cycleSpells: KeyboardEventContext;
   performCurrentStrike: KeyboardEventContext;
+  performCurrentSpell: KeyboardEventContext;
+  castCurrentSpell: KeyboardEventContext;
   settingChange: SettingChange;
 }
 
@@ -98,7 +101,7 @@ export class SeatMappingForm extends FormApplication<{ pc_actors: Actor[] }> {
       (a: ActorV11) =>
         a.hasPlayerOwner &&
         ![...this.seat1Actors, ...this.seat2Actors, ...this.seat3Actors, ...this.seat4Actors, ...this.seat5Actors]
-          .map((a:ActorV11) => a.id)
+          .map((a: ActorV11) => a.id)
           .includes(a.id),
       // a.document.getUserLevel(game.users.get(SETTINGS.get("tablePlayerUserId"))) >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER
     );
@@ -340,22 +343,61 @@ Hooks.once("init", async () => {
   game.keybindings.register("in-person-hud", "rotateCurrentAction", {
     name: "Cycle Player Actions",
     uneditable: [{ key: "Equal", modifiers: [] }],
-    onUp: (ctx) => {
+    order: 1,
+    precedence: 1,
+
+    onDown: (ctx) => {
+      ctx.event.preventDefault();
       SETTINGS.events.next({ type: "cycleActions", data: ctx });
+      return false;
     },
   });
   game.keybindings.register("in-person-hud", "rotateCurrentStrike", {
     name: "Cycle Player Strikes",
-    uneditable: [{ key: "Minus", modifiers: [] }],
-    onUp: (ctx) => {
+    order: 1,
+    precedence: 1000,
+
+    uneditable: [{ key: "NumpadSubtract", modifiers: [] }],
+    onDown: (ctx) => {
+      ctx.event.preventDefault();
       SETTINGS.events.next({ type: "cycleStrikes", data: ctx });
+      return false;
+    },
+  });
+  game.keybindings.register("in-person-hud", "rotateCurrentSpell", {
+    name: "Cycle Player Spells",
+    order: 1,
+    precedence: 1000,
+    uneditable: [{ key: "NumpadAdd", modifiers: [] }],
+    onDown: (ctx) => {
+      ctx.event.preventDefault();
+      SETTINGS.events.next({ type: "cycleSpells", data: ctx });
+      return false;
     },
   });
   game.keybindings.register("in-person-hud", "performCurrentStrike", {
     name: "Perform Current Strike",
-    uneditable: [{ key: "Enter", modifiers: [] }],
+    order: 1,
+    // precedence: 1000,
+    uneditable: [{ key: "NumpadDivide", modifiers: [] }],
+    repeat: false,
     onUp: (ctx) => {
+      ctx.event.preventDefault();
       SETTINGS.events.next({ type: "performCurrentStrike", data: ctx });
+      return false;
+    },
+  });
+  game.keybindings.register("in-person-hud", "performCurrentSpell", {
+    name: "Cast Current Spell",
+    order: 1,
+    precedence: 10000,
+    repeat: false,
+
+    uneditable: [{ key: "NumpadMultiply", modifiers: [] }],
+    onUp: (ctx) => {
+      ctx.event.preventDefault();
+      SETTINGS.events.next({ type: "performCurrentSpell", data: ctx });
+      return false;
     },
   });
 });

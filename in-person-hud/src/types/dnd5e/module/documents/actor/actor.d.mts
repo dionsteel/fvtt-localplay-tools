@@ -1,5 +1,4 @@
 import { CharacterData, ActorData, VehicleData, CreatureData, NPCData } from "src/app/interfaces/5e/actor5e";
-import NPCData from "../../data/actor/npc.d.mts";
 import TokenDocument5e from "../token.d.mts";
 import {
   BackgroundData,
@@ -13,7 +12,8 @@ import {
   SubclassData,
   ToolData,
   WeaponData,
-} from "src/types/dnd5e/module/data/item/_module.mjs";
+} from "src/app/interfaces/5e/actor";
+import { ClassItem5e, Equipment5e, Item5E } from "src/app/interfaces/5e/item";
 
 /**
  * Extend the base Actor class to implement additional system-specific logic.
@@ -44,6 +44,7 @@ export default class Actor5e<
       count?: number;
     },
   ): void;
+
   /**
    * Contribute to the actor's spellcasting progression for a class with leveled spellcasting.
    * @param {object} progression                    Spellcasting progression data. *Will be mutated.*
@@ -59,6 +60,7 @@ export default class Actor5e<
     spellcasting: SpellcastingDescription,
     count: number,
   ): void;
+
   /**
    * Contribute to the actor's spellcasting progression for a class with pact spellcasting.
    * @param {object} progression                    Spellcasting progression data. *Will be mutated.*
@@ -74,6 +76,7 @@ export default class Actor5e<
     spellcasting: SpellcastingDescription,
     count: number,
   ): void;
+
   /**
    * Prepare actor's spell slots using progression data.
    * @param {object} spells           The `data.spells` object within actor's data. *Will be mutated.*
@@ -92,6 +95,7 @@ export default class Actor5e<
       actor?: Actor5e;
     },
   ): void;
+
   /**
    * Prepare leveled spell slots using progression data.
    * @param {object} spells        The `data.spells` object within actor's data. *Will be mutated.*
@@ -99,6 +103,7 @@ export default class Actor5e<
    * @param {object} progression   Spellcasting progression data.
    */
   static prepareLeveledSlots(spells: object, actor: Actor5e, progression: object): void;
+
   /**
    * Prepare pact spell slots using progression data.
    * @param {object} spells        The `data.spells` object within actor's data. *Will be mutated.*
@@ -106,6 +111,7 @@ export default class Actor5e<
    * @param {object} progression   Spellcasting progression data.
    */
   static preparePactSlots(spells: object, actor: Actor5e, progression: object): void;
+
   /**
    * Get a color used to represent the current hit points of an Actor.
    * @param {number} current        The current HP value
@@ -113,44 +119,52 @@ export default class Actor5e<
    * @returns {Color}               The color used to represent the HP percentage
    */
   static getHPColor(current: number, max: number): Color;
+
   /**
    * Add additional system-specific sidebar directory context menu options for Actor documents
    * @param {jQuery} html         The sidebar HTML
    * @param {Array} entryOptions  The default array of context menu options
    */
   static addDirectoryContextOptions(html: jQuery, entryOptions: any[]): void;
+
   /**
    * Format a type object into a string.
    * @param {object} typeData          The type data to convert to a string.
    * @returns {string}
    */
   static formatCreatureType(typeData: object): string;
+
   /**
    * The data source for Actor5e.classes allowing it to be lazily computed.
    * @type {Object<Item5e>}
    * @private
    */
   private _classes;
+
   /**
    * A mapping of classes belonging to this Actor.
    * @type {Object<Item5e>}
    */
-  get classes(): any;
+  get classes(): ClassItem5e[];
+
   /**
    * Is this Actor currently polymorphed into some other creature?
    * @type {boolean}
    */
   get isPolymorphed(): boolean;
+
   /**
    * The Actor's currently equipped armor, if any.
    * @type {Item5e|null}
    */
-  get armor(): any;
+  get armor(): Equipment5e | null;
+
   /**
    * The Actor's currently equipped shield, if any.
    * @type {Item5e|null}
    */
-  get shield(): any;
+  get shield(): Equipment5e | null;
+
   /** @inheritdoc */
   _initializeSource(source: any, options?: {}): any;
   /** @inheritDoc */
@@ -837,19 +851,5 @@ export default class Actor5e<
    */
   private _displayScrollingDamage;
   public override system: D;
-  public override itemTypes: ItemTypes;
-}
-
-export interface ItemTypes {
-  background: BackgroundData[];
-  backpack: ContainerData[];
-  class: ClassData[];
-  consumable: ConsumableData[];
-  equipment: EquipmentData[];
-  feat: FeatData[];
-  loot: LootData[];
-  spell: SpellData[];
-  subclass: SubclassData[];
-  tool: ToolData[];
-  weapon: WeaponData[];
+  public name: string;
 }

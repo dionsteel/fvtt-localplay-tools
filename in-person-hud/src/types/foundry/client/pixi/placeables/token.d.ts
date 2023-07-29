@@ -48,6 +48,13 @@ declare global {
             refreshTarget: {};
         };
 
+        /** The id of the corresponding Document which this PlaceableObject represents. */
+        get id(): string;
+
+        /** A unique identifier which is used to uniquely identify elements on the canvas related to this object. */
+        get objectId(): string;
+
+
         /** Defines the filter to use for detection. */
         detectionFilter: PIXI.Filter | null;
 
