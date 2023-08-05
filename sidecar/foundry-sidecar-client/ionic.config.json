@@ -1,0 +1,7 @@
+{
+  "name": "foundry-sidecar-client",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}

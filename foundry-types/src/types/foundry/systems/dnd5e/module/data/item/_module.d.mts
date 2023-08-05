@@ -1,0 +1,31 @@
+export { default as ActionTemplate } from "./templates/action";
+export { default as ActivatedEffectTemplate } from "./templates/activated-effect";
+export { default as EquippableItemTemplate } from "./templates/equippable-item";
+export { default as ItemDescriptionTemplate } from "./templates/item-description";
+export { default as MountableTemplate } from "./templates/mountable";
+export { default as PhysicalItemTemplate } from "./templates/physical-item";
+export namespace config {
+    export { BackgroundData as background };
+    export { ContainerData as backpack };
+    export { ClassData as class };
+    export { ConsumableData as consumable };
+    export { EquipmentData as equipment };
+    export { FeatData as feat };
+    export { LootData as loot };
+    export { SpellData as spell };
+    export { SubclassData as subclass };
+    export { ToolData as tool };
+    export { WeaponData as weapon };
+}
+import BackgroundData from "./background";
+import ClassData from "./class";
+import ConsumableData from "./consumable";
+import ContainerData from "./container";
+import EquipmentData from "./equipment";
+import FeatData from "./feat";
+import LootData from "./loot";
+import SpellData from "./spell";
+import SubclassData from "./subclass";
+import ToolData from "./tool";
+import WeaponData from "./weapon";
+export { BackgroundData, ClassData, ConsumableData, ContainerData, EquipmentData, FeatData, LootData, SpellData, SubclassData, ToolData, WeaponData };
