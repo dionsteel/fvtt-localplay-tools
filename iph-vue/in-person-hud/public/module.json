@@ -1,0 +1,50 @@
+{
+  "id": "in-person-hud",
+  "title": "In-Person HUD",
+  "description": "Multi Character HUD for In-person play on a table screen",
+  "authors": [
+    {
+      "name": "Dion Steel",
+      "email": "dionjsteel@gmail.com",
+      "discord": "electricmonk"
+    }
+  ],
+  "url": "This is auto replaced",
+  "license": "MIT",
+  "readme": "<optionally the URL to your readme>",
+  "bugs": "<optionally the URL to your issue list>",
+  "changelog": "<optionally the URL to your changelog>",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "11",
+    "verified": "11"
+  },
+  "scripts": [],
+  "esmodules": ["in-person-hud.mjs"],
+  "styles": ["style.css"],
+  "packs": [],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "relationships": {
+    "systems": [
+      { "id": "pf2e", "type": "system" },
+      { "id": "dcc", "type": "system" },
+      { "id": "starfinder", "type": "system" },
+      { "id": "dnd5e", "type": "system" }
+    ],
+    "requires": [
+      { "id": "lib-wrapper", "type": "module" },
+      { "id": "socketlib", "type": "module" }
+    ],
+    "conflicts": []
+  },
+  "socket": true,
+  "manifest": "This is auto replaced",
+  "download": "This is auto replaced",
+  "library": false
+}

@@ -1,0 +1,30 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue"
+  ],
+  "exclude": [
+    "src/**/__tests__/*"
+  ],
+  "typeAcquisition": {
+    "enable": true,
+    "include": [
+      "./src/types/foundry"
+    ]
+  },
+  "compilerOptions": {
+    "composite": true,
+    "typeRoots": [
+      "./src/types",
+      "./src/types/foundry"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  }
+}

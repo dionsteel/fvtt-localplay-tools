@@ -1,0 +1,27 @@
+import "./hotbar";
+import "./base";
+import "./chat-popout";
+import "./compendium";
+import "./i18n";
+import "./templates";
+import "./form-application";
+import "./hud/chat-bubbles";
+import "./hud/container";
+import "./hud/controls";
+import "./hud/hud";
+import "./hud/menu";
+import "./hud/navigation";
+import "./hud/pause";
+import "./hud/players";
+import "./placeables/placeables-hud";
+import "./sidebar/sidebar";
+import "./sidebar/sidebar-tab/base";
+import "./sidebar/sidebar-tab/chat-log";
+import "./sidebar/sidebar-tab/combat-tracker";
+import "./sidebar/sidebar-tab/compendium-directory";
+import "./sidebar/sidebar-tab/document-directory/base";
+import "./sidebar/sidebar-tab/document-directory/actor-directory";
+import "./sidebar/sidebar-tab/document-directory/item-directory";
+import "./sidebar/sidebar-tab/document-directory/roll-table-directory";
+import "./sidebar/sidebar-tab/settings";
+

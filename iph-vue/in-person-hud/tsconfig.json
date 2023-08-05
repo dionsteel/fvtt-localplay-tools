@@ -1,0 +1,19 @@
+{
+  "files": [],
+  "compilerOptions": {
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "typeRoots": [
+      "./src/types",
+      "./src/types/foundry"
+    ]
+  },
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    }
+  ]
+}
