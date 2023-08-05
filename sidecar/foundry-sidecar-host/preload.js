@@ -1,13 +1,14 @@
 const express = require("express");
 const expressws = require("express-ws");
-// const 
+// const
 const { isGameInitialised } = require("./lib");
 const _app = express();
 const app = expressws(_app);
 const debugHooks = true;
 const gmlogin = true;
 const autologin = true;
-
+const { Observable } = require("rxjs");
+const { map, filter, reduce, scan, share } = require("rxjs/operators");
 document.addEventListener("DOMContentLoaded", (e) => mount());
 
 /** Mount app once content is loaded */
@@ -94,6 +95,20 @@ function isDnD5eGame(game) {
   return "pf2e" == game.system.id;
 }
 
+export function observeHook(name, ...resultKeys) {
+  return new Observable((obs) => {
+    const handler = (...args) => {
+      obs.next(
+        Object.fromEntries(resultKeys.map((a, i) => [resultKeys[i], args[i]]))
+      );
+    };
+    Hooks.on(name, handler);
+    return () => {
+      Hooks.off(name, handler);
+    };
+  }).pipe(share());
+}
+
 /**
  *
  * @param {import("../../foundry-types/src/types/base").PathfinderGame} _game
@@ -105,84 +120,103 @@ export function mountWebServerPF2e(_game) {}
  * @param {import("../../foundry-types/src/types/base").DnD5eGame} _game
  */
 export function mountWebServer5e(_game) {
+  const actorUpdates = observeHook("updateActor", "actor", "data", "context");
+  const tokenUpdates = observeHook("updateToken", "token", "data", "context");
+  const sceneUpdates = observeHook("updateScene", "scene", "data", "context");
+  const combatUpdates = observeHook("updateCombat", "scene", "data", "context");
+
+  function getActorItems(actor_id, type) {
+    return _game.actors.get(actor_id).itemTypes[type].map((i) => i.toJSON());
+  }
+
+  function updateActorItem(actor_id, type, item_id, data) {
+    const actor = _game.actors.get(actor_id);
+    const item = actor.itemTypes[type].find((i) => i.id == item_id);
+    if (item) {
+      item.importFromJSON(data);
+    }
+  }
+
   const rActor = express.Router().get("", (req, res) => {
-    res.json(game.actors.get(req.params.id).toJSON());
+    res.json(_game.actors.get(req.params.id).toJSON());
+  });
+  rActor.ws("", (ws, req) => {
+    const tgtActor = _game.actors.get(req.params.id);
+    ws.send(JSON.stringify(tgtActor.toJSON()));
+
+    actorUpdates
+      .pipe(filter((u) => u.actor.id == tgtActor.id))
+      .subscribe((u) =>
+        ws.send(JSON.stringify({ event: "updateActor", data: u.data }))
+      );
+    tokenUpdates
+      .pipe(filter((u) => u.token.actor.id == tgtActor.id))
+      .subscribe((u) =>
+        ws.send(JSON.stringify({ event: "updateToken", data: u.data }))
+      );
+    combatUpdates
+      .pipe(filter((u) => tgtActor.inCombat))
+      .subscribe((u) =>
+        ws.send(JSON.stringify({ event: "updateCombat", data: u.data }))
+      );
   });
   rActor.get("/:id/backgrounds", (req, res) =>
     res.send(
       _game.actors
         .get(req.params.id)
-        .itemTypes.background.map((i) => i.exportToJSON())
+        .itemTypes.background.map((i) => i.toJSON())
     )
   );
   rActor.get("/:id/classes", (req, res) =>
     res.send(
-      _game.actors
-        .get(req.params.id)
-        .itemTypes.class.map((i) => i.exportToJSON())
+      _game.actors.get(req.params.id).itemTypes.class.map((i) => i.toJSON())
     )
   );
   rActor.get("/:id/feats", (req, res) =>
     res.send(
-      _game.actors
-        .get(req.params.id)
-        .itemTypes.feat.map((i) => i.exportToJSON())
+      _game.actors.get(req.params.id).itemTypes.feat.map((i) => i.toJSON())
     )
   );
   rActor.get("/:id/subclasses", (req, res) =>
     res.send(
-      _game.actors
-        .get(req.params.id)
-        .itemTypes.subclass.map((i) => i.exportToJSON())
+      _game.actors.get(req.params.id).itemTypes.subclass.map((i) => i.toJSON())
     )
   );
   rActor.get("/:id/spells", (req, res) =>
     res.send(
-      _game.actors
-        .get(req.params.id)
-        .itemTypes.spell.map((i) => i.exportToJSON())
+      _game.actors.get(req.params.id).itemTypes.spell.map((i) => i.toJSON())
     )
   );
   rActor.get("/:id/weapons", (req, res) =>
     res.send(
-      _game.actors
-        .get(req.params.id)
-        .itemTypes.weapon.map((i) => i.exportToJSON())
+      _game.actors.get(req.params.id).itemTypes.weapon.map((i) => i.toJSON())
     )
   );
   rActor.get("/:id/consumables", (req, res) =>
     res.send(
       _game.actors
         .get(req.params.id)
-        .itemTypes.consumable.map((i) => i.exportToJSON())
+        .itemTypes.consumable.map((i) => i.toJSON())
     )
   );
   rActor.get("/:id/equipment", (req, res) =>
     res.send(
-      _game.actors
-        .get(req.params.id)
-        .itemTypes.equipment.map((i) => i.exportToJSON())
+      _game.actors.get(req.params.id).itemTypes.equipment.map((i) => i.toJSON())
     )
   );
   rActor.get("/:id/backpacks", (req, res) =>
     res.send(
-      _game.actors
-        .get(req.params.id)
-        .itemTypes.backpack.map((i) => i.exportToJSON())
+      _game.actors.get(req.params.id).itemTypes.backpack.map((i) => i.toJSON())
     )
   );
   rActor.get("/:id/tools", (req, res) =>
     res.send(
-      _game.actors
-        .get(req.params.id)
-        .itemTypes.tool.map((i) => i.exportToJSON())
+      _game.actors.get(req.params.id).itemTypes.tool.map((i) => i.toJSON())
     )
   );
   rActor.get("/:id/loots", (req, res) =>
     res.send(
-      _game.actors
-        .get(req.params.id)
-        .itemTypes.loot.map((i) => i.exportToJSON())
+      _game.actors.get(req.params.id).itemTypes.loot.map((i) => i.toJSON())
     )
   );
   rActor.put("/:id/backgrounds/:item_id", (req, res) =>
