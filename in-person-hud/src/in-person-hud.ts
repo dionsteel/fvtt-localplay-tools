@@ -93,7 +93,7 @@ try {
             providers: [
               { provide: SettingsService, useFactory: () => _ss },
               // { provide: FoundryAPIService, useValue: _apisvc }
-            ],
+            ], ngZone: 'noop' 
           };
           if (appName == "gm") {
             platform.bootstrapModule(GMAppModule, bso);

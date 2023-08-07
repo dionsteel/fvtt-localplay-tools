@@ -26,6 +26,8 @@ export class SeatActorComponent extends CDComponent {
     // this.actor.img;
     console.log("SeatActorComponent init. ", this);
     Hooks.on("updateActor", () => this.dirty.next(true));
+    Hooks.on("updateToken", () => this.dirty.next(true));
+    Hooks.on("createToken", () => this.dirty.next(true));
     Hooks.on("controlToken", () => this.dirty.next(true));
   }
   get game() {

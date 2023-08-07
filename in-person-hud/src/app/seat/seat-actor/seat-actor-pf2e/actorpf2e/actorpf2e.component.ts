@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { filter } from "rxjs";
+import { filter, interval } from "rxjs";
 import SETTINGS from "src/app/Settings";
 import { CDComponent } from "src/app/cdcomponent";
 import { eventHook } from "src/lib/state";
@@ -38,6 +38,7 @@ export class Actorpf2eComponent extends CDComponent {
 
   ngOnInit() {
     this.findAndAssignCurrentToken();
+    interval(100).subscribe(this.dirty)
     // this.wrapper.actions.subscribe(() => this.dirty.next(true));
     eventHook("controlToken").subscribe(() => {
       if (this.isControlled) {

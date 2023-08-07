@@ -14,7 +14,7 @@ import { SeatComponent } from "../seat/seat.component";
 export class TableAppComponent {
   constructor(public api: FoundryAPIService) {
     console.log("Table App Loaded!");
-    // $("#interface").css("display", "none");
+    $("#interface").addClass('table-player')
   }
 }
 declare global {
