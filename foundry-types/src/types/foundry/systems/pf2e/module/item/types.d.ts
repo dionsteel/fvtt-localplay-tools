@@ -1,5 +1,5 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import * as ItemInstance from "src/types/pf2e/module/item";
+import { ActorPF2e } from "../actor";
+import * as ItemInstance from ".";
 interface ItemInstances<TParent extends ActorPF2e | null> {
     action: ItemInstance.ActionItemPF2e<TParent>;
     affliction: ItemInstance.AfflictionPF2e<TParent>;

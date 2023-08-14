@@ -1,10 +1,10 @@
 // import "./foundry";
 // import { DND5E } from "./foundry/systems/dnd5e/dnd5e";
 // import * as dnd from "./foundry/systems/dnd5e/dnd5e";
-import type { Actor5e } from "./foundry/systems/dnd5e/documents/actor/actor.mjs";
-import type { Token5e } from "./foundry/systems/dnd5e/module/canvas/_module.mjs";
+import type { Actor5e } from "./foundry/systems/dnd5e/documents/actor/actor";
+import type { Token5e } from "./foundry/systems/dnd5e/module/canvas/_module";
 import type { Actor5E } from "./foundry/actor5e";
-import type { Item5e } from "./foundry/systems/dnd5e/module/documents/item.mjs";
+import type { Item5e } from "./foundry/systems/dnd5e/module/documents/item";
 import type {
   CanvasPF2e,
   TokenPF2e,

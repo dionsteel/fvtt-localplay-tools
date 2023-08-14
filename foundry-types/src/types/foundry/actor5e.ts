@@ -1,4 +1,4 @@
-export * from "./actor/attributes";
+export type * from "./actor/attributes";
 import { ActorData } from "./actor/common";
 import { CreatureData } from "./actor/creature";
 import { NPCData } from "./actor/npc";
@@ -51,4 +51,4 @@ export interface ItemTypes {
   weapon: Weapon5e[];
 }
 
-export { ActorData, CharacterData, CreatureData, VehicleData, NPCData };
+export type { ActorData, CharacterData, CreatureData, VehicleData, NPCData };

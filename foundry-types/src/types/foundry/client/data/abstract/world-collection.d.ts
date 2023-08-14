@@ -1,6 +1,6 @@
 export {};
 
-export declare global {
+declare global {
     /**
      * A singleton Collection of world-level Document objects within the Foundry Virtual Tabletop.
      * Each primary Document type has an associated subclass of WorldCollection which contains them.

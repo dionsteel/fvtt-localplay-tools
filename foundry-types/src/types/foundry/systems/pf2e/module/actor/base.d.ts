@@ -1,3 +1,4 @@
+import "../../../../index"
 import {
   ActorAlliance,
   ActorDimensions,
@@ -24,7 +25,7 @@ import { ScenePF2e, TokenDocumentPF2e, UserPF2e } from "../documents.ts";
 import { CombatantPF2e, EncounterPF2e } from "../encounter/index.ts";
 import { RuleElementSynthetics } from "../rules/index.ts";
 import { RuleElementPF2e } from "../rules/rule-element/base.ts";
-import { DamageType } from "src/types/pf2e/module/system/damage/types.js";
+import { DamageType } from "../system/damage/types.js";
 import { ArmorStatistic } from "../system/statistic/armor-class.ts";
 import { Statistic, StatisticCheck, StatisticDifficultyClass } from "../system/statistic/index.ts";
 import { EnrichHTMLOptionsPF2e } from "../system/text-editor"; // "../../../system/text-editor.ts";

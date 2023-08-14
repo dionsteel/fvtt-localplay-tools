@@ -1,4 +1,4 @@
-import { FormulaField } from "src/types/dnd5e/data/fields.mjs";
+import { FormulaField } from "../../systems/dnd5e/data/fields.mjs";
 import { Item5E} from "../item";
 
 export interface Action5e extends Item5E {

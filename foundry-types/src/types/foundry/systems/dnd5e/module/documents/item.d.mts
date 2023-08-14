@@ -1,4 +1,4 @@
-import "../dice/d20-roll.mjs";
+import "../dice/d20-roll";
 import type { D20RollConfiguration } from "../dice/dice.d.mts";
 /**
  * Override and extend the basic Item implementation.

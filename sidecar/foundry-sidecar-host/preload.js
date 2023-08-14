@@ -1,15 +1,79 @@
+// import { ActorPF2e } from "../../foundry-types/src/types/foundry/systems/pf2e/module/documents";
+const path = require("path");
+const fs = require("fs");
+
 const express = require("express");
 const expressws = require("express-ws");
-// const
+const cors = require("cors");
 const { isGameInitialised } = require("./lib");
-// const _app = 
-const { app } = expressws(express());
+const _app = express();
+const { app } = expressws(_app);
+const {
+  createProxyMiddleware,
+  fixRequestBody,
+  responseInterceptor,
+} = require("http-proxy-middleware");
+const proxy = require("express-http-proxy");
 const debugHooks = false;
-const gmlogin = false;
+const gmlogin = true;
 const autologin = true;
+const creds = {
+  MapTable: { u: "MapTable", p: "" },
+  Gamemaster: { u: "Gamemaster", p: "" },
+};
 const { Observable } = require("rxjs");
 const { map, filter, reduce, scan, share } = require("rxjs/operators");
 document.addEventListener("DOMContentLoaded", (e) => mount());
+const systemDescriptions = {
+  dnd5e: {
+    actor: {
+      item_types: [
+        "background",
+        "class",
+        "subclass",
+        "feat",
+        "spell",
+        "weapon",
+        "consumable",
+        "equipment",
+        "backpack",
+        "tool",
+        "loot",
+      ],
+    },
+  },
+  pf2e: {
+    actor: {
+      item_types: [
+        "action",
+        "affliction",
+        "ancestry",
+        "armor",
+        "background",
+        "backpack",
+        "book",
+        "campaignFeature",
+        "class",
+        "condition",
+        "consumable",
+        "deity",
+        "effect",
+        "equipment",
+        "feat",
+        "heritage",
+        "kit",
+        "lore",
+        "melee",
+        "spell",
+        "spellcastingEntry",
+        "treasure",
+        "weapon",
+      ],
+    },
+  },
+};
+
+app.use(cors({ origin: "*" }));
 
 /** Mount app once content is loaded */
 async function mount() {
@@ -25,12 +89,13 @@ async function mount() {
   });
 
   Hooks.once("renderJoinGameForm", performAutoLogin);
+  Hooks.once("renderJoinGameForm", performAutoLogin);
 }
 
-function performAutoLogin(_args) {
+function performAutoLogin() {
   try {
     if (isGameInitialised(game)) {
-      console.log("preload script mounted foundry. ", _args, game.users);
+      console.log("preload script mounted foundry. ", game.users);
       if (
         autologin &&
         game &&
@@ -42,7 +107,7 @@ function performAutoLogin(_args) {
         let loginApp = game.users.apps[0];
         if (gmlogin) {
           loginApp.form.userid.selectedIndex = 1;
-          loginApp.form.password.value = "G0ndolin1!";
+          loginApp.form.password.value = creds.Gamemaster.p;
         } else {
           const userlist = loginApp.form.userid.options;
           if (userlist.namedItem("MapTable")) {
@@ -96,12 +161,6 @@ function isDnD5eGame(game) {
   return "pf2e" == game.system.id;
 }
 
-/**
- * 
- * @param {string} name 
- * @param  {...K} resultKeys 
- * @returns {Record<K,any>}
- */
 function observeHook(name, ...resultKeys) {
   return new Observable((obs) => {
     const handler = (...args) => {
@@ -115,22 +174,26 @@ function observeHook(name, ...resultKeys) {
     };
   }).pipe(share());
 }
-function getRouter() { return express.Router({ mergeParams: true, caseSensitive: false, strict: false }); }
+
+/**
+ *
+ * @param {string} id
+ * @returns {ActorPF2e}
+ */
+function getActorPF2e(id) {
+  return game.actors.get(id);
+}
 /**
  *
  * @param {import("../../foundry-types/src/types/base").PathfinderGame} _game
  */
 function mountWebServerPF2e(_game) {
-  mountWebServerBase(_game);
+  /**
+   * a {ActorPF2e}
+   */
+  const a = getActorPF2e("idslks");
+  a.itemTypes.treasure;
 }
-
-/**
- * 
- * @param {T} x 
- * @param  {...K extends keyof T} keys 
- * @returns {Pick<T,K>}
- */
-function pick(x, ...keys) { return Object.fromEntries(Object.entries(x).filter(k => keys.includes(k))); }
 
 /**
  * 
@@ -138,243 +201,389 @@ function pick(x, ...keys) { return Object.fromEntries(Object.entries(x).filter(k
  * @param  {...K extends keyof T} keys 
  * @returns {Omit<T,K>}
  */
-function omit(x, ...keys) { return Object.fromEntries(Object.entries(x).filter(k => !keys.includes(k))); }
+function mountWebServer5e(_game) {
+  app.get("/actor/:id/backgrounds", (req, res) =>
+    res.send(
+      _game.actors
+        .get(req.params.id)
+        .itemTypes.background.map((i) => i.toJSON())
+    )
+  );
+  app.get("/actor/:id/classes", (req, res) =>
+    res.send(
+      _game.actors.get(req.params.id).itemTypes.class.map((i) => i.toJSON())
+    )
+  );
+  app.get("/actor/:id/feats", (req, res) =>
+    res.send(
+      _game.actors.get(req.params.id).itemTypes.feat.map((i) => i.toJSON())
+    )
+  );
+  app.get("/actor/:id/subclasses", (req, res) =>
+    res.send(
+      _game.actors.get(req.params.id).itemTypes.subclass.map((i) => i.toJSON())
+    )
+  );
+  app.get("/actor/:id/spells", (req, res) =>
+    res.send(
+      _game.actors.get(req.params.id).itemTypes.spell.map((i) => i.toJSON())
+    )
+  );
+  app.get("/actor/:id/weapons", (req, res) =>
+    res.send(
+      _game.actors.get(req.params.id).itemTypes.weapon.map((i) => i.toJSON())
+    )
+  );
+  app.get("/actor/:id/consumables", (req, res) =>
+    res.send(
+      _game.actors
+        .get(req.params.id)
+        .itemTypes.consumable.map((i) => i.toJSON())
+    )
+  );
+  app.get("/actor/:id/equipment", (req, res) =>
+    res.send(
+      _game.actors.get(req.params.id).itemTypes.equipment.map((i) => i.toJSON())
+    )
+  );
+  app.get("/actor/:id/backpacks", (req, res) =>
+    res.send(
+      _game.actors.get(req.params.id).itemTypes.backpack.map((i) => i.toJSON())
+    )
+  );
+  app.get("/actor/:id/tools", (req, res) =>
+    res.send(
+      _game.actors.get(req.params.id).itemTypes.tool.map((i) => i.toJSON())
+    )
+  );
+  app.get("/actor/:id/loots", (req, res) =>
+    res.send(
+      _game.actors.get(req.params.id).itemTypes.loot.map((i) => i.toJSON())
+    )
+  );
+  app.put("/actor/:id/backgrounds/:item_id", (req, res) =>
+    res.json(
+      _game.actors
+        .get(req.params.id)
+        .items.get(req.params.item_id)
+        .importFromJSON(req.body)
+    )
+  );
+  app.put("/actor/:id/classes/:item_id", (req, res) =>
+    res.json(
+      _game.actors
+        .get(req.params.id)
+        .items.get(req.params.item_id)
+        .importFromJSON(req.body)
+    )
+  );
+  app.put("/actor/:id/feats/:item_id", (req, res) =>
+    res.json(
+      _game.actors
+        .get(req.params.id)
+        .items.get(req.params.item_id)
+        .importFromJSON(req.body)
+    )
+  );
+  app.put("/actor/:id/subclasses/:item_id", (req, res) =>
+    res.json(
+      _game.actors
+        .get(req.params.id)
+        .items.get(req.params.item_id)
+        .importFromJSON(req.body)
+    )
+  );
+  app.put("/actor/:id/spells/:item_id", (req, res) =>
+    res.json(
+      _game.actors
+        .get(req.params.id)
+        .items.get(req.params.item_id)
+        .importFromJSON(req.body)
+    )
+  );
+  app.put("/actor/:id/weapons/:item_id", (req, res) =>
+    res.json(
+      _game.actors
+        .get(req.params.id)
+        .items.get(req.params.item_id)
+        .importFromJSON(req.body)
+    )
+  );
+  app.put("/actor/:id/consumables/:item_id", (req, res) =>
+    res.json(
+      _game.actors
+        .get(req.params.id)
+        .items.get(req.params.item_id)
+        .importFromJSON(req.body)
+    )
+  );
+  app.put("/actor/:id/equipment/:item_id", (req, res) =>
+    res.json(
+      _game.actors
+        .get(req.params.id)
+        .items.get(req.params.item_id)
+        .importFromJSON(req.body)
+    )
+  );
+  app.put("/actor/:id/backpacks/:item_id", (req, res) =>
+    res.json(
+      _game.actors
+        .get(req.params.id)
+        .items.get(req.params.item_id)
+        .importFromJSON(req.body)
+    )
+  );
+  app.put("/actor/:id/tools/:item_id", (req, res) =>
+    res.json(
+      _game.actors
+        .get(req.params.id)
+        .items.get(req.params.item_id)
+        .importFromJSON(req.body)
+    )
+  );
+  app.put("/actor/:id/loots/:item_id", (req, res) =>
+    res.json(
+      _game.actors
+        .get(req.params.id)
+        .items.get(req.params.item_id)
+        .importFromJSON(req.body)
+    )
+  );
+}
 
-function mountWebServerBase(_game) {
+function handleActorMessage() {
+  return [];
+}
+function mountWebServer() {
+  console.log("MOUNTING WEB SERVER");
   const actorUpdates = observeHook("updateActor", "actor", "data", "context");
   const tokenUpdates = observeHook("updateToken", "token", "data", "context");
-  const tokenControlUpdates = observeHook("controlToken", "token", "controlled", "context");
   const sceneUpdates = observeHook("updateScene", "scene", "data", "context");
   const combatUpdates = observeHook("updateCombat", "scene", "data", "context");
-  const itemTypeList =
-    [
-      "backgrounds",
-      "classes",
-      "feats",
-      "subclasses",
-      "spells",
-      "weapons",
-      "consumables",
-      "equipment",
-      "backpacks",
-      "tools",
-      "loots"
-    ];
 
   function getActorItems(actor_id, type) {
-    return _game.actors.get(actor_id).itemTypes[type].map((i) => i.toJSON());
+    return game.actors.get(actor_id).itemTypes[type].map((i) => i.toJSON());
   }
-  let x = pick({ Popo: true, slal: 2 }, 'slal');
-  x
+  function getActorItem(actor_id, item_id) {
+    return game.actors.get(actor_id).items.get(item_id).toJSON();
+  }
+
   function updateActorItem(actor_id, type, item_id, data) {
-    try {
-      const actor = _game.actors.get(actor_id);
-      if (actor) {
-        const item = actor.itemTypes[type].find((i) => i.id == item_id);
-        if (item) {
-          item.importFromJSON(data);
-          return true;
-        } else {
-          throw new Error("Item not found")
-        }
-      }
-      throw new Error('No actor found.')
-    } catch (error) {
-      console.warn('Actor item update error: ', error);
-      return false;
+    const actor = game.actors.get(actor_id);
+    const item = actor.itemTypes[type].find((i) => i.id == item_id);
+    if (item) {
+      item.importFromJSON(data);
+    }
+  }
+  function performActorAction(actor_id, actionData) {
+    const actor = game.actors.get(actor_id);
+    if (actionData.method && typeof actor[actionData.method] == "function") {
+      return actor[actionData.method](...(actionData.parameters || []));
+    }
+  }
+  function performActorItemAction(actor_id, item_id, actionData) {
+    const actor = game.actors.get(actor_id);
+    const item = actor.itemTypes[type].find((i) => i.id == item_id);
+    if (actionData.method && typeof item[actionData.method] == "function") {
+      return item[actionData.method](...(actionData.parameters || []));
     }
   }
 
-  /**
-   * 
-   * @param {import("../../foundry-types/src/types/foundry/actor5e").Actor5E} actor
-   * @param {Partial<import("../../foundry-types/src/types/foundry/actor5e").Actor5E>} updateData 
-   */
-  function updateActor(actor, updateData) {
-    try {
-      const dActor = actor.toJSON();
-      if (dActor) {
-        const merged = mergeObject(dActor, updateData);
-        const text = JSON.stringify(merged);
-        actor.importFromJSON(text);
-        return true;
-      }
-      throw new Error("JSON conversion error");
-    } catch (error) {
-      console.warn('Actor update error: ', error);
-      return false;
-    }
-  }
+  app.get("/actor/:id", (req, res) => {
+    res.json(game.actors.get(req.params.id).toJSON());
+  });
 
+  app.post(`/actor/:id`, (req, res) => {
+    res.json(performActorItemAction(actorId, itemId, JSON.parse(req.body)));
+  });
 
-  function sanitize(x, q) {
-    if (typeof x !== 'object') { return x; }
-    if (typeof x == 'object' && typeof x['toJSON'] == 'function') { return x.toJSON(); }
-    let first = false;
-    if (!q || q?.length < 1) { q = []; first = true; }
-    for (let k in x) {
-      q.push(() => x[k] = sanitize(x, q));
-    }
-    if (first) { for (let i of q) { i(); } }
-    return x;
-  }
-  function serialize(x) { return JSON.stringify(sanitize(x)); }
-  const rActor = getRouter();
-
-  rActor.ws("", (ws, req) => {
-    const tgtActor = _game.actors.get(req.params.id);
+  app.ws("/actor/:id", (ws, req) => {
+    const tgtActor = game.actors.get(req.params.id);
     ws.send(JSON.stringify(tgtActor.toJSON()));
-
+    ws.on("message", (data, isBinary) => {
+      const msg = JSON.parse(data.toString("utf-8"));
+      if (msg && (msg.type || msg.event)) {
+        handleActorMessage(tgtActor, msg, ws);
+      }
+    });
     actorUpdates
       .pipe(filter((u) => u.actor.id == tgtActor.id))
       .subscribe((u) =>
-        ws.send(serialize({ event: "updateActor", ref: pick(u.actor, 'id', 'name'), data: u.data }))
+        ws.send(JSON.stringify({ event: "updateActor", data: u.data }))
       );
     tokenUpdates
       .pipe(filter((u) => u.token.actor.id == tgtActor.id))
       .subscribe((u) =>
-        ws.send(serialize({ event: "updateToken", ref: pick(u.token, 'id', 'name'), data: u.data }))
-      );
-    tokenControlUpdates
-      .pipe(filter((u) => u.token.actor.id == tgtActor.id))
-      .subscribe((u) =>
-        ws.send(serialize({ event: "controlToken", ref: pick(u.token, 'id', 'name'), data: { controlled: u.controlled } }))
+        ws.send(JSON.stringify({ event: "updateToken", data: u.data }))
       );
     combatUpdates
       .pipe(filter((u) => tgtActor.inCombat))
       .subscribe((u) =>
-        ws.send(serialize({ event: "updateCombat", ref: pick(tgtActor, 'id', 'name'), data: u.data }))
+        ws.send(JSON.stringify({ event: "updateCombat", data: u.data }))
       );
   });
-
-
-
-  rActor.get(`/:id/item_types`, (req, res) => {
-
-    console.log('get item types')
-    let results = { success: false };
-    console.log(`/:id/item_types`, req, res, results);
-    try {
-      const actor = _game.actors.get(req.params.id)
-
-      if (actor && actor.itemTypes) { results = Object.keys(actor.itemTypes) } else { throw new Error('No actor or actor has no item types') }
-    } catch (error) {
-      console.log(error);
-      results.error = error.message;
-    }
-    res.json(results).end();
-
-  });
-
-  rActor.get(`/:id/items/:itemType/:item_id`, (req, res) => {
-    let results = { success: false };
-    console.log(`/:id/items/:itemType/:item_id`, req, res, results);
-    try {
-      const actor = _game?.actors.get(req.params.id);
-      const item = actor.items.get(req.params.item_id);
-      if (item) { results = item; } else { throw new Error("Item not found") }
-    } catch (error) {
-      console.log(error);
-      res.status(403);
-      results.error = error.message;
-    }
-    res.json(results).end();
-  });
-
-  rActor.put(`/:id/items/:itemType/:item_id`, (req, res) =>
+  app.get("/actor", (req, res) =>
     res.json(
-      updateActorItem(req.params.id, req.params.itemType, req.params.item_id)
+      game.actors
+        .filter((a) => a.hasPlayerOwner && a.isOwner)
+        .map((a) => ({
+          id: a.id,
+          name: a.name,
+          image: a.img,
+          type: a.type,
+        }))
     )
   );
 
-
-  rActor.get(`/:id/item_types/:itemType`, (req, res) => {
-    let results = { success: false };
-    console.log(`/:id/item_types/:itemType`, req, res, results);
-
-    try {
-      const items = (getActorItems(req.params.id, req.params.itemType))
-      if (items) { results = items; } else { throw new Error("No items found") }
-    } catch (error) {
-      console.log(error);
-      results.error = error.message;
-    }
-    res.json(results).end();
-
-  });
-
-  rActor.put('/:id', (req, res) => {
-    const actor = _game.actors.get(req.params.id).toJSON();
-    updateActor(actor, JSON.parse(req.body));
-
-  })
-  rActor.get('/:id', (req, res) => {
-    console.log('actor route', req);
-    let results = { success: false };
-    try {
-
-      const actor = _game?.actors?.get(req.params.id);
-      if (actor) {
-        const aData = actor?.toJSON();
-        if (aData) {
-          results = aData;
-        } else {
-          console.log({ aData });
-          throw new Error('Couldnt parse actor.');
-        }
-      } else {
-        console.log({ actor, p: req.params });
-        throw new Error('Couldnt find actor.');
-      }
-    } catch (error) {
-      console.error('Error fetching actor by id', req.params, error);
-      results.error = error.message;
-    }
-    res.json(results);
-  });
-  const rActors = getRouter()
-    .get(["/", ""], (req, res) =>
+  for (let itemType of systemDescriptions[game.system.id].actor.item_types) {
+    app.get(`/actor/:id/${itemType}`, (req, res) =>
+      res.json(getActorItems(req.params.id, itemType))
+    );
+    app.get(`/actor/:id/${itemType}/:itemId`, (req, res) =>
+      res.json(getActorItems(req.params.id, itemType))
+    );
+    app.put(`/actor/:id/${itemType}/:itemId`, (req, res) =>
       res.json(
-        _game.actors
-          .filter((a) => a.isOwner)
-          .map((a) => (a.toJSON()))
-        // .map((a) => ({
-        //   id: a._id,
-        //   name: a.name,
-        //   image: a.img,
-        //   type: a.type,
-        // }))
+        updateActorItem(req.params.id, itemType, req.params.itemId, req.body)
       )
     );
-  app.use("/actor", rActor);
-  app.use("/actors", rActors);
-  return { rActor, rActors };
-}
-
-/**
- *
- * @param {import("../../foundry-types/src/types/base").DnD5eGame} _game
- */
-function mountWebServer5e(_game) {
-  const { rActor, rActors } = mountWebServerBase(_game);
-
-}
-
-function mountWebServer() {
-  if (isPathfinderGame(game)) {
-    mountWebServerPF2e(game);
-  } else if (isDnD5eGame(game)) {
-    mountWebServer5e(game);
+    app.post(`/actor/:id/${itemType}/:itemId`, (req, res) => {
+      res.json(performActorItemAction(actorId, itemId, JSON.parse(req.body)));
+    });
   }
 
-  /** catch-all */
-  app.get("**", (req, res) => {
+  app.get("/collections", (req, res) => {
+    res.json([...game.collections.keys()]);
+  });
+  // app.get("/collection/:key", (req,res)=>{
+  //   let x=game.collections.get(req.params.key);
+  // })
+
+  app.get("/packs", (req, res) => {
+    res.json([...game.packs.keys()]);
+  });
+  app.get("/pack/:key", (req, res) => {
+    res.json(game.packs.get(req.params.key).toJSON());
+  });
+  app.get("/system", (req, res) => {
+    res.json([...game.system.packs.keys()]);
+  });
+  app.get("/system/packs", (req, res) => {
+    res.json([...game.system.packs.keys()]);
+  });
+  app.get("/system/pack/:key", (req, res) => {
+    res.json(game.packs.get(game.system.id + "." + req.params.key).toJSON());
+  });
+  app.get("/uuid/:uuid", (req, res) => {
+    fromUuid(req.params.uuid)
+      .then(
+        (doc) => res.json(doc.toJSON()),
+        (reason) => res.status(403).json(reason)
+      )
+      .catch((e) => console.error(e));
+  });
+
+  // if (isPathfinderGame(game)) {
+  //   mountWebServerPF2e(game);
+  // } else if (isDnD5eGame(game)) {
+  //   mountWebServer5e(game);
+  // }
+  // app.use(
+  //   createProxyMiddleware({
+  //     target: `${window.location.protocol}//${window.location.host}/`,
+  //     // changeOrigin: true,
+  //     // autoRewrite: true,
+  //     // followRedirects: true,
+  //     // hostRewrite: "http://localhost:3000",
+  //   })
+  // );
+  app.get("info", (req, res) => {
     if (game && isGameInitialised(game)) {
-      res.json({ system: game.system.id, g: game.world.toJSON() });
+      res.json({ system: game.system?.toJSON(), world: game.world.toJSON() });
     } else {
       res.send("FAIL");
     }
   });
+  app.use(
+    express.static("../foundry-sidecar-client/dist/", { fallthrough: true })
+  );
+  app.get("**", (req, res, next) => {
+    // console.log("catchall handler", req);
+    try {
+      if (
+        [
+          "tokenizer",
+          "Tokens",
+          "scripts",
+          "Artwork",
+          "Maps",
+          "modules",
+          "systems",
+          "worlds",
+          "pdftofoundry-image-mapping.json",
+          "fonts",
+          "icons",
+          "css",
+          "ui",
+        ].filter((p) => req.path.startsWith(p) || req.path.startsWith("/" + p))
+          .length > 0
+      ) {
+        // console.log("forwarding to next");
+        next("route");
+      } else {
+        // console.log("serving file");
+        res.sendFile(
+          "foundry-sidecar-client/dist/index.html",
+          {
+            root: path.dirname(__dirname), //`/home/dion/dev/fvtt-localplay-tools/sidecar/foundry-sidecar-client/dist/`,
+          },
+          (e) => {
+            if (e) {
+              console.error("index serve error", e);
+            }
+          }
+        );
+      }
+    } catch (err) {
+      console.error("error serving index", e);
+      next();
+    }
+    // res.send(require('fs').readFileSync('../foundry-sidecar-client/dist/index.html'));
+  });
+  app.use(
+    proxy("https://foundry.rpgtable.quest/", {
+      // filter: (req, res) => {
+      //   return (
+      //     [
+      //       "tokenizer",
+      //       "Tokens",
+      //       "scripts",
+      //       "Artwork",
+      //       "Maps",
+      //       "modules",
+      //       "systems",
+      //       "worlds",
+      //       "pdftofoundry-image-mapping.json",
+      //       "fonts",
+      //       "icons",
+      //       "css",
+      //       "ui",
+      //     ].filter(
+      //       (p) => req.path.startsWith(p) || req.path.startsWith("/" + p)
+      //     ).length > 0
+      //   );
+      // },
+      https: true,
+      proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+        proxyReqOpts.insecureHTTPParser = true;
+        return proxyReqOpts;
+      },
+      preserveHostHdr: false,
+    })
+  );
+
+  /** catch-all */
+  app.listen(3000);
 }
 app.listen(3000);
 //# sourceMappingURL=preload.js.map
