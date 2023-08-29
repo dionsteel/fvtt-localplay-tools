@@ -1,0 +1,69 @@
+import { AbilityString } from "@/interfaces/pf2e/actor/index";
+import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@/interfaces/pf2e/item/data/base";
+import { MagicTradition } from "@/interfaces/pf2e/item/spell/index";
+import { OneToTen, ZeroToEleven, ZeroToFour } from "@/interfaces/pf2e/data";
+import { RollNotePF2e } from "@/interfaces/pf2e/notes";
+import { SpellcastingCategory } from "./spellcasting-entry/index";
+type SlotKey = `slot${ZeroToEleven}`;
+type SpellcastingEntrySource = BaseItemSourcePF2e<"spellcastingEntry", SpellcastingEntrySystemSource>;
+interface SpellAttackRollModifier {
+  breakdown: string;
+  notes: RollNotePF2e[];
+  roll: Function;
+  value: number;
+}
+interface SpellDifficultyClass {
+  breakdown: string;
+  notes: RollNotePF2e[];
+  value: number;
+}
+interface SpellPrepData {
+  id: string | null;
+  expended?: boolean;
+  name?: string;
+  prepared?: boolean;
+}
+interface SpellSlotData {
+  prepared: Record<number, SpellPrepData>;
+  value: number;
+  max: number;
+}
+interface SpellcastingEntrySystemSource extends ItemSystemSource {
+  ability: {
+    value: AbilityString | "";
+  };
+  spelldc: {
+    value: number;
+    dc: number;
+  };
+  tradition: {
+    value: MagicTradition | "";
+  };
+  prepared: SpellCollectionTypeSource;
+  showSlotlessLevels: {
+    value: boolean;
+  };
+  proficiency: {
+    slug: string;
+    value: ZeroToFour;
+  };
+  slots: Record<SlotKey, SpellSlotData>;
+  autoHeightenLevel: {
+    value: OneToTen | null;
+  };
+  level?: never;
+  traits?: never;
+}
+interface SpellCollectionTypeSource {
+  value: SpellcastingCategory;
+  flexible?: boolean;
+  validItems?: "scroll" | "" | null;
+}
+interface SpellcastingEntrySystemData extends SpellcastingEntrySystemSource, Omit<ItemSystemData, "level" | "traits"> {
+  prepared: SpellCollectionTypeData;
+}
+interface SpellCollectionTypeData extends SpellCollectionTypeSource {
+  flexible: boolean;
+  validItems: "scroll" | null;
+}
+export type { SlotKey, SpellAttackRollModifier, SpellDifficultyClass, SpellcastingEntrySource, SpellcastingEntrySystemData, SpellcastingEntrySystemSource };

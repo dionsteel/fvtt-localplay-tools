@@ -1,0 +1,33 @@
+import { ActionType, BaseItemSourcePF2e, Frequency, FrequencySource, ItemSystemSource } from "@/interfaces/pf2e/item/data/base";
+import { OneToThree, TraitsWithRarity } from "@/interfaces/pf2e/data";
+import { KingmakerCategory, KingmakerTrait } from "./campaign-feature/index";
+type CampaignFeatureSource = BaseItemSourcePF2e<"campaignFeature", CampaignFeatureSystemSource>;
+interface PrerequisiteTagData {
+  value: string;
+}
+interface CampaignFeatureSystemSource extends ItemSystemSource {
+  campaign: "kingmaker";
+  /** The category of feat or feature of this item */
+  category: KingmakerCategory;
+  /** Level only exists for feat and feature types */
+  level?: {
+    value: number;
+  };
+  traits: KingmakerTraits;
+  actionType: {
+    value: ActionType;
+  };
+  actions: {
+    value: OneToThree | null;
+  };
+  prerequisites: {
+    value: PrerequisiteTagData[];
+  };
+  location: string | null;
+  frequency?: FrequencySource;
+}
+interface CampaignFeatureSystemData extends CampaignFeatureSystemSource {
+  frequency?: Frequency;
+}
+type KingmakerTraits = TraitsWithRarity<KingmakerTrait>;
+export type { CampaignFeatureSource, CampaignFeatureSystemData, CampaignFeatureSystemSource, KingmakerTraits, PrerequisiteTagData };
