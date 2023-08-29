@@ -16,7 +16,7 @@ import type { CheckRoll } from "src/types/pf2e/module/system/check/index.ts";
 import type { ArmorStatistic } from "src/types/pf2e/module/system/statistic/armor-class.ts";
 import { Statistic, StatisticDifficultyClass } from "src/types/pf2e/module/system/statistic/index.ts";
 import { CreatureSkills, CreatureSpeeds, CreatureSystemData, LabeledSpeed, SenseData, VisionLevel } from "./data.ts";
-import { CreatureSensePF2e } from "./sense.ts";
+import { CreatureSensePF2e } from "../../../../../../../sidecar/foundry-sidecar-client/src/interfaces/pf2e/actor/creature/sense.js";
 import { Alignment, CreatureTrait, CreatureUpdateContext, GetReachParameters } from "./types.ts";
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 declare abstract class CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {

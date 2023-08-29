@@ -14,7 +14,7 @@ import type { AbilityString, ActorAlliance, MovementType, SaveType, SkillAbbrevi
 import type { CREATURE_ACTOR_TYPES } from "../values.ts";
 import { LabeledNumber, Size, ValueAndMax, ValuesList, ZeroToThree } from "../../data.ts";
 import { Statistic, StatisticTraceData } from "../../system/statistic/index.ts";
-import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense.ts";
+import { CreatureSensePF2e, SenseAcuity, SenseType } from "../../../../../../../sidecar/foundry-sidecar-client/src/interfaces/pf2e/actor/creature/sense.js";
 import { Alignment, CreatureTrait } from "./types.ts";
 type BaseCreatureSource<TType extends CreatureType, TSystemSource extends CreatureSystemSource> = BaseActorSourcePF2e<TType, TSystemSource>;
 /** Skill and Lore statistics for rolling. */

@@ -5,13 +5,20 @@ import { concatMap, map } from 'rxjs/operators';
 import { useObservable } from '@vueuse/rxjs';
 import { IonItem, IonList, IonListHeader, IonLabel, IonIcon } from '@ionic/vue';
 import { Actor, ActorListing } from './interfaces/core';
+import {useWorldStore} from '@/store/world';
+const store=useWorldStore();
 
-
-const actors = useObservable<ActorListing[]>(ajax('http://localhost:3000/actor').pipe(map(r => {
-  console.log('got response', r);
-  return r.response as any
-})));
-
+const actors = store.ownedActors;
+// const actors = useObservable<ActorListing[]>(ajax('http://localhost:3000/actor').pipe(map(r => {
+//   console.log('got response', r);
+//   return r.response as any
+// })));
+function addSelectedActor(actor:ActorListing){
+  console.log('Adding actor to list',actor,store.currentWorldActors);
+  store.addSelectedActor(actor.id);
+}
+import fs from 'fs';
+fs.mkdirSync('',{})
 </script>
 
 <template>
@@ -23,7 +30,7 @@ const actors = useObservable<ActorListing[]>(ajax('http://localhost:3000/actor')
       <ion-list id="actors-list">
         <ion-list-header>Player Characters</ion-list-header>
         <IonItem v-for="actor of actors">
-          <img class="actorPortrait" :src="actor.image" slot="start" />
+          <img class="actorPortrait" :src="actor.image" slot="start" @click="addSelectedActor(actor);"/>
           <ion-label>{{ actor?.name }}</ion-label>
         </IonItem>
       </ion-list>

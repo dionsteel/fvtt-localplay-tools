@@ -1,11 +1,13 @@
+import { SystemTypeMap } from "../actor";
+
 export interface ItemSystemData {
   description?: { gm: string; value: string };
 }
-export interface Item<D extends ItemSystemData = ItemSystemData> {
+export interface Item<D extends ItemSystemData = ItemSystemData, S extends SystemTypeMap = SystemTypeMap> {
   img: string;
   name: string;
   system: D;
-  type: string;
+  type: keyof S["ItemDataTypes"];
   flags: Record<string, Record<string, string | number | boolean>>;
   effects: string[];
   folder: string;

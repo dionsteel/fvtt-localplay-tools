@@ -6,9 +6,10 @@ import nested from "postcss-nested";
 // https://vitejs.dev/config/
 export default defineConfig({
   css: { postcss: { plugins: [nested()] } },
-  plugins: [vue(), legacy()],
+  plugins: [vue({})],
   resolve: {
     alias: {
+      vue: "vue/dist/vue.esm-bundler.js",
       "@": path.resolve(__dirname, "./src"),
     },
   },

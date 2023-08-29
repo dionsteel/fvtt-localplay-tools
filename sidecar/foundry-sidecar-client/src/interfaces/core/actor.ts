@@ -1,4 +1,4 @@
-import { BaseActorSystemData, Flags, Ownership } from "./flags";
+import { BaseActorSystemData, BaseTokenSystemData, Flags, Ownership } from "./flags";
 import { Item, ItemSystemData } from "./items/item";
 import { ItemTypes } from "./items/itemTypes";
 
@@ -10,6 +10,7 @@ import { ItemTypes } from "./items/itemTypes";
 export interface SystemTypeMap {
   ActorTypes: "character" | "npc" | "vehicle" | "loot" | "hazard";
   ActorSystemType: BaseActorSystemData;
+  TokenSystemType: BaseTokenSystemData;
   BaseItemData: ItemSystemData;
   ItemDataTypes: {
     weapon: ItemSystemData;
@@ -20,8 +21,8 @@ export interface SystemTypeMap {
   };
 }
 
-export interface Actor<S extends SystemTypeMap=SystemTypeMap> {
-  id: string;
+export interface Actor<S extends SystemTypeMap = SystemTypeMap> {
+  _id: string;
   img: string;
   name: string;
   type: S["ActorTypes"];
@@ -44,12 +45,7 @@ export interface TokenVision {
   enabled: boolean;
   range: number;
   angle: number;
-  visionMode:
-    | "basic"
-    | "darkvision"
-    | "low-light-vision"
-    | "blindsight"
-    | "tremorsense";
+  visionMode: "basic" | "darkvision" | "low-light-vision" | "blindsight" | "tremorsense";
   attenuation: number;
   brightness: number;
   saturation: number;
@@ -504,11 +500,7 @@ const exampleActorPF2e = {
             adjustName: false,
             allowedDrops: {
               label: "level 1 Alchemist class feature",
-              predicate: [
-                "item:level:1",
-                "item:trait:alchemist",
-                "item:type:feature",
-              ],
+              predicate: ["item:level:1", "item:trait:alchemist", "item:type:feature"],
             },
             choices: [
               {
@@ -761,16 +753,11 @@ const exampleActorPF2e = {
             mode: "override",
             path: "flags.pf2e.alchemist",
             value: {
-              fieldDiscovery:
-                "Compendium.pf2e.classfeatures.Item.8QAFgy9U8PxEa7Dw",
-              greaterFieldDiscovery:
-                "Compendium.pf2e.classfeatures.Item.RGs4uR3CAvgbtBAA",
-              perpetualInfusions:
-                "Compendium.pf2e.classfeatures.Item.DFQDtT1Van4fFEHi",
-              perpetualPerfection:
-                "Compendium.pf2e.classfeatures.Item.xO90iBD8XNGyaCkz",
-              perpetualPotency:
-                "Compendium.pf2e.classfeatures.Item.8rEVg03QJ71ic3PP",
+              fieldDiscovery: "Compendium.pf2e.classfeatures.Item.8QAFgy9U8PxEa7Dw",
+              greaterFieldDiscovery: "Compendium.pf2e.classfeatures.Item.RGs4uR3CAvgbtBAA",
+              perpetualInfusions: "Compendium.pf2e.classfeatures.Item.DFQDtT1Van4fFEHi",
+              perpetualPerfection: "Compendium.pf2e.classfeatures.Item.xO90iBD8XNGyaCkz",
+              perpetualPotency: "Compendium.pf2e.classfeatures.Item.8rEVg03QJ71ic3PP",
             },
           },
         ],
@@ -1359,8 +1346,7 @@ const exampleActorPF2e = {
       system: {
         description: {
           gm: "",
-          value:
-            "<p>You react more quickly than others can. You gain a +2 circumstance bonus to initiative rolls.</p>",
+          value: "<p>You react more quickly than others can. You gain a +2 circumstance bonus to initiative rolls.</p>",
         },
         source: { value: "Pathfinder Core Rulebook" },
         rules: [
@@ -1551,10 +1537,7 @@ const exampleActorPF2e = {
                 "item:category:class",
                 "item:trait:{actor|system.details.class.trait}",
                 {
-                  or: [
-                    "feature:dragon-instinct",
-                    { not: "item:draconic-arrogance" },
-                  ],
+                  or: ["feature:dragon-instinct", { not: "item:draconic-arrogance" }],
                 },
                 {
                   nor: [
@@ -1972,8 +1955,7 @@ const exampleActorPF2e = {
       system: {
         description: {
           gm: "",
-          value:
-            "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>",
+          value: "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>",
         },
         source: { value: "Pathfinder Core Rulebook" },
         rules: [],
@@ -2147,8 +2129,7 @@ const exampleActorPF2e = {
       system: {
         description: {
           gm: "",
-          value:
-            "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>",
+          value: "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>",
         },
         source: { value: "Pathfinder Core Rulebook" },
         rules: [],
@@ -2359,8 +2340,7 @@ const exampleActorPF2e = {
       system: {
         description: {
           gm: "",
-          value:
-            "<p>These are small metal balls, typically either iron or lead, designed to be used as ammunition in slings.</p>",
+          value: "<p>These are small metal balls, typically either iron or lead, designed to be used as ammunition in slings.</p>",
         },
         source: { value: "Pathfinder Core Rulebook" },
         rules: [],
@@ -2434,8 +2414,7 @@ const exampleActorPF2e = {
       system: {
         description: {
           gm: "",
-          value:
-            "<p>Little more than a leather cup attached to a pair of straps, a sling can be used to fling smooth stones or sling bullets at a range.</p>",
+          value: "<p>Little more than a leather cup attached to a pair of straps, a sling can be used to fling smooth stones or sling bullets at a range.</p>",
         },
         source: { value: "Pathfinder Core Rulebook" },
         rules: [],
@@ -2540,8 +2519,7 @@ const exampleActorPF2e = {
       system: {
         description: {
           gm: "",
-          value:
-            "<p>This book contains the formulas for Crafting the 0-level common items in Chapter 6 of the core rulebook.</p>",
+          value: "<p>This book contains the formulas for Crafting the 0-level common items in Chapter 6 of the core rulebook.</p>",
         },
         source: { value: "Pathfinder Core Rulebook" },
         rules: [],
@@ -2991,8 +2969,7 @@ const exampleActorPF2e = {
       sort: 0,
       flags: {
         core: {
-          sourceId:
-            "Compendium.pf2e-ranged-combat.effects.Item.nEqdxZMAHlYVXI0Z",
+          sourceId: "Compendium.pf2e-ranged-combat.effects.Item.nEqdxZMAHlYVXI0Z",
         },
         "pf2e-ranged-combat": {
           targetId: "ncFxJejSrU2W2Ong",
@@ -3077,14 +3054,7 @@ const exampleActorPF2e = {
         },
         level: { value: 1 },
         traits: {
-          value: [
-            "alchemical",
-            "bomb",
-            "consumable",
-            "poison",
-            "splash",
-            "infused",
-          ],
+          value: ["alchemical", "bomb", "consumable", "poison", "splash", "infused"],
           rarity: "common",
           otherTags: [],
         },
@@ -3195,14 +3165,7 @@ const exampleActorPF2e = {
         },
         level: { value: 1 },
         traits: {
-          value: [
-            "alchemical",
-            "bomb",
-            "consumable",
-            "poison",
-            "splash",
-            "infused",
-          ],
+          value: ["alchemical", "bomb", "consumable", "poison", "splash", "infused"],
           rarity: "common",
           otherTags: [],
         },
@@ -3311,14 +3274,7 @@ const exampleActorPF2e = {
         },
         level: { value: 1 },
         traits: {
-          value: [
-            "alchemical",
-            "bomb",
-            "consumable",
-            "poison",
-            "splash",
-            "infused",
-          ],
+          value: ["alchemical", "bomb", "consumable", "poison", "splash", "infused"],
           rarity: "common",
           otherTags: [],
         },
@@ -3416,8 +3372,7 @@ const exampleActorPF2e = {
       sort: 0,
       flags: {
         core: {
-          sourceId:
-            "Compendium.pf2e-ranged-combat.effects.Item.vKeDaHOu3bGKSk6b",
+          sourceId: "Compendium.pf2e-ranged-combat.effects.Item.vKeDaHOu3bGKSk6b",
         },
         "pf2e-ranged-combat": {
           targetId: "hH2i3WzxPDDzt1Cp",
@@ -3427,8 +3382,7 @@ const exampleActorPF2e = {
           ammunitionName: "Magazine with 8 Pellets",
           ammunitionImg: "systems/pf2e/icons/default-icons/consumable.svg",
           ammunitionItemId: "A6qJBcPbvQcEnS0W",
-          ammunitionSourceId:
-            "Compendium.pf2e.equipment-srd.Item.hXZrMJPlw1UvVzjC",
+          ammunitionSourceId: "Compendium.pf2e.equipment-srd.Item.hXZrMJPlw1UvVzjC",
         },
         pf2e: { rulesSelections: { weapon: "hH2i3WzxPDDzt1Cp" } },
         "scene-packer": { hash: "5dc3d5c57483858a9d3a80e01bcec6a20ede7497" },
