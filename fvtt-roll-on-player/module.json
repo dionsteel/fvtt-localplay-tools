@@ -1,0 +1,34 @@
+{
+  "id": "fvtt-roll-on-player",
+  "title": "Roll on (Owning) Player Client",
+  "description": "Primarily for in-person play on a map table with physical dice. Is just DF Manual Rolls with owner-side dialogs. Forward rolls for player tokens to the players than own them.",
+  "authors": [
+    {
+    "name": "Dion Steel"
+    }
+  ],
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "11"
+  },
+  "relationships": {
+		"requires": [
+			{
+				"id": "lib-wrapper",
+				"type": "module",
+				"compatibility": {
+					"verified": "1.12.10.0"
+				}
+			},
+      {
+        "id": "socketlib",
+        "type":"module"
+      }
+		]
+	},
+  "esmodules":[
+    "roll-on-player.js"
+  ],
+  "styles": ["css/core.css"]
+}

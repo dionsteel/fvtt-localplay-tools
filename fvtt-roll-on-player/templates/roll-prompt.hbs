@@ -1,0 +1,38 @@
+<form>
+	<table>
+		<thead>
+			<th>{{localize "FVTT_ROLL_ON_PLAYER.Prompt.Header_RollTerm"}}<a class="button" title="{{localize "FVTT_ROLL_ON_PLAYER.Tooltip.RollTerm"}}">
+					<i class="fas fa-question-circle"></i></a></th>
+			<th>{{localize "FVTT_ROLL_ON_PLAYER.Prompt.Header_Rolls"}}<a class="button" title="{{localize "FVTT_ROLL_ON_PLAYER.Tooltip.Rolls"}}">
+					<i class="fas fa-question-circle"></i></a></th>
+			<th>&nbsp;&nbsp;&nbsp;{{localize "FVTT_ROLL_ON_PLAYER.Prompt.Header_Total"}}
+				<a class="button" title="{{localize "FVTT_ROLL_ON_PLAYER.Tooltip.Total"}}">
+					<i class="fas fa-question-circle"></i>
+				</a>&nbsp;&nbsp;&nbsp;
+			</th>
+		</thead>
+		<tbody>
+			{{#each terms}}
+			<tr>
+				<td>{{faces}}</td>
+				<td><input name="{{id}}-{{idx}}" type="number" min="1" max="{{term.faces}}" tabindex="1{{id}}{{idx}}"
+						step="1" placeholder="1-{{term.faces}}{{localize "FVTT_ROLL_ON_PLAYER.Placeholder.Roll"}}"></input></td>
+				<td>
+					{{#if hasTotal}}
+					<input name="{{id}}-total" type="number" min="{{term.number}}" max="{{dfmr_mul term.number term.faces}}" tabindex="2{{id}}0"
+						step="1" placeholder="{{localize "FVTT_ROLL_ON_PLAYER.Placeholder.Total_Pt1"}}{{term.number}}{{localize "FVTT_ROLL_ON_PLAYER.Placeholder.Total_Pt2"}}{{dfmr_mul term.number term.faces}}"></input>
+					{{/if}}
+				</td>
+			</tr>
+			{{/each}}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="3" style="padding:0">
+					<button type="submit" style="width:100%" name="submit" tabindex="300">
+						<i class="fas fa-dice-d20"></i>{{localize "FVTT_ROLL_ON_PLAYER.Submit"}}</button>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</form>
