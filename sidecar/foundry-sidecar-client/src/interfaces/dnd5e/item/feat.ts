@@ -11,6 +11,7 @@
  * @property {object} recharge
  */
 
+import { Item5e } from "../items/base";
 import { Action5e } from "./mixins/action";
 import { ActivatedEffect5e } from "./mixins/activated-effect";
 import { ItemWithDescription } from "./mixins/item-description";
@@ -25,7 +26,7 @@ export interface FeatureRechargeDetails {
   charged: boolean; //                    Does this feature have a charge remaining?
 }
 
-export interface Feature5e extends ItemWithDescription, ActivatedEffect5e, Action5e {
+export interface FeatureData5e extends ItemWithDescription, ActivatedEffect5e, Action5e {
   type: "feat"; // & FeatureType;
   requirements: string; //                Actor details required to use this feature.
   recharge: FeatureRechargeDetails; //    Details on how a feature can roll for recharges.
@@ -33,3 +34,5 @@ export interface Feature5e extends ItemWithDescription, ActivatedEffect5e, Actio
   get chatProperties(): string[]; //      Properties displayed in chat.
   get hasLimitedUses(): boolean; //       Does this feat have limited uses?
 }
+
+export interface Feature5e extends Item5e<FeatureData5e> {}

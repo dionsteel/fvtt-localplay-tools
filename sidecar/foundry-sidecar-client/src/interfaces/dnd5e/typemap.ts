@@ -1,6 +1,10 @@
-import { SystemTypeMap } from "../core/actor";
+import { GenericEffect, SystemTypeMap } from "../core/actor";
 import { BaseActorSystemData } from "../core/flags";
 import { Item, ItemSystemData } from "../core/items/item";
+import { CreatureSystemData } from "../pf2e/actor/creature";
+import { CharacterData, NPCData, VehicleData } from "./actor5e";
+import { ClassItem5e, ConsumableItem5e, Container5e, Equipment5e, EquipmentData5e, Feature5e, FeatureData5e, LootItem5e, Spell5e, Subclass5e, ToolItem5e, Weapon5e } from "./item";
+import { EffectRange } from "./item/mixins/activated-effect";
 import { Item5e, ItemData5e } from "./items/base";
 // import { ItemDataPF2e } from "./items/base";
 export interface AblilityScore5e {
@@ -218,16 +222,35 @@ export interface ActorData5e {
   resources: ResourceMap5e;
 }
 export interface DnD5eTypes extends SystemTypeMap {
-  ActorTypes: "character" | "npc" | "vehicle" | "loot" | "hazard";
+  ActorTypes: "character" | "npc" | "vehicle" | "actor" | "creature";
+  ActorDataTypes: {
+    character: CharacterData;
+    npc: NPCData;
+    vehicle: VehicleData;
+    actor: ActorData5e;
+    creature: CreatureSystemData;
+  };
   ActorSystemType: ActorData5e;
   BaseItemData: ItemData5e;
   ItemDataTypes: {
-    weapon: ItemData5e;
-    ancestry: ItemData5e;
-    class: ItemData5e;
-    background: ItemData5e;
-    tool: ItemData5e;
-    feat: ItemData5e;
+    // weapon: Weapon5e;
+    // // ancestry: Ancestry5;
+    // class: ItemData5e;
+    // background: ItemData5e;
+    // tool: ItemData5e;
+    // feat: ItemData5e;
+    // background: Background
+    // effect: GenericEffect;
+    backpack: Container5e;
+    class: ClassItem5e;
+    consumable: ConsumableItem5e;
+    equipment: EquipmentData5e;
+    feat: FeatureData5e;
+    loot: LootItem5e;
+    spell: Spell5e;
+    subclass: Subclass5e;
+    tool: ToolItem5e;
+    weapon: Weapon5e;
   };
 }
 export type ItemDataTypeNames5e = keyof DnD5eTypes["ItemDataTypes"];

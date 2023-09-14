@@ -1,3 +1,6 @@
+import { Abilities } from "@/interfaces/pf2e/actor/creature";
+import { Item5e } from "../items/base";
+
 /**
  * Fields shared between characters, NPCs, and vehicles.
  *
@@ -5,6 +8,7 @@
  */
 export interface InitiativeScore {
   value: number; //    Calculated initiative modifier.
+  ability?: keyof Abilities;
   bonus: number; //    Fixed bonus provided to initiative rolls.
 }
 export interface ActorMovement {
@@ -122,7 +126,15 @@ export type SkillData = {
 export interface ArmourClassDetails {
   flat: number; //                  Flat value used for flat or natural armor calculation.
   calc: string; //                  Name of one of the built-in formulas to use.
-  formula: string; //               Custom formula to use.
+  formula?: string; //               Custom formula to use.
+  armor?: number;
+  base?: number;
+  bonus?: number;
+  cover?: number;
+  dex?: number;
+  shield?: number;
+  equippedArmor?: Item5e;
+  value?: number;
 }
 
 export interface VehicleArmourClassDetails extends ArmourClassDetails {
@@ -251,6 +263,9 @@ export type AbilityData = {
     check: string;
     save: string;
   };
+
+  /** Maximum Score allowed */
+  max?: number;
 };
 
 export interface VehicleActions {

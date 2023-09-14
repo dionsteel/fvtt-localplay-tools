@@ -1,5 +1,5 @@
-export { default as ActiveEffect5e } from "./active-effect";
-export { default as Actor5e } from "./actor/actor";
+export { default as ActiveEffect5e } from "./active-effect.mjs";
+export { default as Actor5e } from "./actor/actor.mjs";
 export * as advancement from "./advancement/_module";
 export { default as Item5e } from "./item";
 export { default as TokenDocument5e } from "./token";

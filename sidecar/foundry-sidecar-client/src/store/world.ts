@@ -6,18 +6,12 @@ import { mergeMap, map, scan, concatMap, tap } from "rxjs/operators";
 import { CurrentGameInfo, WorldInfo } from "@/interfaces/worldinfo";
 import { Actor, ActorListing } from "@/interfaces/core";
 import { computed, ref } from "vue";
+import { useConfigStore } from "./config";
 
-export function fetchJson<T>(
-  input: string | Request,
-  init?: RequestInit & {
-    selector: (response: Response) => ObservableInput<unknown>;
-  }
-): Observable<T> {
-  return fromFetch(input, { selector: (response) => response.json() }); //.pipe(mergeMap((r) => r.json()));
-}
 export const useWorldStore = defineStore("worlds", () => {
-  const activeGame$ = fetchJson<CurrentGameInfo>("/info");
-  const ownedActors$ = fetchJson<ActorListing[]>("/actor");
+  const config = useConfigStore();
+  const activeGame$ = config.fetchJson$<CurrentGameInfo>("/info");
+  const ownedActors$ = config.fetchJson$<ActorListing[]>("/actor");
   const worldActorMap = ref<{ [k: string]: string[] }>({});
   const worldId$ = activeGame$.pipe(
     map((g) => g.world.id)
@@ -52,6 +46,7 @@ export const useWorldStore = defineStore("worlds", () => {
   // );
 
   return {
+    config,
     activeGame,
     ownedActors,
     worldId,

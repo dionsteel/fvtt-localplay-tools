@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useWorldStore } from "@/store/world";
 import { useRouter, useRoute } from "vue-router";
+import { usePF2eGame } from "@/store/pf2e";
 import {
   IonIcon,
   IonMenu,
@@ -20,12 +21,7 @@ import {
   IonCardSubtitle,
   IonCardTitle,
 } from "@ionic/vue";
-
-const store = useWorldStore();
-const router = useRouter();
-const route = useRoute();
-
-import { ref, watch } from "vue";
+import { Suspense, provide, ref, watch } from "vue";
 import {
   archiveOutline,
   archiveSharp,
@@ -56,7 +52,13 @@ import {
   globeOutline,
   globeSharp,
 } from "ionicons/icons";
+import { useConfigStore } from "@/store/config";
 
+const store = useWorldStore();
+const config = useConfigStore();
+const router = useRouter();
+const route = useRoute();
+const game = usePF2eGame();
 const selectedIndex = ref(0);
 const labels = store.currentWorldActors;
 const appPages = [
@@ -97,7 +99,7 @@ const appPages = [
     mdIcon: documentSharp,
   },
 ];
-
+const background = store.activeGame?.world.background ? `url(/${game.config.getAPIUrl(store.activeGame?.world.background)})` : "";
 
 function updateSelectedIndex() {
   const path = window.location.pathname; //.split("dnd5e/")[1];
@@ -130,7 +132,7 @@ updateSelectedIndex();
               <ion-menu-toggle :auto-hide="false" v-for="(p, i) in appPages" :key="i">
                 <ion-item
                   @click="selectedIndex = i"
-                  router-direction="root"
+                  router-direction="forward"
                   :router-link="p.url"
                   lines="none"
                   :detail="false"
@@ -149,10 +151,17 @@ updateSelectedIndex();
                 v-for="(actor, index) in store?.currentWorldActors"
                 lines="none"
                 :key="index"
-                router-direction="root"
-                :router-link="'/' + store.activeGame?.world.system + '/actors/' + actor?.id">
-                <ion-icon v-if="actor?.image.endsWith('.svg')" aria-hidden="true" slot="start" :ios="bookmarkOutline" :md="bookmarkSharp" :src="actor?.image"></ion-icon>
-                <img v-else width="32" slot="start" :src="actor?.image" />
+                router-direction="forward"
+                :router-link="'/' + store.activeGame?.world.system + '/actors/' + actor?.id"
+                :class="{ selected: router.currentRoute.value.fullPath.endsWith(actor?.id) }">
+                <ion-icon
+                  v-if="actor?.image.endsWith('.svg')"
+                  aria-hidden="true"
+                  slot="start"
+                  :ios="bookmarkOutline"
+                  :md="bookmarkSharp"
+                  :src="game.config.getAPIUrl(actor?.image)"></ion-icon>
+                <img v-else width="32" slot="start" :src="game.config.getAPIUrl(actor?.image)" />
                 <ion-label>{{ actor?.name }}</ion-label>
               </ion-item>
             </ion-list>

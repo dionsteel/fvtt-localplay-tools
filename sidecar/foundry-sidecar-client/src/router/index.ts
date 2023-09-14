@@ -3,12 +3,12 @@ import { createRouter, createWebHistory } from "@ionic/vue-router";
 import { RouteRecordRaw } from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: "",
-    redirect: (to) => {
-      return "/" + useWorldStore().activeGame?.system.id + "/";
-    },
-  },
+  // {
+  //   path: "",
+  //   redirect: (to) => {
+  //     return "/" + useWorldStore().activeGame?.system?.id + "/";
+  //   },
+  // },
   {
     path: "/dnd5e/",
     component: () => import("../views/systems/dnd5e/DnD5eGame.vue"),
@@ -20,7 +20,21 @@ const routes: Array<RouteRecordRaw> = [
       { path: "combat", component: () => import("../views/systems/dnd5e/CombatDnD5e.vue") },
       { path: "dice", component: () => import("../views/systems/dnd5e/DiceDnD5e.vue") },
       { path: "actors", component: () => import("../views/systems/dnd5e/CharactersDnD5e.vue") },
-      { path: "actors/:id", component: () => import("../views/systems/dnd5e/ActorSheetDnD5e.vue"), props: true },
+      {
+        path: "actors/:id",
+        component: () => import("../views/systems/dnd5e/ActorSheetDnD5e.vue"),
+        props: true,
+        children: [
+          { path: "actions", component: () => import("@/views/systems/dnd5e/components/ActionsTab5e.vue") },
+          { path: "attributes", component: () => import("@/views/systems/dnd5e/components/AttributesTab5e.vue") },
+          { path: "abilities", component: () => import("@/views/systems/dnd5e/components/AbilitiesTab5e.vue") },
+          { path: "inventory", component: () => import("@/views/systems/dnd5e/components/InventoryTab5e.vue") },
+          { path: "skills", component: () => import("@/views/systems/dnd5e/components/SkillsTab5e.vue") },
+          { path: "spells", component: () => import("@/views/systems/dnd5e/components/SpellsTab5e.vue") },
+          { path: "features", component: () => import("@/views/systems/dnd5e/components/FeaturesTab5e.vue") },
+          { path: "biography", component: () => import("@/views/systems/dnd5e/components/BiographyTab5e.vue") },
+        ],
+      },
     ],
   },
   {
@@ -34,16 +48,26 @@ const routes: Array<RouteRecordRaw> = [
       { path: "combat", component: () => import("../views/systems/pf2e/CombatPF2e.vue") },
       { path: "dice", component: () => import("../views/systems/pf2e/DicePF2e.vue") },
       { path: "actors", component: () => import("../views/systems/pf2e/CharactersPF2e.vue") },
-      { path: "actors/:id", component: () => import("../views/systems/pf2e/ActorSheetPF2e.vue"), props: true },
+      {
+        path: "actors/:id",
+        component: () => import("../views/systems/pf2e/ActorSheetPF2e.vue"),
+        props: true,
+        children: [
+          { path: "actions", component: () => import("@/views/systems/dnd5e/components/tabs/ActionsTabPF2e.vue") },
+          { path: "attributes", component: () => import("@/views/systems/dnd5e/components/tabs/AttributesTabPF2e.vue") },
+          { path: "abilities", component: () => import("@/views/systems/dnd5e/components/tabs/AbilitiesTabPF2e.vue") },
+          { path: "inventory", component: () => import("@/views/systems/dnd5e/components/tabs/InventoryTabPF2e.vue") },
+          { path: "skills", component: () => import("@/views/systems/dnd5e/components/tabs/SkillsTabPF2e.vue") },
+          { path: "spells", component: () => import("@/views/systems/dnd5e/components/tabs/SpellsTabPF2e.vue") },
+          { path: "features", component: () => import("@/views/systems/dnd5e/components/tabs/FeaturesTabPF2e.vue") },
+          { path: "biography", component: () => import("@/views/systems/dnd5e/components/tabs/BiographyTabPF2e.vue") },
+        ],
+      },
     ],
   },
   {
-    path: "/actors",
-    component: () => import("../Characters.vue"),
-  },
-  {
-    path: "/folder/:id",
-    component: () => import("../views/FolderPage.vue"),
+    path: "/",
+    component: () => import("../views/LandingPage.vue"),
   },
 ];
 

@@ -20,12 +20,7 @@ import {
   IonCardSubtitle,
   IonCardTitle,
 } from "@ionic/vue";
-
-const store = useWorldStore();
-const router = useRouter();
-const route = useRoute();
-
-import { ref, watch } from "vue";
+import { Suspense, provide, ref, watch } from "vue";
 import {
   archiveOutline,
   archiveSharp,
@@ -58,6 +53,15 @@ import {
   documentTextSharp,
   globeSharp,
 } from "ionicons/icons";
+import { useDnd5eGame } from "@/store/dnd5e";
+
+const store = useWorldStore();
+const game = useDnd5eGame();
+const helper = game.helper;
+
+const router = useRouter();
+const route = useRoute();
+const { getAPIUrl } = store.config;
 
 const selectedIndex = ref(0);
 const labels = store.currentWorldActors;
@@ -99,7 +103,7 @@ const appPages = [
   //   mdIcon: documentTextSharp,
   // },
 ];
-const background = store.activeGame?.world.background ? `url(/${store.activeGame?.world.background})` : "";
+const background = store.activeGame?.world.background ? `url(/${game.config.getAPIUrl(store.activeGame?.world.background)})` : "";
 function updateSelectedIndex() {
   const path = window.location.pathname; //.split("dnd5e/")[1];
   if (path !== undefined) {
@@ -122,65 +126,72 @@ updateSelectedIndex();
     <link rel="stylesheet" href="http://localhost:3000/systems/dnd5e/dnd5e.css" />
 
     <ion-content>
-      <ion-split-pane content-id="system-content" class="dnd5e-content">
-        <ion-menu content-id="system-content" class="dnd5e-content" type="overlay">
-          <ion-content>
-            <ion-list id="world-list">
-              <ion-list-header>{{ store.activeGame?.world.title }}</ion-list-header>
-              <ion-note>{{ store.activeGame?.system.title }}</ion-note>
+      <Suspense
+        ><ion-split-pane content-id="system-content" class="dnd5e-content">
+          <ion-menu content-id="system-content" class="dnd5e-content" type="overlay">
+            <ion-content>
+              <ion-list id="world-list">
+                <ion-list-header>{{ store.activeGame?.world.title }}</ion-list-header>
+                <ion-note>{{ store.activeGame?.system.title }}</ion-note>
 
-              <ion-menu-toggle :auto-hide="false" v-for="(p, i) in appPages" :key="i">
+                <ion-menu-toggle :auto-hide="false" v-for="(p, i) in appPages" :key="i">
+                  <ion-item
+                    @click="selectedIndex = i"
+                    router-direction="root"
+                    :router-link="p.url"
+                    lines="none"
+                    :detail="false"
+                    class="hydrated"
+                    :class="{ selected: selectedIndex === i }">
+                    <ion-icon aria-hidden="true" slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
+                    <ion-label>{{ p.title }}</ion-label>
+                  </ion-item>
+                </ion-menu-toggle>
+              </ion-list>
+
+              <ion-list id="labels-list">
+                <ion-list-header>Characters</ion-list-header>
+
                 <ion-item
-                  @click="selectedIndex = i"
-                  router-direction="root"
-                  :router-link="p.url"
+                  v-for="(actor, index) in store?.currentWorldActors"
                   lines="none"
-                  :detail="false"
-                  class="hydrated"
-                  :class="{ selected: selectedIndex === i }">
-                  <ion-icon aria-hidden="true" slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
-                  <ion-label>{{ p.title }}</ion-label>
+                  :key="index"
+                  router-direction="root"
+                  :router-link="'/' + store.activeGame?.world.system + '/actors/' + actor?.id + '/'"
+                  :class="{ selected: router.currentRoute.value.fullPath.endsWith(actor?.id) }">
+                  <ion-icon
+                    v-if="actor?.image.endsWith('.svg')"
+                    aria-hidden="true"
+                    slot="start"
+                    :ios="bookmarkOutline"
+                    :md="bookmarkSharp"
+                    :src="getAPIUrl(actor?.image)"></ion-icon>
+                  <img v-else width="32" slot="start" :src="getAPIUrl(actor?.image)" />
+                  <ion-label>{{ actor?.name }}</ion-label>
                 </ion-item>
-              </ion-menu-toggle>
-            </ion-list>
-
-            <ion-list id="labels-list">
-              <ion-list-header>Characters</ion-list-header>
-
-              <ion-item
-                v-for="(actor, index) in store?.currentWorldActors"
-                lines="none"
-                :key="index"
-                router-direction="root"
-                :router-link="'/' + store.activeGame?.world.system + '/actors/' + actor?.id"
-                :class="{ selected: router.currentRoute.value.fullPath.endsWith(actor?.id) }">
-                <ion-icon v-if="actor?.image.endsWith('.svg')" aria-hidden="true" slot="start" :ios="bookmarkOutline" :md="bookmarkSharp" :src="actor?.image"></ion-icon>
-                <img v-else width="32" slot="start" :src="actor?.image" />
-                <ion-label>{{ actor?.name }}</ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-content>
-        </ion-menu>
-        <ion-router-outlet id="system-content" class="dnd5e-content"></ion-router-outlet>
-      </ion-split-pane>
+              </ion-list>
+            </ion-content>
+          </ion-menu>
+          <ion-router-outlet id="system-content" class="dnd5e-content"></ion-router-outlet> </ion-split-pane
+      ></Suspense>
     </ion-content>
   </ion-page>
 </template>
 
 <style scoped>
-:global(body) {
+/* :global(body) {
   background-color: unset !important;
   background-image: unset !important;
   --background: rgba(255, 255, 255, 0.1);
-}
+} */
 :root {
   --ion-item-color: #333;
-  --ion-background-color: rgba(255, 255, 255, 0.15);
+  --ion-background-color: rgba(255, 255, 255, 0.75);
   --ion-toolbar-background: rgba(255, 255, 255, 0.75);
-  --ion-menu-background: rgba(255, 255, 255, 0.5);
+  --ion-menu-background: rgba(255, 255, 255, 0.75);
 }
 :host {
-  --ion-background-color: rgba(255, 255, 255, 0.15);
+  --ion-background-color: rgba(255, 255, 255, 0.75);
   --ion-toolbar-background: rgba(255, 255, 255, 0.75);
   --ion-menu-background: rgba(255, 255, 255, 0.8);
 
@@ -194,7 +205,7 @@ updateSelectedIndex();
 }
 .dnd5e-content {
   --background: rgba(255, 255, 255, 0.2);
-  --ion-background-color: rgba(255, 255, 255, 0.25);
+  --ion-background-color: rgba(255, 255, 255, 0.75);
 }
 ion-toolbar {
   --ion-toolbar-background: rgba(255, 255, 255, 0.75);
@@ -209,7 +220,7 @@ ion-page {
   --background-size: cover;
   /* --background-image: v-bind("background"); */
   ion-content {
-    --ion-background-color: rgba(255, 255, 255, 0.4);
+    --ion-background-color: rgba(255, 255, 255, 0.75);
   }
 }
 ion-content {

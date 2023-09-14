@@ -1,5 +1,5 @@
-import { CharacterData, ActorData, VehicleData, CreatureData, NPCData } from "src/app/interfaces/5e/actor5e";
-import TokenDocument5e from "../token.d.mts";
+import { CharacterData, ActorData, VehicleData, NPCData } from "../../data/actor/_module.mjs";
+import type {TokenDocument5e} from "../token.mjs";
 import {
   BackgroundData,
   ContainerData,
@@ -12,16 +12,19 @@ import {
   SubclassData,
   ToolData,
   WeaponData,
-} from "src/app/interfaces/5e/actor";
-import { ClassItem5e, Equipment5e, Item5E } from "src/app/interfaces/5e/item";
+  config,
+} from "../../data/item/_module.mjs"; //"./ /nterfaces/5e/actor";
+// import { ClassItem5e, Equipment5e, Item5e } from "../item.mjs";
+// import { ClassItem5e,  } from "../item.mjs";
+// import { Equipment5e} from "../../../module/data/item/equipment.mjs";
+import type { Item5e } from "../_module.d.mts";
+import { ClassItem5e, Equipment5e, Item5E } from "../../../../../item";
+
 
 /**
  * Extend the base Actor class to implement additional system-specific logic.
  */
-declare class Actor5e<
-  D extends ActorData = CharacterData | ActorData | VehicleData | CreatureData | NPCData,
-  T extends TokenDocument5e | null = TokenDocument5e | null,
-> extends Actor<T> {
+declare class Actor5e<D extends ActorData = CharacterData | ActorData | VehicleData | NPCData, T extends TokenDocument5e | null = TokenDocument5e | null> extends Actor<T> {
   /**
    * Contribute to the actor's spellcasting progression.
    * @param {object} progression                             Spellcasting progression data. *Will be mutated.*
@@ -42,7 +45,7 @@ declare class Actor5e<
       actor?: Actor5e | null;
       spellcasting?: SpellcastingDescription;
       count?: number;
-    },
+    }
   ): void;
 
   /**
@@ -53,13 +56,7 @@ declare class Actor5e<
    * @param {SpellcastingDescription} spellcasting  Spellcasting descriptive object.
    * @param {number} count                          Number of classes with this type of spellcasting.
    */
-  static computeLeveledProgression(
-    progression: object,
-    actor: Actor5e,
-    cls: Item5e,
-    spellcasting: SpellcastingDescription,
-    count: number,
-  ): void;
+  static computeLeveledProgression(progression: object, actor: Actor5e, cls: Item5e, spellcasting: SpellcastingDescription, count: number): void;
 
   /**
    * Contribute to the actor's spellcasting progression for a class with pact spellcasting.
@@ -69,13 +66,7 @@ declare class Actor5e<
    * @param {SpellcastingDescription} spellcasting  Spellcasting descriptive object.
    * @param {number} count                          Number of classes with this type of spellcasting.
    */
-  static computePactProgression(
-    progression: object,
-    actor: Actor5e,
-    cls: Item5e,
-    spellcasting: SpellcastingDescription,
-    count: number,
-  ): void;
+  static computePactProgression(progression: object, actor: Actor5e, cls: Item5e, spellcasting: SpellcastingDescription, count: number): void;
 
   /**
    * Prepare actor's spell slots using progression data.
@@ -93,7 +84,7 @@ declare class Actor5e<
       actor,
     }?: {
       actor?: Actor5e;
-    },
+    }
   ): void;
 
   /**
@@ -400,7 +391,7 @@ declare class Actor5e<
       chatMessage,
     }?: {
       chatMessage?: boolean;
-    },
+    }
   ): Promise<Roll>;
   /**
    * Roll hit points for an NPC based on the HP formula.
@@ -601,7 +592,7 @@ declare class Actor5e<
        */
       rolls: Roll[];
     },
-    longRest?: boolean,
+    longRest?: boolean
   ): Promise<ChatMessage>;
   /**
    * Automatically spend hit dice to recover hit points up to a certain threshold.
@@ -627,13 +618,7 @@ declare class Actor5e<
    * @returns {object}                                          Updates to the actor.
    * @protected
    */
-  protected _getRestResourceRecovery({
-    recoverShortRestResources,
-    recoverLongRestResources,
-  }?: {
-    recoverShortRestResources?: boolean;
-    recoverLongRestResources?: boolean;
-  }): object;
+  protected _getRestResourceRecovery({ recoverShortRestResources, recoverLongRestResources }?: { recoverShortRestResources?: boolean; recoverLongRestResources?: boolean }): object;
   /**
    * Recovers spell slots and pact slots.
    * @param {object} [options]
@@ -830,7 +815,7 @@ declare class Actor5e<
        */
       transformTokens?: boolean;
     },
-    { renderSheet }?: boolean,
+    { renderSheet }?: boolean
   ): Promise<Array<Token>> | null;
   /**
    * If this actor was transformed with transformTokens enabled, then its

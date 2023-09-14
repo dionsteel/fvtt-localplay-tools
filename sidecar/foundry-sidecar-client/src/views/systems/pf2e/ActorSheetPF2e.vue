@@ -5,7 +5,7 @@ import { from, useObservable, useSubject } from "@vueuse/rxjs";
 import { Observable, Subject } from "rxjs";
 import { concatMap, switchMap, filter, distinctUntilKeyChanged } from "rxjs/operators";
 import { WebSocketSubject, webSocket } from "rxjs/webSocket";
-import { computed, ref, watch, capitalize } from "vue";
+import { computed, ref, watch, capitalize, provide } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import {
   IonItem,
@@ -33,61 +33,31 @@ import { ActorPF2e, PF2eTypes, ActorPF2eItemTypes, CharacterPF2e } from "@/inter
 
 import DynamicComponent from "@/lib/DynamicComponent.vue";
 import CharacterHeaderPF2e from "./components/CharacterHeaderPF2e.vue";
+import { usePF2eGame } from "@/store/pf2e";
 
+const props = defineProps<{ id: string }>();
 const route$ = useRoute();
 const store = useWorldStore();
-interface ActorSocketEvent {
-  event: "updateActor" | "updateCombat" | "updateToken";
-  data: any;
-  target: any;
-}
-interface ActorUpdateEvent extends ActorSocketEvent {
-  event: "updateActor";
-  data: Partial<ActorPF2e>;
-  target: ActorPF2e;
-}
-const props = defineProps<{ id: string }>();
-// const actorid = ref(route$.params.id);
-const actor$ = new Subject<CharacterPF2e>();
-function refreshActor(id: string) {
-  fetchJson<CharacterPF2e>(`/actor/${id}`).subscribe((v) => actor$.next(v));
-}
+const sysStore = usePF2eGame();
 
-function getWebsocketUrl(id: string) {
-  let proto = window.location.protocol == "https" ? "wss" : "ws";
-  let host = window.location.hostname;
-  let port = window.location.port != "80" ? ":" + window.location.port : "";
-  return `${proto}://${host}${port}/actor/${id}`;
-}
 
+const helper = sysStore.helper;
+
+const actors = helper.allActors;
+
+let actorHelper = await helper.getActorHelper(`${route$.params.id}`); // helper.actors[`${route$.params.id}`];
+let actor = await actorHelper.getActor();
 watch(
-  () => route$.params,
-  ({ id }) => refreshActor(`${id}`),
-  { immediate: true, flush: "post" }
+  () => route$.params.id,
+  async () => {
+    actorHelper = await helper.getActorHelper(`${route$.params.id}`);
+    actor = await actorHelper.getActor();
+  }
 );
-const actor = useObservable<CharacterPF2e, CharacterPF2e>(actor$.pipe(filter((v) => !!v)));
-refreshActor(props.id);
-const actorUpdates = actor$
-  .pipe(
-    filter((a) => !!(a && a._id)),
-    distinctUntilKeyChanged("_id"),
-    switchMap((_a) => webSocket<ActorSocketEvent>({ url: getWebsocketUrl(_a._id) }))
-  )
-  .subscribe({
-    next: (e) => {
-      switch (e.event) {
-        case "updateActor":
-          console.log("Incoming Actor Update", e.event, e.data, e.target);
-          if (typeof actor.value !== "undefined") {
-            applyDeep(actor.value, e.data);
-          }
-          break;
-        default:
-          console.log("Incoming update", e.event, e.data, e.target);
-      }
-    },
-  });
 
+console.log({ actorHelper, actor, helper, actors, store, sysStore, props, route$ });
+
+provide("actor", actor);
 const itemTypes = computed(
   () =>
     actor.value?.items.reduce((a, c) => {
@@ -96,7 +66,7 @@ const itemTypes = computed(
       }
       a[c.type].push(c as any);
       return a;
-    }, {} as ActorPF2eItemTypes)
+    }, {} as any) as ActorPF2eItemTypes
 );
 
 function getClass(actor: ActorPF2e) {
@@ -104,6 +74,19 @@ function getClass(actor: ActorPF2e) {
 }
 const atts = computed(() => actor.value?.system.attributes);
 const abl = computed(() => actor.value?.system.abilities);
+
+
+const tabs = computed(() => [
+  { name: "Actions", path: `actions` },
+  { name: "Attributes", path: `attributes` },
+  { name: "Abilities", path: `abilities` },
+  { name: "Inventory", path: `inventory` },
+  { name: "Skills", path: `skills` },
+  { name: "Spells", path: `spells` },
+  { name: "Features", path: `features` },
+  { name: "Biography", path: `biography` },
+]);
+
 </script>
 
 <template>

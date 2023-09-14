@@ -1,3 +1,5 @@
+import { ImageFilePath, ItemUUID, UUID } from "@/lib/utils";
+import { ActivatedEffect5e } from "../dnd5e/item/mixins/activated-effect";
 import { BaseActorSystemData, BaseTokenSystemData, Flags, Ownership } from "./flags";
 import { Item, ItemSystemData } from "./items/item";
 import { ItemTypes } from "./items/itemTypes";
@@ -8,16 +10,19 @@ import { ItemTypes } from "./items/itemTypes";
 */
 
 export interface SystemTypeMap {
-  ActorTypes: "character" | "npc" | "vehicle" | "loot" | "hazard";
+  ActorTypes: string; // "character" | "npc" | "vehicle" | "loot" | "hazard";
+  ActorDataTypes: {
+    character: BaseActorSystemData;
+    npc: BaseActorSystemData;
+    vehicle?: BaseActorSystemData;
+    loot?: BaseActorSystemData;
+    hazard?: BaseActorSystemData;
+  };
   ActorSystemType: BaseActorSystemData;
   TokenSystemType: BaseTokenSystemData;
   BaseItemData: ItemSystemData;
   ItemDataTypes: {
-    weapon: ItemSystemData;
-    class: ItemSystemData;
-    background: ItemSystemData;
-    tool: ItemSystemData;
-    feat: ItemSystemData;
+    [k: string]: ItemSystemData;
   };
 }
 
@@ -32,6 +37,47 @@ export interface Actor<S extends SystemTypeMap = SystemTypeMap> {
   prototypeToken: PrototypeToken;
   folder: string;
   ownership: Ownership;
+  sort?: number;
+  effects: GenericEffect[];
+}
+
+export interface EffectChange {
+  key: string;
+  mode: number;
+  value: string;
+  priority: number;
+}
+export interface EffectDuration {
+  startTime?: number;
+  seconds?: number;
+  combat?: number;
+  rounds?: number;
+  turns?: number;
+  startRound?: number;
+  startTurn?: number;
+}
+export interface GenericEffect {
+  icon: ImageFilePath;
+  changes: EffectChange[];
+  transfer: boolean;
+  _id: string;
+  disabled: boolean;
+  duration: EffectDuration;
+  origin: UUID; //"Actor.mB9hj9id8f3sVApS.Item.tvzac83APIgSZshi";
+  tint: any | null;
+  flags: Flags;
+  name: string;
+  description: string;
+  statuses: string[];
+  parent?: Actor | { _id: string };
+}
+
+export interface Character<S extends SystemTypeMap = SystemTypeMap> extends Actor<S> {
+  system: S["ActorDataTypes"]["character"];
+}
+
+export interface NPC<S extends SystemTypeMap = SystemTypeMap> extends Actor<S> {
+  system: S["ActorDataTypes"]["npc"];
 }
 
 export interface ActorListing {

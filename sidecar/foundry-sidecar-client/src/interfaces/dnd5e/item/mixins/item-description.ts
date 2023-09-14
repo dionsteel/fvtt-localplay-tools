@@ -1,12 +1,7 @@
 import { Item5E } from "../item";
+import { ItemData5e, ItemDescription, ItemSource } from "../../items/base";
 
-export interface ItemDescription {
-  value: string; //  Full item description.
-  chat: string; //  Description displayed in chat card.
-  unidentified: string; //  Description displayed if item is unidentified.
-}
-
-export interface ItemWithDescription extends Item5E {
+export interface ItemWithDescription extends ItemData5e {
   description: ItemDescription; // Various item descriptions.
-  source: string; // Adventure or sourcebook where this item originated.
+  source: ItemSource; // Adventure or sourcebook where this item originated.
 }

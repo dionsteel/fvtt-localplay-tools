@@ -21,6 +21,7 @@ export interface ActorUpdateEvent extends ActorSocketEvent {
   data: Partial<Actor>;
   target: Actor;
 }
+
 export class ActorContainer<S extends SystemTypeMap = SystemTypeMap, T extends Actor = Actor<S>> {
   actorUpdates: WebSocketSubject<ActorSocketEvent>;
   public token?: Ref<UnwrapRef<Token<S>>>;
@@ -29,10 +30,10 @@ export class ActorContainer<S extends SystemTypeMap = SystemTypeMap, T extends A
   private store = useWorldStore();
   public itemTypes = computed(() =>
     this.actor.value.items.reduce((itemTypes, item) => {
-      if (!itemTypes[item.type]) {
-        itemTypes[item.type] = [];
+      if (!itemTypes[item.type as string]) {
+        (itemTypes as any)[item.type] = [];
       }
-      itemTypes[item.type].push(item);
+      (itemTypes as any)[item.type].push(item);
       return itemTypes;
     }, {} as ActorItemTypes<S>)
   );

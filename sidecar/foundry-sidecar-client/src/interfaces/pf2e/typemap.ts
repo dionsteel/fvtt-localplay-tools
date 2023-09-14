@@ -2,7 +2,12 @@ import { SystemTypeMap } from "../core/actor";
 import { BaseActorSystemData } from "../core/flags";
 import { Item, ItemSystemData } from "../core/items/item";
 import { ActorItemTypes } from "../core/items/itemTypes";
+import { CharacterSystemData } from "./actor/character";
 import { ActorSystemData } from "./actor/data/base";
+import { HazardSystemData } from "./actor/hazard";
+import { LootSystemData } from "./actor/loot";
+import { NPCSystemData } from "./actor/npc";
+import { VehicleSystemData } from "./actor/vehicle";
 import { SpellPF2e } from "./item";
 import { AncestrySystemData } from "./item/ancestry";
 import { BackgroundSystemData } from "./item/background";
@@ -16,6 +21,13 @@ import { ItemDataPF2e, ClassDataPF2e, FeatDataPF2e, WeaponCategoryName, ArmorCat
 
 export interface PF2eTypes extends SystemTypeMap {
   ActorTypes: "character" | "npc" | "vehicle" | "loot" | "hazard";
+  ActorDataTypes: {
+    character: CharacterSystemData;
+    npc: NPCSystemData;
+    vehicle: VehicleSystemData;
+    loot: LootSystemData;
+    hazard: HazardSystemData;
+  };
   ActorSystemType: ActorSystemData;
   BaseItemData: ItemSystemData;
   ItemDataTypes: {

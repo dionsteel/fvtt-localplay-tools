@@ -1,3 +1,5 @@
+import { Item5e } from "../items/base";
+import { Item5E } from "./item";
 import { Action5e } from "./mixins/action";
 import { ActivatedEffect5e } from "./mixins/activated-effect";
 import { EquippableItem } from "./mixins/equippable-item";
@@ -18,7 +20,8 @@ export interface EquipmentItemArmour extends EquipmentArmour {
   /** Maximum dex bonus added to armor class. */
   value: number;
 }
-export interface Equipment5e extends ItemWithDescription, PhysicalItem5e, EquippableItem, ActivatedEffect5e, Action5e, MountableEquipment {
+export interface Equipment5e extends Item5e<EquipmentData5e> {}
+export interface EquipmentData5e extends ItemWithDescription, PhysicalItem5e, EquippableItem, ActivatedEffect5e, Action5e, MountableEquipment {
   /** Armor details and equipment type information. */
   armor: EquipmentItemArmour;
   /** Base armor as defined in `DND5E.armorIds` for determining proficiency. */

@@ -24,11 +24,11 @@ interface BaseActorSourcePF2e<TType extends ActorType, TSystemSource extends Act
   // [k: string]: any;
 }
 interface ActorFlagsPF2e extends Flags {
-  pf2e: {
+  pf2e?: {
     rollOptions: RollOptionFlags;
     /** IDs of granted items that are tracked */
     trackedItems: Record<string, string>;
-    [key: string]: unknown;
+    // [key: string]: unknown;
   };
 }
 interface ActorSystemSource {

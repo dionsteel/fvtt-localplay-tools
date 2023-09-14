@@ -25,6 +25,7 @@ import { useRouter } from "vue-router";
 import { addSharp, removeSharp } from "ionicons/icons";
 const store = useWorldStore();
 const router = useRouter();
+const { getAPIUrl } = store.config;
 
 const actors = store.ownedActors;
 // const actors = useObservable<ActorListing[]>(ajax('http://localhost:3000/actor').pipe(map(r => {
@@ -56,7 +57,7 @@ function removeSelectedActor(actor: ActorListing) {
       <ion-list id="selected-actors-list">
         <ion-list-header>Selected Characters</ion-list-header>
         <IonItem v-for="actor of store.currentWorldActors" :router-link="'/dnd5e/actors/'+actor?.id">
-          <img class="actorPortrait" :src="actor?.image" slot="start" />
+          <img class="actorPortrait" :src="getAPIUrl(actor?.image)" slot="start" />
           <ion-label>{{ actor?.name }}</ion-label>
           <IonButton @click="removeSelectedActor(actor)" slot="end"><IonIcon :icon="removeSharp"></IonIcon></IonButton>
         </IonItem>
@@ -64,7 +65,7 @@ function removeSelectedActor(actor: ActorListing) {
       <ion-list id="owned-actors-list">
         <ion-list-header>Owned Actors</ion-list-header>
         <IonItem v-for="actor of actors">
-          <img class="actorPortrait" :src="actor.image" slot="start" />
+          <img class="actorPortrait" :src="getAPIUrl(actor.image)" slot="start" />
           <ion-label>{{ actor?.name }}</ion-label>
           <IonButton @click="addSelectedActor(actor)"><IonIcon :icon="addSharp"></IonIcon></IonButton>
         </IonItem>

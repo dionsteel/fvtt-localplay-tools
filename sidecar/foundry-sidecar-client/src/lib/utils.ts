@@ -75,6 +75,7 @@ export interface DocumentFlags {}
 export type PartialDeep<T> = {
   [P in keyof T]?: PartialDeep<T[P]>;
 };
+export type UUID = string;
 export type ItemUUID = string;
 export type Maybe<T> = T | null | undefined | "";
 
