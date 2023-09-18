@@ -59,9 +59,9 @@ function extractProps(item, excludePrivate = true, excluded = []) {
         if (!key.endsWith("id") && excludePrivate && (key.startsWith("_") || key.startsWith("@"))) {
           continue;
         }
-        // if (!key.endsWith("id") && (excluded.includes(key) || excludeKeys.includes(key))) {
-        //   continue;
-        // }
+        if (!key.endsWith("id") && (excluded.includes(key) || excludeKeys.includes(key))) {
+          continue;
+        }
         let seenIdx = typeof item[key] == "object" && item[key] != null ? seen.indexOf(item[key]) : -1;
         if (seenIdx < 0) {
           if (typeof item[key] == "object" && item[key] != null) {
@@ -89,7 +89,7 @@ function extractProps(item, excludePrivate = true, excluded = []) {
     }
     return out; //Object.fromEntries(Object.entries(item).map((e) => [e[0], extractProps(e[1])]));
   };
-  let out = propExtractor(item);
+  let out = item.event ? Object.fromEntries(Object.entries(item).map(e => [e[0], propExtractor(e[1])])) : propExtractor(item);
   let r;
   while ((r = q.shift())) {
     try {
@@ -275,7 +275,8 @@ function mountWebServer(app) {
   app.get("/actor/:id", (req, res) => {
     let actor = helper.getActorData(req.params.id);
     // actor.exportToJSON({});
-    const dactor = extractFullData(actor);
+    console.log('Get Actor', req.params.id, actor);
+    const dactor = extractFullData(actor || {});
     console.log("returning actor", actor, dactor);
     res.json(dactor);
   });
@@ -303,17 +304,42 @@ function mountWebServer(app) {
           }
         }
       }
+      function handlePlayerRPC(msg) {
+        switch (msg.action) {
+          case "performStrike":
+            helper.performStrike(tgtActor._id, msg.options);
+            // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();
+            break;
+          case "performStrikeAux":
+            helper.performStrikeAux(tgtActor._id, msg.options);
+            // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();
+            break;
+          case "rollStrikeDamage":
+            helper.rollStrikeDamage(tgtActor._id, msg.options);
+            break;
+
+          default:
+            break;
+        }
+      }
       function handleActorMessage(msg) {
         switch (msg.event) {
           case "rollReply":
+            console.log('handing roll reply', msg, pendingRolls);
             const rollIdx = pendingRolls.findIndex((r) => r.id == msg.rollId);
+            console.log('handing roll reply: found roll idx?', rollIdx);
             if (rollIdx >= 0) {
               const roll = pendingRolls[rollIdx];
+              console.log('found roll', roll);
               if (roll) {
                 roll.reply.next(msg.formData || msg.data.formData || msg.data || msg);
-                delete pendingRolls[rollIdx];
+                pendingRolls.splice(rollIdx, 1);
               }
             }
+            break;
+          case "playerRPC":
+            console.log('handling player rpc', msg);
+            handlePlayerRPC(msg);
             break;
         }
         return [];
@@ -401,8 +427,9 @@ function mountWebServer(app) {
                 return e.combat.combatants.has(currentToken().id || currentToken()._id);
               case "renderChatMessage":
                 if (e.html) {
-                  e.html = e.html.html();
+                  try { e.html = e?.html?.html(); } catch (e) { console.error(e); }
                 }
+                return true;
                 if (e.message.speaker?.alias == "Gamemaster") {
                   return true;
                 }
@@ -424,6 +451,7 @@ function mountWebServer(app) {
                 return false;
             }
           } catch (e) {
+            console.error('filter error', e);
             return false;
           }
         }),
@@ -443,22 +471,26 @@ function mountWebServer(app) {
                 forwardEventOverWS({ event: "updateActor", actor: helper.getActorData(req.params.id) });
                 break;
               case "rollRequest":
-                let nrId = rollId();
+                let nrId = e?.id || rollId();
                 pendingRolls.push({ id: nrId, ...e });
                 e.id = nrId;
 
                 console.log("RollRequest tap", e);
+                break;
               // forwardEventOverWS({ event: "rollRequest", id: nrId, data: e.data, controlled: e.controlled });
               case "controlToken":
-              case "targetToken":
-              case "updateToken":
-              case "deleteCombat":
-              case "updateCombat":
-              case "createCombat":
-              case "updateScene":
+                e.token = e.token.id;
+              // case "targetToken":
+              // case "updateToken":
+              // case "deleteCombat":
+              // case "updateCombat":
+              // case "createCombat":
+              // case "updateScene":
               // ws.send(JSON.stringify({ event: "updateActor", data: extractFullData(tgtActor || {}) }));
               // case "updateActor":
-              // case "renderChatMessage":
+              case "renderChatMessage":
+                console.log('renderChatMessage', e);
+                break;
               // case "createScene":
               // case "deleteScene":
               default:
@@ -466,6 +498,7 @@ function mountWebServer(app) {
                 console.log("event", e);
             }
           } catch (e) {
+            console.error('Error in event filter for ', tgtActor.name, e);
             return false;
           }
         })
@@ -531,7 +564,9 @@ function mountWebServer(app) {
     res.json([...game.packs.keys()]);
   });
   app.get("/pack/:key", (req, res) => {
-    res.json(extractFullData(game.packs.get(req.params.key)));
+    let pack = game.packs.get(req.params.key);
+    pack.values = [...((pack?.index?.values()) || [])];
+    res.json(extractFullData(pack));
   });
   app.get("/system", (req, res) => {
     res.json([...game.system.packs.keys()]);

@@ -147,24 +147,26 @@ const helpers = {
       try {
         const token = dnd5etoken(id);
         return { ...token };
-      } catch (e) {}
+      } catch (e) { }
     },
-    getItemData() {},
+    getItemData() { },
   },
   pf2e: {
     getActorData(id) {
       try {
         const actor = pf2eactor(id);
-        actor.prepareData();
-        actor.prepareDerivedData();
-        actor.prepareEmbeddedDocuments();
-        const classDC = actor.prepareClassDC();
+        try {
+          actor.prepareData();
+          actor.prepareDerivedData();
+          actor.prepareEmbeddedDocuments();
+          actor.prepareMartialProficiencies();
+        } catch (e) { console.error(e); }
+        // const classDC = actor.prepareClassDC();
         const strikes = actor.prepareStrikes();
-        actor.prepareMartialProficiencies();
         const speed = actor.prepareSpeed();
 
         // const data = { ...actor };
-        const {
+        let {
           allowedItemTypes,
           flags,
           hitPoints,
@@ -175,23 +177,25 @@ const helpers = {
           ancestry,
           background,
           class: aClass,
-          // classDC,
-          classDCs,
+          classDC,
+          classDCs, inventory,
           deity,
           deityBoonsCurses,
           familiar,
           feats,
-          heritage,
+          heritage, items,
           heroPoints,
           keyAbility,
           pfsBoons,
-          traditions,
+          traditions, itemTypes
         } = actor;
+        inventory = [...inventory];
+        items = [...items];
         const data = {
           ...actor,
-          allowedItemTypes,
-          flags,
-          hitPoints,
+          allowedItemTypes, itemTypes,
+          flags, inventory,
+          hitPoints, items,
           initiative,
           abilities,
           skills,
@@ -199,7 +203,7 @@ const helpers = {
           ancestry,
           background,
           class: aClass,
-          // classDC,
+          classDC,
           classDCs,
           deity,
           deityBoonsCurses,
@@ -218,6 +222,7 @@ const helpers = {
         // data.system = { ...actor.system };
         return data;
       } catch (e) {
+        console.error('Error Extracting pf2e actor details', e, id);
         return null;
       }
     },
@@ -225,9 +230,37 @@ const helpers = {
       try {
         const token = pf2etoken(id);
         return { ...token };
-      } catch (e) {}
+      } catch (e) { }
     },
-    getItemData() {},
+    getItemData() { },
+    /**
+     * @returns {import("../../../foundry-types/src/types/foundry/systems/pf2e/module/actor/data/base").StrikeData}
+     */
+    getStrike(actorid, strikeIdx) {
+      const actor = pf2eactor(actorid);
+      return actor.system.actions[strikeIdx];
+    },
+    performStrike(actorid, options = {}) {
+      let { strikeIdx = 0, variantIdx = 0, targetId, altUsage } = options;
+      const strike = this.getStrike(actorid, strikeIdx);
+      strike?.variants[variantIdx]?.roll({ target: targetId })
+    },
+    performStrikeAux(actorid, options = {}) {
+      let { strikeIdx = 0, aux = 0, targetId, altUsage } = options;
+      const strike = this.getStrike(actorid, strikeIdx);
+      strike?.variants[aux]?.roll({ target: targetId })
+    },
+    rollStrikeDamage(actorid, options = {}) {
+      console.log('Roll Strike Damage', actorid, options);
+      let { strikeIdx, critical, targetId, altUsage } = options;
+      const strike = this.getStrike(actorid, strikeIdx);
+      console.log('strike:', strike);
+      if (critical) {
+        strike?.critical({ consumeAmmo: true, target: targetId, altUsage });
+      } else {
+        strike?.damage({ consumeAmmo: true, target: targetId, altUsage })
+      }
+    }
   },
 };
 

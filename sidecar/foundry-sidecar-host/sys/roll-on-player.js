@@ -303,7 +303,7 @@ class RemoteRollPromptProxy {
           idx: c,
           faces: c == 0 ? `${die.number}d${die.faces}${die.modifiers.length > 0 ? " [" + die.modifiers.join(",") + "]" : ""}` : "",
           hasTotal: c == 0 && die.modifiers.length == 0 && die.number > 1,
-          term: die,
+          // term: die,
         });
       }
     }

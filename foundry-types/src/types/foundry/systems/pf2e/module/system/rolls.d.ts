@@ -1,10 +1,10 @@
 /// <reference types="jquery" resolution-mode="require"/>
-import { TraitViewData } from "src/types/pf2e/module/actor/data/base.ts";
-import { ModifierPF2e } from "src/types/pf2e/module/actor/modifiers.ts";
-import { RollTarget } from "src/types/pf2e/module/actor/types.ts";
-import { TokenPF2e } from "src/types/pf2e/module/canvas/index.ts";
-import { ZeroToTwo } from "src/types/pf2e/module/data.ts";
-import { RollNotePF2e, RollNoteSource } from "src/types/pf2e/module/notes.ts";
+import { TraitViewData } from "../actor/data/base.ts";
+import { ModifierPF2e } from "../actor/modifiers";
+import { RollTarget } from "../actor/types.ts";
+import { TokenPF2e } from "../canvas/index.ts";
+import { ZeroToTwo } from "../data.ts";
+import { RollNotePF2e, RollNoteSource } from "../notes.ts";
 import { RollTwiceOption } from "./check/index.ts";
 import { CheckDC, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success.ts";
 interface RollDataPF2e extends RollOptions {
