@@ -20,6 +20,10 @@ import {
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  alertController,
+  IonAlert,
+  IonButton,
+  AlertInput,
 } from "@ionic/vue";
 import { Suspense, provide, ref, watch } from "vue";
 import {
@@ -53,12 +57,16 @@ import {
   globeSharp,
 } from "ionicons/icons";
 import { useConfigStore } from "@/store/config";
+import { Observable, Subject, firstValueFrom } from "rxjs";
+import { filter, map, tap, reduce, scan, share } from "rxjs/operators";
 
 const store = useWorldStore();
 const config = useConfigStore();
 const router = useRouter();
 const route = useRoute();
 const game = usePF2eGame();
+const helper = game.helper;
+
 const selectedIndex = ref(0);
 const labels = store.currentWorldActors;
 const appPages = [
@@ -92,12 +100,6 @@ const appPages = [
     iosIcon: personOutline,
     mdIcon: personSharp,
   },
-  {
-    title: "Sheets",
-    url: "/pf2e/actor",
-    iosIcon: documentOutline,
-    mdIcon: documentSharp,
-  },
 ];
 const background = store.activeGame?.world.background ? `url(/${game.config.getAPIUrl(store.activeGame?.world.background)})` : "";
 
@@ -115,60 +117,92 @@ watch(
   () => updateSelectedIndex()
 );
 updateSelectedIndex();
+
+game.helper.allEvents
+  .pipe(
+    // tap((e) => console.log("helper allevents", e)),
+    filter((e) => e.event == "rollRequest")
+  )
+  .subscribe((e) => {
+    const alert = alertController.create({
+      header: "Roll Request",
+      message: "Enter Manual Rolls",
+      buttons: ["ROLL"],
+      mode: "md",
+      animated: true,
+      keyboardClose: true,
+      inputs: e.data.terms.map((t: any) => {
+        let x: AlertInput = { label: t.faces, placeholder: t.faces, id: `${t.id}-total`, name: `${t.id}-total`, min: 1 };
+        return x;
+      }),
+    });
+    console.log("INCOMING ROLL", e);
+    alert
+      .then(async (r) => {
+        await r.present();
+        let { data, role } = await r.onDidDismiss();
+        let { values } = data;
+        e.eventSource?.answerRoll((e as any).id, { formData: values });
+        return values;
+      })
+      .then((r) => console.log("alert result", r));
+  });
 </script>
 
 <template>
   <ion-page>
-    <link rel="stylesheet" href="http://localhost:3000/css/style.css" />
-    <link rel="stylesheet" href="http://localhost:3000/systems/pf2e/styles/pf2e.css" />
+    <link rel="stylesheet" :href="game.config.getAPIUrl(`css/style.css`)" />
+    <link rel="stylesheet" :href="game.config.getAPIUrl(`systems/pf2e/styles/pf2e.css`)" />
     <ion-content>
-      <ion-split-pane content-id="system-content" class="pf2e-content">
-        <ion-menu content-id="system-content" class="pf2e-content" type="overlay">
-          <ion-content>
-            <ion-list id="world-list">
-              <ion-list-header>{{ store.activeGame?.world.title }}</ion-list-header>
-              <ion-note>{{ store.activeGame?.system.title }}</ion-note>
+      <Suspense>
+        <ion-split-pane content-id="system-content" class="pf2e-content">
+          <ion-menu content-id="system-content" class="pf2e-content" type="overlay">
+            <ion-content>
+              <ion-list id="world-list">
+                <ion-list-header>{{ store.activeGame?.world.title }}</ion-list-header>
+                <ion-note>{{ store.activeGame?.system.title }}</ion-note>
 
-              <ion-menu-toggle :auto-hide="false" v-for="(p, i) in appPages" :key="i">
+                <ion-menu-toggle :auto-hide="false" v-for="(p, i) in appPages" :key="i">
+                  <ion-item
+                    @click="selectedIndex = i"
+                    router-direction="root"
+                    :router-link="p.url"
+                    lines="none"
+                    :detail="false"
+                    class="hydrated"
+                    :class="{ selected: selectedIndex === i }">
+                    <ion-icon aria-hidden="true" slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
+                    <ion-label>{{ p.title }}</ion-label>
+                  </ion-item>
+                </ion-menu-toggle>
+              </ion-list>
+
+              <ion-list id="labels-list">
+                <ion-list-header>Characters</ion-list-header>
+
                 <ion-item
-                  @click="selectedIndex = i"
-                  router-direction="forward"
-                  :router-link="p.url"
+                  v-for="(actor, index) in store?.currentWorldActors"
                   lines="none"
-                  :detail="false"
-                  class="hydrated"
-                  :class="{ selected: selectedIndex === i }">
-                  <ion-icon aria-hidden="true" slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
-                  <ion-label>{{ p.title }}</ion-label>
+                  :key="index"
+                  router-direction="root"
+                  :router-link="'/' + store.activeGame?.world.system + '/actors/' + actor?.id"
+                  :class="{ selected: router.currentRoute.value.fullPath.endsWith(actor?.id) }">
+                  <ion-icon
+                    v-if="actor?.image.endsWith('.svg')"
+                    aria-hidden="true"
+                    slot="start"
+                    :ios="bookmarkOutline"
+                    :md="bookmarkSharp"
+                    :src="game.config.getAPIUrl(actor?.image)"></ion-icon>
+                  <img v-else width="32" slot="start" :src="game.config.getAPIUrl(actor?.image)" />
+                  <ion-label>{{ actor?.name }}</ion-label>
                 </ion-item>
-              </ion-menu-toggle>
-            </ion-list>
-
-            <ion-list id="labels-list">
-              <ion-list-header>Characters</ion-list-header>
-
-              <ion-item
-                v-for="(actor, index) in store?.currentWorldActors"
-                lines="none"
-                :key="index"
-                router-direction="forward"
-                :router-link="'/' + store.activeGame?.world.system + '/actors/' + actor?.id"
-                :class="{ selected: router.currentRoute.value.fullPath.endsWith(actor?.id) }">
-                <ion-icon
-                  v-if="actor?.image.endsWith('.svg')"
-                  aria-hidden="true"
-                  slot="start"
-                  :ios="bookmarkOutline"
-                  :md="bookmarkSharp"
-                  :src="game.config.getAPIUrl(actor?.image)"></ion-icon>
-                <img v-else width="32" slot="start" :src="game.config.getAPIUrl(actor?.image)" />
-                <ion-label>{{ actor?.name }}</ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-content>
-        </ion-menu>
-        <ion-router-outlet id="system-content" class="pf2e-content"></ion-router-outlet>
-      </ion-split-pane>
+              </ion-list>
+            </ion-content>
+          </ion-menu>
+          <ion-router-outlet id="system-content" class="pf2e-content"></ion-router-outlet>
+        </ion-split-pane>
+      </Suspense>
     </ion-content>
   </ion-page>
 </template>

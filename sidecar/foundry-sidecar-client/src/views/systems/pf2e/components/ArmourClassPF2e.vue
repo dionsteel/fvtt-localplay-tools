@@ -5,11 +5,21 @@ import { shieldOutline, shieldCheckmark, shieldCheckmarkOutline, shield, shieldC
 import { PF2EConfig } from "@/interfaces/pf2e/config";
 import { computed } from "vue";
 
+import { usePF2eGame } from "@/store/pf2e";
+import { useWorldStore } from "@/store/world";
+
+const store = useWorldStore();
+const sysStore = usePF2eGame();
 const props = defineProps<{ ac: ArmorClassTraceData }>();
 const shieldImages = {
-  natural: "/systems/pf2e/assets/sheet/shield-blue.webp",
-  equipped: "/systems/pf2e/assets/sheet/shield-red.webp",
-  flat: "/systems/pf2e/assets/sheet/shield-clear.svg",
+  natural: store.config.getAPIUrl("/systems/pf2e/assets/sheet/shield-blue.webp"),
+  equipped: store.config.getAPIUrl("/systems/pf2e/assets/sheet/shield-red.webp"),
+  flat: store.config.getAPIUrl("/systems/pf2e/assets/sheet/shield-clear.svg"),
+};
+const shieldTextColours = {
+  natural: "#333",
+  equipped: "#fff",
+  flat: "#ddd",
 };
 
 const armourGroup = computed(() => {
@@ -21,11 +31,12 @@ const armourGroup = computed(() => {
   return armourGroup as "natural" | "equipped" | "flat";
 });
 const bgImg = computed(() => `url(${shieldImages[armourGroup?.value || "flat"]})`);
+const textCol = computed(() => shieldTextColours[armourGroup.value]);
 </script>
 
 <template>
   <div class="armour-class" :title="ac?.breakdown" v-if="ac" id="ac">
-    <span class="over-icon" :title="ac?.breakdown">{{ ac?.value }}</span>
+    <span class="over-icon" :style.color="shieldTextColours[armourGroup]" :title="ac?.breakdown">{{ ac?.value }}</span>
     <IonPopover trigger="ac">
       <IonContent class="ion-padding">{{ ac?.breakdown }}</IonContent>
     </IonPopover>
@@ -49,6 +60,7 @@ span.over-icon {
   /* top: 14px; */
   margin: 0.6em auto;
   display: block;
+  color: v-bind("textCol");
   /* width: 20px;
   height: 20px; */
   font-size: 1.6em;

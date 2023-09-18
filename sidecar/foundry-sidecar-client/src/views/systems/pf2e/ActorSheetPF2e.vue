@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Actor } from "@/interfaces/core";
-import { useWorldStore, fetchJson } from "@/store/world";
+import { useWorldStore } from "@/store/world";
 import { from, useObservable, useSubject } from "@vueuse/rxjs";
 import { Observable, Subject } from "rxjs";
 import { concatMap, switchMap, filter, distinctUntilKeyChanged } from "rxjs/operators";
@@ -23,11 +23,17 @@ import {
   IonContent,
   IonCard,
   IonCardContent,
+  IonTabs,
+  IonTabBar,
+  IonLabel,
+  IonIcon,
+  IonRouterOutlet,
+  IonTabButton,
   IonCardHeader,
   IonPopover,
 } from "@ionic/vue";
 
-import { skull, bed, bulb } from "ionicons/icons";
+import { skullSharp, bedSharp, bulbSharp, medalSharp, addSharp } from "ionicons/icons";
 import { applyDeep } from "@/lib/utils";
 import { ActorPF2e, PF2eTypes, ActorPF2eItemTypes, CharacterPF2e } from "@/interfaces/pf2e/index";
 
@@ -39,7 +45,7 @@ const props = defineProps<{ id: string }>();
 const route$ = useRoute();
 const store = useWorldStore();
 const sysStore = usePF2eGame();
-
+const parchment = store.config.getAPIUrl("/systems/pf2e/assets/sheet/parchment.png");
 
 const helper = sysStore.helper;
 
@@ -50,14 +56,17 @@ let actor = await actorHelper.getActor();
 watch(
   () => route$.params.id,
   async () => {
-    actorHelper = await helper.getActorHelper(`${route$.params.id}`);
-    actor = await actorHelper.getActor();
+    if (route$.params.id) {
+      actorHelper = await helper.getActorHelper(`${route$.params.id}`);
+      actor = await actorHelper.getActor();
+    }
   }
 );
 
 console.log({ actorHelper, actor, helper, actors, store, sysStore, props, route$ });
 
 provide("actor", actor);
+provide("actorHelper", actorHelper);
 const itemTypes = computed(
   () =>
     actor.value?.items.reduce((a, c) => {
@@ -75,7 +84,6 @@ function getClass(actor: ActorPF2e) {
 const atts = computed(() => actor.value?.system.attributes);
 const abl = computed(() => actor.value?.system.abilities);
 
-
 const tabs = computed(() => [
   { name: "Actions", path: `actions` },
   { name: "Attributes", path: `attributes` },
@@ -86,7 +94,6 @@ const tabs = computed(() => [
   { name: "Features", path: `features` },
   { name: "Biography", path: `biography` },
 ]);
-
 </script>
 
 <template>
@@ -96,237 +103,25 @@ const tabs = computed(() => [
         <ion-buttons slot="start">
           <ion-menu-button color="primary"></ion-menu-button>
         </ion-buttons>
-        <ion-title>
-          <IonAvatar>
-            <IonImg :src="actor?.img"></IonImg>
-          </IonAvatar>
-          {{ actor?.name }}
-        </ion-title>
+        <CharacterHeaderPF2e :actor="actor"></CharacterHeaderPF2e>
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-accordion-group v-if="actor">
-        <ion-accordion>
-          <ion-item slot="header"> Basics </ion-item>
-          <div slot="content"><CharacterHeaderPF2e :actor="actor"></CharacterHeaderPF2e></div>
-        </ion-accordion>
-        <IonAccordion>
-          <IonItem slot="header">abilities</IonItem>
-          <div slot="content">
-            <table>
-              <tr v-for="(att, attName) in actor.system.abilities">
-                <td>{{ attName }}</td>
-                <td v-if="typeof att == 'object'">
-                  <table>
-                    <tr v-for="(satt, sattName) in att">
-                      <td>{{ sattName }}</td>
-                      <td>{{ satt }}</td>
-                    </tr>
-                  </table>
-                </td>
-                <td v-else>{{ att }}</td>
-              </tr>
-            </table>
-          </div>
-        </IonAccordion>
-        <IonAccordion>
-          <IonItem slot="header">Attributes</IonItem>
-          <div slot="content">
-            <table>
-              <tr v-for="(att, attName) in actor.system.attributes">
-                <td>{{ attName }}</td>
-                <td v-if="typeof att == 'object'">
-                  <table>
-                    <tr v-for="(satt, sattName) in att">
-                      <td>{{ sattName }}</td>
-                      <td>{{ satt }}</td>
-                    </tr>
-                  </table>
-                </td>
-                <td v-else>{{ att }}</td>
-              </tr>
-            </table>
-          </div>
-        </IonAccordion>
-        <IonAccordion>
-          <IonItem slot="header">Details</IonItem>
-          <div slot="content">
-            <table>
-              <tr v-for="(att, attName) in actor.system.details">
-                <td>{{ attName }}</td>
-                <td v-if="typeof att == 'object'">
-                  <table>
-                    <tr v-for="(satt, sattName) in att">
-                      <td>{{ sattName }}</td>
-                      <td>{{ satt }}</td>
-                    </tr>
-                  </table>
-                </td>
-                <td v-else>{{ att }}</td>
-              </tr>
-            </table>
-          </div>
-        </IonAccordion>
-        <IonAccordion>
-          <IonItem slot="header">Actions</IonItem>
-          <div slot="content">
-            <table>
-              <tr v-for="(att, attName) in actor.system.actions">
-                <td>{{ attName }}</td>
-                <td v-if="typeof att == 'object'">
-                  <table>
-                    <tr v-for="(satt, sattName) in att">
-                      <td>{{ sattName }}</td>
-                      <td>{{ satt }}</td>
-                    </tr>
-                  </table>
-                </td>
-                <td v-else>{{ att }}</td>
-              </tr>
-            </table>
-          </div>
-        </IonAccordion>
-        <IonAccordion>
-          <IonItem slot="header">Skills</IonItem>
-          <div slot="content">
-            <table>
-              <tr v-for="(att, attName) in actor.system.skills">
-                <td>{{ attName }}</td>
-                <td v-if="typeof att == 'object'">
-                  <table>
-                    <tr v-for="(satt, sattName) in att">
-                      <td>{{ sattName }}</td>
-                      <td>{{ satt }}</td>
-                    </tr>
-                  </table>
-                </td>
-                <td v-else>{{ att }}</td>
-              </tr>
-            </table>
-          </div>
-        </IonAccordion>
-        <IonAccordion>
-          <IonItem slot="header">Crafting</IonItem>
-          <div slot="content">
-            <table>
-              <tr v-for="(att, attName) in actor.system.crafting">
-                <td>{{ attName }}</td>
-                <td v-if="typeof att == 'object'">
-                  <table>
-                    <tr v-for="(satt, sattName) in att">
-                      <td>{{ sattName }}</td>
-                      <td>{{ satt }}</td>
-                    </tr>
-                  </table>
-                </td>
-                <td v-else>{{ att }}</td>
-              </tr>
-            </table>
-          </div>
-        </IonAccordion>
-        <IonAccordion>
-          <IonItem slot="header">Exploration</IonItem>
-          <div slot="content">
-            <table>
-              <tr v-for="(att, attName) in actor.system.exploration">
-                <td>{{ attName }}</td>
-                <td v-if="typeof att == 'object'">
-                  <table>
-                    <tr v-for="(satt, sattName) in att">
-                      <td>{{ sattName }}</td>
-                      <td>{{ satt }}</td>
-                    </tr>
-                  </table>
-                </td>
-                <td v-else>{{ att }}</td>
-              </tr>
-            </table>
-          </div>
-        </IonAccordion>
-        <IonAccordion>
-          <IonItem slot="header">Martial</IonItem>
-          <div slot="content">
-            <table>
-              <tr v-for="(att, attName) in actor.system.martial">
-                <td>{{ attName }}</td>
-                <td v-if="typeof att == 'object'">
-                  <table>
-                    <tr v-for="(satt, sattName) in att">
-                      <td>{{ sattName }}</td>
-                      <td>{{ satt }}</td>
-                    </tr>
-                  </table>
-                </td>
-                <td v-else>{{ att }}</td>
-              </tr>
-            </table>
-          </div>
-        </IonAccordion>
-        <IonAccordion>
-          <IonItem slot="header">Resources</IonItem>
-          <div slot="content">
-            <table>
-              <tr v-for="(att, attName) in actor.system.resources">
-                <td>{{ attName }}</td>
-                <td v-if="typeof att == 'object'">
-                  <table>
-                    <tr v-for="(satt, sattName) in att">
-                      <td>{{ sattName }}</td>
-                      <td>{{ satt }}</td>
-                    </tr>
-                  </table>
-                </td>
-                <td v-else>{{ att }}</td>
-              </tr>
-            </table>
-          </div>
-        </IonAccordion>
-        <IonAccordion>
-          <IonItem slot="header">Saves</IonItem>
-          <div slot="content"></div>
-        </IonAccordion>
-        <IonAccordion>
-          <IonItem slot="header">Inventory</IonItem>
-          <IonAccordionGroup slot="content">
-            <IonAccordion v-for="(items, itemType) of itemTypes">
-              <IonItem slot="header">{{ capitalize(itemType) }}</IonItem>
-              <div slot="content">
-                <IonCard v-for="item of items">
-                  <IonCardHeader>{{ item.name }}</IonCardHeader>
-                  <IonCardContent
-                    ><div :id="'item_' + item._id">
-                      <table>
-                        <tr v-for="(att, attName) in item.system">
-                          <td>{{ attName }}</td>
-                          <td v-if="typeof att == 'object'">
-                            <table>
-                              <tr v-for="(satt, sattName) in att">
-                                <td>{{ sattName }}</td>
-                                <td v-if="sattName == 'value' && attName == 'description'">
-                                  <IonPopover :trigger="'item_' + item._id" reference="trigger" size="auto" class="item-desc">
-                                    <DynamicComponent :html="item?.system?.description?.value"></DynamicComponent>
-                                  </IonPopover>
-                                </td>
-                                <td v-else>{{ satt }}</td>
-                              </tr>
-                            </table>
-                          </td>
-                          <td v-else>{{ att }}</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </IonCardContent>
-                </IonCard>
-              </div>
-            </IonAccordion>
-          </IonAccordionGroup>
-        </IonAccordion>
-      </ion-accordion-group>
+      <IonTabs>
+        <IonTabBar slot="top">
+          <IonTabButton v-for="tab in tabs" :tab="tab.path" :href="`/pf2e/actors/${actor._id}/${tab.path}`" :router-direction="'forward'">{{ tab.name }}</IonTabButton>
+        </IonTabBar>
+
+        <IonRouterOutlet></IonRouterOutlet>
+      </IonTabs>
     </ion-content>
   </ion-page>
 </template>
 
 <style>
+:host {
+  --ion-background: v-bind("parchment");
+}
 ion-popover {
   &.item-desc {
     --width: 90vw;

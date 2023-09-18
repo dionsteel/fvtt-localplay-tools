@@ -12,6 +12,10 @@ import { Item } from "./items/item";
 import { ChatMessagePF2e, ChatMessageSourcePF2e } from "../pf2e/chat-message";
 import { ActorItemTypes, ItemTypes } from "./items/itemTypes";
 import { useObservable, from } from "@vueuse/rxjs";
+import { dereference } from "@/store/config";
+import { ActionItemPF2e } from "../pf2e/item";
+import { CharacterStrike } from "@/data";
+import { PF2eTypes } from "../pf2e";
 
 export interface TermJSON {
   /** Term ID */
@@ -53,10 +57,11 @@ export interface SocketEventMap<S extends SystemTypeMap = SystemTypeMap, TokenTy
     { id: string; data: { terms: TermJSON[]; controlled: { actor: string[]; token: string[] } }; controlled: { actor: string[]; token: string[] } }
   >;
   rollReply: SocketEvent<"rollReply", { rollId: string; data: (TermJSON & any)[] }>;
-  renderChatMessage: SocketEvent<"renderChatMessage", { message: Partial<ChatMessagePF2e>; html: string; source: ChatMessageSourcePF2e }>;
+  renderChatMessage: SocketEvent<"renderChatMessage", { message: Partial<ChatMessageSourcePF2e>; html: string; source: ChatMessageSourcePF2e }>;
+  playerRPC: SocketEvent<"playerRPC", { action: "useItem" | "performStrike" | string; options?: any }>;
 }
 
-export interface ActorSocketEvent<S extends SystemTypeMap = SystemTypeMap, K extends SocketEventNames = SocketEventNames> extends Record<string, any> {
+export interface ActorSocketEvent<S extends SystemTypeMap = SystemTypeMap, K extends SocketEventNames = SocketEventNames> extends SocketEvent<K, any> {
   event: K;
   // data: SocketEventMap<S>[K]["data"];
   target?: any;
@@ -116,9 +121,10 @@ export class ActorHelper<S extends SystemTypeMap = SystemTypeMap> {
     );
     this.events = this.socket.pipe(
       map((e) => {
-        console.log(e);
-        e.eventSource = this; //`/actor/${this.id}`;
-        return e;
+        let output: any = dereference(e);
+        output.eventSource = this; //`/actor/${this.id}`;
+        console.log(output);
+        return output;
       }),
       share()
     );
@@ -129,14 +135,20 @@ export class ActorHelper<S extends SystemTypeMap = SystemTypeMap> {
       }
     });
   }
+
   applyChanges(partial: Partial<Character<S>>) {
     if (typeof this.actor?.value == "undefined") {
       (this.actor.value as any) = {};
     }
     return applyDeep(this.actor.value, partial);
   }
+
   answerRoll(rollId: string, rollData: any) {
     this.socket.next({ event: "rollReply", rollId, data: rollData });
+  }
+
+  useItem(item: ActionItemPF2e) {
+    this.socket.next({ event: "playerRPC", action: "useItem", options: { id: item._id } });
   }
 
   async getActor() {
@@ -199,26 +211,28 @@ export class SystemHelper<S extends SystemTypeMap = SystemTypeMap> {
   actors: Record<string, ActorHelper<S>> = {};
   allEvents = new Subject<ActorSocketEvent<S>>();
 
-  chat = useObservable(
-    this.allEvents.pipe(
-      filter((e) => e.event == "renderChatMessage"),
-      scan((a, c) => {
-        a.push(c);
-        return a;
-      })
-    )
+  chat$ = this.allEvents.pipe(
+    filter((e) => e.event == "renderChatMessage"),
+    // scan(
+    //   (a, c) => {
+    //     a.push(c as any);
+    //     return a;
+    //   },
+    //   [] as SocketEventMap<PF2eTypes>["renderChatMessage"][]
+    // )
   );
+  get chat() {
+    return useObservable(this.chat$);
+  }
 
-  rolls = useObservable(
-    this.allEvents.pipe(
-      filter((e) => e.event == "rollRequest"),
-      scan((a, c) => {
-        a.push(c);
-        return a;
-      }, [] as any[])
-    ) as Observable<ActorSocketEvent<S, "rollRequest">[]>,
-    { initialValue: [] }
-  );
+  rolls$ = this.allEvents.pipe(
+    filter((e) => e.event == "rollRequest"),
+    scan((a, c) => {
+      a.push(c);
+      return a;
+    }, [] as any[])
+  ) as Observable<ActorSocketEvent<S, "rollRequest">[]>;
+  rolls = useObservable(this.rolls$);
 
   allActors = computed(() => Object.values(this.actors));
 
@@ -232,11 +246,16 @@ export class SystemHelper<S extends SystemTypeMap = SystemTypeMap> {
       { immediate: true }
     );
   }
+
+  createActorHelper(id: string) {
+    return new ActorHelper<S>(id);
+  }
+
   updateActors() {
     for (let al of this.world.currentWorldActors) {
       if (!this.actors[al.id]) {
-        const actorHelper = new ActorHelper<S>(al.id);
-        actorHelper.events.subscribe(this.allEvents);
+        const actorHelper = this.createActorHelper(al.id); //new ActorHelper<S>(al.id);
+        actorHelper.events.subscribe((e) => this.allEvents.next(e));
         this.actors[al.id] = actorHelper;
       }
     }
@@ -254,7 +273,7 @@ export class SystemHelper<S extends SystemTypeMap = SystemTypeMap> {
 
     let h = this.actors[id];
     if (!h) {
-      h = this.actors[id] = new ActorHelper(id);
+      h = this.actors[id] = this.createActorHelper(id);
     }
     await h.loaded;
     return h;

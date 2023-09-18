@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps<{ label?: string; target: string; linkType?: string }>();
+defineProps<{ label?: string; target?: string; linkType?: string }>();
 </script>
 
 <template>

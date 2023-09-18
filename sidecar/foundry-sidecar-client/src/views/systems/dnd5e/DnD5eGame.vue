@@ -126,8 +126,8 @@ updateSelectedIndex();
     <link rel="stylesheet" href="http://localhost:3000/systems/dnd5e/dnd5e.css" />
 
     <ion-content>
-      <Suspense
-        ><ion-split-pane content-id="system-content" class="dnd5e-content">
+      <Suspense>
+        <ion-split-pane content-id="system-content" class="dnd5e-content">
           <ion-menu content-id="system-content" class="dnd5e-content" type="overlay">
             <ion-content>
               <ion-list id="world-list">
@@ -172,8 +172,9 @@ updateSelectedIndex();
               </ion-list>
             </ion-content>
           </ion-menu>
-          <ion-router-outlet id="system-content" class="dnd5e-content"></ion-router-outlet> </ion-split-pane
-      ></Suspense>
+          <ion-router-outlet id="system-content" class="dnd5e-content"></ion-router-outlet>
+        </ion-split-pane>
+      </Suspense>
     </ion-content>
   </ion-page>
 </template>

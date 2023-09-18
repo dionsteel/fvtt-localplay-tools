@@ -1,4 +1,5 @@
 // import { ActorPF2e, ItemPF2e } from "src/interfaces/pf2e/documents";
+export * from './pf2e/index';
 /** The size property of creatures and equipment */
 declare const SIZES: readonly ["tiny", "sm", "med", "lg", "huge", "grg"];
 declare const SIZE_SLUGS: readonly ["tiny", "small", "medium", "large", "huge", "gargantuan"];

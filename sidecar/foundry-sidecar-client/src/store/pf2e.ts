@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { useWorldStore, fetchJson } from "./world";
+import { useWorldStore } from "./world";
 import { ActorPF2e, CharacterPF2e } from "@/interfaces/pf2e/actor";
 import { Ref, watch } from "vue";
 import { Observable, Subject } from "rxjs";

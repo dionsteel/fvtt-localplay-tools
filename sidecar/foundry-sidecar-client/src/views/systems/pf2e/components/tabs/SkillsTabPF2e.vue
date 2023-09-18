@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { Character5e } from "@/interfaces/dnd5e";
-import { useDnd5eGame } from "@/store/dnd5e";
+import { CharacterPF2e } from "@/interfaces/pf2e";
+import { usePF2eGame } from "@/store/pf2e";
 import { IonContent,IonPage } from "@ionic/vue";
 import { inject } from "vue";
 
-const game = useDnd5eGame();
+const game = usePF2eGame();
 const helper = game.helper;
-const actor = inject<Character5e>("actor");
+const actor = inject<CharacterPF2e>("actor");
 </script>
 
 <template>

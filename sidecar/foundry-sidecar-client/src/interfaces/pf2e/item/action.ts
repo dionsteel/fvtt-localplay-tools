@@ -5,7 +5,7 @@ import { ItemWrapPF2e } from ".";
 type ActionItemSource = BaseItemSourcePF2e<"action", ActionSystemSource>;
 type ActionTrait = keyof ConfigPF2e["PF2E"]["actionTraits"];
 interface ActionTraits extends ItemTraits<ActionTrait> {
-  rarity?: never;
+  // rarity?: string;
 }
 interface ActionSystemSource extends ItemSystemSource {
   traits: ActionTraits;

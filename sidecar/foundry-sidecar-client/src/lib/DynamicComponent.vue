@@ -112,6 +112,63 @@ export default {
       },
     });
     md.use(markdownItRegex, {
+      name: "foundry-check",
+      regex: /(\@Check\[.+\])/,
+      replace: (match: string) => {
+        let matches = match.match(/\@(Check)\[(.+)\]([^\s])*/) || [];
+        let [all, link_type, target, _wrap, label] = matches;
+        let details = {
+          target,
+          label,
+        };
+        let elementTag = link_type || ""; // capitalize(link_type);
+        let attrs = Object.entries(details)
+          .filter(([k, v]) => !!v)
+          .map(([k, v]) => `${k}="${v}"`)
+          .join(" ");
+        console.log("found embedded check roll", elementTag, match, matches);
+        return `<FoundryLink link-type="${elementTag}" ${attrs}></FoundryLink>`;
+      },
+    });
+    md.use(markdownItRegex, {
+      name: "foundry-damage",
+      regex: /(\@Damage\[.+\])/,
+      replace: (match: string) => {
+        let matches = match.match(/@(Damage)\[(.+)\]([^\s])*/) || [];
+        let [all, link_type, target, _wrap, label] = matches;
+        let details = {
+          target,
+          label,
+        };
+        let elementTag = link_type || ""; // capitalize(link_type);
+        let attrs = Object.entries(details)
+          .filter(([k, v]) => !!v)
+          .map(([k, v]) => `${k}="${v}"`)
+          .join(" ");
+        console.log("found embedded roll link", elementTag, match, matches);
+        return `<FoundryLink link-type="${elementTag}" ${attrs}></FoundryLink>`;
+      },
+    });
+    md.use(markdownItRegex, {
+      name: "foundry-attack",
+      regex: /(\@Attack\[.+\])/,
+      replace: (match: string) => {
+        let matches = match.match(/@(Attack)\[(.+)\](\{([^\}]+)\})*/) || [];
+        let [all, link_type, target, _wrap, label] = matches;
+        let details = {
+          target,
+          label,
+        };
+        let elementTag = link_type || ""; // capitalize(link_type);
+        let attrs = Object.entries(details)
+          .filter(([k, v]) => !!v)
+          .map(([k, v]) => `${k}="${v}"`)
+          .join(" ");
+        console.log("found embedded roll link", elementTag, match, matches);
+        return `<FoundryLink link-type="${elementTag}" ${attrs}></FoundryLink>`;
+      },
+    });
+    md.use(markdownItRegex, {
       name: "chatcommand",
       regex: /\[\[([^\]]+)\]\]/,
       replace: (cmd: string) => `<Formula style="border: 1px solid #333;" formula="${cmd}" class="formula"></Formula>`,
@@ -120,7 +177,7 @@ export default {
     let contents: RenderFunction = compile(md.renderInline(props.html));
     let compiled = (...args: any[]) => {
       if (contents && typeof contents == "function") {
-        return (contents as any)(...args);
+        return h("div", {class: 'dynamic-content'},[(contents as any)(...args)]);
       }
       return h("div", ["Loading..."]);
     }; // = compile(props.html || "",{});

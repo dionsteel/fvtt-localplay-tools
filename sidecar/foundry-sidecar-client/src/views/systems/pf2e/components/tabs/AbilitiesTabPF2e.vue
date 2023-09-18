@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { Character5e } from "@/interfaces/dnd5e";
-import { useDnd5eGame } from "@/store/dnd5e";
+import { CharacterPF2e } from "@/interfaces/pf2e/index";
+import { usePF2eGame } from "@/store/pf2e";
 import { IonContent, IonPage, IonIcon } from "@ionic/vue";
 import { bed, bulb, skull } from "ionicons/icons";
 import { inject } from "vue";
 
-const game = useDnd5eGame();
+const game = usePF2eGame();
 const helper = game.helper;
-const actor = inject<Character5e>("actor");
+const actor = inject<CharacterPF2e>("actor");
 </script>
 
 <template>
@@ -15,17 +15,13 @@ const actor = inject<Character5e>("actor");
     <IonContent>
       <div class="actor-system-info">
         <div class="abilities">
-          <div class="ability" v-for="(data, ak) in actor?.system?.abilities" :class.proficient="data.proficient">
+          <div class="ability" v-for="(data, ak) in actor?.system?.abilities">
             <div class="title">
               {{ ak.toUpperCase() }} <span class="abilityscore">{{ data.value - 10 >= 0 ? "+" : "" }}{{ Math.floor((data.value - 10) / 2) }}</span>
             </div>
             <div class="value">
               <small class="fullscore">
-                {{ data.value }}
-                <span class="bonus" v-if="data.bonuses && (data.bonuses.check || data.bonuses.save)">
-                  {{ data.bonuses.check }} /
-                  {{ data.bonuses.save }}
-                </span>
+                {{ data.value }} {{data.base}} {{ data.mod }}
               </small>
             </div>
             <!-- {{ data.proficient }}

@@ -1,0 +1,1 @@
+const actorHelper = inject('actorHelper');
