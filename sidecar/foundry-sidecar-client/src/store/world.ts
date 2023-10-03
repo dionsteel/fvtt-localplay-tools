@@ -18,16 +18,11 @@ export const useWorldStore = defineStore("worlds", () => {
     // tap((id) => (worldActorMap.value[id] = worldActorMap.value[id] || []))
   );
 
-  const activeGame = useObservable<CurrentGameInfo>(activeGame$);
-  const ownedActors = useObservable<ActorListing[]>(ownedActors$);
+  const activeGame = ref<CurrentGameInfo>(); // await config.fetchJson<CurrentGameInfo>('/info');
+  const ownedActors = ref<ActorListing[]>(); //(await config.fetchJson<ActorListing[]>("/actor"));
   const worldId = computed(() => activeGame.value?.world.id);
-
-  const currentWorldActors = computed(() => {
-    if (!worldActorMap.value[`${worldId.value}`]) {
-      worldActorMap.value[`${worldId.value}`] = [];
-    }
-    return worldActorMap.value[`${worldId.value}`].map<ActorListing>((wid) => (ownedActors.value || []).find((oa) => oa.id == wid) || (null as any)).filter((v) => !!v) || [];
-  });
+  // const config.SelectedActors: Array<{ worldId: string; actorId: string; listing?: ActorListing }> = [];
+  const actorData = ref<Record<string, Actor>>({})
   //  useObservable(
   //   from(worldActorMap, { deep: true, immediate: true }).pipe(
   //     mergeMap((wam) => {
@@ -44,25 +39,57 @@ export const useWorldStore = defineStore("worlds", () => {
   //     }, [] as Actor[])
   //   )
   // );
+  const currentWorldActors = computed(() => (config.SelectedActors || []).filter(sel => worldId.value && sel.worldId == worldId.value && sel.listing).map(s => s.listing));
+  async function getActorData(id: string, force = false) {
+    if (!force) { return actorData.value[id] = actorData.value[id] || await config.fetchJson(`/actor/${id}`); }
+    else { return actorData.value[id] = await config.fetchJson(`/actor/${id}`); }
+  }
+
+  async function startup() {
+    activeGame.value = await config.fetchJson('/info');
+    ownedActors.value = (await config.fetchJson<ActorListing[]>("/actor"));
+    // if (!allSelectedActors) { allSelectedActors = [] }
+    if (config.SelectedActors.filter(s => s.worldId == worldId.value).length > 0) {
+      for (let sel of config.SelectedActors) {
+        await getActorData(sel.actorId, true);// await config.fetchJson(`/actor/${sel.actorId}`);
+      }
+    }
+    return true;
+  }
+  const started = startup();
 
   return {
-    config,
+    config, actorData,
     activeGame,
     ownedActors,
-    worldId,
-    worldActorMap,
     currentWorldActors,
+    worldId,
+    allSelectedActors: config.SelectedActors,
+    worldActorMap,
+    startup, started,
+    getActorData,
     addSelectedActor(actorId: string) {
-      worldActorMap.value[`${worldId.value}`] = worldActorMap.value[`${worldId.value}`] || [];
-      worldActorMap.value[`${worldId.value}`].push(actorId);
-      console.log("adding selected actor id", actorId, worldActorMap.value);
+      // worldActorMap.value[`${worldId.value}`] = worldActorMap.value[`${worldId.value}`] || [];
+      // worldActorMap.value[`${worldId.value}`].push(actorId);
+      if (worldId.value) {
+        let existingIdx = config.SelectedActors.findIndex(a => a.actorId == actorId);
+        const listing = ownedActors.value?.find(l => l.id == actorId);
+        if (listing) {
+          if (existingIdx < 0) {
+            config.SelectedActors.push({ worldId: worldId.value, actorId, listing })
+            console.log("adding selected actor id", actorId, worldActorMap.value);
+          } else {
+            config.SelectedActors[existingIdx].listing = listing;
+          }
+        }
+      }
+
     },
     removeSelectedActor(actorId: string) {
-      if (worldActorMap.value[`${worldId.value}`]) {
-        worldActorMap.value[`${worldId.value}`].splice(worldActorMap.value[`${worldId.value}`].indexOf(actorId), 1);
-      } else {
-        worldActorMap.value[`${worldId.value}`] = [];
+      let existingIdx = config.SelectedActors.findIndex(a => a.actorId == actorId);
+      if (existingIdx > -1) {
+        config.SelectedActors.splice(existingIdx, 1);
       }
     },
   };
-});
+}, { persist: true });

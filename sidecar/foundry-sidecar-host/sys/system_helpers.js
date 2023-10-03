@@ -156,70 +156,115 @@ const helpers = {
       try {
         const actor = pf2eactor(id);
         try {
-          actor.prepareData();
-          actor.prepareDerivedData();
-          actor.prepareEmbeddedDocuments();
-          actor.prepareMartialProficiencies();
+          // actor.prepareData();
+          // actor.prepareDerivedData();
+          // actor.prepareEmbeddedDocuments();
+          // actor.prepareMartialProficiencies();
         } catch (e) { console.error(e); }
         // const classDC = actor.prepareClassDC();
-        const strikes = actor.prepareStrikes();
-        const speed = actor.prepareSpeed();
+        // const strikes = actor.prepareStrikes();
+        // const speed = actor.prepareSpeed();
 
         // const data = { ...actor };
         let {
           allowedItemTypes,
           flags,
           hitPoints,
-          initiative,
-          abilities,
-          skills,
+          // initiative,
+          // abilities,
+          // skills,
           system,
-          ancestry,
-          background,
+          // ancestry,
+          // background,
           class: aClass,
+          armorClass,
+          auras,
           classDC,
-          classDCs, inventory,
-          deity,
-          deityBoonsCurses,
-          familiar,
-          feats,
-          heritage, items,
+          classDCs,
+          conditions,
+          // constructed,
+          // deity,
+          // deityBoonsCurses,
+          // familiar,
+          // feats,
+          // heritage,
           heroPoints,
+          img,
+          inventory,
+          itemTypes,
+          items,
           keyAbility,
-          pfsBoons,
-          traditions, itemTypes
+          name,
+          overrides,
+          ownership,
+          // parties,
+          // perception,
+          // pfsBoons,
+          prototypeToken,
+          // rules,
+          // saves,
+          // sort,
+          // spellcasting,
+          statuses,
+          synthetics,
+          // traditions,
+          type,
+          // _lastWildcard,
+          // _stats,
+          // _tokenImages,
         } = actor;
         inventory = [...inventory];
         items = [...items];
         const data = {
-          ...actor,
-          allowedItemTypes, itemTypes,
-          flags, inventory,
-          hitPoints, items,
-          initiative,
-          abilities,
-          skills,
-          system,
-          ancestry,
-          background,
+          allowedItemTypes,
+          itemTypes,
+          flags,
+          // inventory,
+          hitPoints,
+          items,
+          // initiative,
+          // abilities,
+          // skills,
+          // system,
+          // ancestry,
+          // background,
           class: aClass,
           classDC,
           classDCs,
-          deity,
-          deityBoonsCurses,
-          familiar,
-          feats,
-          heritage,
+          // deity,
+          // deityBoonsCurses,
+          // familiar,
+          // feats,
+          // heritage,
           heroPoints,
           keyAbility,
-          pfsBoons,
-          traditions,
-          speed,
-          strikes,
-          classDC,
+          // pfsBoons,
+          // traditions,
+          // speed,
+          // strikes,
+          // classDC,
+          auras,
+          conditions,
+          // constructed,
+          img,
+          name,
+          overrides,
+          ownership,
+          // perception,
+          // prototypeToken,
+          // rules,
+          // saves,
+          // sort,
+          // spellcasting,
+          statuses,
+          synthetics,
+          type,
+          // _lastWildcard,
+          // _stats,
+          // _tokenImages,
         };
-        data.armorClass = { ...(actor?.armorClass || {}) };
-        // data.system = { ...actor.system };
+        data.armorClass = { ...(armorClass || {}) };
+        data.system = { ...system };
         return data;
       } catch (e) {
         console.error('Error Extracting pf2e actor details', e, id);

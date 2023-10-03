@@ -1,6 +1,7 @@
 <template>
   <ion-app>
-    <!-- <ion-split-pane content-id="main-content">
+    <Suspense>
+      <!-- <ion-split-pane content-id="main-content">
       <ion-menu content-id="main-content" type="overlay">
         <ion-content>
           <ion-list id="inbox-list">
@@ -39,13 +40,13 @@
         </ion-content>
       </ion-menu>
     </ion-split-pane> -->
-    <ion-router-outlet></ion-router-outlet>
+      <ion-router-outlet></ion-router-outlet>
+    </Suspense>
   </ion-app>
 </template>
 
 <script setup lang="ts">
 import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterOutlet, IonSplitPane } from "@ionic/vue";
-import { ref } from "vue";
 import {
   archiveOutline,
   archiveSharp,
@@ -62,6 +63,7 @@ import {
   warningOutline,
   warningSharp,
 } from "ionicons/icons";
+import { Suspense, provide, ref, watch } from "vue";
 
 import { useWorldStore } from "@/store/world";
 // const store = useWorldStore();

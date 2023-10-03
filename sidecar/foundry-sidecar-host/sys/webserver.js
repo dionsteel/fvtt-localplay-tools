@@ -111,6 +111,10 @@ function extractProps(item, excludePrivate = true, excluded = []) {
 }
 
 function extractFullData(item = {}) {
+  try {
+    let stringed = JSON.stringify({ ...item });
+    return JSON.parse(stringed);
+  } catch (e) { console.error(e); }
   // let first = true;
   // let queue = [];
   // if (typeof item.toObject == "function") {
@@ -365,7 +369,7 @@ function mountWebServer(app) {
       });
       try {
         forwardEventOverWS({ event: "updateActor", actor: helper.getActorData(req.params.id) });
-        forwardEventOverWS({ event: "updateToken", token: currentToken() || {} });
+        // forwardEventOverWS({ event: "updateToken", token: currentToken() || {} });
         forwardEventOverWS({ event: "updateCombat", combat: currentCombat() || {} });
       } catch (e) {
         console.log("failed on initial sendings");
@@ -426,10 +430,10 @@ function mountWebServer(app) {
               case "createCombat":
                 return e.combat.combatants.has(currentToken().id || currentToken()._id);
               case "renderChatMessage":
-                if (e.html) {
+                if (e.html && e.html.html ) {
                   try { e.html = e?.html?.html(); } catch (e) { console.error(e); }
                 }
-                return true;
+                // return true;
                 if (e.message.speaker?.alias == "Gamemaster") {
                   return true;
                 }

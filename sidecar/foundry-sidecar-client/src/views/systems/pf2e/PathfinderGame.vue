@@ -24,8 +24,11 @@ import {
   IonAlert,
   IonButton,
   AlertInput,
+  IonSegment,
+  IonSegmentButton, menuController,
+  IonHeader,
 } from "@ionic/vue";
-import { Suspense, provide, ref, watch } from "vue";
+import { ComponentPublicInstance, Suspense, provide, ref, watch } from "vue";
 import {
   archiveOutline,
   archiveSharp,
@@ -59,9 +62,14 @@ import {
 import { useConfigStore } from "@/store/config";
 import { Observable, Subject, firstValueFrom } from "rxjs";
 import { filter, map, tap, reduce, scan, share } from "rxjs/operators";
+import { SocketEventMap } from "@/interfaces/core/helper";
+import { PF2eTypes, ActorHelperPF2e } from "@/interfaces/pf2e";
+import { StrikeLookupData } from "@/interfaces/pf2e/chat-message";
+import DynamicComponent from "@/lib/DynamicComponent.vue";
 
 const store = useWorldStore();
 const config = useConfigStore();
+await store.started;
 const router = useRouter();
 const route = useRoute();
 const game = usePF2eGame();
@@ -147,6 +155,46 @@ game.helper.allEvents
       })
       .then((r) => console.log("alert result", r));
   });
+
+let showChat = ref(0);
+
+
+// let chatMessages = config.chatMessages; //ref([] as Array<SocketEventMap<PF2eTypes>["renderChatMessage"] & { eventSource: ActorHelperPF2e }>);
+
+game.helper.chat$.subscribe((m) => {
+  console.log("New Chat message", m);
+  config.chatMessages.push(m as any);
+  showChatMenu()
+});
+const transformHtml = (html: string) => {
+  return html.replace(/(src|href)=\"([^\"]+)\"/gi, (all, attr, uri) => `${attr}="${store.config.getAPIUrl(uri)}"`);
+};
+function handleChatCardClicks(event: MouseEvent, msg: SocketEventMap<PF2eTypes>["renderChatMessage"] & { eventSource: ActorHelperPF2e }) {
+  const data = { ...((event.target as HTMLButtonElement)?.dataset || {}) };
+  const helper = msg.eventSource;
+
+  console.log("clicked in chat card", data, msg);
+  switch (data.action || "") {
+    case "strike-damage":
+    case "strike-critical":
+      const strike = msg?.message?.flags?.pf2e?.strike as StrikeLookupData;
+      console.log(strike);
+      if (strike) {
+        helper.rollStrikeDamage(strike.index, data.action?.endsWith("critical"));
+        // data.
+      }
+  }
+}
+async function showChatMenu() {
+
+  await menuController.enable(true, 'chat-menu');
+  await menuController.open('chat-menu')
+  chatlog.value?.$el.scrollToBottom(300);
+}
+
+const chatlog = ref<ComponentPublicInstance | null>(null);
+
+watch(()=>config.chatMessages, ()=>showChatMenu())
 </script>
 
 <template>
@@ -155,54 +203,71 @@ game.helper.allEvents
     <link rel="stylesheet" :href="game.config.getAPIUrl(`systems/pf2e/styles/pf2e.css`)" />
     <ion-content>
       <Suspense>
+
         <ion-split-pane content-id="system-content" class="pf2e-content">
           <ion-menu content-id="system-content" class="pf2e-content" type="overlay">
             <ion-content>
-              <ion-list id="world-list">
-                <ion-list-header>{{ store.activeGame?.world.title }}</ion-list-header>
-                <ion-note>{{ store.activeGame?.system.title }}</ion-note>
+              <IonHeader>
+                <ion-list id="world-list">
+                  <ion-list-header>{{ store.activeGame?.world.title }}</ion-list-header>
+                  <ion-note>{{ store.activeGame?.system.title }}</ion-note>
 
-                <ion-menu-toggle :auto-hide="false" v-for="(p, i) in appPages" :key="i">
-                  <ion-item
-                    @click="selectedIndex = i"
-                    router-direction="root"
-                    :router-link="p.url"
-                    lines="none"
-                    :detail="false"
-                    class="hydrated"
-                    :class="{ selected: selectedIndex === i }">
-                    <ion-icon aria-hidden="true" slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
-                    <ion-label>{{ p.title }}</ion-label>
-                  </ion-item>
-                </ion-menu-toggle>
-              </ion-list>
+                  <ion-menu-toggle :auto-hide="false" v-for="(p, i) in appPages" :key="i">
+                    <ion-item @click="selectedIndex = i" router-direction="root" :router-link="p.url" lines="none"
+                      :detail="false" class="hydrated" :class="{ selected: selectedIndex === i }">
+                      <ion-icon aria-hidden="true" slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
+                      <ion-label>{{ p.title }}</ion-label>
+                    </ion-item>
+                  </ion-menu-toggle>
+                </ion-list>
 
+                <IonSegment :value="showChat">
+                  <IonSegmentButton :value="0" @click="showChat = 0">
+                    Characters
+                  </IonSegmentButton>
+                  <IonSegmentButton :value="1" @click="showChatMenu()">
+                    Chat
+                  </IonSegmentButton>
+                </IonSegment>
+              </IonHeader>
               <ion-list id="labels-list">
-                <ion-list-header>Characters</ion-list-header>
+                <!-- <ion-list-header>
+                </ion-list-header> -->
 
                 <ion-item
-                  v-for="(actor, index) in store?.currentWorldActors"
-                  lines="none"
-                  :key="index"
-                  router-direction="root"
+                  v-for="(actor, index) in store?.allSelectedActors.filter(a => a.worldId == store.worldId && a.listing).map(a => a.listing)"
+                  lines="none" :key="index" router-direction="forward"
                   :router-link="'/' + store.activeGame?.world.system + '/actors/' + actor?.id"
-                  :class="{ selected: router.currentRoute.value.fullPath.endsWith(actor?.id) }">
-                  <ion-icon
-                    v-if="actor?.image.endsWith('.svg')"
-                    aria-hidden="true"
-                    slot="start"
-                    :ios="bookmarkOutline"
-                    :md="bookmarkSharp"
-                    :src="game.config.getAPIUrl(actor?.image)"></ion-icon>
-                  <img v-else width="32" slot="start" :src="game.config.getAPIUrl(actor?.image)" />
+                  :class="{ selected: router.currentRoute.value.fullPath.endsWith(actor?.id || '') }">
+                  <ion-icon v-if="actor?.image.endsWith('.svg')" aria-hidden="true" slot="start" :ios="bookmarkOutline"
+                    :md="bookmarkSharp" :src="game.config.getAPIUrl(actor?.image)"></ion-icon>
+                  <img v-else width="32" slot="start" :src="game.config.getAPIUrl(actor?.image || '')" />
                   <ion-label>{{ actor?.name }}</ion-label>
                 </ion-item>
               </ion-list>
+
             </ion-content>
+          </ion-menu>
+          <ion-menu menu-id="chat-menu" :disabled="false" side="end" content-id="system-content">
+            <IonContent ref="chatlog">
+              <IonList>
+                <!-- <IonListHeader><IonTitle></IonTitle></IonListHeader> -->
+                <IonItem v-for="(msg, idx) in config.chatMessages" :id="'chatmsg-' + idx">
+                  <div class="ion-padding chat-message" style="flex-direction: column">
+                    <DynamicComponent @click.capture="handleChatCardClicks($event, msg as any)"
+                      :html="transformHtml(msg?.html || '')"></DynamicComponent>
+                    <!-- {{ msg. }} -->
+                  </div>
+                </IonItem>
+              </IonList>
+
+            </IonContent>
           </ion-menu>
           <ion-router-outlet id="system-content" class="pf2e-content"></ion-router-outlet>
         </ion-split-pane>
       </Suspense>
+
+
     </ion-content>
   </ion-page>
 </template>

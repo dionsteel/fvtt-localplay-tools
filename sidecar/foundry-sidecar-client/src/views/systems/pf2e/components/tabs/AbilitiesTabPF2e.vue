@@ -17,7 +17,11 @@ const actor = inject<CharacterPF2e>("actor");
         <div class="abilities">
           <div class="ability" v-for="(data, ak) in actor?.system?.abilities">
             <div class="title">
-              {{ ak.toUpperCase() }} <span class="abilityscore">{{ data.value - 10 >= 0 ? "+" : "" }}{{ Math.floor((data.value - 10) / 2) }}</span>
+              {{ ak.toUpperCase() }} 
+              <span class="abilityscore">
+                {{ data.mod }}
+                <!-- {{ data.value - 10 >= 0 ? "+" : "" }}{{ Math.floor((data.value - 10) / 2) }} -->
+              </span>
             </div>
             <div class="value">
               <small class="fullscore">

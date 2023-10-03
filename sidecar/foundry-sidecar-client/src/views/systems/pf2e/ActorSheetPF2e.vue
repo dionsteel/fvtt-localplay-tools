@@ -109,7 +109,7 @@ const tabs = computed(() => [
     <ion-content>
       <IonTabs>
         <IonTabBar slot="top">
-          <IonTabButton v-for="tab in tabs" :tab="tab.path" :href="`/pf2e/actors/${actor._id}/${tab.path}`" :router-direction="'forward'">{{ tab.name }}</IonTabButton>
+          <IonTabButton v-for="tab in tabs" :tab="tab.path" :href="`/pf2e/actors/${actor._id}/${tab.path}`" :router-direction="'root'">{{ tab.name }}</IonTabButton>
         </IonTabBar>
 
         <IonRouterOutlet></IonRouterOutlet>

@@ -95,19 +95,21 @@ export class ActorHelper<S extends SystemTypeMap = SystemTypeMap> {
   updates: Observable<CharacterUpdateEvent<S>>;
   socket: WebSocketSubject<ActorSocketEvent<S>>;
   itemTypes: ComputedRef<ActorItemTypes<S>>;
-  actor$: Observable<Character<S>>;
+  // actor$: Observable<Character<S>>;
   loaded: Promise<boolean>;
 
   constructor(public id: string) {
-    this.actor = ref({ id: this.id, _id: this.id } as any); // useObservable(this.actor$);
-    this.actor$ = this.world.config.fetchJson$<Character<S>>(`/actor/${this.id}`);
-    this.actor$.subscribe((a) => applyDeep(this.actor.value, a));
-    this.loaded = firstValueFrom(this.actor$)
-      .then((a) => this.applyChanges(a))
-      .then(
-        (a) => true,
-        (e) => false
-      );
+    this.actor = ref(this.world.actorData[this.id]); // ref({ id: this.id, _id: this.id } as any); // useObservable(this.actor$);
+    this.load();
+    // this.actor$ = this.world.config.fetchJson$<Character<S>>(`/actor/${this.id}`);
+    // this.actor$.subscribe((a) => applyDeep(this.actor.value, a));
+    this.loaded = this.load();
+    // firstValueFrom(this.actor$)
+    //   .then((a) => this.applyChanges(a))
+    //   .then(
+    //     (a) => true,
+    //     (e) => false
+    //   );
     this.socket = this.world.config.getSocketSubject<ActorSocketEvent<S>>(`/actor/${this.id}`);
     this.itemTypes = computed(
       () =>
@@ -134,6 +136,11 @@ export class ActorHelper<S extends SystemTypeMap = SystemTypeMap> {
         applyDeep(this.actor?.value as any, (e.actor || e.data) as any);
       }
     });
+  }
+
+  async load() {
+    this.actor.value = await this.world.getActorData(this.id, false);
+    return !!this.actor.value?.system
   }
 
   applyChanges(partial: Partial<Character<S>>) {
@@ -253,10 +260,10 @@ export class SystemHelper<S extends SystemTypeMap = SystemTypeMap> {
 
   updateActors() {
     for (let al of this.world.currentWorldActors) {
-      if (!this.actors[al.id]) {
-        const actorHelper = this.createActorHelper(al.id); //new ActorHelper<S>(al.id);
+      if (al?.id && !this.actors[al?.id]) {
+        const actorHelper = this.createActorHelper(al?.id); //new ActorHelper<S>(al?.id);
         actorHelper.events.subscribe((e) => this.allEvents.next(e));
-        this.actors[al.id] = actorHelper;
+        this.actors[al?.id] = actorHelper;
       }
     }
   }
