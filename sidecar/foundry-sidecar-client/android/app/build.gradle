@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "io.ionic.starter"
+    namespace "quest.rpgtable.sidecar"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "io.ionic.starter"
+        applicationId "quest.rpgtable.sidecar"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -16,9 +16,18 @@ android {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    // signingConfigs { 
+    //     release { 
+    //       keyAlias 'fvtt-sidecar-release' 
+    //       keyPassword 'G0ndolin1!' 
+    //       storeFile file("C:\\Users\\dionj\\dev\\fvtt-localplay-tools\\sidecar\\foundry-sidecar-client\\android\\fvtt-sidecar-rls.keystore") 
+    //       storePassword 'G0ndolin1!' 
+    //   } 
+    // } 
     buildTypes {
         release {
             minifyEnabled false
+            // signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

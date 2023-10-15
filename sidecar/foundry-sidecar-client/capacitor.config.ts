@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'quest.rpgtable.sidecar',
   appName: 'foundry-sidecar-client',
   webDir: 'dist',
   server: {

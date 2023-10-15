@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">foundry-sidecar-client</string>
-    <string name="title_activity_main">foundry-sidecar-client</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="app_name">FoundryVTT Sidecar Client</string>
+    <string name="title_activity_main">FoundryVTT Sidecar Client</string>
+    <string name="package_name">quest.rpgtable.sidecar</string>
+    <string name="custom_url_scheme">quest.rpgtable.sidecar</string>
 </resources>

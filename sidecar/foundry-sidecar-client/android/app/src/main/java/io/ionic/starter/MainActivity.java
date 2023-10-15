@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package quest.rpgtable.sidecar;
 
 import com.getcapacitor.BridgeActivity;
 
