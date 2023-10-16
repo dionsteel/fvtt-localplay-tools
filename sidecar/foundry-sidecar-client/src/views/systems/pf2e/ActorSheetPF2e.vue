@@ -31,6 +31,7 @@ import {
   IonTabButton,
   IonCardHeader,
   IonPopover,
+  IonList,
 } from "@ionic/vue";
 
 import { skullSharp, bedSharp, bulbSharp, medalSharp, addSharp } from "ionicons/icons";
@@ -83,16 +84,17 @@ function getClass(actor: ActorPF2e) {
 }
 const atts = computed(() => actor.value?.system.attributes);
 const abl = computed(() => actor.value?.system.abilities);
-
+function getID(a: any) { return a._id || a.id; }
+const actorID = computed(() => actor.value._id)
 const tabs = computed(() => [
-  { name: "Actions", path: `actions` },
-  { name: "Attributes", path: `attributes` },
-  { name: "Abilities", path: `abilities` },
-  { name: "Inventory", path: `inventory` },
-  { name: "Skills", path: `skills` },
-  { name: "Spells", path: `spells` },
-  { name: "Features", path: `features` },
-  { name: "Biography", path: `biography` },
+  { name: "Actions", path: `/pf2e/actors/${route$.params.id}/actions` },
+  { name: "Attributes", path: `/pf2e/actors/${route$.params.id}/attributes` },
+  // { name: "Abilities", path: `/pf2e/actors/${route$.params.id}/abilities` },
+  { name: "Inventory", path: `/pf2e/actors/${route$.params.id}/inventory` },
+  // { name: "Skills", path: `/pf2e/actors/${route$.params.id}/skills` },
+  { name: "Spells", path: `/pf2e/actors/${route$.params.id}/spells` },
+  { name: "Features", path: `/pf2e/actors/${route$.params.id}/features` },
+  // { name: "Biography", path: `/pf2e/actors/${route$.params.id}/biography` },
 ]);
 </script>
 
@@ -103,13 +105,16 @@ const tabs = computed(() => [
         <ion-buttons slot="start">
           <ion-menu-button color="primary"></ion-menu-button>
         </ion-buttons>
-        <CharacterHeaderPF2e :actor="actor"></CharacterHeaderPF2e>
       </ion-toolbar>
     </ion-header>
     <ion-content>
       <IonTabs>
+        <IonToolbar>
+          <CharacterHeaderPF2e :actor="actor"></CharacterHeaderPF2e>
+        </IonToolbar>
         <IonTabBar slot="top">
-          <IonTabButton v-for="tab in tabs" :tab="tab.path" :href="`/pf2e/actors/${actor._id}/${tab.path}`" :router-direction="'root'">{{ tab.name }}</IonTabButton>
+          <IonTabButton v-for="tab in tabs" :tab="tab.name" :href="tab.path" :router-direction="'root'">{{ tab.name }}
+          </IonTabButton>
         </IonTabBar>
 
         <IonRouterOutlet></IonRouterOutlet>
@@ -122,11 +127,13 @@ const tabs = computed(() => [
 :host {
   --ion-background: v-bind("parchment");
 }
+
 ion-popover {
   &.item-desc {
     --width: 90vw;
   }
 }
+
 ion-content.item-desc {
   --padding-start: 15px;
   --padding-end: 15px;

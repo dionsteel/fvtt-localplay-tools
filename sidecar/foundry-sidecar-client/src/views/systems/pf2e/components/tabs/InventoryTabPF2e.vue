@@ -15,9 +15,12 @@ const actor = inject<CharacterPF2e>("actor");
   <IonPage>
     <IonContent>
       <IonAccordionGroup>
-        <IonAccordion :trigger="'item_' + item._id" reference="trigger" size="auto" class="item-desc" v-for="item of actor?.items" :id="'item_' + item._id">
-          <IonItem slot="header">
-            <IonImg :src="game.config.getAPIUrl(item.img || '')" :style="{ width: '64px', height: '64px', 'margin-right': '5px' }"></IonImg>
+        <IonAccordion :trigger="'item_' + item._id" reference="trigger" size="auto" class="item-desc"
+          v-for="item of actor?.items" :id="'item_' + item._id">
+          <IonItem slot="header"
+            v-if="(['weapon', 'backpack', 'equipment', 'consumable', 'food', 'armor', 'tool', 'item', 'loot', 'rune', 'recipe'].includes('' + item?.type))">
+            <IonImg :src="game.config.getAPIUrl(item.img || '')"
+              :style="{ width: '64px', height: '64px', 'margin-right': '5px' }"></IonImg>
 
             <IonLabel>
               <IonBadge slot="start">{{ item.type }}</IonBadge>
@@ -36,5 +39,4 @@ const actor = inject<CharacterPF2e>("actor");
         </IonAccordion>
       </IonAccordionGroup>
     </IonContent>
-  </IonPage>
-</template>
+  </IonPage></template>
