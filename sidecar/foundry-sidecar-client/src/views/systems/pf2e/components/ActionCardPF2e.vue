@@ -22,6 +22,8 @@ import {
   IonButton,
   IonSelect,
   IonSelectOption,
+  IonText,
+  IonHeader,
 } from "@ionic/vue";
 import { capitalize, computed, inject } from "vue";
 import DynamicComponent from "@/lib/DynamicComponent.vue";
@@ -85,19 +87,24 @@ function mf(t: number) {
     <IonItem slot="header">
       <IonImg class="action-icon" :src="game.world.config.getAPIUrl(action.img)"></IonImg>
       <IonLabel>{{ action.name }}</IonLabel>
-      <IonLabel v-if="action.macro">
-        <template v-if="(action.macro.variants?.length || 0) > 0">
-          <IonButton v-for="variant in action.macro.variants" @click="actorHelper?.performGenericAction(action.macro.slug, { variant: variant.slug })">
-            {{ variant.title || variant.name || variant.statistic?.toUpperCase() }} {{ mf(actorStats[variant.statistic || action.macro.statistic || ""]?.value || 0) }}
-          </IonButton>
-        </template>
-        <template v-else>
-          <IonButton @click="actorHelper?.performGenericAction(action.macro.slug)">
-            {{ (action.macro?.statistic || action.macro.name || action.macro.title || "Use").toUpperCase() ?? "" }}
-            {{ action.macro.statistic ? mf(actorStats[action.macro.statistic || ""]?.value || 0) : "" }}
-          </IonButton>
-        </template>
-      </IonLabel>
+      <template v-if="action.macro">
+        <IonButton
+          size="small"
+          class="ion-text-wrap"
+          style="max-width: 130px"
+          v-if="(action.macro.variants?.length || 0) > 0"
+          v-for="variant in action.macro.variants"
+          @click.stop.prevent="actorHelper?.performGenericAction(action.macro.slug, { variant: variant.slug })">
+          {{ variant.title || variant.name || variant.statistic?.toUpperCase() }} {{ mf(actorStats[variant.statistic || action.macro.statistic || ""]?.value || 0) }}
+        </IonButton>
+        <IonButton class="ion-text-wrap" style="max-width: 130px" size="small" v-else @click.stop.prevent="actorHelper?.performGenericAction(action.macro.slug)">
+          {{ (action.macro?.statistic || action.macro.name || action.macro.title || "Use").toUpperCase() ?? "" }}
+          {{ action.macro.statistic ? mf(actorStats[action.macro.statistic || ""]?.value || 0) : "" }}
+        </IonButton>
+      </template>
+      <template v-else>
+        <IonButton class="ion-text-wrap" style="max-width: 130px" @click.stop.prevent="actorHelper?.performAction(action._id) && false">Use</IonButton>
+      </template>
       <!-- <IonLabel>
         <IonBadge slot="end" color="secondary" v-if="action.system.actionType.value">
           <span v-if="action.system.actions.value">{{ action.system.actions.value }}</span>
@@ -107,7 +114,7 @@ function mf(t: number) {
       </IonLabel> -->
       <!-- <IonBadge slot="end" color="tertiary" v-if="action?.system?.traits?.rarity">{{ capitalize(action?.system?.traits?.rarity || "") }}</IonBadge> -->
     </IonItem>
-    <IonCard slot="content">
+    <IonCard slot="content" class="ion-padding">
       <IonCardHeader>
         <!-- <IonCardTitle>
           <IonItem>
@@ -125,13 +132,35 @@ function mf(t: number) {
             <IonBadge justify="space-between" color="tertiary" v-if="action?.system?.traits?.rarity">{{ capitalize(action?.system?.traits?.rarity || "") }}</IonBadge>
           </IonLabel>
         </IonCardSubtitle>
-        <IonCardSubtitle v-if="action.macro">
+        <!-- <IonCardSubtitle v-if="action.macro">
           Macro:
           <pre>{{ action.macro }}</pre>
-        </IonCardSubtitle>
+        </IonCardSubtitle> -->
       </IonCardHeader>
       <IonCardContent>
-        <DynamicComponent :html="action.system.description.value"></DynamicComponent>
+        <DynamicComponent v-if="!((action.macro?.variants?.filter((v) => v.description).length || 0) > 0)" :html="action.system.description.value"></DynamicComponent>
+
+        <template v-if="action.macro && action.macro.variants">
+          <!-- <DynamicComponent :html="action.macro.description"></DynamicComponent> -->
+          <IonList :inset="false">
+            <IonItem :detail="false" v-if="(action.macro.variants?.length || 0) > 0" v-for="variant in action.macro.variants">
+              <IonText v-if="variant.description">
+                <IonLabel>
+                  <b>{{ variant.title || variant.name }}</b>
+                </IonLabel>
+                <DynamicComponent :html="variant.description"> </DynamicComponent>
+                <!-- <IonNote color="medium" class="ion-text-wrap" v-for="(note, outcome) in variant.notes">
+                <b>{{ note.title || note.outcome.join(", ") }}:</b> {{ note.text }}
+              </IonNote> -->
+              </IonText>
+              <IonButton @click="actorHelper?.performGenericAction(action.macro.slug, { variant: variant.slug })">
+                {{ variant.title || variant.name || variant.statistic?.toUpperCase() }} {{ mf(actorStats[variant.statistic || action.macro.statistic || ""]?.value || 0) }}
+              </IonButton>
+            </IonItem>
+          </IonList>
+        </template>
+        <!-- <template v-if="!action.macro">{{ action }}</template> -->
+        <!-- <template v-else> -->
         <IonLabel v-if="action.system.source?.value">Source: {{ action.system.source.value }}<br /> </IonLabel>
         <span v-if="action.system.requirements?.value"> Requirements: {{ action.system.requirements.value }}<br /> </span>
         <span v-if="action.system.trigger?.value"> Trigger: {{ action.system.trigger.value }}<br /></span>
@@ -140,22 +169,16 @@ function mf(t: number) {
           Frequency: {{ action.system.frequency?.max ? `Max. ${action.system.frequency?.max} ` : action.system.frequency?.value }}
           {{ action.system.frequency?.per ? `per ${action.system.frequency?.per}` : `` }}
         </span>
-        <pre>{{ action.system.options }}</pre>
-        <pre>{{ action }}</pre>
-        <template v-if="action.macro">
-          <template v-if="(action.macro.variants?.length || 0) > 0">
-            <IonButton v-for="variant in action.macro.variants" @click="actorHelper?.performGenericAction(action.macro.slug, { variant: variant.slug })">
-              {{ variant.title || variant.name || variant.statistic?.toUpperCase() }} {{ mf(actorStats[variant.statistic || action.macro.statistic || ""]?.value || 0) }}
-            </IonButton>
-          </template>
-          <template v-else>
-            <IonButton @click="actorHelper?.performGenericAction(action.macro.slug)">
-              {{ (action.macro?.statistic || action.macro.name || action.macro.title || "Use").toUpperCase() ?? "" }}
-              {{ action.macro.statistic ? mf(actorStats[action.macro.statistic || ""]?.value || 0) : "" }}
-            </IonButton>
-          </template>
-        </template>
+        <pre v-if="(action.system?.options?.value?.length || 0) > 0">{{ action.system.options?.value }}</pre>
+        <!-- </template> -->
       </IonCardContent>
+      <IonButton v-if="action.macro && (action.macro.variants?.length || 0) < 1" @click="actorHelper?.performGenericAction(action.macro.slug)">
+        {{ (action.macro?.statistic || action.macro.name || action.macro.title || "Use").toUpperCase() ?? "" }}
+        {{ action.macro.statistic ? mf(actorStats[action.macro.statistic || ""]?.value || 0) : "" }}
+      </IonButton>
+      <template v-if="!action.macro">
+        <IonButton @click.preventDefault="actorHelper?.performAction(action._id) && false">Use</IonButton>
+      </template>
     </IonCard>
   </IonAccordion>
 </template>

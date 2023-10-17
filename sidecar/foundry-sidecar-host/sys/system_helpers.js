@@ -301,8 +301,8 @@ const helpers = {
      * @param {string} actionSourceId
      * @returns {ActionItemPF2e}
      */
-    getCommonAction(actionId = "1OagaWtBpVXExToo") {
-      let ai = fromUuidSync("Compendium.pf2e.actionspf2e.Item." + actionId, a);
+    async getCommonAction(actionId = "1OagaWtBpVXExToo") {
+      let ai = fromUuid("Compendium.pf2e.actionspf2e.Item." + actionId, a);
 
       return ai;
     },
@@ -322,7 +322,7 @@ const helpers = {
     async performAction(actorId, actionId, options = {}) {
       const actor = pf2eactor(actorId);
       actor.getActiveTokens().forEach((t) => t.control(true));
-      const srcAction = this.getCommonAction(actionId);
+      const srcAction = await this.getCommonAction(actionId);
       let actorAction = actor.items.get(actionId);
       if (!actorAction) {
         await actor.inventory.add(srcAction);

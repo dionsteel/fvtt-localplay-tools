@@ -328,6 +328,10 @@ function mountWebServer(app) {
             helper.performItemAction(tgtActor._id, msg.options);
             // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();
             break;
+          case "performAction":
+            helper.performAction(tgtActor._id, msg.uuid, msg.options);
+            // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();
+            break;
           case "performSkillAction":
             helper.performSkillAction(tgtActor._id, msg.slug, msg.options);
             // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();

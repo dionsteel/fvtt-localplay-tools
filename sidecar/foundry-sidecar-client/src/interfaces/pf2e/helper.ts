@@ -27,7 +27,7 @@ export class ActorHelperPF2e extends ActorHelper<PF2eTypes> {
   async performAction(uuid: any, options: any = {}) {
     // const strikeIdx = (await this.getActor())?.value?.system?.actions.findIndex(a=>a==strike);
     // console.log("performStrike", strikeIdx, this.actor, variantIdx);
-    // this.performRPC("performAction", { strikeIdx, variantIdx, ...options });
+    this.performRPC("performAction", { uuid, options });
   }
   async performGenericAction(uuid: any, options: any = {}) {
     // const strikeIdx = (await this.getActor())?.value?.system?.actions.findIndex(a=>a==strike);
