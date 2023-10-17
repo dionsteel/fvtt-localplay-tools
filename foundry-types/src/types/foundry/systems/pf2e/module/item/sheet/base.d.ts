@@ -1,8 +1,8 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { ItemPF2e } from "src/types/pf2e/module/item";
-import { RuleElementSource } from "src/types/pf2e/module/rules/index.ts";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { RuleElementSource } from "src/types/foundry/systems/pf2e/module/rules/index.ts";
 import type * as TinyMCE from "tinymce";
 import { ItemSheetDataPF2e } from "./data-types.ts";
 export declare class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {

@@ -1,4 +1,4 @@
-import { ZeroToFour } from "src/types/pf2e/module/data.ts";
+import { ZeroToFour } from "src/types/foundry/systems/pf2e/module/data.ts";
 import { ArrayField, StringField } from "types/foundry/common/data/fields.js";
 import { KingdomAbility } from "./types.ts";
 declare const KINGDOM_SCHEMA: {

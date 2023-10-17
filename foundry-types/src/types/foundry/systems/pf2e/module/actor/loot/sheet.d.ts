@@ -2,11 +2,11 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
 import { ActorSheetPF2e } from "../sheet/base.ts";
-import { LootPF2e } from "src/types/pf2e/module/actor/loot/index.ts";
-import { DropCanvasItemDataPF2e } from "src/types/pf2e/module/canvas/drop-canvas-data.ts";
-import { ActorSheetDataPF2e } from "src/types/pf2e/module/actor/sheet/data-types.ts";
-import { ItemPF2e } from "src/types/pf2e/module/item";
-import { ActorPF2e } from "src/types/pf2e/module/documents.ts";
+import { LootPF2e } from "src/types/foundry/systems/pf2e/module/actor/loot/index.ts";
+import { DropCanvasItemDataPF2e } from "src/types/foundry/systems/pf2e/module/canvas/drop-canvas-data.ts";
+import { ActorSheetDataPF2e } from "src/types/foundry/systems/pf2e/module/actor/sheet/data-types.ts";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/documents.ts";
 export declare class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActor> {
     #private;
     static get defaultOptions(): ActorSheetOptions;

@@ -1,5 +1,5 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ActorType } from "src/types/pf2e/module/actor/data/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ActorType } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
 /**
  * Collects every actor whose token is controlled on the canvas, and if none are, collects the current user's character, if it exists.
  *

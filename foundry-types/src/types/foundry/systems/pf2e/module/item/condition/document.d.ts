@@ -1,9 +1,9 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ItemPF2e } from "src/types/pf2e/module/item";
-import { AbstractEffectPF2e, EffectBadge } from "src/types/pf2e/module/item/abstract-effect/index.ts";
-import { RuleElementOptions, RuleElementPF2e } from "src/types/pf2e/module/rules/index.ts";
-import { UserPF2e } from "src/types/pf2e/module/user/index.ts";
-import { TokenDocumentPF2e } from "src/types/pf2e/module/scene/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { AbstractEffectPF2e, EffectBadge } from "src/types/foundry/systems/pf2e/module/item/abstract-effect/index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "src/types/foundry/systems/pf2e/module/rules/index.ts";
+import { UserPF2e } from "src/types/foundry/systems/pf2e/module/user/index.ts";
+import { TokenDocumentPF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
 import { ConditionSource, ConditionSystemData, PersistentDamageData } from "./data.ts";
 import { ConditionKey, ConditionSlug } from "./types.ts";
 declare class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {

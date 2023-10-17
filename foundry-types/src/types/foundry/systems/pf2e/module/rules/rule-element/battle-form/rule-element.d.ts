@@ -1,7 +1,7 @@
-import { CharacterPF2e } from "src/types/pf2e/module/actor";
-import { ActorType } from "src/types/pf2e/module/actor/data/index.ts";
-import { DamageDicePF2e, ModifierPF2e } from "src/types/pf2e/module/actor/modifiers.ts";
-import { WeaponPF2e } from "src/types/pf2e/module/item";
+import { CharacterPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ActorType } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
+import { DamageDicePF2e, ModifierPF2e } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { WeaponPF2e } from "src/types/foundry/systems/pf2e/module/item";
 import { RuleElementOptions, RuleElementPF2e } from "../index.ts";
 import { BattleFormRuleSchema } from "./schema.ts";
 import { BattleFormSource } from "./types.ts";

@@ -5,7 +5,7 @@ import { PartyPF2e } from "../document.ts";
 import { getKingdomABCData } from "./values.ts";
 import { KingdomAbility, KingdomCHG } from "./types.ts";
 import { Kingdom } from "./model.ts";
-import { BoostFlawState } from "src/types/pf2e/module/actor/sheet/popups/ability-builder.ts";
+import { BoostFlawState } from "src/types/foundry/systems/pf2e/module/actor/sheet/popups/ability-builder.ts";
 declare const KINGDOM_BUILD_CATEGORIES: readonly ["charter", "heartland", "government"];
 type KingdomBuildCategory = (typeof KINGDOM_BUILD_CATEGORIES)[number];
 type CurrentSelections = Record<KingdomBuildCategory, string | null>;

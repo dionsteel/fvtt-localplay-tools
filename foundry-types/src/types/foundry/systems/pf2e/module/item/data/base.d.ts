@@ -1,11 +1,11 @@
-import { CreatureTrait } from "src/types/pf2e/module/actor/creature/types.ts";
-import { ActionTrait } from "src/types/pf2e/module/item/action/data.ts";
-import { NPCAttackTrait } from "src/types/pf2e/module/item/melee/data.ts";
-import { PhysicalItemTrait } from "src/types/pf2e/module/item/physical/data.ts";
-import { DocumentSchemaRecord, OneToThree, Rarity } from "src/types/pf2e/module/data.ts";
-import { RuleElementSource } from "src/types/pf2e/module/rules/index.ts";
+import { CreatureTrait } from "src/types/foundry/systems/pf2e/module/actor/creature/types.ts";
+import { ActionTrait } from "src/types/foundry/systems/pf2e/module/item/action/data.ts";
+import { NPCAttackTrait } from "src/types/foundry/systems/pf2e/module/item/melee/data.ts";
+import { PhysicalItemTrait } from "src/types/foundry/systems/pf2e/module/item/physical/data.ts";
+import { DocumentSchemaRecord, OneToThree, Rarity } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { RuleElementSource } from "src/types/foundry/systems/pf2e/module/rules/index.ts";
 import { ItemType } from "./index.ts";
-import { KingmakerTrait } from "src/types/pf2e/module/item/campaign-feature/types.ts";
+import { KingmakerTrait } from "src/types/foundry/systems/pf2e/module/item/campaign-feature/types.ts";
 interface BaseItemSourcePF2e<TType extends ItemType, TSystemSource extends ItemSystemSource = ItemSystemSource> extends foundry.documents.ItemSource<TType, TSystemSource> {
     flags: ItemSourceFlagsPF2e;
 }

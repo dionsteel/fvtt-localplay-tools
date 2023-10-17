@@ -1,4 +1,4 @@
-import "../../../../index"
+import "../../../../index";
 import {
   ActorAlliance,
   ActorDimensions,
@@ -42,7 +42,7 @@ import { ActorSpellcasting } from "./spellcasting.ts";
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  * @category Actor
  */
-declare class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends Actor<TParent> {
+export declare class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends Actor<TParent> {
   /** Has this actor completed construction? */
   private constructed;
   /** Handles rolling initiative for the current actor */
@@ -196,13 +196,7 @@ declare class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
   ): Promise<CheckContext<this, TStatistic, TItem>>;
   /** Toggle the provided roll option (swapping it from true to false or vice versa). */
   toggleRollOption(domain: string, option: string, value?: boolean): Promise<boolean | null>;
-  toggleRollOption(
-    domain: string,
-    option: string,
-    itemId?: string | null,
-    value?: boolean,
-    suboption?: string | null
-  ): Promise<boolean | null>;
+  toggleRollOption(domain: string, option: string, itemId?: string | null, value?: boolean, suboption?: string | null): Promise<boolean | null>;
   /**
    * Handle how changes to a Token attribute bar are applied to the Actor.
    *
@@ -233,18 +227,8 @@ declare class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
    * @param containerId Id of the container that will contain the item.
    * @return The target item, if the transfer is successful, or otherwise `null`.
    */
-  transferItemToActor(
-    targetActor: ActorPF2e,
-    item: ItemPF2e<ActorPF2e>,
-    quantity: number,
-    containerId?: string,
-    newStack?: boolean
-  ): Promise<PhysicalItemPF2e<ActorPF2e> | null>;
-  addToInventory(
-    itemSource: PhysicalItemSource,
-    container?: ContainerPF2e<this>,
-    newStack?: boolean
-  ): Promise<PhysicalItemPF2e<this> | null>;
+  transferItemToActor(targetActor: ActorPF2e, item: ItemPF2e<ActorPF2e>, quantity: number, containerId?: string, newStack?: boolean): Promise<PhysicalItemPF2e<ActorPF2e> | null>;
+  addToInventory(itemSource: PhysicalItemSource, container?: ContainerPF2e<this>, newStack?: boolean): Promise<PhysicalItemPF2e<this> | null>;
   /** Find an item already owned by the actor that can stack with the to-be-transferred item */
   findStackableItem<TActor extends this>(actor: TActor, itemSource: ItemSourcePF2e): PhysicalItemPF2e<TActor> | null;
   /** Move an item into the inventory into or out of a container */
@@ -315,16 +299,8 @@ declare class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
   toggleCondition(conditionSlug: ConditionSlug): Promise<void>;
   /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
   importFromJSON(json: string): Promise<this>;
-  protected _preCreate(
-    data: PreDocumentId<this["_source"]>,
-    options: DocumentModificationContext<TParent>,
-    user: UserPF2e
-  ): Promise<boolean | void>;
-  protected _preUpdate(
-    changed: DeepPartial<this["_source"]>,
-    options: ActorUpdateContext<TParent>,
-    user: UserPF2e
-  ): Promise<boolean | void>;
+  protected _preCreate(data: PreDocumentId<this["_source"]>, options: DocumentModificationContext<TParent>, user: UserPF2e): Promise<boolean | void>;
+  protected _preUpdate(changed: DeepPartial<this["_source"]>, options: ActorUpdateContext<TParent>, user: UserPF2e): Promise<boolean | void>;
   protected _onUpdate(changed: DeepPartial<this["_source"]>, options: ActorUpdateContext<TParent>, userId: string): void;
   /**
    * Work around upstream issue in which `TokenDocument#_onUpdateBaseActor` is only called for tokens in the viewed
@@ -334,8 +310,7 @@ declare class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
   /** Unregister all effects possessed by this actor */
   protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
   protected _onEmbeddedDocumentChange(): void;
-}
-interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends Actor<TParent> {
+
   flags: ActorFlagsPF2e;
   readonly _source: ActorSourcePF2e;
   readonly abilities?: Abilities;
@@ -351,11 +326,7 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     data: PreCreate<foundry.documents.ActiveEffectSource>[],
     context?: DocumentModificationContext<this>
   ): Promise<ActiveEffectPF2e<this>[]>;
-  createEmbeddedDocuments(
-    embeddedName: "Item",
-    data: PreCreate<ItemSourcePF2e>[],
-    context?: DocumentModificationContext<this>
-  ): Promise<ItemPF2e<this>[]>;
+  createEmbeddedDocuments(embeddedName: "Item", data: PreCreate<ItemSourcePF2e>[], context?: DocumentModificationContext<this>): Promise<ItemPF2e<this>[]>;
   createEmbeddedDocuments(
     embeddedName: "ActiveEffect" | "Item",
     data: PreCreate<foundry.documents.ActiveEffectSource>[] | PreCreate<ItemSourcePF2e>[],
@@ -367,11 +338,7 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     updateData: EmbeddedDocumentUpdateData<ActiveEffectPF2e<this>>[],
     options?: DocumentUpdateContext<this>
   ): Promise<ActiveEffectPF2e<this>[]>;
-  updateEmbeddedDocuments(
-    embeddedName: "Item",
-    updateData: EmbeddedDocumentUpdateData<ItemPF2e<this>>[],
-    options?: DocumentUpdateContext<this>
-  ): Promise<ItemPF2e<this>[]>;
+  updateEmbeddedDocuments(embeddedName: "Item", updateData: EmbeddedDocumentUpdateData<ItemPF2e<this>>[], options?: DocumentUpdateContext<this>): Promise<ItemPF2e<this>[]>;
   updateEmbeddedDocuments(
     embeddedName: "ActiveEffect" | "Item",
     updateData: EmbeddedDocumentUpdateData<ActiveEffectPF2e<this> | ItemPF2e<this>>[],
@@ -383,17 +350,17 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
   /** Added as debounced method */
   checkAreaEffects(): void;
 }
-interface HitPointsSummary {
+
+export interface HitPointsSummary {
   value: number;
   max: number;
   temp: number;
   unrecoverable: number;
   negativeHealing: boolean;
 }
-interface ActorUpdateContext<TParent extends TokenDocumentPF2e | null> extends DocumentUpdateContext<TParent> {
+export interface ActorUpdateContext<TParent extends TokenDocumentPF2e | null> extends DocumentUpdateContext<TParent> {
   damageTaken?: number;
   damageUndo?: boolean;
 }
 /** A `Proxy` to to get Foundry to construct `ActorPF2e` subclasses */
-declare const ActorProxyPF2e: typeof ActorPF2e;
-export { ActorPF2e, ActorProxyPF2e, ActorUpdateContext, HitPointsSummary };
+export declare const ActorProxyPF2e: typeof ActorPF2e;

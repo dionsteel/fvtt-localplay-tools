@@ -1,11 +1,11 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { SaveType } from "src/types/pf2e/module/actor/types.ts";
-import { ConditionPF2e } from "src/types/pf2e/module/item";
-import { ItemType } from "src/types/pf2e/module/item/data/index.ts";
-import { Rarity } from "src/types/pf2e/module/data.ts";
-import { TokenDocumentPF2e } from "src/types/pf2e/module/scene/index.ts";
-import { DamageType } from "src/types/pf2e/module/system/damage/index.ts";
-import { Statistic } from "src/types/pf2e/module/system/statistic/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { SaveType } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ConditionPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ItemType } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { Rarity } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { TokenDocumentPF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
+import { DamageType } from "src/types/foundry/systems/pf2e/module/system/damage/index.ts";
+import { Statistic } from "src/types/foundry/systems/pf2e/module/system/statistic/index.ts";
 import { HazardSource, HazardSystemData } from "./data.ts";
 declare class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     skills: {

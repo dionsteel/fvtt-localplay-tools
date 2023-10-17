@@ -1,5 +1,5 @@
-import { BasePhysicalItemSource, Investable, PhysicalItemTraits, PhysicalSystemData, PhysicalSystemSource } from "src/types/pf2e/module/item/physical/data.ts";
-import { OneToFour, ZeroToThree } from "src/types/pf2e/module/data.ts";
+import { BasePhysicalItemSource, Investable, PhysicalItemTraits, PhysicalSystemData, PhysicalSystemSource } from "src/types/foundry/systems/pf2e/module/item/physical/data.ts";
+import { OneToFour, ZeroToThree } from "src/types/foundry/systems/pf2e/module/data.ts";
 import { ArmorCategory, ArmorGroup, ArmorTrait, BaseArmorType, OtherArmorTag, ResilientRuneType } from "./index.ts";
 type ArmorSource = BasePhysicalItemSource<"armor", ArmorSystemSource>;
 interface ArmorSystemSource extends Investable<PhysicalSystemSource> {

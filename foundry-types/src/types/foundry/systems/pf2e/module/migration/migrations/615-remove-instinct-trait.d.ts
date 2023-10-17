@@ -1,5 +1,5 @@
 import { MigrationBase } from "../base.ts";
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
 /** Remove "instinct" trait from feats */
 export declare class Migration615RemoveInstinctTrait extends MigrationBase {
     static version: number;

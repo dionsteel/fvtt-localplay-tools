@@ -1,8 +1,8 @@
-import { SaveType } from "src/types/pf2e/module/actor/types.ts";
-import { AbstractEffectSystemData, AbstractEffectSystemSource, EffectAuraData, EffectContextData, EffectTraits, TimeUnit } from "src/types/pf2e/module/item/abstract-effect/index.ts";
-import { ConditionSlug } from "src/types/pf2e/module/item/condition/index.ts";
-import { BaseItemSourcePF2e, ItemFlagsPF2e } from "src/types/pf2e/module/item/data/base.ts";
-import { DamageCategoryUnique, DamageType } from "src/types/pf2e/module/system/damage/index.ts";
+import { SaveType } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { AbstractEffectSystemData, AbstractEffectSystemSource, EffectAuraData, EffectContextData, EffectTraits, TimeUnit } from "src/types/foundry/systems/pf2e/module/item/abstract-effect/index.ts";
+import { ConditionSlug } from "src/types/foundry/systems/pf2e/module/item/condition/index.ts";
+import { BaseItemSourcePF2e, ItemFlagsPF2e } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { DamageCategoryUnique, DamageType } from "src/types/foundry/systems/pf2e/module/system/damage/index.ts";
 type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource> & {
     flags: DeepPartial<AfflictionFlags>;
 };

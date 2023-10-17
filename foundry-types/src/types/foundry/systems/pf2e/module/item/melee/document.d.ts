@@ -1,8 +1,8 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ItemPF2e, WeaponPF2e } from "src/types/pf2e/module/item";
-import { ItemSummaryData } from "src/types/pf2e/module/item/data/index.ts";
-import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "src/types/pf2e/module/item/weapon/types.ts";
-import { ConvertedNPCDamage } from "src/types/pf2e/module/system/damage/weapon.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ItemPF2e, WeaponPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ItemSummaryData } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "src/types/foundry/systems/pf2e/module/item/weapon/types.ts";
+import { ConvertedNPCDamage } from "src/types/foundry/systems/pf2e/module/system/damage/weapon.ts";
 import { MeleeFlags, MeleeSource, MeleeSystemData, NPCAttackTrait } from "./data.ts";
 declare class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     /** Set during data preparation if a linked weapon is found */

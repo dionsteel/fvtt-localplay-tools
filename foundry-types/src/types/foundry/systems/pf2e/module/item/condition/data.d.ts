@@ -1,7 +1,7 @@
-import { AbstractEffectSystemData, AbstractEffectSystemSource } from "src/types/pf2e/module/item/abstract-effect/data.ts";
-import { BaseItemSourcePF2e } from "src/types/pf2e/module/item/data/base.ts";
-import { DamageType } from "src/types/pf2e/module/system/damage/index.ts";
-import { DamageRoll } from "src/types/pf2e/module/system/damage/roll.ts";
+import { AbstractEffectSystemData, AbstractEffectSystemSource } from "src/types/foundry/systems/pf2e/module/item/abstract-effect/data.ts";
+import { BaseItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { DamageType } from "src/types/foundry/systems/pf2e/module/system/damage/index.ts";
+import { DamageRoll } from "src/types/foundry/systems/pf2e/module/system/damage/roll.ts";
 import { ConditionSlug } from "./types.ts";
 type ConditionSource = BaseItemSourcePF2e<"condition", ConditionSystemSource>;
 interface ConditionSystemSource extends AbstractEffectSystemSource {

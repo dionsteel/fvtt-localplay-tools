@@ -1,7 +1,7 @@
-import { ItemType } from "src/types/pf2e/module/item/data/index.ts";
-import { PickableThing } from "src/types/pf2e/module/apps/pick-a-thing-prompt.ts";
-import { RawPredicate } from "src/types/pf2e/module/system/predication.ts";
-import { PredicateField } from "src/types/pf2e/module/system/schema-data-fields.ts";
+import { ItemType } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { PickableThing } from "src/types/foundry/systems/pf2e/module/apps/pick-a-thing-prompt.ts";
+import { RawPredicate } from "src/types/foundry/systems/pf2e/module/system/predication.ts";
+import { PredicateField } from "src/types/foundry/systems/pf2e/module/system/schema-data-fields.ts";
 import type { BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementSchema, RuleElementSource } from "../index.ts";
 type ChoiceSetSchema = RuleElementSchema & {

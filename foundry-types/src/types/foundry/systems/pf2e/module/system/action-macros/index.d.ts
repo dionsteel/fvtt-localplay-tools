@@ -46,7 +46,7 @@ import * as palmAnObject from "./thievery/palm-an-object.ts";
 import * as disableDevice from "./thievery/disable-device.ts";
 import * as pickALock from "./thievery/pick-a-lock.ts";
 import * as steal from "./thievery/steal.ts";
-import { Action } from "src/types/pf2e/module/actor/actions/index.ts";
+import { Action } from "src/types/foundry/systems/pf2e/module/actor/actions/index.ts";
 export { ActionMacroHelpers } from "./helpers.ts";
 export type { ActionDefaultOptions, SkillActionOptions } from "./types.ts";
 export declare const ActionMacros: {

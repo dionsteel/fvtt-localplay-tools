@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
 import { MigrationBase } from "../base.ts";
 /** Add/update rule elements for the Calculated Splash and Expanded Splash feats */
 export declare class Migration814CalculatedExpandedSplash extends MigrationBase {

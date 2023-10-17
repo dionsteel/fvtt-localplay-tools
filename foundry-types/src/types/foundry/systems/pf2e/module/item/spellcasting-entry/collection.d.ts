@@ -1,5 +1,5 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { SpellPF2e } from "src/types/pf2e/module/item";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { SpellPF2e } from "src/types/foundry/systems/pf2e/module/item";
 import { BaseSpellcastingEntry, SpellcastingSlotRank, SpellPrepEntry } from "./types.ts";
 declare class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingEntry<TActor | null>> extends Collection<SpellPF2e<TActor>> {
     #private;

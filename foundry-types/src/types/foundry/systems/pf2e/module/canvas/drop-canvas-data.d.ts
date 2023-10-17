@@ -1,5 +1,5 @@
-import { ItemPF2e } from "src/types/pf2e/module/item";
-import { EffectContextData } from "src/types/pf2e/module/item/abstract-effect/index.ts";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { EffectContextData } from "src/types/foundry/systems/pf2e/module/item/abstract-effect/index.ts";
 export type DropCanvasItemDataPF2e = DropCanvasData<"Item", ItemPF2e> & {
     value?: number;
     level?: number;

@@ -1,4 +1,4 @@
-import { ActorPF2e, ChatMessagePF2e } from "src/types/pf2e/module/documents.ts";
+import { ActorPF2e, ChatMessagePF2e } from "src/types/foundry/systems/pf2e/module/documents.ts";
 declare const ACTION_COST: readonly ["free", "reaction", 1, 2, 3];
 type ActionCost = (typeof ACTION_COST)[number];
 interface ActionMessageOptions {

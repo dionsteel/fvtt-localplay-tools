@@ -1,4 +1,4 @@
-import { ActorSourcePF2e } from "src/types/pf2e/module/actor/data/index.ts";
+import { ActorSourcePF2e } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
 import { MigrationBase } from "../base.ts";
 /** Move hero points from attributes to resources */
 export declare class Migration686HeroPointsToResources extends MigrationBase {

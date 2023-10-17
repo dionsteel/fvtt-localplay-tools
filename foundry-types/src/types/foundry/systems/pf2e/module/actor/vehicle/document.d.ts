@@ -1,9 +1,9 @@
-import { ActorDimensions } from "src/types/pf2e/module/actor/types.ts";
-import { ItemType } from "src/types/pf2e/module/item/data/index.ts";
-import { UserPF2e } from "src/types/pf2e/module/user/index.ts";
-import { TokenDocumentPF2e } from "src/types/pf2e/module/scene/index.ts";
-import { ArmorStatistic } from "src/types/pf2e/module/system/statistic/armor-class.ts";
-import { Statistic, StatisticDifficultyClass } from "src/types/pf2e/module/system/statistic/index.ts";
+import { ActorDimensions } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ItemType } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { UserPF2e } from "src/types/foundry/systems/pf2e/module/user/index.ts";
+import { TokenDocumentPF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
+import { ArmorStatistic } from "src/types/foundry/systems/pf2e/module/system/statistic/armor-class.ts";
+import { Statistic, StatisticDifficultyClass } from "src/types/foundry/systems/pf2e/module/system/statistic/index.ts";
 import { ActorPF2e, HitPointsSummary } from "../base.ts";
 import { TokenDimensions, VehicleSource, VehicleSystemData } from "./data.ts";
 declare class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {

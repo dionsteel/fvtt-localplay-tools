@@ -1,10 +1,10 @@
-import { CreaturePF2e } from "src/types/pf2e/module/actor";
-import { ActorType } from "src/types/pf2e/module/actor/data/index.ts";
-import { Size } from "src/types/pf2e/module/data.ts";
+import { CreaturePF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ActorType } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
+import { Size } from "src/types/foundry/systems/pf2e/module/data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField } from "./data.ts";
-import { RecordField } from "src/types/pf2e/module/system/schema-data-fields.ts";
+import { RecordField } from "src/types/foundry/systems/pf2e/module/system/schema-data-fields.ts";
 /**
  * @category RuleElement
  * Change a creature's size

@@ -1,9 +1,9 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { ActorPF2e } from "src/types/pf2e/module/actor/base.ts";
-import { ItemPF2e } from "src/types/pf2e/module/item";
-import { ItemSummaryData } from "src/types/pf2e/module/item/data/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor/base.ts";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ItemSummaryData } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
 /**
  * Implementation used to populate item summaries, toggle visibility
  * of item summaries, and save expanded/collapsed state of item summaries.

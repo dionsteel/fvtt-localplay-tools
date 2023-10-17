@@ -1,9 +1,9 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { PhysicalItemPF2e, SpellPF2e, WeaponPF2e } from "src/types/pf2e/module/item";
-import { ItemSummaryData } from "src/types/pf2e/module/item/data/index.ts";
-import { TrickMagicItemEntry } from "src/types/pf2e/module/item/spellcasting-entry/trick.ts";
-import { ValueAndMax } from "src/types/pf2e/module/data.ts";
-import { RuleElementPF2e } from "src/types/pf2e/module/rules/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { PhysicalItemPF2e, SpellPF2e, WeaponPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ItemSummaryData } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { TrickMagicItemEntry } from "src/types/foundry/systems/pf2e/module/item/spellcasting-entry/trick.ts";
+import { ValueAndMax } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { RuleElementPF2e } from "src/types/foundry/systems/pf2e/module/rules/index.ts";
 import { ConsumableCategory, ConsumableSource, ConsumableSystemData } from "./data.ts";
 import { OtherConsumableTag } from "./types.ts";
 declare class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {

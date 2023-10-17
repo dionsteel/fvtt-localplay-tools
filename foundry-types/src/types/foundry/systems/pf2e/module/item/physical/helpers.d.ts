@@ -1,5 +1,5 @@
-import { Coins, PartialPrice } from "src/types/pf2e/module/item/physical/data.ts";
-import { Size } from "src/types/pf2e/module/data.ts";
+import { Coins, PartialPrice } from "src/types/foundry/systems/pf2e/module/item/physical/data.ts";
+import { Size } from "src/types/foundry/systems/pf2e/module/data.ts";
 /** Coins class that exposes methods to perform operations on coins without side effects */
 declare class CoinsPF2e implements Coins {
     cp: number;

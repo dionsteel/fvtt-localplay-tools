@@ -1,7 +1,7 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { PhysicalItemPF2e } from "src/types/pf2e/module/item";
-import { Bulk } from "src/types/pf2e/module/item/physical/bulk.ts";
-import { Size } from "src/types/pf2e/module/data.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { PhysicalItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { Bulk } from "src/types/foundry/systems/pf2e/module/item/physical/bulk.ts";
+import { Size } from "src/types/foundry/systems/pf2e/module/data.ts";
 export declare class InventoryBulk {
     #private;
     /** The current bulk carried by the actor */

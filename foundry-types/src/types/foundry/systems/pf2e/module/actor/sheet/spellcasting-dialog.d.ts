@@ -1,7 +1,7 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ClassDCData } from "src/types/pf2e/module/actor/character/data.ts";
-import { SpellcastingEntryPF2e } from "src/types/pf2e/module/item";
-import { SpellcastingEntrySystemSource } from "src/types/pf2e/module/item/spellcasting-entry/data.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ClassDCData } from "src/types/foundry/systems/pf2e/module/actor/character/data.ts";
+import { SpellcastingEntryPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { SpellcastingEntrySystemSource } from "src/types/foundry/systems/pf2e/module/item/spellcasting-entry/data.ts";
 /** Dialog to create or edit spellcasting entries. It works on a clone of spellcasting entry, but will not persist unless the changes are accepted */
 declare class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryPF2e<ActorPF2e>> {
     #private;

@@ -1,5 +1,5 @@
-import { CreatureTraits } from "src/types/pf2e/module/item/ancestry/data.ts";
-import { BaseItemSourcePF2e, ItemSystemData } from "src/types/pf2e/module/item/data/base.ts";
+import { CreatureTraits } from "src/types/foundry/systems/pf2e/module/item/ancestry/data.ts";
+import { BaseItemSourcePF2e, ItemSystemData } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
 type HeritageSource = BaseItemSourcePF2e<"heritage", HeritageSystemSource>;
 interface HeritageSystemSource extends ItemSystemData {
     ancestry: {

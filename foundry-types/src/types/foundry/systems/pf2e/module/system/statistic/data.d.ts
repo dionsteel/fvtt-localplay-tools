@@ -1,7 +1,7 @@
-import { ModifierPF2e, RawModifier } from "src/types/pf2e/module/actor/modifiers.ts";
-import { AbilityString } from "src/types/pf2e/module/actor/types.ts";
-import { ZeroToFour } from "src/types/pf2e/module/data.ts";
-import { CheckType } from "src/types/pf2e/module/system/check/index.ts";
+import { ModifierPF2e, RawModifier } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { AbilityString } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ZeroToFour } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { CheckType } from "src/types/foundry/systems/pf2e/module/system/check/index.ts";
 export interface StatisticCheckData {
     type: CheckType;
     label?: string;

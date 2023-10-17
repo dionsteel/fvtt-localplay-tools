@@ -1,4 +1,4 @@
-import { AbstractEffectPF2e } from "src/types/pf2e/module/item";
+import { AbstractEffectPF2e } from "src/types/foundry/systems/pf2e/module/item";
 import { ActorPF2e } from "./base.ts";
 export declare class TokenEffect implements TemporaryEffect {
     #private;

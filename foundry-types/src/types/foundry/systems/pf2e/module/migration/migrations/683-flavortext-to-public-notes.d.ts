@@ -1,5 +1,5 @@
-import { ActorSourcePF2e } from "src/types/pf2e/module/actor/data/index.ts";
-import { NPCSystemSource } from "src/types/pf2e/module/actor/npc/data.ts";
+import { ActorSourcePF2e } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
+import { NPCSystemSource } from "src/types/foundry/systems/pf2e/module/actor/npc/data.ts";
 import { MigrationBase } from "../base.ts";
 interface NPCSystemDataOld extends NPCSystemSource {
     details: NPCSystemSource["details"] & {

@@ -1,5 +1,5 @@
-import { EquipmentSystemData, EquipmentSystemSource } from "src/types/pf2e/module/item/equipment/data.ts";
-import { BasePhysicalItemSource } from "src/types/pf2e/module/item/physical/data.ts";
+import { EquipmentSystemData, EquipmentSystemSource } from "src/types/foundry/systems/pf2e/module/item/equipment/data.ts";
+import { BasePhysicalItemSource } from "src/types/foundry/systems/pf2e/module/item/physical/data.ts";
 type BookSource = BasePhysicalItemSource<"book", BookSystemSource>;
 type BookSystemSource = EquipmentSystemSource & {
     capacity: number;

@@ -1,11 +1,11 @@
-import { SaveData } from "src/types/pf2e/module/actor/creature/data.ts";
-import { ActorSystemData, ActorSystemSource, ActorAttributes, BaseActorSourcePF2e, ActorTraitsSource, ActorAttributesSource, ActorHitPoints } from "src/types/pf2e/module/actor/data/base.ts";
-import { ActorSizePF2e } from "src/types/pf2e/module/actor/data/size.ts";
-import { NPCStrike } from "src/types/pf2e/module/actor/npc/index.ts";
-import { SaveType } from "src/types/pf2e/module/actor/types.ts";
-import { Rarity, Size } from "src/types/pf2e/module/data.ts";
+import { SaveData } from "src/types/foundry/systems/pf2e/module/actor/creature/data.ts";
+import { ActorSystemData, ActorSystemSource, ActorAttributes, BaseActorSourcePF2e, ActorTraitsSource, ActorAttributesSource, ActorHitPoints } from "src/types/foundry/systems/pf2e/module/actor/data/base.ts";
+import { ActorSizePF2e } from "src/types/foundry/systems/pf2e/module/actor/data/size.ts";
+import { NPCStrike } from "src/types/foundry/systems/pf2e/module/actor/npc/index.ts";
+import { SaveType } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { Rarity, Size } from "src/types/foundry/systems/pf2e/module/data.ts";
 import { HazardTrait } from "./types.ts";
-import { InitiativeTraceData } from "src/types/pf2e/module/actor/initiative.ts";
+import { InitiativeTraceData } from "src/types/foundry/systems/pf2e/module/actor/initiative.ts";
 /** The stored source data of a hazard actor */
 type HazardSource = BaseActorSourcePF2e<"hazard", HazardSystemSource>;
 /** The raw information contained within the actor data object for hazards. */

@@ -1,8 +1,8 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { CombatantPF2e, EncounterPF2e } from "src/types/pf2e/module/encounter/index.ts";
-import { TokenDocumentPF2e } from "src/types/pf2e/module/scene/index.ts";
+import { CombatantPF2e, EncounterPF2e } from "src/types/foundry/systems/pf2e/module/encounter/index.ts";
+import { TokenDocumentPF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
 import Sortable from "sortablejs";
 export declare class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> extends CombatTracker<TEncounter> {
     #private;

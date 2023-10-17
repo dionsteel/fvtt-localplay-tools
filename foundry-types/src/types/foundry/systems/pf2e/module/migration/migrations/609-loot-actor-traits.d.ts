@@ -1,6 +1,6 @@
 import { MigrationBase } from "../base.ts";
-import { ActorSourcePF2e } from "src/types/pf2e/module/actor/data/index.ts";
-import { ActorSystemSource, ActorTraitsSource } from "src/types/pf2e/module/actor/data/base.ts";
+import { ActorSourcePF2e } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
+import { ActorSystemSource, ActorTraitsSource } from "src/types/foundry/systems/pf2e/module/actor/data/base.ts";
 /** Add basic actor traits to loot actors */
 export declare class Migration609LootActorTraits extends MigrationBase {
     static version: number;

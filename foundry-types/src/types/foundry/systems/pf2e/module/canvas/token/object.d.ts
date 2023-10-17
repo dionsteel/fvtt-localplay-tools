@@ -1,4 +1,4 @@
-import { TokenDocumentPF2e } from "src/types/pf2e/module/scene/index.ts";
+import { TokenDocumentPF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
 import { TokenLayerPF2e } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
 import { AuraRenderers } from "./aura/index.ts";

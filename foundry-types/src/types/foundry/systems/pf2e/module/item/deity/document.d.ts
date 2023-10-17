@@ -1,7 +1,7 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { Alignment } from "src/types/pf2e/module/actor/creature/types.ts";
-import { ItemPF2e } from "src/types/pf2e/module/item";
-import { BaseWeaponType } from "src/types/pf2e/module/item/weapon/types.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { Alignment } from "src/types/foundry/systems/pf2e/module/actor/creature/types.ts";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { BaseWeaponType } from "src/types/foundry/systems/pf2e/module/item/weapon/types.ts";
 import { DeitySource, DeitySystemData } from "./data.ts";
 declare class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     get category(): "deity" | "pantheon" | "philosophy";

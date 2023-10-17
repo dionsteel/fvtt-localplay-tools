@@ -1,6 +1,6 @@
-import { RollInitiativeOptionsPF2e } from "src/types/pf2e/module/actor/data/index.ts";
-import { SkillLongForm } from "src/types/pf2e/module/actor/types.ts";
-import { ScenePF2e, TokenDocumentPF2e } from "src/types/pf2e/module/scene/index.ts";
+import { RollInitiativeOptionsPF2e } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
+import { SkillLongForm } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ScenePF2e, TokenDocumentPF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
 import { CombatantPF2e, RolledCombatant } from "./combatant.ts";
 declare class EncounterPF2e extends Combat {
     /** Sort combatants by initiative rolls, falling back to tiebreak priority and then finally combatant ID (random) */

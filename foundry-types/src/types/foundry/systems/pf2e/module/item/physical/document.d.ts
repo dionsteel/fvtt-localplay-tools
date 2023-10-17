@@ -1,9 +1,9 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ItemPF2e, type ContainerPF2e } from "src/types/pf2e/module/item";
-import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "src/types/pf2e/module/item/data/index.ts";
-import { CoinsPF2e } from "src/types/pf2e/module/item/physical/helpers.ts";
-import { Rarity, Size } from "src/types/pf2e/module/data.ts";
-import { UserPF2e } from "src/types/pf2e/module/user/document.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ItemPF2e, type ContainerPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { CoinsPF2e } from "src/types/foundry/systems/pf2e/module/item/physical/helpers.ts";
+import { Rarity, Size } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { UserPF2e } from "src/types/foundry/systems/pf2e/module/user/document.ts";
 import { Bulk } from "./bulk.ts";
 import { IdentificationStatus, ItemActivation, ItemCarryType, MystifiedData, PhysicalItemTrait, PhysicalSystemData, Price } from "./data.ts";
 import { PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";

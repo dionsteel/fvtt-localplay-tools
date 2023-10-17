@@ -1,9 +1,9 @@
-import { DamageDicePF2e, ModifierPF2e } from "src/types/pf2e/module/actor/modifiers.ts";
-import { ResistanceType, RollTarget, StrikeSelf } from "src/types/pf2e/module/actor/types.ts";
-import { ZeroToTwo } from "src/types/pf2e/module/data.ts";
-import { RollNotePF2e } from "src/types/pf2e/module/notes.ts";
-import { DegreeOfSuccessString } from "src/types/pf2e/module/system/degree-of-success.ts";
-import { BaseRollContext } from "src/types/pf2e/module/system/rolls.ts";
+import { DamageDicePF2e, ModifierPF2e } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { ResistanceType, RollTarget, StrikeSelf } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ZeroToTwo } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { RollNotePF2e } from "src/types/foundry/systems/pf2e/module/notes.ts";
+import { DegreeOfSuccessString } from "src/types/foundry/systems/pf2e/module/system/degree-of-success.ts";
+import { BaseRollContext } from "src/types/foundry/systems/pf2e/module/system/rolls.ts";
 import { DamageRoll } from "./roll.ts";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DIE_FACES, DAMAGE_TYPES } from "./values.ts";
 type DamageCategoryUnique = SetElement<typeof DAMAGE_CATEGORIES_UNIQUE>;

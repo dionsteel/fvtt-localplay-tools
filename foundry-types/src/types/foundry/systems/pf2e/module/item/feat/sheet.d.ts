@@ -1,8 +1,8 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { FeatPF2e } from "src/types/pf2e/module/item/feat/document.ts";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "src/types/pf2e/module/item/sheet/index.ts";
+import { FeatPF2e } from "src/types/foundry/systems/pf2e/module/item/feat/document.ts";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "src/types/foundry/systems/pf2e/module/item/sheet/index.ts";
 declare class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
     get validTraits(): Record<string, string>;
     getData(options?: Partial<DocumentSheetOptions>): Promise<FeatSheetData>;

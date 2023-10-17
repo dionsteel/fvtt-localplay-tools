@@ -1,13 +1,13 @@
 /// <reference types="jquery" resolution-mode="require"/>
-import { ActorPF2e, CreaturePF2e } from "src/types/pf2e/module/actor";
-import { ModifierPF2e, StatisticModifier } from "src/types/pf2e/module/actor/modifiers.ts";
-import { ItemPF2e } from "src/types/pf2e/module/item";
-import { WeaponTrait } from "src/types/pf2e/module/item/weapon/types.ts";
-import { RollNotePF2e } from "src/types/pf2e/module/notes.ts";
-import { TokenDocumentPF2e } from "src/types/pf2e/module/scene/index.ts";
-import { CheckRoll, CheckType } from "src/types/pf2e/module/system/check/index.ts";
-import { CheckDC, DegreeOfSuccessString } from "src/types/pf2e/module/system/degree-of-success.ts";
-import { Statistic } from "src/types/pf2e/module/system/statistic/index.ts";
+import { ActorPF2e, CreaturePF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ModifierPF2e, StatisticModifier } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { WeaponTrait } from "src/types/foundry/systems/pf2e/module/item/weapon/types.ts";
+import { RollNotePF2e } from "src/types/foundry/systems/pf2e/module/notes.ts";
+import { TokenDocumentPF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
+import { CheckRoll, CheckType } from "src/types/foundry/systems/pf2e/module/system/check/index.ts";
+import { CheckDC, DegreeOfSuccessString } from "src/types/foundry/systems/pf2e/module/system/degree-of-success.ts";
+import { Statistic } from "src/types/foundry/systems/pf2e/module/system/statistic/index.ts";
 type ActionGlyph = "A" | "D" | "T" | "R" | "F" | "a" | "d" | "t" | "r" | "f" | 1 | 2 | 3 | "1" | "2" | "3";
 declare class CheckContextError extends Error {
     actor: ActorPF2e;

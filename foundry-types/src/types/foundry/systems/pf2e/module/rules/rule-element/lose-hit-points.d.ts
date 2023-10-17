@@ -1,6 +1,6 @@
-import { CreaturePF2e } from "src/types/pf2e/module/actor";
-import { ActorType } from "src/types/pf2e/module/actor/data/index.ts";
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
+import { CreaturePF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ActorType } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
 import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 import type { BooleanField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField } from "./data.ts";

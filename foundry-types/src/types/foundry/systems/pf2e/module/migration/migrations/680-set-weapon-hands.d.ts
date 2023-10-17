@@ -1,4 +1,4 @@
-import { ArmorSource, ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
+import { ArmorSource, ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
 import { MigrationBase } from "../base.ts";
 /** Set the "hands" (usage) property of weapons */
 export declare class Migration680SetWeaponHands extends MigrationBase {

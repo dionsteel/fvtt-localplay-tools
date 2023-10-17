@@ -1,11 +1,11 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ModifierPF2e } from "src/types/pf2e/module/actor/modifiers.ts";
-import { ItemPF2e, WeaponPF2e } from "src/types/pf2e/module/item";
-import { WeaponTrait } from "src/types/pf2e/module/item/weapon/types.ts";
-import { RollNotePF2e } from "src/types/pf2e/module/notes.ts";
-import { TokenDocumentPF2e } from "src/types/pf2e/module/scene/index.ts";
-import { CheckType } from "src/types/pf2e/module/system/check/index.ts";
-import { DegreeOfSuccessString } from "src/types/pf2e/module/system/degree-of-success.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ModifierPF2e } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { ItemPF2e, WeaponPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { WeaponTrait } from "src/types/foundry/systems/pf2e/module/item/weapon/types.ts";
+import { RollNotePF2e } from "src/types/foundry/systems/pf2e/module/notes.ts";
+import { TokenDocumentPF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
+import { CheckType } from "src/types/foundry/systems/pf2e/module/system/check/index.ts";
+import { DegreeOfSuccessString } from "src/types/foundry/systems/pf2e/module/system/degree-of-success.ts";
 import { CheckContext, CheckContextData, CheckContextOptions, SimpleRollActionCheckOptions } from "./types.ts";
 export declare class ActionMacroHelpers {
     static resolveStat(stat: string): {

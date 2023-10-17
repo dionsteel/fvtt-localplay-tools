@@ -1,8 +1,8 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { FeatGroup } from "src/types/pf2e/module/actor/character/feats.ts";
-import { ActionCost, Frequency } from "src/types/pf2e/module/item/data/base.ts";
-import { ItemSummaryData } from "src/types/pf2e/module/item/data/index.ts";
-import { UserPF2e } from "src/types/pf2e/module/user/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { FeatGroup } from "src/types/foundry/systems/pf2e/module/actor/character/feats.ts";
+import { ActionCost, Frequency } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { ItemSummaryData } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { UserPF2e } from "src/types/foundry/systems/pf2e/module/user/index.ts";
 import { HeritagePF2e, ItemPF2e } from "../index.ts";
 import { FeatSource, FeatSystemData } from "./data.ts";
 import { FeatCategory, FeatTrait } from "./types.ts";

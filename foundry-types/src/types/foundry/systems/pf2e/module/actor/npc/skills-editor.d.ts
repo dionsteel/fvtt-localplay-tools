@@ -1,8 +1,8 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import type { NPCPF2e } from "src/types/pf2e/module/actor";
-import { NPCSkillData } from "src/types/pf2e/module/actor/npc/data.ts";
+import type { NPCPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { NPCSkillData } from "src/types/foundry/systems/pf2e/module/actor/npc/data.ts";
 /** Specialized form to setup skills for an NPC character. */
 export declare class NPCSkillsEditor extends FormApplication<NPCPF2e> {
     #private;

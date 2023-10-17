@@ -1,6 +1,6 @@
 import { MigrationBase } from "../base.ts";
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
-import { ActorSourcePF2e } from "src/types/pf2e/module/actor/data/index.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { ActorSourcePF2e } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
 /** Unbreak actor sheets that have kit items in their inventories */
 export declare class Migration608DeletePersistedKits extends MigrationBase {
     static version: number;

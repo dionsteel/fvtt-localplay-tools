@@ -36,7 +36,7 @@ import {
 
 import { skullSharp, bedSharp, bulbSharp, medalSharp, addSharp } from "ionicons/icons";
 import { applyDeep } from "@/lib/utils";
-import { ActorPF2e, PF2eTypes, ActorPF2eItemTypes, CharacterPF2e } from "@/interfaces/pf2e/index";
+import { ActorPF2e, PF2eTypes, ActorPF2eItemTypes, CharacterPF2e, ActorHelperPF2e } from "@/interfaces/pf2e/index";
 
 import DynamicComponent from "@/lib/DynamicComponent.vue";
 import CharacterHeaderPF2e from "./components/CharacterHeaderPF2e.vue";
@@ -52,14 +52,16 @@ const helper = sysStore.helper;
 
 const actors = helper.allActors;
 
-let actorHelper = await helper.getActorHelper(`${route$.params.id}`); // helper.actors[`${route$.params.id}`];
+let actorHelper: ActorHelperPF2e = (await helper.getActorHelper(`${route$.params.id}`)) as ActorHelperPF2e; // helper.actors[`${route$.params.id}`];
 let actor = await actorHelper.getActor();
 watch(
   () => route$.params.id,
   async () => {
     if (route$.params.id) {
-      actorHelper = await helper.getActorHelper(`${route$.params.id}`);
+      actorHelper = (await helper.getActorHelper(`${route$.params.id}`)) as ActorHelperPF2e;
       actor = await actorHelper.getActor();
+      provide("actor", actor);
+      provide<ActorHelperPF2e>("actorHelper", actorHelper);
     }
   }
 );
@@ -67,7 +69,7 @@ watch(
 console.log({ actorHelper, actor, helper, actors, store, sysStore, props, route$ });
 
 provide("actor", actor);
-provide("actorHelper", actorHelper);
+provide<ActorHelperPF2e>("actorHelper", actorHelper);
 const itemTypes = computed(
   () =>
     actor.value?.items.reduce((a, c) => {
@@ -84,8 +86,10 @@ function getClass(actor: ActorPF2e) {
 }
 const atts = computed(() => actor.value?.system.attributes);
 const abl = computed(() => actor.value?.system.abilities);
-function getID(a: any) { return a._id || a.id; }
-const actorID = computed(() => actor.value._id)
+function getID(a: any) {
+  return a._id || a.id;
+}
+const actorID = computed(() => actor.value._id);
 const tabs = computed(() => [
   { name: "Actions", path: `/pf2e/actors/${route$.params.id}/actions` },
   { name: "Attributes", path: `/pf2e/actors/${route$.params.id}/attributes` },
@@ -113,8 +117,7 @@ const tabs = computed(() => [
           <CharacterHeaderPF2e :actor="actor"></CharacterHeaderPF2e>
         </IonToolbar>
         <IonTabBar slot="top">
-          <IonTabButton v-for="tab in tabs" :tab="tab.name" :href="tab.path" :router-direction="'root'">{{ tab.name }}
-          </IonTabButton>
+          <IonTabButton v-for="tab in tabs" :tab="tab.name" :href="tab.path" :router-direction="'root'">{{ tab.name }} </IonTabButton>
         </IonTabBar>
 
         <IonRouterOutlet></IonRouterOutlet>

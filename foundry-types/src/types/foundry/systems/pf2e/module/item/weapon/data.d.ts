@@ -1,10 +1,10 @@
-import { ItemFlagsPF2e } from "src/types/pf2e/module/item/data/base.ts";
-import { BasePhysicalItemSource, Investable, PhysicalItemTraits, PhysicalSystemData, PhysicalSystemSource, PreciousMaterialGrade, UsageDetails } from "src/types/pf2e/module/item/physical/index.ts";
-import { OneToFour, ZeroToFour, ZeroToThree } from "src/types/pf2e/module/data.ts";
-import { DamageDieSize, DamageType } from "src/types/pf2e/module/system/damage/index.ts";
+import { ItemFlagsPF2e } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { BasePhysicalItemSource, Investable, PhysicalItemTraits, PhysicalSystemData, PhysicalSystemSource, PreciousMaterialGrade, UsageDetails } from "src/types/foundry/systems/pf2e/module/item/physical/index.ts";
+import { OneToFour, ZeroToFour, ZeroToThree } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { DamageDieSize, DamageType } from "src/types/foundry/systems/pf2e/module/system/damage/index.ts";
 import { WeaponTraitToggles } from "./helpers.ts";
 import { BaseWeaponType, MeleeWeaponGroup, OtherWeaponTag, StrikingRuneType, WeaponCategory, WeaponGroup, WeaponMaterialType, WeaponPropertyRuneType, WeaponRangeIncrement, WeaponReloadTime, WeaponTrait } from "./types.ts";
-import { AbilityString } from "src/types/pf2e/module/actor/types.ts";
+import { AbilityString } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
 type WeaponSource = BasePhysicalItemSource<"weapon", WeaponSystemSource> & {
     flags: DeepPartial<WeaponFlags>;
 };

@@ -1,7 +1,7 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { SpellPF2e } from "src/types/pf2e/module/item";
-import { SpellConsumableItemType } from "src/types/pf2e/module/item/consumable/spell-consumables.ts";
-import { OneToTen } from "src/types/pf2e/module/data.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { SpellPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { SpellConsumableItemType } from "src/types/foundry/systems/pf2e/module/item/consumable/spell-consumables.ts";
+import { OneToTen } from "src/types/foundry/systems/pf2e/module/data.ts";
 interface FormInputData extends FormApplicationData<ActorPF2e> {
     itemTypeOptions?: Object;
     validLevels?: number[];

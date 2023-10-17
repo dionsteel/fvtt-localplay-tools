@@ -1,7 +1,7 @@
-import type { DamageType } from "src/types/pf2e/module/system/damage/types.ts";
+import type { DamageType } from "src/types/foundry/systems/pf2e/module/system/damage/types.ts";
 import { WeaponPF2e } from "./document.ts";
 import { WeaponPropertyRuneType } from "./types.ts";
-import { CharacterPF2e } from "src/types/pf2e/module/actor";
+import { CharacterPF2e } from "src/types/foundry/systems/pf2e/module/actor";
 /** A helper class to handle toggleable weapon traits */
 declare class WeaponTraitToggles {
     #private;

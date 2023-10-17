@@ -1,4 +1,4 @@
-import { ActorSourcePF2e } from "src/types/pf2e/module/actor/data/index.ts";
+import { ActorSourcePF2e } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
 import { MigrationBase } from "../base.ts";
 /** Reset all roll options now that most are no longer stored on actors */
 export declare class Migration751ResetRollOptions extends MigrationBase {

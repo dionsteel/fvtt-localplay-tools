@@ -1,10 +1,10 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { ActionCategory, ActionTrait } from "src/types/pf2e/module/item/action/index.ts";
-import { ActionType } from "src/types/pf2e/module/item/data/base.ts";
-import { BaseSpellcastingEntry } from "src/types/pf2e/module/item/spellcasting-entry/index.ts";
-import { UserPF2e } from "src/types/pf2e/module/user/document.ts";
+import { ActionCategory, ActionTrait } from "src/types/foundry/systems/pf2e/module/item/action/index.ts";
+import { ActionType } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { BaseSpellcastingEntry } from "src/types/foundry/systems/pf2e/module/item/spellcasting-entry/index.ts";
+import { UserPF2e } from "src/types/foundry/systems/pf2e/module/user/document.ts";
 import { BrowserTabs, PackInfo, SourceInfo, TabData, TabName } from "./data.ts";
 import { ActionFilters, BestiaryFilters, EquipmentFilters, FeatFilters, HazardFilters, SpellFilters } from "./tabs/data.ts";
 declare class PackLoader {

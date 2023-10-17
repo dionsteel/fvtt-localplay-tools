@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
 import { MigrationBase } from "../base.ts";
 /** Remove duplicate Recall Knowledge action items */
 export declare class Migration799RMRecallKnowledgeDuplicates extends MigrationBase {

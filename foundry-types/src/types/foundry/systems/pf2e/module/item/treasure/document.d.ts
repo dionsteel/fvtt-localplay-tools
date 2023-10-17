@@ -1,7 +1,7 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ItemSummaryData } from "src/types/pf2e/module/item/data/index.ts";
-import { CoinsPF2e, PhysicalItemPF2e } from "src/types/pf2e/module/item/physical/index.ts";
-import { CoinDenomination } from "src/types/pf2e/module/item/physical/types.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ItemSummaryData } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { CoinsPF2e, PhysicalItemPF2e } from "src/types/foundry/systems/pf2e/module/item/physical/index.ts";
+import { CoinDenomination } from "src/types/foundry/systems/pf2e/module/item/physical/types.ts";
 import { TreasureSource, TreasureSystemData } from "./data.ts";
 declare class TreasurePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     get isCoinage(): boolean;

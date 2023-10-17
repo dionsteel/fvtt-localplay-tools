@@ -1,4 +1,4 @@
-import { PickableThing } from "src/types/pf2e/module/apps/pick-a-thing-prompt.ts";
+import { PickableThing } from "src/types/foundry/systems/pf2e/module/apps/pick-a-thing-prompt.ts";
 import { RuleElementOptions, RuleElementPF2e } from "../index.ts";
 import { ChoiceSetPackQuery, ChoiceSetSchema, ChoiceSetSource, UninflatedChoiceSet } from "./data.ts";
 /**

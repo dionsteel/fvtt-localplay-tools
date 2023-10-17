@@ -1,6 +1,6 @@
-import type { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ItemSummaryData } from "src/types/pf2e/module/item/data/index.ts";
-import { PhysicalItemHitPoints, PhysicalItemPF2e } from "src/types/pf2e/module/item/physical/index.ts";
+import type { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ItemSummaryData } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { PhysicalItemHitPoints, PhysicalItemPF2e } from "src/types/foundry/systems/pf2e/module/item/physical/index.ts";
 import { ArmorSource, ArmorSystemData } from "./data.ts";
 import { ArmorCategory, ArmorGroup, BaseArmorType } from "./types.ts";
 declare class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {

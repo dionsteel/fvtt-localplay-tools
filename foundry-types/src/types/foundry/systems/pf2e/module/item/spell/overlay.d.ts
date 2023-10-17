@@ -1,6 +1,6 @@
 import { SpellOverlay, SpellOverlayType, SpellSource } from "./data.ts";
 import { SpellPF2e } from "./index.ts";
-import { ActorPF2e } from "src/types/pf2e/module/actor";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
 declare class SpellOverlayCollection extends Collection<SpellOverlay> {
     readonly spell: SpellPF2e;
     constructor(spell: SpellPF2e, entries?: Record<string, SpellOverlay>);

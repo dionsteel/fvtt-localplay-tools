@@ -1,4 +1,4 @@
-import { ActorType } from "src/types/pf2e/module/actor/data/index.ts";
+import { ActorType } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
 import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField } from "./data.ts";

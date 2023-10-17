@@ -1,7 +1,7 @@
-import { SkillLongForm } from "src/types/pf2e/module/actor/types.ts";
-import { TokenDocumentPF2e } from "src/types/pf2e/module/scene/index.ts";
+import { SkillLongForm } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { TokenDocumentPF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
 import { EncounterPF2e } from "./index.ts";
-import { ActorPF2e } from "src/types/pf2e/module/actor";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
 declare class CombatantPF2e<TParent extends EncounterPF2e | null = EncounterPF2e | null, TTokenDocument extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends Combatant<TParent, TTokenDocument> {
     get encounter(): TParent;
     /** The round this combatant last had a turn */

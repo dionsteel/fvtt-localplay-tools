@@ -1,6 +1,6 @@
-import { AncestryPF2e } from "src/types/pf2e/module/item/ancestry/index.ts";
-import { ABCSheetData, ABCSheetPF2e } from "src/types/pf2e/module/item/abc/sheet.ts";
-import { SheetOptions } from "src/types/pf2e/module/sheet/helpers.ts";
+import { AncestryPF2e } from "src/types/foundry/systems/pf2e/module/item/ancestry/index.ts";
+import { ABCSheetData, ABCSheetPF2e } from "src/types/foundry/systems/pf2e/module/item/abc/sheet.ts";
+import { SheetOptions } from "src/types/foundry/systems/pf2e/module/sheet/helpers.ts";
 declare class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
     getData(options?: Partial<DocumentSheetOptions>): Promise<AncestrySheetData>;
 }

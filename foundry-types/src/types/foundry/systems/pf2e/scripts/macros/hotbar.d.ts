@@ -1,5 +1,5 @@
-import { SkillAbbreviation } from "src/types/pf2e/module/actor/creature/data.ts";
-import { ItemPF2e, EffectPF2e } from "src/types/pf2e/module/item";
+import { SkillAbbreviation } from "src/types/foundry/systems/pf2e/module/actor/creature/data.ts";
+import { ItemPF2e, EffectPF2e } from "src/types/foundry/systems/pf2e/module/item";
 /**
  * Create a Macro from an Item drop.
  * Get an existing item macro if one exists, otherwise create a new one.

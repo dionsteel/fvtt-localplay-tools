@@ -1,7 +1,7 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ArmorPF2e, WeaponPF2e } from "src/types/pf2e/module/item";
-import { ZeroToThree } from "src/types/pf2e/module/data.ts";
-import { FlatModifierRuleElement } from "src/types/pf2e/module/rules/rule-element/flat-modifier.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ArmorPF2e, WeaponPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ZeroToThree } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { FlatModifierRuleElement } from "src/types/foundry/systems/pf2e/module/rules/rule-element/flat-modifier.ts";
 import { CharacterPF2e } from "./document.ts";
 declare class AutomaticBonusProgression {
     /** Whether the ABP variant is enabled and also not selectively disabled for a particular actor */

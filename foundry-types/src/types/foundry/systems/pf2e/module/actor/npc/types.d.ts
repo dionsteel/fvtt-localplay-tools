@@ -1,11 +1,11 @@
-import { CreatureSheetData } from "src/types/pf2e/module/actor/creature/types.ts";
-import { HitPointsStatistic, PerceptionData } from "src/types/pf2e/module/actor/data/base.ts";
-import { MovementType, SaveType, SkillAbbreviation } from "src/types/pf2e/module/actor/types.ts";
-import { ActionItemPF2e, EffectPF2e, ItemPF2e } from "src/types/pf2e/module/item";
-import { SpellcastingSheetData } from "src/types/pf2e/module/item/spellcasting-entry/index.ts";
-import { ZeroToFour } from "src/types/pf2e/module/data.ts";
-import { TraitTagifyEntry } from "src/types/pf2e/module/sheet/helpers.ts";
-import { ArmorClassTraceData } from "src/types/pf2e/module/system/statistic/armor-class.ts";
+import { CreatureSheetData } from "src/types/foundry/systems/pf2e/module/actor/creature/types.ts";
+import { HitPointsStatistic, PerceptionData } from "src/types/foundry/systems/pf2e/module/actor/data/base.ts";
+import { MovementType, SaveType, SkillAbbreviation } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ActionItemPF2e, EffectPF2e, ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { SpellcastingSheetData } from "src/types/foundry/systems/pf2e/module/item/spellcasting-entry/index.ts";
+import { ZeroToFour } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { TraitTagifyEntry } from "src/types/foundry/systems/pf2e/module/sheet/helpers.ts";
+import { ArmorClassTraceData } from "src/types/foundry/systems/pf2e/module/system/statistic/armor-class.ts";
 import { NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData } from "./data.ts";
 import { NPCPF2e, NPCStrike } from "./index.ts";
 interface ActionsDetails {

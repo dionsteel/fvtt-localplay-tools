@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
 import { MigrationBase } from "../base.ts";
 /** Normalize stringy level and price values */
 export declare class Migration639NormalizeLevelAndPrice extends MigrationBase {

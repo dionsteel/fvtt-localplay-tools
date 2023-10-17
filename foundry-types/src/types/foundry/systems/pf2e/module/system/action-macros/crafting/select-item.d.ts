@@ -1,7 +1,7 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { PhysicalItemPF2e } from "src/types/pf2e/module/item";
+import { PhysicalItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
 declare class SelectItemDialog extends Application {
     #private;
     private constructor();

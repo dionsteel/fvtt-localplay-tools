@@ -1,10 +1,10 @@
-import { AlignmentTrait } from "src/types/pf2e/module/actor/creature/types.ts";
-import { OtherArmorTag } from "src/types/pf2e/module/item/armor/types.ts";
-import { ClassTrait } from "src/types/pf2e/module/item/class/data.ts";
-import { OtherConsumableTag } from "src/types/pf2e/module/item/consumable/types.ts";
-import { PreciousMaterialType } from "src/types/pf2e/module/item/physical/types.ts";
-import { MagicSchool, MagicTradition } from "src/types/pf2e/module/item/spell/types.ts";
-import { OtherWeaponTag } from "src/types/pf2e/module/item/weapon/types.ts";
+import { AlignmentTrait } from "src/types/foundry/systems/pf2e/module/actor/creature/types.ts";
+import { OtherArmorTag } from "src/types/foundry/systems/pf2e/module/item/armor/types.ts";
+import { ClassTrait } from "src/types/foundry/systems/pf2e/module/item/class/data.ts";
+import { OtherConsumableTag } from "src/types/foundry/systems/pf2e/module/item/consumable/types.ts";
+import { PreciousMaterialType } from "src/types/foundry/systems/pf2e/module/item/physical/types.ts";
+import { MagicSchool, MagicTradition } from "src/types/foundry/systems/pf2e/module/item/spell/types.ts";
+import { OtherWeaponTag } from "src/types/foundry/systems/pf2e/module/item/weapon/types.ts";
 declare const ancestryTraits: {
     "half-elf": string;
     "half-orc": string;

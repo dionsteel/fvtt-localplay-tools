@@ -1,10 +1,10 @@
-import { ActorPF2e, CharacterPF2e, NPCPF2e } from "src/types/pf2e/module/actor";
-import { AbilityString } from "src/types/pf2e/module/actor/types.ts";
-import { ZeroToFour } from "src/types/pf2e/module/data.ts";
-import { RollNotePF2e } from "src/types/pf2e/module/notes.ts";
-import type { RuleElementPF2e } from "src/types/pf2e/module/rules/index.ts";
-import { DamageCategoryUnique, DamageDieSize, DamageType } from "src/types/pf2e/module/system/damage/types.ts";
-import { PredicatePF2e, RawPredicate } from "src/types/pf2e/module/system/predication.ts";
+import { ActorPF2e, CharacterPF2e, NPCPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { AbilityString } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ZeroToFour } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { RollNotePF2e } from "src/types/foundry/systems/pf2e/module/notes.ts";
+import type { RuleElementPF2e } from "src/types/foundry/systems/pf2e/module/rules/index.ts";
+import { DamageCategoryUnique, DamageDieSize, DamageType } from "src/types/foundry/systems/pf2e/module/system/damage/types.ts";
+import { PredicatePF2e, RawPredicate } from "src/types/foundry/systems/pf2e/module/system/predication.ts";
 declare const PROFICIENCY_RANK_OPTION: readonly ["proficiency:untrained", "proficiency:trained", "proficiency:expert", "proficiency:master", "proficiency:legendary"];
 declare function ensureProficiencyOption(options: Set<string>, rank: number): void;
 declare const MODIFIER_TYPES: Set<"untyped" | "item" | "ability" | "circumstance" | "potency" | "proficiency" | "status">;

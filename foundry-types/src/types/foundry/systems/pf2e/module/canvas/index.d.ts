@@ -1,4 +1,4 @@
-import { ScenePF2e } from "src/types/pf2e/module/scene/index.ts";
+import { ScenePF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
 import { AmbientLightPF2e } from "./ambient-light.ts";
 import { EffectsCanvasGroupPF2e } from "./group/effects.ts";
 import { LightingLayerPF2e } from "./layer/lighting.ts";

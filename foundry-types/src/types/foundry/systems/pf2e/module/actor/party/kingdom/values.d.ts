@@ -1,5 +1,5 @@
 import { KingdomAbility, KingdomCHG, KingdomGovernment, KingdomLeadershipRole, KingdomSkill } from "./types.ts";
-import { ModifierAdjustment, RawModifier } from "src/types/pf2e/module/actor/modifiers.ts";
+import { ModifierAdjustment, RawModifier } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
 declare const KINGDOM_ABILITIES: readonly ["culture", "economy", "loyalty", "stability"];
 declare const KINGDOM_ABILITY_LABELS: Record<"culture" | "economy" | "loyalty" | "stability", string>;
 declare const KINGDOM_LEADERSHIP: readonly ["ruler", "counselor", "general", "emissary", "magister", "treasurer", "viceroy", "warden"];

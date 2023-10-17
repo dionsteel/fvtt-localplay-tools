@@ -1,7 +1,7 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ActorSourcePF2e } from "src/types/pf2e/module/actor/data/index.ts";
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
-import { ScenePF2e } from "src/types/pf2e/module/scene/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ActorSourcePF2e } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { ScenePF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
 /**
  * This is the base class for a migration.
  * If you make a change to the database schema (i.e. anything in template.json or data-definitions.ts),

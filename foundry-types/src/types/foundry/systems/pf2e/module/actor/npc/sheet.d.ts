@@ -1,8 +1,8 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { NPCPF2e } from "src/types/pf2e/module/actor";
-import { CreatureSheetPF2e } from "src/types/pf2e/module/actor/creature/sheet.ts";
+import { NPCPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { CreatureSheetPF2e } from "src/types/foundry/systems/pf2e/module/actor/creature/sheet.ts";
 import { NPCConfig } from "./config.ts";
 import { NPCSheetData, NPCSpellcastingSheetData } from "./types.ts";
 declare abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {

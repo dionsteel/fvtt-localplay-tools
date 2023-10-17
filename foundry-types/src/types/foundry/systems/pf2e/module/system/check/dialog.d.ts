@@ -1,8 +1,8 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { ModifierPF2e, StatisticModifier } from "src/types/pf2e/module/actor/modifiers.ts";
-import { RollSubstitution } from "src/types/pf2e/module/rules/synthetics.ts";
+import { ModifierPF2e, StatisticModifier } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { RollSubstitution } from "src/types/foundry/systems/pf2e/module/rules/synthetics.ts";
 import { CheckRollContext } from "./types.ts";
 /**
  * Dialog for excluding certain modifiers before rolling a check.

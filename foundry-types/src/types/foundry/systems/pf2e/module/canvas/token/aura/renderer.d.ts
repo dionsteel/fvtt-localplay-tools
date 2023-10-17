@@ -1,8 +1,8 @@
-import { AuraData } from "src/types/pf2e/module/actor/types.ts";
+import { AuraData } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
 import { TokenPF2e } from "../index.ts";
 import { EffectAreaSquare } from "../../effect-area-square.ts";
-import { ItemTrait } from "src/types/pf2e/module/item/data/base.ts";
-import { TokenAuraData } from "src/types/pf2e/module/scene/token-document/aura/index.ts";
+import { ItemTrait } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { TokenAuraData } from "src/types/foundry/systems/pf2e/module/scene/token-document/aura/index.ts";
 /** Visual rendering of auras emanated by a token's actor */
 declare class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     #private;

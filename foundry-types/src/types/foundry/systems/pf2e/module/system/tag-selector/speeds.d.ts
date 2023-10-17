@@ -1,7 +1,7 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { ActorPF2e } from "src/types/pf2e/module/actor";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
 import { BaseTagSelector } from "./base.ts";
 import { SelectableTagField, TagSelectorOptions } from "./index.ts";
 export declare class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {

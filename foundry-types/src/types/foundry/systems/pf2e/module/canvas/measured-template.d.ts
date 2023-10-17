@@ -1,8 +1,8 @@
-import { MeasuredTemplateDocumentPF2e } from "src/types/pf2e/module/scene/measured-template-document.ts";
+import { MeasuredTemplateDocumentPF2e } from "src/types/foundry/systems/pf2e/module/scene/measured-template-document.ts";
 import { TemplateLayerPF2e } from "./index.ts";
-import { ScenePF2e } from "src/types/pf2e/module/scene/index.ts";
-import { ItemPF2e } from "src/types/pf2e/module/item";
-import { ActorPF2e } from "src/types/pf2e/module/actor";
+import { ScenePF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
 declare class MeasuredTemplatePF2e<TDocument extends MeasuredTemplateDocumentPF2e<ScenePF2e | null> = MeasuredTemplateDocumentPF2e<ScenePF2e | null>> extends MeasuredTemplate<TDocument> {
     #private;
     /** Static data for the currently active preview template */

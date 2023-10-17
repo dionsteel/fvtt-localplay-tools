@@ -1,9 +1,9 @@
-import { DamageDicePF2e, DeferredValueParams, ModifierAdjustment, ModifierPF2e, TestableDeferredValueParams } from "src/types/pf2e/module/actor/modifiers.ts";
-import { ConditionSource, EffectSource } from "src/types/pf2e/module/item/data/index.ts";
-import { ActorPF2e, ItemPF2e } from "src/types/pf2e/module/documents.ts";
-import { RollNotePF2e } from "src/types/pf2e/module/notes.ts";
-import { DegreeOfSuccessAdjustment } from "src/types/pf2e/module/system/degree-of-success.ts";
-import { RollTwiceOption } from "src/types/pf2e/module/system/rolls.ts";
+import { DamageDicePF2e, DeferredValueParams, ModifierAdjustment, ModifierPF2e, TestableDeferredValueParams } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { ConditionSource, EffectSource } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { ActorPF2e, ItemPF2e } from "src/types/foundry/systems/pf2e/module/documents.ts";
+import { RollNotePF2e } from "src/types/foundry/systems/pf2e/module/notes.ts";
+import { DegreeOfSuccessAdjustment } from "src/types/foundry/systems/pf2e/module/system/degree-of-success.ts";
+import { RollTwiceOption } from "src/types/foundry/systems/pf2e/module/system/rolls.ts";
 import { BracketedValue } from "./rule-element/index.ts";
 import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics.ts";
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */

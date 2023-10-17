@@ -1,4 +1,4 @@
-import { ActorSourcePF2e } from "src/types/pf2e/module/actor/data/index.ts";
+import { ActorSourcePF2e } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
 import { MigrationBase } from "../base.ts";
 /** Remove value property from loot actor description */
 export declare class Migration810LootDescriptionValue extends MigrationBase {

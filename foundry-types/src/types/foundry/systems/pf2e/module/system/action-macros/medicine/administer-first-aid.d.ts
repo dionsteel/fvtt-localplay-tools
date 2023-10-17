@@ -1,5 +1,5 @@
 import { SkillActionOptions } from "../index.ts";
-import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "src/types/pf2e/module/actor/actions/index.ts";
+import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "src/types/foundry/systems/pf2e/module/actor/actions/index.ts";
 declare const ADMINISTER_FIRST_AID_VARIANTS: readonly ["stabilize", "stop-bleeding"];
 type AdministerFirstAidVariant = (typeof ADMINISTER_FIRST_AID_VARIANTS)[number];
 declare function administerFirstAid(options: {

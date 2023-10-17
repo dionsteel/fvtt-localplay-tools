@@ -1,18 +1,18 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { DexterityModifierCapData } from "src/types/pf2e/module/actor/character/types.ts";
-import { LabeledSpeed } from "src/types/pf2e/module/actor/creature/data.ts";
-import { CreatureSensePF2e } from "src/types/pf2e/module/actor/creature/sense.ts";
-import { DamageDicePF2e, DeferredPromise, DeferredValue, ModifierAdjustment, ModifierPF2e } from "src/types/pf2e/module/actor/modifiers.ts";
-import type { TokenEffect } from "src/types/pf2e/module/actor/token-effect.ts";
-import { MovementType } from "src/types/pf2e/module/actor/types.ts";
-import { MeleePF2e, WeaponPF2e } from "src/types/pf2e/module/item";
-import { ActionTrait } from "src/types/pf2e/module/item/action/index.ts";
-import { ConditionSource, EffectSource } from "src/types/pf2e/module/item/data/index.ts";
-import { WeaponPropertyRuneType } from "src/types/pf2e/module/item/weapon/types.ts";
-import { RollNotePF2e } from "src/types/pf2e/module/notes.ts";
-import { MaterialDamageEffect } from "src/types/pf2e/module/system/damage/types.ts";
-import { DegreeOfSuccessAdjustment } from "src/types/pf2e/module/system/degree-of-success.ts";
-import { PredicatePF2e } from "src/types/pf2e/module/system/predication.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { DexterityModifierCapData } from "src/types/foundry/systems/pf2e/module/actor/character/types.ts";
+import { LabeledSpeed } from "src/types/foundry/systems/pf2e/module/actor/creature/data.ts";
+import { CreatureSensePF2e } from "src/types/foundry/systems/pf2e/module/actor/creature/sense.ts";
+import { DamageDicePF2e, DeferredPromise, DeferredValue, ModifierAdjustment, ModifierPF2e } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import type { TokenEffect } from "src/types/foundry/systems/pf2e/module/actor/token-effect.ts";
+import { MovementType } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { MeleePF2e, WeaponPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ActionTrait } from "src/types/foundry/systems/pf2e/module/item/action/index.ts";
+import { ConditionSource, EffectSource } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { WeaponPropertyRuneType } from "src/types/foundry/systems/pf2e/module/item/weapon/types.ts";
+import { RollNotePF2e } from "src/types/foundry/systems/pf2e/module/notes.ts";
+import { MaterialDamageEffect } from "src/types/foundry/systems/pf2e/module/system/damage/types.ts";
+import { DegreeOfSuccessAdjustment } from "src/types/foundry/systems/pf2e/module/system/degree-of-success.ts";
+import { PredicatePF2e } from "src/types/foundry/systems/pf2e/module/system/predication.ts";
 /** Defines a list of data provided by rule elements that an actor can pull from during its data preparation lifecycle */
 interface RuleElementSynthetics {
     criticalSpecalizations: {

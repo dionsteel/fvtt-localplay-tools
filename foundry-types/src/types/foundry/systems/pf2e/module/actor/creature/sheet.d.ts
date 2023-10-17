@@ -1,12 +1,12 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { ActorPF2e, CreaturePF2e } from "src/types/pf2e/module/actor";
-import { ItemPF2e } from "src/types/pf2e/module/item";
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
-import { SpellcastingSheetData } from "src/types/pf2e/module/item/spellcasting-entry/index.ts";
-import { DropCanvasItemDataPF2e } from "src/types/pf2e/module/canvas/drop-canvas-data.ts";
-import { ZeroToFour } from "src/types/pf2e/module/data.ts";
+import { ActorPF2e, CreaturePF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { SpellcastingSheetData } from "src/types/foundry/systems/pf2e/module/item/spellcasting-entry/index.ts";
+import { DropCanvasItemDataPF2e } from "src/types/foundry/systems/pf2e/module/canvas/drop-canvas-data.ts";
+import { ZeroToFour } from "src/types/foundry/systems/pf2e/module/data.ts";
 import { ActorSheetPF2e } from "../sheet/base.ts";
 import { CreatureConfig } from "./config.ts";
 import { CreatureSheetData } from "./types.ts";

@@ -1,7 +1,7 @@
 import { ActionCost, ActionUseOptions } from "./types.ts";
-import { ActorPF2e } from "src/types/pf2e/module/actor";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
 import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base.ts";
-import { EffectPF2e } from "src/types/pf2e/module/item";
+import { EffectPF2e } from "src/types/foundry/systems/pf2e/module/item";
 interface SimpleActionVariantData extends BaseActionVariantData {
     effect?: string | EffectPF2e;
 }

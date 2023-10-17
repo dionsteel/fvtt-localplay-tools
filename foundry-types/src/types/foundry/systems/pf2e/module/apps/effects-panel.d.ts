@@ -1,8 +1,8 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { AfflictionPF2e, ConditionPF2e, EffectPF2e } from "src/types/pf2e/module/item";
-import { ActorPF2e } from "src/types/pf2e/module/documents.ts";
+import { AfflictionPF2e, ConditionPF2e, EffectPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/documents.ts";
 export declare class EffectsPanel extends Application {
     #private;
     private get token();

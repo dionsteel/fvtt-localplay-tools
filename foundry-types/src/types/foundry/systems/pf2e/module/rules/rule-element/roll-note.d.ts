@@ -1,5 +1,5 @@
-import { UserVisibility } from "src/types/pf2e/module/scripts/ui/user-visibility.ts";
-import { DegreeOfSuccessString } from "src/types/pf2e/module/system/degree-of-success.ts";
+import { UserVisibility } from "src/types/foundry/systems/pf2e/module/scripts/ui/user-visibility.ts";
+import { DegreeOfSuccessString } from "src/types/foundry/systems/pf2e/module/system/degree-of-success.ts";
 import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 declare class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {

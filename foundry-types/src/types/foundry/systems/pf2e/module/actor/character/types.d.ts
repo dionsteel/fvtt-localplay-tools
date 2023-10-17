@@ -1,7 +1,7 @@
-import { HitPointsSummary } from "src/types/pf2e/module/actor/base.ts";
-import { AbilityString, SkillLongForm } from "src/types/pf2e/module/actor/types.ts";
-import { ZeroToFour } from "src/types/pf2e/module/data.ts";
-import { Statistic } from "src/types/pf2e/module/system/statistic/index.ts";
+import { HitPointsSummary } from "src/types/foundry/systems/pf2e/module/actor/base.ts";
+import { AbilityString, SkillLongForm } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ZeroToFour } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { Statistic } from "src/types/foundry/systems/pf2e/module/system/statistic/index.ts";
 interface CharacterHitPointsSummary extends HitPointsSummary {
     recoveryMultiplier: number;
     recoveryAddend: number;

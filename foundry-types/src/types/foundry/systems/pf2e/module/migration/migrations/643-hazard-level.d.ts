@@ -1,4 +1,4 @@
-import { ActorSourcePF2e } from "src/types/pf2e/module/actor/data/index.ts";
+import { ActorSourcePF2e } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
 import { MigrationBase } from "../base.ts";
 /** Move hazard level property to the same position as other actor data */
 export declare class Migration643HazardLevel extends MigrationBase {

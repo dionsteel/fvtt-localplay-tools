@@ -1,7 +1,7 @@
-import { ActorUpdateContext } from "src/types/pf2e/module/actor/base.ts";
-import { ItemType } from "src/types/pf2e/module/item/data/index.ts";
-import { TokenDocumentPF2e } from "src/types/pf2e/module/scene";
-import { Statistic } from "src/types/pf2e/module/system/statistic/index.ts";
+import { ActorUpdateContext } from "src/types/foundry/systems/pf2e/module/actor/base.ts";
+import { ItemType } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { TokenDocumentPF2e } from "src/types/foundry/systems/pf2e/module/scene";
+import { Statistic } from "src/types/foundry/systems/pf2e/module/system/statistic/index.ts";
 import type DataModel from "types/foundry/common/abstract/data.d.ts";
 import { PartyPF2e } from "./document.ts";
 interface PartyUpdateContext<TParent extends TokenDocumentPF2e | null> extends ActorUpdateContext<TParent> {

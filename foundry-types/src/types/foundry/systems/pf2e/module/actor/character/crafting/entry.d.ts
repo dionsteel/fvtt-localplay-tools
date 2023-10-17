@@ -1,6 +1,6 @@
-import { ActorPF2e, CharacterPF2e } from "src/types/pf2e/module/actor";
-import { ItemPF2e } from "src/types/pf2e/module/item";
-import { PredicatePF2e, RawPredicate } from "src/types/pf2e/module/system/predication.ts";
+import { ActorPF2e, CharacterPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { PredicatePF2e, RawPredicate } from "src/types/foundry/systems/pf2e/module/system/predication.ts";
 import { CraftingFormula } from "./formula.ts";
 declare class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
     #private;

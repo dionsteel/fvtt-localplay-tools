@@ -1,7 +1,7 @@
-import { AfflictionSource, AfflictionSystemData } from "src/types/pf2e/module/item/affliction/data.ts";
-import { ConditionSource, ConditionSystemData } from "src/types/pf2e/module/item/condition/data.ts";
-import { EffectSource, EffectSystemData } from "src/types/pf2e/module/item/effect/data.ts";
-import { ActorPF2e, ItemPF2e, UserPF2e } from "src/types/pf2e/module/documents.ts";
+import { AfflictionSource, AfflictionSystemData } from "src/types/foundry/systems/pf2e/module/item/affliction/data.ts";
+import { ConditionSource, ConditionSystemData } from "src/types/foundry/systems/pf2e/module/item/condition/data.ts";
+import { EffectSource, EffectSystemData } from "src/types/foundry/systems/pf2e/module/item/effect/data.ts";
+import { ActorPF2e, ItemPF2e, UserPF2e } from "src/types/foundry/systems/pf2e/module/documents.ts";
 import { EffectBadge } from "./data.ts";
 /** Base effect type for all PF2e effects including conditions and afflictions */
 declare abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {

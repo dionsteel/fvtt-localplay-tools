@@ -1,5 +1,5 @@
-import { Size } from "src/types/pf2e/module/data.ts";
-import { Optional } from "src/types/pf2e/module/util";
+import { Size } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { Optional } from "src/types/foundry/systems/pf2e/module/util";
 interface StackDefinition {
     size: number;
     lightBulk: number;

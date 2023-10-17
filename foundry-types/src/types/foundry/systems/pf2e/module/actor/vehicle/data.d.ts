@@ -1,8 +1,8 @@
-import { ActorAttributes, ActorAttributesSource, ActorDetailsSource, ActorSystemData, ActorSystemSource, ActorTraitsData, BaseActorSourcePF2e, HitPointsStatistic } from "src/types/pf2e/module/actor/data/base.ts";
-import { ImmunitySource } from "src/types/pf2e/module/actor/data/iwr.ts";
-import { ActorSizePF2e } from "src/types/pf2e/module/actor/data/size.ts";
-import { ArmorClassTraceData } from "src/types/pf2e/module/system/statistic/armor-class.ts";
-import { StatisticTraceData } from "src/types/pf2e/module/system/statistic/index.ts";
+import { ActorAttributes, ActorAttributesSource, ActorDetailsSource, ActorSystemData, ActorSystemSource, ActorTraitsData, BaseActorSourcePF2e, HitPointsStatistic } from "src/types/foundry/systems/pf2e/module/actor/data/base.ts";
+import { ImmunitySource } from "src/types/foundry/systems/pf2e/module/actor/data/iwr.ts";
+import { ActorSizePF2e } from "src/types/foundry/systems/pf2e/module/actor/data/size.ts";
+import { ArmorClassTraceData } from "src/types/foundry/systems/pf2e/module/system/statistic/armor-class.ts";
+import { StatisticTraceData } from "src/types/foundry/systems/pf2e/module/system/statistic/index.ts";
 import { VehicleTrait } from "./types.ts";
 /** The stored source data of a vehicle actor */
 type VehicleSource = BaseActorSourcePF2e<"vehicle", VehicleSystemSource>;

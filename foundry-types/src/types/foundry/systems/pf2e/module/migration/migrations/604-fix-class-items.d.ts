@@ -1,4 +1,4 @@
-import { ClassSource } from "src/types/pf2e/module/item/data/index.ts";
+import { ClassSource } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
 import { MigrationBase } from "../base.ts";
 export declare class Migration604FixClassItem extends MigrationBase {
     static version: number;

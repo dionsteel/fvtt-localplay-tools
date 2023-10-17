@@ -1,5 +1,5 @@
-import { ActorPF2e, CharacterPF2e } from "src/types/pf2e/module/actor";
-import { ABCItemPF2e } from "src/types/pf2e/module/item";
+import { ActorPF2e, CharacterPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ABCItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
 import { BackgroundSource, BackgroundSystemData } from "./data.ts";
 declare class BackgroundPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
     /** Set a skill feat granted by a GrantItem RE as one of this background's configured items */

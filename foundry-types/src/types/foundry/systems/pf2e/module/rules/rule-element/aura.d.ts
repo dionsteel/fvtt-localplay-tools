@@ -1,6 +1,6 @@
-import { AuraColors, SaveType } from "src/types/pf2e/module/actor/types.ts";
-import { EffectTrait } from "src/types/pf2e/module/item/abstract-effect/data.ts";
-import { PredicateField } from "src/types/pf2e/module/system/schema-data-fields.ts";
+import { AuraColors, SaveType } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { EffectTrait } from "src/types/foundry/systems/pf2e/module/item/abstract-effect/data.ts";
+import { PredicateField } from "src/types/foundry/systems/pf2e/module/system/schema-data-fields.ts";
 import type { ArrayField, BooleanField, ColorField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField, RuleElementSchema, RuleValue } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";

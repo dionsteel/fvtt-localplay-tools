@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
 import { MigrationBase } from "../base.ts";
 /** Indicate whether a feat must be taken at level 1 or may only be taken a limited number of times */
 export declare class Migration717TakeFeatLimits extends MigrationBase {

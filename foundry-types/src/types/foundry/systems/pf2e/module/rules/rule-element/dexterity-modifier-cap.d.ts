@@ -1,5 +1,5 @@
-import type { CharacterPF2e, NPCPF2e } from "src/types/pf2e/module/actor";
-import { ActorType } from "src/types/pf2e/module/actor/data/index.ts";
+import type { CharacterPF2e, NPCPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ActorType } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
 import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 import { ResolvableValueField } from "./data.ts";
 /**

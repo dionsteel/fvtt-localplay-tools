@@ -1,7 +1,7 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { ChatMessagePF2e } from "src/types/pf2e/module/chat-message/index.ts";
+import { ChatMessagePF2e } from "src/types/foundry/systems/pf2e/module/chat-message/index.ts";
 declare class UserVisibilityPF2e {
     /** Edits HTML live based on permission settings. Used to hide certain blocks and values */
     static process($html: HTMLElement | JQuery, options?: ProcessOptions): void;

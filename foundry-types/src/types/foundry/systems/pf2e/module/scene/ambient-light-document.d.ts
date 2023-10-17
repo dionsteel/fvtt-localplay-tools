@@ -1,4 +1,4 @@
-import { AmbientLightPF2e } from "src/types/pf2e/module/canvas/index.ts";
+import { AmbientLightPF2e } from "src/types/foundry/systems/pf2e/module/canvas/index.ts";
 import { ScenePF2e } from "./index.ts";
 declare class AmbientLightDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends AmbientLightDocument<TParent> {
     /** Is this light actually a source of darkness? */

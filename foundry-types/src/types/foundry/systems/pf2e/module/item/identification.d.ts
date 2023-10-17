@@ -1,4 +1,4 @@
-import { SkillLongForm } from "src/types/pf2e/module/actor/types.ts";
+import { SkillLongForm } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
 import { DCOptions } from "../dc.ts";
 import { PhysicalItemPF2e } from "./physical/index.ts";
 type MagicSkill = Extract<SkillLongForm, "arcana" | "nature" | "religion" | "occultism">;

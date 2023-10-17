@@ -1,5 +1,5 @@
-import { SkillAbbreviation } from "src/types/pf2e/module/actor/creature/data.ts";
-import { AbilityString, SkillLongForm } from "src/types/pf2e/module/actor/types.ts";
+import { SkillAbbreviation } from "src/types/foundry/systems/pf2e/module/actor/creature/data.ts";
+import { AbilityString, SkillLongForm } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
 declare const ABILITY_ABBREVIATIONS: Set<"str" | "dex" | "con" | "int" | "wis" | "cha">;
 declare const CREATURE_ACTOR_TYPES: readonly ["character", "npc", "familiar"];
 declare const SAVE_TYPES: readonly ["fortitude", "reflex", "will"];

@@ -1,5 +1,5 @@
-import { MODIFIER_TYPES } from "src/types/pf2e/module/actor/modifiers.ts";
-import { FlatModifierRuleElement, FlatModifierSource } from "src/types/pf2e/module/rules/rule-element/flat-modifier.ts";
+import { MODIFIER_TYPES } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { FlatModifierRuleElement, FlatModifierSource } from "src/types/foundry/systems/pf2e/module/rules/rule-element/flat-modifier.ts";
 import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 /** Form handler for the flat modifier rule element */
 declare class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierRuleElement> {

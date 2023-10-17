@@ -1,8 +1,8 @@
 import { SkillActionOptions } from "../index.ts";
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { CheckContext, CheckContextData, CheckContextOptions } from "src/types/pf2e/module/system/action-macros/types.ts";
-import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "src/types/pf2e/module/actor/actions/index.ts";
-import { ItemPF2e } from "src/types/pf2e/module/item";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { CheckContext, CheckContextData, CheckContextOptions } from "src/types/foundry/systems/pf2e/module/system/action-macros/types.ts";
+import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "src/types/foundry/systems/pf2e/module/actor/actions/index.ts";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
 declare function escape(options: SkillActionOptions): void;
 declare class EscapeActionVariant extends SingleCheckActionVariant {
     get statistic(): string;

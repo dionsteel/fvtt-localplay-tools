@@ -44,8 +44,7 @@ export declare global {
     ): void;
   }
 
-  interface Item<TParent extends Actor<TokenDocument<Scene | null> | null> | null = Actor<TokenDocument<Scene>>>
-    extends ClientBaseItem<TParent> {
+  interface Item<TParent extends Actor<TokenDocument<Scene | null> | null> | null = Actor<TokenDocument<Scene>>> extends ClientBaseItem<TParent> {
     get uuid(): ItemUUID;
 
     _sheet: ItemSheet<this> | null;

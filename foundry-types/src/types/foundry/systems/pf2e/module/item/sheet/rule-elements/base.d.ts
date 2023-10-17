@@ -1,6 +1,6 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ItemPF2e } from "src/types/pf2e/module/item/base.ts";
-import { RuleElementPF2e, RuleElementSource } from "src/types/pf2e/module/rules/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item/base.ts";
+import { RuleElementPF2e, RuleElementSource } from "src/types/foundry/systems/pf2e/module/rules/index.ts";
 /** Utility function to convert a value to a number if its a valid number */
 declare function coerceNumber<T extends string | unknown>(value: T): T | number;
 interface RuleElementFormOptions<TSource extends RuleElementSource, TObject extends RuleElementPF2e> {

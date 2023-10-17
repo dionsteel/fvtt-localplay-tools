@@ -1,6 +1,6 @@
-import { BaseRawModifier, DamageDicePF2e } from "src/types/pf2e/module/actor/modifiers.ts";
+import { BaseRawModifier, DamageDicePF2e } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
 import { ChatContextFlag, ChatMessagePF2e } from "./index.ts";
-import { PredicatePF2e, RawPredicate } from "src/types/pf2e/module/system/predication.ts";
+import { PredicatePF2e, RawPredicate } from "src/types/foundry/systems/pf2e/module/system/predication.ts";
 declare class ChatRollDetails extends Application {
     private message;
     static get defaultOptions(): ApplicationOptions;

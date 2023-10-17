@@ -1,4 +1,4 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor/base.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor/base.ts";
 declare class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
     onSubmitCallback: MoveLootCallback;
     constructor(object: ActorPF2e, options: Partial<MoveLootOptions>, callback: MoveLootCallback);

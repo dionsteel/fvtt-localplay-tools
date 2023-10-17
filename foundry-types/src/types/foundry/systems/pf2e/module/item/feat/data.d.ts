@@ -1,7 +1,7 @@
-import { ActionType, BaseItemSourcePF2e, Frequency, FrequencySource, ItemSystemSource } from "src/types/pf2e/module/item/data/base.ts";
-import { OneToThree, TraitsWithRarity } from "src/types/pf2e/module/data.ts";
+import { ActionType, BaseItemSourcePF2e, Frequency, FrequencySource, ItemSystemSource } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { OneToThree, TraitsWithRarity } from "src/types/foundry/systems/pf2e/module/data.ts";
 import { FeatCategory, FeatTrait } from "./types.ts";
-import { AbilityString } from "src/types/pf2e/module/actor/types.ts";
+import { AbilityString } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
 type FeatSource = BaseItemSourcePF2e<"feat", FeatSystemSource>;
 interface PrerequisiteTagData {
     value: string;

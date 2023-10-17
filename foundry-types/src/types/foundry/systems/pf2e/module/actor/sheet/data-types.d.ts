@@ -1,11 +1,11 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor/base.ts";
-import { ActorSizePF2e } from "src/types/pf2e/module/actor/data/size.ts";
-import { InventoryBulk } from "src/types/pf2e/module/actor/inventory/index.ts";
-import { PhysicalItemPF2e } from "src/types/pf2e/module/item";
-import { Coins } from "src/types/pf2e/module/item/physical/data.ts";
-import { PhysicalItemType } from "src/types/pf2e/module/item/physical/types.ts";
-import { RollOptionToggle } from "src/types/pf2e/module/rules/synthetics.ts";
-import { SheetOptions } from "src/types/pf2e/module/sheet/helpers.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor/base.ts";
+import { ActorSizePF2e } from "src/types/foundry/systems/pf2e/module/actor/data/size.ts";
+import { InventoryBulk } from "src/types/foundry/systems/pf2e/module/actor/inventory/index.ts";
+import { PhysicalItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { Coins } from "src/types/foundry/systems/pf2e/module/item/physical/data.ts";
+import { PhysicalItemType } from "src/types/foundry/systems/pf2e/module/item/physical/types.ts";
+import { RollOptionToggle } from "src/types/foundry/systems/pf2e/module/rules/synthetics.ts";
+import { SheetOptions } from "src/types/foundry/systems/pf2e/module/sheet/helpers.ts";
 export interface InventoryItem<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> {
     item: TItem;
     /** Item size if it causes any weight difference relative to the actor */

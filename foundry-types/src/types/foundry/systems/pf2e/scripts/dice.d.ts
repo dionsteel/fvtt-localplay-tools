@@ -1,6 +1,6 @@
 /// <reference types="jquery" resolution-mode="require"/>
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ItemPF2e } from "src/types/pf2e/module/item";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
 /**
  * @category Other
  */

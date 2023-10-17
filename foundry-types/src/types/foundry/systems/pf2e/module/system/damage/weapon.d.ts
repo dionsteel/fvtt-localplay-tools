@@ -1,10 +1,10 @@
-import { CharacterPF2e, HazardPF2e, NPCPF2e } from "src/types/pf2e/module/actor";
-import { TraitViewData } from "src/types/pf2e/module/actor/data/base.ts";
-import { DamageDicePF2e, ModifierPF2e } from "src/types/pf2e/module/actor/modifiers.ts";
-import { MeleePF2e, WeaponPF2e } from "src/types/pf2e/module/item";
-import { NPCAttackDamage } from "src/types/pf2e/module/item/melee/data.ts";
-import { WeaponDamage } from "src/types/pf2e/module/item/weapon/data.ts";
-import { PotencySynthetic } from "src/types/pf2e/module/rules/synthetics.ts";
+import { CharacterPF2e, HazardPF2e, NPCPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { TraitViewData } from "src/types/foundry/systems/pf2e/module/actor/data/base.ts";
+import { DamageDicePF2e, ModifierPF2e } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { MeleePF2e, WeaponPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { NPCAttackDamage } from "src/types/foundry/systems/pf2e/module/item/melee/data.ts";
+import { WeaponDamage } from "src/types/foundry/systems/pf2e/module/item/weapon/data.ts";
+import { PotencySynthetic } from "src/types/foundry/systems/pf2e/module/rules/synthetics.ts";
 import { DamageCategoryUnique, DamageRollContext, WeaponDamageTemplate } from "./types.ts";
 declare class WeaponDamagePF2e {
     #private;

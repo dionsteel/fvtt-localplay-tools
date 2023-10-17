@@ -1,8 +1,8 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { EffectBadge } from "src/types/pf2e/module/item/abstract-effect/data.ts";
-import { AbstractEffectPF2e } from "src/types/pf2e/module/item/abstract-effect/index.ts";
-import { RuleElementOptions, RuleElementPF2e } from "src/types/pf2e/module/rules/index.ts";
-import { UserPF2e } from "src/types/pf2e/module/user/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { EffectBadge } from "src/types/foundry/systems/pf2e/module/item/abstract-effect/data.ts";
+import { AbstractEffectPF2e } from "src/types/foundry/systems/pf2e/module/item/abstract-effect/index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "src/types/foundry/systems/pf2e/module/rules/index.ts";
+import { UserPF2e } from "src/types/foundry/systems/pf2e/module/user/index.ts";
 import { EffectFlags, EffectSource, EffectSystemData } from "./data.ts";
 declare class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
     static DURATION_UNITS: Readonly<Record<string, number>>;

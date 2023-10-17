@@ -1,8 +1,8 @@
-import { ActorPF2e, CharacterPF2e } from "src/types/pf2e/module/actor";
-import { CreatureTrait } from "src/types/pf2e/module/actor/creature/types.ts";
-import { AbilityString } from "src/types/pf2e/module/actor/types.ts";
-import { ABCItemPF2e, FeatPF2e } from "src/types/pf2e/module/item";
-import { Size } from "src/types/pf2e/module/data.ts";
+import { ActorPF2e, CharacterPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { CreatureTrait } from "src/types/foundry/systems/pf2e/module/actor/creature/types.ts";
+import { AbilityString } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ABCItemPF2e, FeatPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { Size } from "src/types/foundry/systems/pf2e/module/data.ts";
 import { AncestrySource, AncestrySystemData } from "./data.ts";
 declare class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
     get traits(): Set<CreatureTrait>;

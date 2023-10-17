@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { CharacterPF2e } from "@/interfaces/pf2e";
 import { ActionsPF2e } from "@/interfaces/pf2e/actions_pf2e";
+import { ActionMacroDescription, ActionMacros } from "@/interfaces/pf2e/action-macros";
 import { ActionItemPF2e } from "@/interfaces/pf2e/item";
 import { usePF2eGame } from "@/store/pf2e";
 import {
@@ -46,7 +47,10 @@ function categorise<T = any>(actions: any[]): Record<string, T[]> {
 
 const actorActions: Array<ActionItemPF2e> =
   ((actor?.items || []).filter((i) => i.type == "action" || ((i as any).system?.actionType?.value && (i as any).system?.actionType.value != "passive")) as any) || [];
-const allActions: Array<ActionItemPF2e> = [...actorActions, ...ActionsPF2e] as any;
+const allActions: Array<ActionItemPF2e & { macro?: ActionMacroDescription }> = [...actorActions, ...ActionsPF2e].map((a: any) => {
+  a.macro = ActionMacros[a.system.slug];
+  return a;
+}) as any;
 function sortName<T extends { name: string }>(a: T, b: T) {
   return a.name > b.name ? 1 : a.name < b.name ? -1 : 0;
 }
@@ -101,27 +105,24 @@ function allTraitsAllowed(action: ActionItemPF2e) {
         <IonItem>Your Actions</IonItem>
         <IonAccordionGroup>
           <IonItem> Strikes</IonItem>
-          <StrikeCardPF2e v-for="(strike, strikeIdx) in actor?.system.actions" :strike="strike" :strikeIdx="strikeIdx">
-          </StrikeCardPF2e>
+          <StrikeCardPF2e v-for="(strike, strikeIdx) in actor?.system.actions" :strike="strike" :strikeIdx="strikeIdx"> </StrikeCardPF2e>
           <ActionCardPF2e v-for="action in actorActions" :action="action"></ActionCardPF2e>
-
 
           <IonAccordion>
             <IonItem slot="header">General Actions</IonItem>
             <IonAccordionGroup slot="content">
-              <ActionCardPF2e v-for="action in generalActions " :action="action"></ActionCardPF2e>
+              <ActionCardPF2e v-for="action in generalActions" :action="action"></ActionCardPF2e>
             </IonAccordionGroup>
           </IonAccordion>
           <IonAccordion>
             <IonItem slot="header">Skill Actions</IonItem>
             <IonAccordionGroup slot="content">
-              <ActionCardPF2e v-for="action in skillActionCategories.action " :action="action"></ActionCardPF2e>
+              <ActionCardPF2e v-for="action in skillActionCategories.action" :action="action"></ActionCardPF2e>
               <ActionCardPF2e v-for="action in skillActionCategories.offensive" :action="action"></ActionCardPF2e>
-              <ActionCardPF2e v-for="action in skillActionCategories.defensive " :action="action"></ActionCardPF2e>
-              <ActionCardPF2e v-for="action in skillActionCategories.interaction " :action="action"></ActionCardPF2e>
+              <ActionCardPF2e v-for="action in skillActionCategories.defensive" :action="action"></ActionCardPF2e>
+              <ActionCardPF2e v-for="action in skillActionCategories.interaction" :action="action"></ActionCardPF2e>
             </IonAccordionGroup>
           </IonAccordion>
-
         </IonAccordionGroup>
 
         <IonItem> Exploration Actions </IonItem>

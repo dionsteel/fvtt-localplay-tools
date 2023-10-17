@@ -1,5 +1,5 @@
-import { AbstractEffectSystemData, AbstractEffectSystemSource, EffectAuraData, EffectBadge, EffectBadgeSource, EffectContextData, EffectTraits, TimeUnit } from "src/types/pf2e/module/item/abstract-effect/index.ts";
-import { BaseItemSourcePF2e, ItemFlagsPF2e } from "src/types/pf2e/module/item/data/base.ts";
+import { AbstractEffectSystemData, AbstractEffectSystemSource, EffectAuraData, EffectBadge, EffectBadgeSource, EffectContextData, EffectTraits, TimeUnit } from "src/types/foundry/systems/pf2e/module/item/abstract-effect/index.ts";
+import { BaseItemSourcePF2e, ItemFlagsPF2e } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
 type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource> & {
     flags: DeepPartial<EffectFlags>;
 };

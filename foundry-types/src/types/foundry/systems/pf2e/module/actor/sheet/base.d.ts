@@ -1,13 +1,13 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import type { ActorPF2e } from "src/types/pf2e/module/actor";
-import { StrikeData } from "src/types/pf2e/module/actor/data/base.ts";
-import { ItemPF2e } from "src/types/pf2e/module/item";
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
-import { Coins } from "src/types/pf2e/module/item/physical/data.ts";
-import { DropCanvasItemDataPF2e } from "src/types/pf2e/module/canvas/drop-canvas-data.ts";
-import { BasicConstructorOptions, TagSelectorOptions, TagSelectorType } from "src/types/pf2e/module/system/tag-selector/index.ts";
+import type { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { StrikeData } from "src/types/foundry/systems/pf2e/module/actor/data/base.ts";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { Coins } from "src/types/foundry/systems/pf2e/module/item/physical/data.ts";
+import { DropCanvasItemDataPF2e } from "src/types/foundry/systems/pf2e/module/canvas/drop-canvas-data.ts";
+import { BasicConstructorOptions, TagSelectorOptions, TagSelectorType } from "src/types/foundry/systems/pf2e/module/system/tag-selector/index.ts";
 import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e, CoinageSummary, SheetInventory } from "./data-types.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
 /**

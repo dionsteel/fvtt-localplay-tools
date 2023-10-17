@@ -1,4 +1,4 @@
-import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "src/types/pf2e/module/actor/actions/index.ts";
+import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "src/types/foundry/systems/pf2e/module/actor/actions/index.ts";
 declare class AidAction extends SingleCheckAction {
     constructor();
     protected toActionVariant(data?: SingleCheckActionVariantData): SingleCheckActionVariant;

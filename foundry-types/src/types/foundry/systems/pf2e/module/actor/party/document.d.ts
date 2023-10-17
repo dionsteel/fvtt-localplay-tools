@@ -1,9 +1,9 @@
-import { ActorPF2e, CreaturePF2e } from "src/types/pf2e/module/actor";
-import { ItemType } from "src/types/pf2e/module/item/data/index.ts";
-import { UserPF2e } from "src/types/pf2e/module/documents.ts";
-import { CombatantPF2e, EncounterPF2e } from "src/types/pf2e/module/encounter/index.ts";
-import { TokenDocumentPF2e } from "src/types/pf2e/module/scene/index.ts";
-import { Statistic } from "src/types/pf2e/module/system/statistic/index.ts";
+import { ActorPF2e, CreaturePF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ItemType } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { UserPF2e } from "src/types/foundry/systems/pf2e/module/documents.ts";
+import { CombatantPF2e, EncounterPF2e } from "src/types/foundry/systems/pf2e/module/encounter/index.ts";
+import { TokenDocumentPF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
+import { Statistic } from "src/types/foundry/systems/pf2e/module/system/statistic/index.ts";
 import { DataModelValidationOptions } from "types/foundry/common/abstract/data.js";
 import { PartySource, PartySystemData } from "./data.ts";
 import { PartyCampaign, PartyUpdateContext } from "./types.ts";

@@ -1,9 +1,9 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { AbilityString } from "src/types/pf2e/module/actor/types.ts";
-import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "src/types/pf2e/module/item";
-import { ItemSummaryData } from "src/types/pf2e/module/item/data/index.ts";
-import { CoinsPF2e, IdentificationStatus, MystifiedData } from "src/types/pf2e/module/item/physical/index.ts";
-import { UserPF2e } from "src/types/pf2e/module/user/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { AbilityString } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ItemSummaryData } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { CoinsPF2e, IdentificationStatus, MystifiedData } from "src/types/foundry/systems/pf2e/module/item/physical/index.ts";
+import { UserPF2e } from "src/types/foundry/systems/pf2e/module/user/index.ts";
 import type { WeaponDamage, WeaponFlags, WeaponMaterialData, WeaponSource, WeaponSystemData } from "./data.ts";
 import type { BaseWeaponType, OtherWeaponTag, WeaponCategory, WeaponGroup, WeaponRangeIncrement, WeaponReloadTime, WeaponTrait } from "./types.ts";
 declare class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {

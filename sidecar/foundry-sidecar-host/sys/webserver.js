@@ -89,7 +89,7 @@ function extractProps(item, excludePrivate = true, excluded = []) {
     }
     return out; //Object.fromEntries(Object.entries(item).map((e) => [e[0], extractProps(e[1])]));
   };
-  let out = item.event ? Object.fromEntries(Object.entries(item).map(e => [e[0], propExtractor(e[1])])) : propExtractor(item);
+  let out = item.event ? Object.fromEntries(Object.entries(item).map((e) => [e[0], propExtractor(e[1])])) : propExtractor(item);
   let r;
   while ((r = q.shift())) {
     try {
@@ -114,7 +114,9 @@ function extractFullData(item = {}) {
   try {
     let stringed = JSON.stringify({ ...item });
     return JSON.parse(stringed);
-  } catch (e) { console.error(e); }
+  } catch (e) {
+    console.error(e);
+  }
   // let first = true;
   // let queue = [];
   // if (typeof item.toObject == "function") {
@@ -279,7 +281,7 @@ function mountWebServer(app) {
   app.get("/actor/:id", (req, res) => {
     let actor = helper.getActorData(req.params.id);
     // actor.exportToJSON({});
-    console.log('Get Actor', req.params.id, actor);
+    console.log("Get Actor", req.params.id, actor);
     const dactor = extractFullData(actor || {});
     console.log("returning actor", actor, dactor);
     res.json(dactor);
@@ -308,6 +310,7 @@ function mountWebServer(app) {
           }
         }
       }
+      PlayerRolls.enableForPlayer(req.params.id);
       function handlePlayerRPC(msg) {
         switch (msg.action) {
           case "performStrike":
@@ -321,7 +324,14 @@ function mountWebServer(app) {
           case "rollStrikeDamage":
             helper.rollStrikeDamage(tgtActor._id, msg.options);
             break;
-
+          case "performItemAction":
+            helper.performItemAction(tgtActor._id, msg.options);
+            // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();
+            break;
+          case "performSkillAction":
+            helper.performSkillAction(tgtActor._id, msg.slug, msg.options);
+            // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();
+            break;
           default:
             break;
         }
@@ -329,12 +339,12 @@ function mountWebServer(app) {
       function handleActorMessage(msg) {
         switch (msg.event) {
           case "rollReply":
-            console.log('handing roll reply', msg, pendingRolls);
+            console.log("handing roll reply", msg, pendingRolls);
             const rollIdx = pendingRolls.findIndex((r) => r.id == msg.rollId);
-            console.log('handing roll reply: found roll idx?', rollIdx);
+            console.log("handing roll reply: found roll idx?", rollIdx);
             if (rollIdx >= 0) {
               const roll = pendingRolls[rollIdx];
-              console.log('found roll', roll);
+              console.log("found roll", roll);
               if (roll) {
                 roll.reply.next(msg.formData || msg.data.formData || msg.data || msg);
                 pendingRolls.splice(rollIdx, 1);
@@ -342,7 +352,7 @@ function mountWebServer(app) {
             }
             break;
           case "playerRPC":
-            console.log('handling player rpc', msg);
+            console.log("handling player rpc", msg);
             handlePlayerRPC(msg);
             break;
         }
@@ -367,6 +377,7 @@ function mountWebServer(app) {
           handleActorMessage(msg);
         }
       });
+
       try {
         forwardEventOverWS({ event: "updateActor", actor: helper.getActorData(req.params.id) });
         // forwardEventOverWS({ event: "updateToken", token: currentToken() || {} });
@@ -377,19 +388,7 @@ function mountWebServer(app) {
 
       function forwardEventOverWS(event) {
         try {
-          // let data = {};
-          // for (let k in event) {
-          //   if (k !== "event") {
-          //     try {
-          //       data[k] = typeof event[k] == "object" ? extractFullData(event[k]) : event[k];
-          //     } catch (e) {
-          //       console.warn("forwardEventOverWS Error:", e, event);
-          //     }
-          //   }
-          // }
-
           ws.send(JSON.stringify(extractFullData(event)));
-          // ws.send(JSON.stringify({ event: event.event, ...data }));
         } catch (e) {
           console.warn("forwardEventOverWS Error:", e, event);
         }
@@ -430,8 +429,12 @@ function mountWebServer(app) {
               case "createCombat":
                 return e.combat.combatants.has(currentToken().id || currentToken()._id);
               case "renderChatMessage":
-                if (e.html && e.html.html ) {
-                  try { e.html = e?.html?.html(); } catch (e) { console.error(e); }
+                if (e.html && e.html.html) {
+                  try {
+                    e.html = e?.html?.html();
+                  } catch (e) {
+                    console.error(e);
+                  }
                 }
                 // return true;
                 if (e.message.speaker?.alias == "Gamemaster") {
@@ -442,6 +445,12 @@ function mountWebServer(app) {
                 }
                 if (e.message.speaker.token) {
                   return e.message.speaker.token == currentToken().id;
+                }
+                if (e.message.flags["monks-tokenbar"]) {
+                  const tbflags = e.message.flags["monks-tokenbar"];
+                  let { dc, modename, name, options, requests, rollmode, showAdvantage, what, ...tokens } = tbflags;
+                  const actorids = Object.values(tokens).map((v) => v.actorid);
+                  return actorids.includes(req.params.id);
                 }
                 return e.message.speaker.alias || e.message.speaker.scene;
               case "rollRequest":
@@ -455,7 +464,7 @@ function mountWebServer(app) {
                 return false;
             }
           } catch (e) {
-            console.error('filter error', e);
+            console.error("filter error", e);
             return false;
           }
         }),
@@ -476,8 +485,8 @@ function mountWebServer(app) {
                 break;
               case "rollRequest":
                 let nrId = e?.id || rollId();
-                pendingRolls.push({ id: nrId, ...e });
                 e.id = nrId;
+                pendingRolls.push(e);
 
                 console.log("RollRequest tap", e);
                 break;
@@ -493,7 +502,7 @@ function mountWebServer(app) {
               // ws.send(JSON.stringify({ event: "updateActor", data: extractFullData(tgtActor || {}) }));
               // case "updateActor":
               case "renderChatMessage":
-                console.log('renderChatMessage', e);
+                console.log("renderChatMessage", e);
                 break;
               // case "createScene":
               // case "deleteScene":
@@ -502,13 +511,17 @@ function mountWebServer(app) {
                 console.log("event", e);
             }
           } catch (e) {
-            console.error('Error in event filter for ', tgtActor.name, e);
+            console.error("Error in event filter for ", tgtActor.name, e);
             return false;
           }
         })
       );
       const aeSub = actorEvents.subscribe(eventForwardSubscriber);
 
+      ws.on("disconnect", () => {
+        aeSub.unsubscribe();
+        PlayerRolls.disableForPlayer(req.params.id);
+      });
       // actorUpdates
       //   .pipe(
       //     tap((v) => console.log("Actor Update", v)),
@@ -569,7 +582,7 @@ function mountWebServer(app) {
   });
   app.get("/pack/:key", (req, res) => {
     let pack = game.packs.get(req.params.key);
-    pack.values = [...((pack?.index?.values()) || [])];
+    pack.values = [...(pack?.index?.values() || [])];
     res.json(extractFullData(pack));
   });
   app.get("/system", (req, res) => {

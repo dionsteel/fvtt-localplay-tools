@@ -1,9 +1,9 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ConsumablePF2e, SpellcastingEntryPF2e } from "src/types/pf2e/module/item";
-import { SpellcastingEntrySource } from "src/types/pf2e/module/item/spellcasting-entry/index.ts";
-import { SpellCollection } from "src/types/pf2e/module/item/spellcasting-entry/collection.ts";
-import { RitualSpellcasting } from "src/types/pf2e/module/item/spellcasting-entry/rituals.ts";
-import { BaseSpellcastingEntry } from "src/types/pf2e/module/item/spellcasting-entry/types.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ConsumablePF2e, SpellcastingEntryPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { SpellcastingEntrySource } from "src/types/foundry/systems/pf2e/module/item/spellcasting-entry/index.ts";
+import { SpellCollection } from "src/types/foundry/systems/pf2e/module/item/spellcasting-entry/collection.ts";
+import { RitualSpellcasting } from "src/types/foundry/systems/pf2e/module/item/spellcasting-entry/rituals.ts";
+import { BaseSpellcastingEntry } from "src/types/foundry/systems/pf2e/module/item/spellcasting-entry/types.ts";
 export declare class ActorSpellcasting<TActor extends ActorPF2e> extends Collection<BaseSpellcastingEntry<TActor>> {
     readonly actor: TActor;
     /** All available spell lists on this actor */

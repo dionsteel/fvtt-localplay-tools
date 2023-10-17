@@ -1,7 +1,7 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { ScenePF2e } from "src/types/pf2e/module/scene/index.ts";
+import { ScenePF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
 import "nouislider/dist/nouislider.min.css";
 export declare class SceneDarknessAdjuster extends Application {
     #private;

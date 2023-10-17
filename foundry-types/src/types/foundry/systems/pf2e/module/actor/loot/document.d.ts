@@ -1,9 +1,9 @@
-import { ItemType } from "src/types/pf2e/module/item/data/index.ts";
-import { PhysicalItemPF2e } from "src/types/pf2e/module/item/physical/document.ts";
-import { ActiveEffectPF2e } from "src/types/pf2e/module/active-effect.ts";
-import { ActorPF2e, ItemPF2e } from "src/types/pf2e/module/documents.ts";
-import { UserPF2e } from "src/types/pf2e/module/user/document.ts";
-import { TokenDocumentPF2e } from "src/types/pf2e/module/scene/index.ts";
+import { ItemType } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { PhysicalItemPF2e } from "src/types/foundry/systems/pf2e/module/item/physical/document.ts";
+import { ActiveEffectPF2e } from "src/types/foundry/systems/pf2e/module/active-effect.ts";
+import { ActorPF2e, ItemPF2e } from "src/types/foundry/systems/pf2e/module/documents.ts";
+import { UserPF2e } from "src/types/foundry/systems/pf2e/module/user/document.ts";
+import { TokenDocumentPF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
 import { LootSource, LootSystemData } from "./data.ts";
 declare class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     armorClass: null;

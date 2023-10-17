@@ -1,8 +1,8 @@
-import { CreatureTrait, Language } from "src/types/pf2e/module/actor/creature/index.ts";
-import { AbilityString } from "src/types/pf2e/module/actor/types.ts";
-import { ABCSystemData, ABCSystemSource } from "src/types/pf2e/module/item/abc/index.ts";
-import { BaseItemSourcePF2e } from "src/types/pf2e/module/item/data/base.ts";
-import { Size, TraitsWithRarity, ValuesList } from "src/types/pf2e/module/data.ts";
+import { CreatureTrait, Language } from "src/types/foundry/systems/pf2e/module/actor/creature/index.ts";
+import { AbilityString } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ABCSystemData, ABCSystemSource } from "src/types/foundry/systems/pf2e/module/item/abc/index.ts";
+import { BaseItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { Size, TraitsWithRarity, ValuesList } from "src/types/foundry/systems/pf2e/module/data.ts";
 type AncestrySource = BaseItemSourcePF2e<"ancestry", AncestrySystemSource>;
 export type CreatureTraits = TraitsWithRarity<CreatureTrait>;
 interface AncestrySystemSource extends ABCSystemSource {

@@ -1,4 +1,4 @@
-import { PredicateField } from "src/types/pf2e/module/system/schema-data-fields.ts";
+import { PredicateField } from "src/types/foundry/systems/pf2e/module/system/schema-data-fields.ts";
 import type { ArrayField, BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";

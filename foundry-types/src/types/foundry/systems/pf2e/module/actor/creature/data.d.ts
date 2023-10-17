@@ -16,9 +16,10 @@ import { LabeledNumber, Size, ValueAndMax, ValuesList, ZeroToThree } from "../..
 import { Statistic, StatisticTraceData } from "../../system/statistic/index.ts";
 import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense.ts";
 import { Alignment, CreatureTrait } from "./types.ts";
-type BaseCreatureSource<TType extends CreatureType, TSystemSource extends CreatureSystemSource> = BaseActorSourcePF2e<TType, TSystemSource>;
+import {ConfigPF2e} from '../../../scripts/config';
+// type BaseCreatureSource<TType extends CreatureType, TSystemSource extends CreatureSystemSource> = BaseActorSourcePF2e<TType, TSystemSource>;
 /** Skill and Lore statistics for rolling. */
-type CreatureSkills = Record<SkillLongForm, Statistic> & Partial<Record<string, Statistic>>;
+interface CreatureSkills extends Record<SkillLongForm, Statistic>, Partial<Record<string, Statistic>> {}
 interface CreatureSystemSource extends ActorSystemSource {
   details?: {
     level?: {

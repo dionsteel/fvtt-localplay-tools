@@ -1,10 +1,10 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ItemPF2e } from "src/types/pf2e/module/item";
-import { PredicatePF2e } from "src/types/pf2e/module/system/predication.ts";
-import Tagify from "src/types/pf2e/module/yaireo/tagify";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { PredicatePF2e } from "src/types/foundry/systems/pf2e/module/system/predication.ts";
+import Tagify from "src/types/foundry/systems/pf2e/module/yaireo/tagify";
 /** Prompt the user to pick from a number of options */
 declare abstract class PickAThingPrompt<T> extends Application {
     protected item: ItemPF2e<ActorPF2e>;

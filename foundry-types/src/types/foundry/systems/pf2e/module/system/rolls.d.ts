@@ -1,4 +1,5 @@
 /// <reference types="jquery" resolution-mode="require"/>
+import { Roll, RollOptions, Rolled } from "../../../../client/roll.js";
 import { TraitViewData } from "../actor/data/base.ts";
 import { ModifierPF2e } from "../actor/modifiers";
 import { RollTarget } from "../actor/types.ts";

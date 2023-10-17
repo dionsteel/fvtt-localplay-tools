@@ -1,4 +1,4 @@
-import { PhysicalItemSheetData, PhysicalItemSheetPF2e } from "src/types/pf2e/module/item/physical/index.ts";
+import { PhysicalItemSheetData, PhysicalItemSheetPF2e } from "src/types/foundry/systems/pf2e/module/item/physical/index.ts";
 import { TreasurePF2e } from "./document.ts";
 export declare class TreasureSheetPF2e extends PhysicalItemSheetPF2e<TreasurePF2e> {
     getData(options?: Partial<DocumentSheetOptions>): Promise<TreasureSheetData>;

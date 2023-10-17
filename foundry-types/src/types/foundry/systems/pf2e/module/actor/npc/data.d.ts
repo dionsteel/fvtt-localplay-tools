@@ -1,14 +1,14 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor/base.ts";
-import { Abilities, BaseCreatureSource, CreatureAttributes, CreatureDetails, CreatureInitiativeSource, CreatureResources, CreatureResourcesSource, CreatureSpeeds, CreatureSystemData, CreatureSystemSource, CreatureTraitsData, CreatureTraitsSource, HeldShieldData, LabeledSpeed, SaveData } from "src/types/pf2e/module/actor/creature/data.ts";
-import { ActorAttributesSource, ActorFlagsPF2e, HitPointsStatistic, PerceptionData, StrikeData } from "src/types/pf2e/module/actor/data/base.ts";
-import { ActorSizePF2e } from "src/types/pf2e/module/actor/data/size.ts";
-import { ModifierPF2e, StatisticModifier } from "src/types/pf2e/module/actor/modifiers.ts";
-import { AbilityString, ActorAlliance, SaveType } from "src/types/pf2e/module/actor/types.ts";
-import { MeleePF2e } from "src/types/pf2e/module/item";
-import { Rarity, Size } from "src/types/pf2e/module/data.ts";
-import { ArmorClassTraceData } from "src/types/pf2e/module/system/statistic/armor-class.ts";
-import { StatisticTraceData } from "src/types/pf2e/module/system/statistic/data.ts";
-import { InitiativeTraceData } from "src/types/pf2e/module/actor/initiative.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor/base.ts";
+import { Abilities, BaseCreatureSource, CreatureAttributes, CreatureDetails, CreatureInitiativeSource, CreatureResources, CreatureResourcesSource, CreatureSpeeds, CreatureSystemData, CreatureSystemSource, CreatureTraitsData, CreatureTraitsSource, HeldShieldData, LabeledSpeed, SaveData } from "src/types/foundry/systems/pf2e/module/actor/creature/data.ts";
+import { ActorAttributesSource, ActorFlagsPF2e, HitPointsStatistic, PerceptionData, StrikeData } from "src/types/foundry/systems/pf2e/module/actor/data/base.ts";
+import { ActorSizePF2e } from "src/types/foundry/systems/pf2e/module/actor/data/size.ts";
+import { ModifierPF2e, StatisticModifier } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { AbilityString, ActorAlliance, SaveType } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { MeleePF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { Rarity, Size } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { ArmorClassTraceData } from "src/types/foundry/systems/pf2e/module/system/statistic/armor-class.ts";
+import { StatisticTraceData } from "src/types/foundry/systems/pf2e/module/system/statistic/data.ts";
+import { InitiativeTraceData } from "src/types/foundry/systems/pf2e/module/actor/initiative.ts";
 interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
     flags: DeepPartial<NPCFlags>;
 }

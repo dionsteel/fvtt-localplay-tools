@@ -1,7 +1,7 @@
-import { SkillAbbreviation } from "src/types/pf2e/module/actor/creature/data.ts";
-import { AbilityString } from "src/types/pf2e/module/actor/types.ts";
-import { ABCSystemData, ABCSystemSource } from "src/types/pf2e/module/item/abc/data.ts";
-import { BaseItemSourcePF2e, ItemTraits } from "src/types/pf2e/module/item/data/base.ts";
+import { SkillAbbreviation } from "src/types/foundry/systems/pf2e/module/actor/creature/data.ts";
+import { AbilityString } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ABCSystemData, ABCSystemSource } from "src/types/foundry/systems/pf2e/module/item/abc/data.ts";
+import { BaseItemSourcePF2e, ItemTraits } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
 type BackgroundSource = BaseItemSourcePF2e<"background", BackgroundSystemSource>;
 interface BackgroundSystemSource extends ABCSystemSource {
     traits: ItemTraits;

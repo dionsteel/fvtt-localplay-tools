@@ -1,5 +1,5 @@
-import { ResistanceData } from "src/types/pf2e/module/actor/data/iwr.ts";
-import { ResistanceType } from "src/types/pf2e/module/actor/types.ts";
+import { ResistanceData } from "src/types/foundry/systems/pf2e/module/actor/data/iwr.ts";
+import { ResistanceType } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
 import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField } from "../data.ts";
 import { IWRRuleElement, IWRRuleSchema } from "./base.ts";

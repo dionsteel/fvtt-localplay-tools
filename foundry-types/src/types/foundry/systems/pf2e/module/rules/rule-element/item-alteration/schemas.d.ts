@@ -1,6 +1,6 @@
-import type { ItemSourcePF2e, ItemType } from "src/types/pf2e/module/item/data/index.ts";
-import { ItemPF2e } from "src/types/pf2e/module/documents.ts";
-import type { DamageType } from "src/types/pf2e/module/system/damage/types.ts";
+import type { ItemSourcePF2e, ItemType } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/documents.ts";
+import type { DamageType } from "src/types/foundry/systems/pf2e/module/system/damage/types.ts";
 import type { DataField, DataFieldOptions, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { AELikeChangeMode } from "../ae-like.ts";
 declare const fields: typeof import("types/foundry/common/data/fields.d.ts");

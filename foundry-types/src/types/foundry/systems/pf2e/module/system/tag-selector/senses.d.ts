@@ -1,7 +1,7 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { ActorPF2e } from "src/types/pf2e/module/actor";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
 import { BaseTagSelector, TagSelectorOptions } from "./base.ts";
 import { SelectableTagField } from "./index.ts";
 export declare class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {

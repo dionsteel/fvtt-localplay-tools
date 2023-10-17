@@ -1,10 +1,10 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { AfflictionPF2e, ConditionPF2e } from "src/types/pf2e/module/item";
-import { ItemSheetPF2e } from "src/types/pf2e/module/item/sheet/base.ts";
-import { ItemSheetDataPF2e } from "src/types/pf2e/module/item/sheet/data-types.ts";
-import { DamageCategoryUnique } from "src/types/pf2e/module/system/damage/types.ts";
+import { AfflictionPF2e, ConditionPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ItemSheetPF2e } from "src/types/foundry/systems/pf2e/module/item/sheet/base.ts";
+import { ItemSheetDataPF2e } from "src/types/foundry/systems/pf2e/module/item/sheet/data-types.ts";
+import { DamageCategoryUnique } from "src/types/foundry/systems/pf2e/module/system/damage/types.ts";
 import { AfflictionConditionData, AfflictionStageData } from "./data.ts";
 declare class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
     static get defaultOptions(): DocumentSheetOptions;

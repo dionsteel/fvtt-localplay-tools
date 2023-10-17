@@ -186,7 +186,7 @@ function getActorPF2e(id) {
  * @property {Observable<{event:"deleteActiveEffect"; "effect":ActiveEffect;  "options":any, "userId": string}>} deleteActiveEffect
  * @property {Observable<{event:"renderChatMessage"; "message":ChatMessage;  "html":JQuery<HTMLElement>, "source":ChatMessageSource}>} renderChatMessage
  * @property {Observable<{event:"renderChatLog"; "message":ChatLog; ChatMessage>, "html", "source"}>} renderChatLog
- * @property {Observable<{event:"rollRequest", data: {terms:TermJSON[],controlled:{actor:string[];token:string[];}}; controlled:{actor:string[];token:string[];}; reply: Record<string,number>; }>} rollRequest
+ * @property {Observable<{event:"rollRequest", data: {terms:TermJSON[],controlled:{actors:string[];tokens:string[];}}; controlled:{actors:string[];tokens:string[];}; reply: Record<string,number>; }>} rollRequest
  */
 
 /**

@@ -1,8 +1,8 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { AbstractEffectPF2e, EffectBadge } from "src/types/pf2e/module/item/abstract-effect/index.ts";
-import { UserPF2e } from "src/types/pf2e/module/user/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { AbstractEffectPF2e, EffectBadge } from "src/types/foundry/systems/pf2e/module/item/abstract-effect/index.ts";
+import { UserPF2e } from "src/types/foundry/systems/pf2e/module/user/index.ts";
 import { AfflictionFlags, AfflictionSource, AfflictionSystemData } from "./data.ts";
-import { AfflictionDamageTemplate, DamageRollContext } from "src/types/pf2e/module/system/damage/index.ts";
+import { AfflictionDamageTemplate, DamageRollContext } from "src/types/foundry/systems/pf2e/module/system/damage/index.ts";
 declare class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
     get badge(): EffectBadge;
     get stage(): number;

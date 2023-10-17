@@ -1,7 +1,7 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { ActorPF2e } from "src/types/pf2e/module/actor";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
 export declare const InlineRollLinks: {
     injectRepostElement: (links: HTMLElement[], foundryDoc: ClientDocument | null) => void;
     listen: ($html: HTMLElement | JQuery, foundryDoc?: ClientDocument | null) => void;

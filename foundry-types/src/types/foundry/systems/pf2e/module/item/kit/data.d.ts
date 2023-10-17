@@ -1,5 +1,5 @@
-import { BaseItemSourcePF2e, ItemSystemSource } from "src/types/pf2e/module/item/data/base.ts";
-import { PhysicalItemTraits, PartialPrice } from "src/types/pf2e/module/item/physical/data.ts";
+import { BaseItemSourcePF2e, ItemSystemSource } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { PhysicalItemTraits, PartialPrice } from "src/types/foundry/systems/pf2e/module/item/physical/data.ts";
 type KitSource = BaseItemSourcePF2e<"kit", KitSystemSource>;
 interface KitEntryData {
     uuid: ItemUUID;

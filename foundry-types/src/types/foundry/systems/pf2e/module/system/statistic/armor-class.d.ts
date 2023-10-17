@@ -1,6 +1,6 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ArmorPF2e } from "src/types/pf2e/module/item";
-import { ZeroToFour } from "src/types/pf2e/module/data.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ArmorPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ZeroToFour } from "src/types/foundry/systems/pf2e/module/data.ts";
 import { Statistic, StatisticData, StatisticTraceData } from "./index.ts";
 declare class ArmorStatistic extends Statistic {
     #private;

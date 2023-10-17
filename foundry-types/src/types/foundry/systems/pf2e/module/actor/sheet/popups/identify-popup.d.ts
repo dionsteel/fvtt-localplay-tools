@@ -1,8 +1,8 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { GenericIdentifyDCs, IdentifyAlchemyDCs, IdentifyMagicDCs } from "src/types/pf2e/module/item/identification.ts";
-import { PhysicalItemPF2e } from "src/types/pf2e/module/item/physical/index.ts";
+import { GenericIdentifyDCs, IdentifyAlchemyDCs, IdentifyMagicDCs } from "src/types/foundry/systems/pf2e/module/item/identification.ts";
+import { PhysicalItemPF2e } from "src/types/foundry/systems/pf2e/module/item/physical/index.ts";
 export declare class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
     static get defaultOptions(): FormApplicationOptions;
     get item(): PhysicalItemPF2e;

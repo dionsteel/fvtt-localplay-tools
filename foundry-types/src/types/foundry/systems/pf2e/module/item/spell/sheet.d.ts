@@ -1,11 +1,11 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { SpellPF2e, SpellSystemSource } from "src/types/pf2e/module/item/spell/index.ts";
+import { SpellPF2e, SpellSystemSource } from "src/types/foundry/systems/pf2e/module/item/spell/index.ts";
 import { ItemSheetPF2e } from "../sheet/base.ts";
 import { ItemSheetDataPF2e } from "../sheet/data-types.ts";
 import { SpellSystemData } from "./data.ts";
-import { DamageCategoryUnique } from "src/types/pf2e/module/system/damage/types.ts";
+import { DamageCategoryUnique } from "src/types/foundry/systems/pf2e/module/system/damage/types.ts";
 export declare class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     #private;
     get id(): string;

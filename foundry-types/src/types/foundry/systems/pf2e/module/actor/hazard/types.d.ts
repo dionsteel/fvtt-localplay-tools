@@ -1,8 +1,8 @@
-import { HazardPF2e } from "src/types/pf2e/module/actor";
-import { TraitViewData } from "src/types/pf2e/module/actor/data/base.ts";
-import { ActorSheetDataPF2e } from "src/types/pf2e/module/actor/sheet/data-types.ts";
-import { SaveType } from "src/types/pf2e/module/actor/types.ts";
-import { ActionItemPF2e } from "src/types/pf2e/module/item";
+import { HazardPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { TraitViewData } from "src/types/foundry/systems/pf2e/module/actor/data/base.ts";
+import { ActorSheetDataPF2e } from "src/types/foundry/systems/pf2e/module/actor/sheet/data-types.ts";
+import { SaveType } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ActionItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
 interface HazardSheetData extends ActorSheetDataPF2e<HazardPF2e> {
     actions: HazardActionSheetData;
     editing: boolean;

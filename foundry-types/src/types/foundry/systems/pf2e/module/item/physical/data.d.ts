@@ -1,9 +1,9 @@
-import { ActionTrait } from "src/types/pf2e/module/item/action/data.ts";
-import { ArmorTrait } from "src/types/pf2e/module/item/armor/types.ts";
-import { ConsumableTrait } from "src/types/pf2e/module/item/consumable/data.ts";
-import { EquipmentTrait } from "src/types/pf2e/module/item/equipment/data.ts";
-import { WeaponTrait } from "src/types/pf2e/module/item/weapon/types.ts";
-import { Size, TraitsWithRarity, ValuesList } from "src/types/pf2e/module/data.ts";
+import { ActionTrait } from "src/types/foundry/systems/pf2e/module/item/action/data.ts";
+import { ArmorTrait } from "src/types/foundry/systems/pf2e/module/item/armor/types.ts";
+import { ConsumableTrait } from "src/types/foundry/systems/pf2e/module/item/consumable/data.ts";
+import { EquipmentTrait } from "src/types/foundry/systems/pf2e/module/item/equipment/data.ts";
+import { WeaponTrait } from "src/types/foundry/systems/pf2e/module/item/weapon/types.ts";
+import { Size, TraitsWithRarity, ValuesList } from "src/types/foundry/systems/pf2e/module/data.ts";
 import { ActionCost, BaseItemSourcePF2e, Frequency, ItemSystemData, ItemSystemSource } from "../data/base.ts";
 import type { ITEM_CARRY_TYPES } from "../data/values.ts";
 import { CoinsPF2e } from "./helpers.ts";

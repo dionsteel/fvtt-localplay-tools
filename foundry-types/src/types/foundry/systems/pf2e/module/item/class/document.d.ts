@@ -1,8 +1,8 @@
-import { ActorPF2e, CharacterPF2e } from "src/types/pf2e/module/actor";
-import { FeatSlotLevel } from "src/types/pf2e/module/actor/character/feats.ts";
-import { SaveType } from "src/types/pf2e/module/actor/types.ts";
-import { ABCItemPF2e, FeatPF2e } from "src/types/pf2e/module/item";
-import { ZeroToFour } from "src/types/pf2e/module/data.ts";
+import { ActorPF2e, CharacterPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { FeatSlotLevel } from "src/types/foundry/systems/pf2e/module/actor/character/feats.ts";
+import { SaveType } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ABCItemPF2e, FeatPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ZeroToFour } from "src/types/foundry/systems/pf2e/module/data.ts";
 import { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData, ClassTrait } from "./data.ts";
 declare class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
     get attacks(): ClassAttackProficiencies;

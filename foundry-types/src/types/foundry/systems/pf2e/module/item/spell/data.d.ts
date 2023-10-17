@@ -1,7 +1,7 @@
-import { SaveType } from "src/types/pf2e/module/actor/types.ts";
-import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "src/types/pf2e/module/item/data/base.ts";
-import { OneToTen, TraitsWithRarity, ValueAndMax } from "src/types/pf2e/module/data.ts";
-import { MaterialDamageEffect, DamageCategoryUnique, DamageType } from "src/types/pf2e/module/system/damage/index.ts";
+import { SaveType } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { OneToTen, TraitsWithRarity, ValueAndMax } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { MaterialDamageEffect, DamageCategoryUnique, DamageType } from "src/types/foundry/systems/pf2e/module/system/damage/index.ts";
 import { EffectAreaSize, EffectAreaType, MagicTradition, SpellComponent, SpellTrait } from "./types.ts";
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
 interface SpellSystemSource extends ItemSystemSource {

@@ -1,10 +1,10 @@
-import { StrikeAttackTraits } from "src/types/pf2e/module/actor/creature/helpers.ts";
-import { ModifierPF2e } from "src/types/pf2e/module/actor/modifiers.ts";
-import { ArmorPF2e, WeaponPF2e } from "src/types/pf2e/module/item";
-import { ItemCarryType } from "src/types/pf2e/module/item/physical/index.ts";
-import { ZeroToThree, ZeroToTwo } from "src/types/pf2e/module/data.ts";
-import { ActorPF2e } from "src/types/pf2e/module/documents.ts";
-import { SheetOptions } from "src/types/pf2e/module/sheet/helpers.ts";
+import { StrikeAttackTraits } from "src/types/foundry/systems/pf2e/module/actor/creature/helpers.ts";
+import { ModifierPF2e } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { ArmorPF2e, WeaponPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ItemCarryType } from "src/types/foundry/systems/pf2e/module/item/physical/index.ts";
+import { ZeroToThree, ZeroToTwo } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/documents.ts";
+import { SheetOptions } from "src/types/foundry/systems/pf2e/module/sheet/helpers.ts";
 import type { CharacterPF2e } from "./document.ts";
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
 declare class PCStrikeAttackTraits extends StrikeAttackTraits {

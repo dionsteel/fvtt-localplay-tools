@@ -1,10 +1,10 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { AbilityString } from "src/types/pf2e/module/actor/types.ts";
-import { ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "src/types/pf2e/module/item";
-import { MagicTradition } from "src/types/pf2e/module/item/spell/types.ts";
-import { ZeroToFour } from "src/types/pf2e/module/data.ts";
-import { UserPF2e } from "src/types/pf2e/module/user/index.ts";
-import { Statistic } from "src/types/pf2e/module/system/statistic/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { AbilityString } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { MagicTradition } from "src/types/foundry/systems/pf2e/module/item/spell/types.ts";
+import { ZeroToFour } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { UserPF2e } from "src/types/foundry/systems/pf2e/module/user/index.ts";
+import { Statistic } from "src/types/foundry/systems/pf2e/module/system/statistic/index.ts";
 import { SpellCollection } from "./collection.ts";
 import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "./data.ts";
 import { SpellcastingCategory, SpellcastingEntry, SpellcastingEntryPF2eCastOptions, SpellcastingSheetData } from "./types.ts";

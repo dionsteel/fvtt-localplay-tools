@@ -1,5 +1,5 @@
-import { NPCPF2e } from "src/types/pf2e/module/actor";
-import { SkillLongForm } from "src/types/pf2e/module/actor/types.ts";
+import { NPCPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { SkillLongForm } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
 import { DCAdjustment, DCOptions } from "./dc.ts";
 declare function creatureIdentificationDCs(creature: NPCPF2e, { proficiencyWithoutLevel }?: DCOptions): CreatureIdentificationData;
 interface RecallKnowledgeDC {

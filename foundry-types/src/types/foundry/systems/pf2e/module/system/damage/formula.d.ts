@@ -1,4 +1,4 @@
-import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "src/types/pf2e/module/system/degree-of-success.ts";
+import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "src/types/foundry/systems/pf2e/module/system/degree-of-success.ts";
 import { DamageFormulaData, DamagePartialTerm } from "./types.ts";
 /** A compiled formula with its associated breakdown */
 interface AssembledFormula {

@@ -1,17 +1,17 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { CreatureSheetData } from "src/types/pf2e/module/actor/creature/index.ts";
-import { ActorSheetDataPF2e } from "src/types/pf2e/module/actor/sheet/data-types.ts";
-import { SaveType } from "src/types/pf2e/module/actor/types.ts";
-import { AncestryPF2e, BackgroundPF2e, ClassPF2e, DeityPF2e, FeatPF2e, HeritagePF2e, ItemPF2e } from "src/types/pf2e/module/item";
-import { ActionCost, Frequency } from "src/types/pf2e/module/item/data/base.ts";
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
-import { MagicTradition } from "src/types/pf2e/module/item/spell/types.ts";
-import { SpellcastingSheetData } from "src/types/pf2e/module/item/spellcasting-entry/types.ts";
-import { DropCanvasItemDataPF2e } from "src/types/pf2e/module/canvas/drop-canvas-data.ts";
-import { ActorPF2e } from "src/types/pf2e/module/documents.ts";
-import { SheetOptions } from "src/types/pf2e/module/sheet/helpers.ts";
+import { CreatureSheetData } from "src/types/foundry/systems/pf2e/module/actor/creature/index.ts";
+import { ActorSheetDataPF2e } from "src/types/foundry/systems/pf2e/module/actor/sheet/data-types.ts";
+import { SaveType } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { AncestryPF2e, BackgroundPF2e, ClassPF2e, DeityPF2e, FeatPF2e, HeritagePF2e, ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ActionCost, Frequency } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { MagicTradition } from "src/types/foundry/systems/pf2e/module/item/spell/types.ts";
+import { SpellcastingSheetData } from "src/types/foundry/systems/pf2e/module/item/spellcasting-entry/types.ts";
+import { DropCanvasItemDataPF2e } from "src/types/foundry/systems/pf2e/module/canvas/drop-canvas-data.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/documents.ts";
+import { SheetOptions } from "src/types/foundry/systems/pf2e/module/sheet/helpers.ts";
 import { CreatureSheetPF2e } from "../creature/sheet.ts";
 import { CharacterConfig } from "./config.ts";
 import { CraftingEntry, CraftingFormula } from "./crafting/index.ts";

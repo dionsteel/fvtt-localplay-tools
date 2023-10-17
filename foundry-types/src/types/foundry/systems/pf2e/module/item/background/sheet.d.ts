@@ -1,6 +1,6 @@
 import { ABCSheetData, ABCSheetPF2e } from "../abc/sheet.ts";
 import { BackgroundPF2e } from "./document.ts";
-import { SheetOptions } from "src/types/pf2e/module/sheet/helpers.ts";
+import { SheetOptions } from "src/types/foundry/systems/pf2e/module/sheet/helpers.ts";
 export declare class BackgroundSheetPF2e extends ABCSheetPF2e<BackgroundPF2e> {
     getData(options?: Partial<DocumentSheetOptions>): Promise<BackgroundSheetData>;
 }

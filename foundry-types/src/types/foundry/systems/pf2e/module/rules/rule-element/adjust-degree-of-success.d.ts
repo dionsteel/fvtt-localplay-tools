@@ -1,9 +1,9 @@
-import { CharacterPF2e, NPCPF2e } from "src/types/pf2e/module/actor";
-import { ActorType } from "src/types/pf2e/module/actor/data/index.ts";
-import { DegreeOfSuccessString } from "src/types/pf2e/module/system/degree-of-success.ts";
+import { CharacterPF2e, NPCPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ActorType } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
+import { DegreeOfSuccessString } from "src/types/foundry/systems/pf2e/module/system/degree-of-success.ts";
 import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
-import { RecordField } from "src/types/pf2e/module/system/schema-data-fields.ts";
+import { RecordField } from "src/types/foundry/systems/pf2e/module/system/schema-data-fields.ts";
 /**
  * @category RuleElement
  */

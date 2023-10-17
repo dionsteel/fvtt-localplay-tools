@@ -1,9 +1,9 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ImmunityData, IWRSource, ResistanceData, WeaknessData } from "src/types/pf2e/module/actor/data/iwr.ts";
-import { ImmunityType, ResistanceType, WeaknessType } from "src/types/pf2e/module/actor/types.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ImmunityData, IWRSource, ResistanceData, WeaknessData } from "src/types/foundry/systems/pf2e/module/actor/data/iwr.ts";
+import { ImmunityType, ResistanceType, WeaknessType } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
 declare class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREditorOptions> {
     #private;
     category: ListCategory;

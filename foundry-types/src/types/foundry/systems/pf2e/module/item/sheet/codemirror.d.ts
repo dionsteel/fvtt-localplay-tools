@@ -1,5 +1,5 @@
-import { json } from "src/types/pf2e/module/codemirror/lang-json";
-import { Extension } from "src/types/pf2e/module/codemirror/state";
+import { json } from "src/types/foundry/systems/pf2e/module/codemirror/lang-json";
+import { Extension } from "src/types/foundry/systems/pf2e/module/codemirror/state";
 import { EditorView } from "codemirror";
 import type { DataSchema } from "types/foundry/common/data/fields.d.ts";
 export declare const CodeMirror: {

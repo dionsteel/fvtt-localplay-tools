@@ -1,8 +1,8 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { ItemSheetDataPF2e } from "src/types/pf2e/module/item/sheet/data-types.ts";
-import { SheetOptions } from "src/types/pf2e/module/sheet/helpers.ts";
+import { ItemSheetDataPF2e } from "src/types/foundry/systems/pf2e/module/item/sheet/data-types.ts";
+import { SheetOptions } from "src/types/foundry/systems/pf2e/module/sheet/helpers.ts";
 import { ItemSheetPF2e } from "../sheet/base.ts";
 import { CoinsPF2e, ItemActivation, MaterialGradeData, MaterialValuationData, PhysicalItemPF2e, PreciousMaterialGrade } from "./index.ts";
 declare class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {

@@ -1,6 +1,6 @@
-import type { ActorPF2e } from "src/types/pf2e/module/actor";
-import type { EffectPF2e } from "src/types/pf2e/module/item";
-import type { EncounterPF2e } from "src/types/pf2e/module/encounter/index.ts";
+import type { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import type { EffectPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import type { EncounterPF2e } from "src/types/foundry/systems/pf2e/module/encounter/index.ts";
 export declare class EffectTracker {
     #private;
     effects: EffectPF2e<ActorPF2e>[];

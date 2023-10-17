@@ -1,9 +1,9 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { AbilityString, SkillLongForm } from "src/types/pf2e/module/actor/types.ts";
-import { SpellPF2e } from "src/types/pf2e/module/item";
-import { Statistic } from "src/types/pf2e/module/system/statistic/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { AbilityString, SkillLongForm } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { SpellPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { Statistic } from "src/types/foundry/systems/pf2e/module/system/statistic/index.ts";
 import { CastOptions, SpellcastingEntry, SpellcastingSheetData } from "./types.ts";
-import { MagicTradition } from "src/types/pf2e/module/item/spell/types.ts";
+import { MagicTradition } from "src/types/foundry/systems/pf2e/module/item/spell/types.ts";
 declare const TRICK_MAGIC_SKILLS: readonly ["arcana", "nature", "occultism", "religion"];
 type TrickMagicItemSkill = (typeof TRICK_MAGIC_SKILLS)[number];
 declare const traditionSkills: {

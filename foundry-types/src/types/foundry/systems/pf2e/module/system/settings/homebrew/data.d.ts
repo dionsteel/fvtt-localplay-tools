@@ -1,4 +1,4 @@
-import { BaseWeaponType } from "src/types/pf2e/module/item/weapon/types.ts";
+import { BaseWeaponType } from "src/types/foundry/systems/pf2e/module/item/weapon/types.ts";
 import { MenuTemplateData, SettingsTemplateData } from "../menu.ts";
 declare const HOMEBREW_TRAIT_KEYS: readonly ["creatureTraits", "featTraits", "languages", "magicSchools", "spellTraits", "weaponCategories", "weaponGroups", "baseWeapons", "weaponTraits", "equipmentTraits"];
 /** Homebrew elements from some of the above records are propagated to related records */

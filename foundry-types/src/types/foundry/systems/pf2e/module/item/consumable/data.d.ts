@@ -1,5 +1,5 @@
-import { BasePhysicalItemSource, PhysicalItemTraits, PhysicalSystemData, PhysicalSystemSource } from "src/types/pf2e/module/item/physical/data.ts";
-import { SpellSource } from "src/types/pf2e/module/item/spell/data.ts";
+import { BasePhysicalItemSource, PhysicalItemTraits, PhysicalSystemData, PhysicalSystemSource } from "src/types/foundry/systems/pf2e/module/item/physical/data.ts";
+import { SpellSource } from "src/types/foundry/systems/pf2e/module/item/spell/data.ts";
 import type { ConsumableTrait, OtherConsumableTag } from "./types.ts";
 type ConsumableSource = BasePhysicalItemSource<"consumable", ConsumableSystemSource>;
 type ConsumableCategory = keyof ConfigPF2e["PF2E"]["consumableTypes"];

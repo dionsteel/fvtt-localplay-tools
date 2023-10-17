@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
 import { MigrationBase } from "../base.ts";
 /** Add base REs to Automaton anncestry to allow for automation of enhancements */
 export declare class Migration809AutomatonEnhancements extends MigrationBase {

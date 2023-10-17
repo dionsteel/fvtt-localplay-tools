@@ -1,10 +1,10 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { CharacterPF2e } from "src/types/pf2e/module/actor";
-import { Abilities } from "src/types/pf2e/module/actor/creature/data.ts";
-import { AbilityString } from "src/types/pf2e/module/actor/types.ts";
-import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "src/types/pf2e/module/item";
+import { CharacterPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { Abilities } from "src/types/foundry/systems/pf2e/module/actor/creature/data.ts";
+import { AbilityString } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "src/types/foundry/systems/pf2e/module/item";
 declare class AbilityBuilderPopup extends Application {
     #private;
     private actor;

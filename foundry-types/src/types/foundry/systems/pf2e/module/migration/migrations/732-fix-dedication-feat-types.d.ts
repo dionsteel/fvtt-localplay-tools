@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
 import { MigrationBase } from "../base.ts";
 /** Fix featType properties erroneously set to a non-existent "dedication" type */
 export declare class Migration732FixDedicationFeatTypes extends MigrationBase {

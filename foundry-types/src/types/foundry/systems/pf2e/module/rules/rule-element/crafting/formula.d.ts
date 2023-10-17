@@ -1,5 +1,5 @@
-import { CharacterPF2e } from "src/types/pf2e/module/actor";
-import { ActorType } from "src/types/pf2e/module/actor/data/index.ts";
+import { CharacterPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ActorType } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "../index.ts";
 /**
  * @category RuleElement

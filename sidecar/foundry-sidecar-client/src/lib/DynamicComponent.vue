@@ -54,7 +54,7 @@ export default {
         //   a[k] = v;
         //   return a;
         // }, {} as any);
-        console.log("found uuidlink", match, matches);
+        // console.log("found uuidlink", match, matches);
         return `<UUIDLink ${attrs}></UUIDLink>`;
       },
     });
@@ -80,7 +80,7 @@ export default {
         //   a[k] = v;
         //   return a;
         // }, {} as any);
-        console.log("found compendium link", match, matches);
+        // console.log("found compendium link", match, matches);
         return `<UUIDLink ${attrs}></UUIDLink>`;
       },
     });
@@ -107,7 +107,7 @@ export default {
         //   a[k] = v;
         //   return a;
         // }, {} as any);
-        console.log("found embedded link", elementTag, match, matches);
+        // console.log("found embedded link", elementTag, match, matches);
         return `<FoundryLink link-type="${elementTag}" ${attrs}></FoundryLink>`;
       },
     });
@@ -126,7 +126,7 @@ export default {
           .filter(([k, v]) => !!v)
           .map(([k, v]) => `${k}="${v}"`)
           .join(" ");
-        console.log("found embedded check roll", elementTag, match, matches);
+        // console.log("found embedded check roll", elementTag, match, matches);
         return `<FoundryLink link-type="${elementTag}" ${attrs}></FoundryLink>`;
       },
     });
@@ -145,7 +145,7 @@ export default {
           .filter(([k, v]) => !!v)
           .map(([k, v]) => `${k}="${v}"`)
           .join(" ");
-        console.log("found embedded roll link", elementTag, match, matches);
+        // console.log("found embedded roll link", elementTag, match, matches);
         return `<FoundryLink link-type="${elementTag}" ${attrs}></FoundryLink>`;
       },
     });
@@ -164,7 +164,7 @@ export default {
           .filter(([k, v]) => !!v)
           .map(([k, v]) => `${k}="${v}"`)
           .join(" ");
-        console.log("found embedded roll link", elementTag, match, matches);
+        // console.log("found embedded roll link", elementTag, match, matches);
         return `<FoundryLink link-type="${elementTag}" ${attrs}></FoundryLink>`;
       },
     });

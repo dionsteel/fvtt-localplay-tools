@@ -1,6 +1,6 @@
 import { MigrationBase } from "../base.ts";
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
-import { ActorSourcePF2e } from "src/types/pf2e/module/actor/data/index.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { ActorSourcePF2e } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
 /** Catch up actors and items to the current template.json spec */
 export declare class Migration605CatchUpToTemplateJSON extends MigrationBase {
     static version: number;

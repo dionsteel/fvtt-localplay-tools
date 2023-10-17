@@ -1,6 +1,6 @@
-import { AuraColors, AuraData } from "src/types/pf2e/module/actor/types.ts";
-import { ItemTrait } from "src/types/pf2e/module/item/data/base.ts";
-import { EffectAreaSquare } from "src/types/pf2e/module/canvas/effect-area-square.ts";
+import { AuraColors, AuraData } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ItemTrait } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { EffectAreaSquare } from "src/types/foundry/systems/pf2e/module/canvas/effect-area-square.ts";
 import { TokenDocumentPF2e } from "../document.ts";
 import type { TokenAuraData } from "./types.ts";
 declare class TokenAura implements TokenAuraData {

@@ -1,7 +1,7 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { ItemSheetDataPF2e } from "src/types/pf2e/module/item/sheet/data-types.ts";
+import { ItemSheetDataPF2e } from "src/types/foundry/systems/pf2e/module/item/sheet/data-types.ts";
 import { ItemSheetPF2e } from "../sheet/base.ts";
 import { EffectPF2e } from "./document.ts";
 export declare class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {

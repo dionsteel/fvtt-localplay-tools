@@ -1,5 +1,5 @@
-import { ActorSystemSource } from "src/types/pf2e/module/actor/data/base.ts";
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
+import { ActorSystemSource } from "src/types/foundry/systems/pf2e/module/actor/data/base.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
 import type { TombstoneSource } from "types/foundry/common/data/data.d.ts";
 import { TokenDocumentPF2e } from "./document.ts";
 declare class ActorDeltaPF2e<TParent extends TokenDocumentPF2e | null> extends ActorDelta<TParent> {

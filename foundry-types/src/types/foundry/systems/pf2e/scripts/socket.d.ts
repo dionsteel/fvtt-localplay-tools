@@ -1,4 +1,4 @@
-import { ItemTransferData } from "src/types/pf2e/module/actor/item-transfer.ts";
+import { ItemTransferData } from "src/types/foundry/systems/pf2e/module/actor/item-transfer.ts";
 interface TransferCallbackMessage {
     request: "itemTransfer";
     data: ItemTransferData;

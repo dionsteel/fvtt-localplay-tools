@@ -1,5 +1,5 @@
-import { BaseItemSourcePF2e, ItemSystemSource } from "src/types/pf2e/module/item/data/base.ts";
-import { ZeroToFour } from "src/types/pf2e/module/data.ts";
+import { BaseItemSourcePF2e, ItemSystemSource } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { ZeroToFour } from "src/types/foundry/systems/pf2e/module/data.ts";
 type LoreSource = BaseItemSourcePF2e<"lore", LoreSystemSource>;
 interface LoreSystemSource extends ItemSystemSource {
     mod: {

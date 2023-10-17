@@ -1,8 +1,8 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { CoinsPF2e } from "src/types/pf2e/module/item/physical/index.ts";
-import { ItemSheetDataPF2e } from "src/types/pf2e/module/item/sheet/data-types.ts";
+import { CoinsPF2e } from "src/types/foundry/systems/pf2e/module/item/physical/index.ts";
+import { ItemSheetDataPF2e } from "src/types/foundry/systems/pf2e/module/item/sheet/data-types.ts";
 import { ItemSheetPF2e } from "../sheet/base.ts";
 import { KitEntryData } from "./data.ts";
 import { KitPF2e } from "./document.ts";

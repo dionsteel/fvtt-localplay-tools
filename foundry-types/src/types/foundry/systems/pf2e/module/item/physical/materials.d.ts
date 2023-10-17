@@ -1,4 +1,4 @@
-import { Rarity } from "src/types/pf2e/module/data.ts";
+import { Rarity } from "src/types/foundry/systems/pf2e/module/data.ts";
 import { PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
 interface MaterialGradeData {
     level: number;

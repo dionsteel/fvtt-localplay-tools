@@ -1,5 +1,5 @@
-import { ImmunityData } from "src/types/pf2e/module/actor/data/iwr.ts";
-import { ImmunityType } from "src/types/pf2e/module/actor/types.ts";
+import { ImmunityData } from "src/types/foundry/systems/pf2e/module/actor/data/iwr.ts";
+import { ImmunityType } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
 import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { IWRRuleElement, IWRRuleSchema } from "./base.ts";
 /** @category RuleElement */

@@ -1,5 +1,5 @@
-import { PredicatePF2e, PredicateStatement, RawPredicate } from "src/types/pf2e/module/system/predication.ts";
-import { SlugCamel } from "src/types/pf2e/module/util";
+import { PredicatePF2e, PredicateStatement, RawPredicate } from "src/types/foundry/systems/pf2e/module/system/predication.ts";
+import { SlugCamel } from "src/types/foundry/systems/pf2e/module/util";
 import type { ArrayFieldOptions, CleanFieldOptions, DataField, DataFieldOptions, DataFieldValidationOptions, DataSchema, MaybeSchemaProp, ModelPropFromDataField, NumberField, ObjectFieldOptions, SourcePropFromDataField, StringField, StringFieldOptions } from "types/foundry/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 declare const fields: typeof import("types/foundry/common/data/fields.d.ts");

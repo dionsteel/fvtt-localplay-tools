@@ -1,8 +1,8 @@
-import { CreatureTrait } from "src/types/pf2e/module/actor/creature/types.ts";
-import { HazardTrait } from "src/types/pf2e/module/actor/hazard/types.ts";
-import { ActionTrait } from "src/types/pf2e/module/item/action/index.ts";
-import { FeatTrait } from "src/types/pf2e/module/item/feat/types.ts";
-import { PhysicalItemTrait } from "src/types/pf2e/module/item/physical/data.ts";
+import { CreatureTrait } from "src/types/foundry/systems/pf2e/module/actor/creature/types.ts";
+import { HazardTrait } from "src/types/foundry/systems/pf2e/module/actor/hazard/types.ts";
+import { ActionTrait } from "src/types/foundry/systems/pf2e/module/item/action/index.ts";
+import { FeatTrait } from "src/types/foundry/systems/pf2e/module/item/feat/types.ts";
+import { PhysicalItemTrait } from "src/types/foundry/systems/pf2e/module/item/physical/data.ts";
 import { SearchResult } from "minisearch";
 import { SortDirection } from "../data.ts";
 type CheckboxOptions = Record<string, {

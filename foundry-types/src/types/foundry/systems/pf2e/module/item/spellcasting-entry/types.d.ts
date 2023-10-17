@@ -1,10 +1,10 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { AbilityString } from "src/types/pf2e/module/actor/types.ts";
-import { PhysicalItemPF2e } from "src/types/pf2e/module/item/physical/index.ts";
-import { SpellPF2e } from "src/types/pf2e/module/item/spell/document.ts";
-import { MagicTradition } from "src/types/pf2e/module/item/spell/types.ts";
-import { ZeroToTen } from "src/types/pf2e/module/data.ts";
-import { Statistic, StatisticChatData } from "src/types/pf2e/module/system/statistic/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { AbilityString } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { PhysicalItemPF2e } from "src/types/foundry/systems/pf2e/module/item/physical/index.ts";
+import { SpellPF2e } from "src/types/foundry/systems/pf2e/module/item/spell/document.ts";
+import { MagicTradition } from "src/types/foundry/systems/pf2e/module/item/spell/types.ts";
+import { ZeroToTen } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { Statistic, StatisticChatData } from "src/types/foundry/systems/pf2e/module/system/statistic/index.ts";
 import { SpellCollection } from "./collection.ts";
 import { SpellcastingEntrySystemData } from "./data.ts";
 interface BaseSpellcastingEntry<TActor extends ActorPF2e | null = ActorPF2e | null> {

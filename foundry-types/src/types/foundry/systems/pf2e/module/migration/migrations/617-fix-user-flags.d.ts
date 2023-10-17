@@ -1,4 +1,4 @@
-import { UserSourcePF2e } from "src/types/pf2e/module/user/data.ts";
+import { UserSourcePF2e } from "src/types/foundry/systems/pf2e/module/user/data.ts";
 import { MigrationBase } from "../base.ts";
 export declare class Migration617FixUserFlags extends MigrationBase {
     static version: number;

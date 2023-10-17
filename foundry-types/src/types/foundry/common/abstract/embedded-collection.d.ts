@@ -1,5 +1,5 @@
 import type Document from "./document.d.ts";
-
+import type { Collection } from "../utils/collection.js";
 /**
  * An extension of the Collection.
  * Used for the specific task of containing embedded Document instances within a parent Document.

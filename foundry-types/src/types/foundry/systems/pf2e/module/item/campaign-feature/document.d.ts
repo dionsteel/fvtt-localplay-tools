@@ -1,7 +1,7 @@
-import { ActorPF2e, PartyPF2e } from "src/types/pf2e/module/actor";
-import { FeatGroup } from "src/types/pf2e/module/actor/character/feats.ts";
-import { ActionCost, Frequency } from "src/types/pf2e/module/item/data/base.ts";
-import { UserPF2e } from "src/types/pf2e/module/user/index.ts";
+import { ActorPF2e, PartyPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { FeatGroup } from "src/types/foundry/systems/pf2e/module/actor/character/feats.ts";
+import { ActionCost, Frequency } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { UserPF2e } from "src/types/foundry/systems/pf2e/module/user/index.ts";
 import { ItemPF2e } from "../index.ts";
 import { CampaignFeatureSource, CampaignFeatureSystemData } from "./data.ts";
 import { BehaviorType, KingmakerCategory, KingmakerTrait } from "./types.ts";

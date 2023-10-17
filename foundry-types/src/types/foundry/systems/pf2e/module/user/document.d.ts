@@ -1,6 +1,6 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor/base.ts";
-import { TokenPF2e } from "src/types/pf2e/module/canvas/index.ts";
-import { ScenePF2e, TokenDocumentPF2e } from "src/types/pf2e/module/scene/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor/base.ts";
+import { TokenPF2e } from "src/types/foundry/systems/pf2e/module/canvas/index.ts";
+import { ScenePF2e, TokenDocumentPF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
 import { UserFlagsPF2e, UserSourcePF2e } from "./data.ts";
 declare class UserPF2e extends User {
     prepareData(): void;

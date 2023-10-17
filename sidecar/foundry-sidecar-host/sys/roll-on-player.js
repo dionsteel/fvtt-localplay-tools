@@ -12,7 +12,48 @@ const SETTINGS = new Map([
   ["roll-type", "always"], //FLAG_ROLL_TYPE = "roll-type";
 ]);
 SETTINGS.MOD_NAME = "foundry-sidecar";
+
+export function getControlled(additionalActorIds = []) {
+  const tokens = canvas.tokens.controlled.filter((t) => !!t);
+  let actorids = [];
+  console.log("controlled tokens:", tokens);
+  const tamap = tokens.reduce((actors, token) => {
+    const ta = token.actor;
+    let aid = ta?.id || ta?._id;
+    // actorids
+    if (aid) {
+      if (!actors[aid]) {
+        actors[aid] = { actor: ta, tokens: [] };
+      }
+      if (!actors[aid].tokens) {
+        actors[aid].tokens = [];
+      }
+      if (!actors[aid].targets) {
+        actors[aid].targets = [...game.user.targets.values()].map((v) => v.id || v._id);
+      }
+      if (!actors[aid].tokens.includes(token)) {
+        actors[aid].tokens.push(token);
+      }
+    }
+    return actors;
+  }, {});
+  const controlledTokenIds = tokens.map((t) => t.id || t._id);
+  const controlledActorIds = tamap ? Object.keys(tamap) : actorids;
+  controlledActorIds.push(...additionalActorIds);
+  return { controlled: { tokens: controlledTokenIds, actors: controlledActorIds }, tokenActorMap: tamap };
+}
+
 class PlayerRolls {
+  static manualActors = [];
+  static enableForActor(id) {
+    this.manualActors.push(id);
+  }
+  static disableForActor(id) {
+    let idx = this.manualActors.indexOf(id);
+    if (idx > -1) {
+      this.manualActors.splice(idx, 1);
+    }
+  }
   static get flagged() {
     return false;
   }
@@ -72,7 +113,10 @@ class PlayerRolls {
     );
   }
   static get shouldRollManually() {
-    return true;
+    // return true;
+    const { controlled } = getControlled();
+    return controlled.actors.filter((a) => this.manualActors.includes(a)).length > 0; //map(a=>game.actors.get(a)).filter(a=>a && a.hasPlayerOwner &&);
+
     var _a, _b;
     const state =
       ((_a = game.user) === null || _a === void 0 ? void 0 : _a.getFlag(SETTINGS.MOD_NAME, PlayerRolls.FLAG_ROLL_TYPE)) ||

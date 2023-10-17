@@ -1,5 +1,5 @@
-import { TraitViewData } from "src/types/pf2e/module/actor/data/base.ts";
-import Tagify from "src/types/pf2e/module/yaireo/tagify";
+import { TraitViewData } from "src/types/foundry/systems/pf2e/module/actor/data/base.ts";
+import Tagify from "src/types/foundry/systems/pf2e/module/yaireo/tagify";
 type WhitelistData = string[] | Record<string, string | {
     label: string;
 }>;

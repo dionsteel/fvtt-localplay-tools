@@ -1,10 +1,10 @@
-import { FeatGroup } from "src/types/pf2e/module/actor/character/feats.ts";
-import { ItemType } from "src/types/pf2e/module/item/data/index.ts";
-import { Statistic } from "src/types/pf2e/module/system/statistic/index.ts";
+import { FeatGroup } from "src/types/foundry/systems/pf2e/module/actor/character/feats.ts";
+import { ItemType } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { Statistic } from "src/types/foundry/systems/pf2e/module/system/statistic/index.ts";
 import type { PartyPF2e } from "../document.ts";
 import { PartyCampaign } from "../types.ts";
 import { KingdomCHG, KingdomGovernment, KingdomNationType, KingdomSchema, KingdomSkill, KingdomSource } from "./types.ts";
-import { CampaignFeaturePF2e } from "src/types/pf2e/module/item";
+import { CampaignFeaturePF2e } from "src/types/foundry/systems/pf2e/module/item";
 declare const DataModel: typeof import("../../../../../types/foundry/common/abstract/data.js").default;
 /** Model for the Kingmaker campaign data type, which represents a Kingdom */
 declare class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampaign {

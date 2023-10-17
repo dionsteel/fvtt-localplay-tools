@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
 import { MigrationBase } from "../base.ts";
 /**  Ensure partial spell consumables (from missed prior migration) are nulled out */
 export declare class Migration845EmptySpellConsumables extends MigrationBase {

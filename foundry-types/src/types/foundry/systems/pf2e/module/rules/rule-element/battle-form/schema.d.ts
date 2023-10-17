@@ -1,10 +1,10 @@
 import type { ArrayField, BooleanField, NumberField, ObjectField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField, RuleElementSchema } from "../data.ts";
-import { RecordField } from "src/types/pf2e/module/system/schema-data-fields.ts";
+import { RecordField } from "src/types/foundry/systems/pf2e/module/system/schema-data-fields.ts";
 import { ImmunityRuleElement, ResistanceRuleElement, WeaknessRuleElement } from "../iwr/index.ts";
 import { BattleFormSkills, BattleFormSpeeds, BattleFormStrike } from "./types.ts";
-import { CreatureTrait } from "src/types/pf2e/module/actor/creature/index.ts";
-import { SenseAcuity, SenseType } from "src/types/pf2e/module/actor/creature/sense.ts";
+import { CreatureTrait } from "src/types/foundry/systems/pf2e/module/actor/creature/index.ts";
+import { SenseAcuity, SenseType } from "src/types/foundry/systems/pf2e/module/actor/creature/sense.ts";
 type OverrideACSchema = {
     modifier: ResolvableValueField<false, false, true>;
     ignoreCheckPenalty: BooleanField<boolean, boolean, false, false, true>;

@@ -2,7 +2,7 @@
  * A reusable storage concept which blends the functionality of an Array with the efficient key-based lookup of a Map.
  * This concept is reused throughout Foundry VTT where a collection of uniquely identified elements is required.
  */
-declare interface Collection<V>
+export declare interface Collection<V>
     extends Omit<Map<string, V>, "forEach" | "delete" | "set" | SymbolConstructor["iterator"]> {
     set(key: string, value: V): this;
 

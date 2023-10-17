@@ -1,11 +1,11 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { CreaturePF2e } from "src/types/pf2e/module/actor";
-import { ItemSummaryRenderer } from "src/types/pf2e/module/actor/sheet/item-summary-renderer.ts";
-import { ItemPF2e } from "src/types/pf2e/module/item";
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
-import { SpellcastingEntryPF2e, SpellcastingSheetData } from "src/types/pf2e/module/item/spellcasting-entry/index.ts";
+import { CreaturePF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ItemSummaryRenderer } from "src/types/foundry/systems/pf2e/module/actor/sheet/item-summary-renderer.ts";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { SpellcastingEntryPF2e, SpellcastingSheetData } from "src/types/foundry/systems/pf2e/module/item/spellcasting-entry/index.ts";
 /**
  * Sheet used to render the the spell list for prepared casting.
  * It overrides the actor sheet to inherit important drag/drop behavior for actor items (the spells).

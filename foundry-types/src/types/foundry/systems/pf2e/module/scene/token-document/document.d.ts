@@ -1,8 +1,8 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { PrototypeTokenPF2e } from "src/types/pf2e/module/actor/data/base.ts";
-import { TokenPF2e } from "src/types/pf2e/module/canvas/index.ts";
-import { CombatantPF2e, EncounterPF2e } from "src/types/pf2e/module/encounter/index.ts";
-import { ScenePF2e, TokenConfigPF2e } from "src/types/pf2e/module/scene/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { PrototypeTokenPF2e } from "src/types/foundry/systems/pf2e/module/actor/data/base.ts";
+import { TokenPF2e } from "src/types/foundry/systems/pf2e/module/canvas/index.ts";
+import { CombatantPF2e, EncounterPF2e } from "src/types/foundry/systems/pf2e/module/encounter/index.ts";
+import { ScenePF2e, TokenConfigPF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
 import { ActorDeltaPF2e } from "./actor-delta.ts";
 import { TokenAura } from "./aura/index.ts";
 import { TokenFlagsPF2e } from "./data.ts";

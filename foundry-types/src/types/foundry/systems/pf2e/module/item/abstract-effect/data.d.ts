@@ -1,7 +1,7 @@
-import { ActionTrait } from "src/types/pf2e/module/item/action/index.ts";
-import { ItemSystemData, ItemSystemSource } from "src/types/pf2e/module/item/data/base.ts";
-import { SpellTrait } from "src/types/pf2e/module/item/spell/index.ts";
-import { CheckRoll } from "src/types/pf2e/module/system/check/index.ts";
+import { ActionTrait } from "src/types/foundry/systems/pf2e/module/item/action/index.ts";
+import { ItemSystemData, ItemSystemSource } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { SpellTrait } from "src/types/foundry/systems/pf2e/module/item/spell/index.ts";
+import { CheckRoll } from "src/types/foundry/systems/pf2e/module/system/check/index.ts";
 interface AbstractEffectSystemSource extends ItemSystemSource {
     /** Whether this effect originated from a spell */
     fromSpell?: boolean;

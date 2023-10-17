@@ -1,9 +1,9 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { AncestryPF2e, HeritagePF2e } from "src/types/pf2e/module/item";
-import { ItemSheetPF2e } from "src/types/pf2e/module/item/sheet/base.ts";
-import { ItemSheetDataPF2e } from "src/types/pf2e/module/item/sheet/data-types.ts";
+import { AncestryPF2e, HeritagePF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ItemSheetPF2e } from "src/types/foundry/systems/pf2e/module/item/sheet/base.ts";
+import { ItemSheetDataPF2e } from "src/types/foundry/systems/pf2e/module/item/sheet/data-types.ts";
 export declare class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
     static get defaultOptions(): DocumentSheetOptions;
     getData(options?: Partial<DocumentSheetOptions>): Promise<HeritageSheetData>;

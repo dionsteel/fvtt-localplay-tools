@@ -1,9 +1,9 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { CoinsPF2e, PhysicalItemSheetData, PhysicalItemSheetPF2e, PreparedMaterials } from "src/types/pf2e/module/item/physical/index.ts";
-import { OneToFour, Rarity } from "src/types/pf2e/module/data.ts";
-import { SheetOptions } from "src/types/pf2e/module/sheet/helpers.ts";
+import { CoinsPF2e, PhysicalItemSheetData, PhysicalItemSheetPF2e, PreparedMaterials } from "src/types/foundry/systems/pf2e/module/item/physical/index.ts";
+import { OneToFour, Rarity } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { SheetOptions } from "src/types/foundry/systems/pf2e/module/sheet/helpers.ts";
 import { ComboWeaponMeleeUsage, WeaponPropertyRuneSlot } from "./data.ts";
 import { type WeaponPF2e } from "./document.ts";
 export declare class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {

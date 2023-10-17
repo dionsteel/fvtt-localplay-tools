@@ -1,4 +1,4 @@
-import { ItemSystemSource } from "src/types/pf2e/module/item/data/base.ts";
+import { ItemSystemSource } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
 interface ABCFeatureEntryData {
     uuid: string;
     img: ImageFilePath;

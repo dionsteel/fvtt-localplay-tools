@@ -1,5 +1,5 @@
-import { CreatureConfig, CreatureConfigData } from "src/types/pf2e/module/actor/creature/config.ts";
-import { SheetOptions } from "src/types/pf2e/module/sheet/helpers.ts";
+import { CreatureConfig, CreatureConfigData } from "src/types/foundry/systems/pf2e/module/actor/creature/config.ts";
+import { SheetOptions } from "src/types/foundry/systems/pf2e/module/sheet/helpers.ts";
 import { NPCPF2e } from "./document.ts";
 export declare class NPCConfig extends CreatureConfig<NPCPF2e> {
     getData(options?: Partial<DocumentSheetOptions>): Promise<NPCConfigData>;

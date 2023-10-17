@@ -1,11 +1,11 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { StrikeData } from "src/types/pf2e/module/actor/data/base.ts";
-import { ItemPF2e } from "src/types/pf2e/module/item";
-import { UserPF2e } from "src/types/pf2e/module/user/index.ts";
-import { ScenePF2e, TokenDocumentPF2e } from "src/types/pf2e/module/scene/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { StrikeData } from "src/types/foundry/systems/pf2e/module/actor/data/base.ts";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { UserPF2e } from "src/types/foundry/systems/pf2e/module/user/index.ts";
+import { ScenePF2e, TokenDocumentPF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
 import { ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data.ts";
 declare class ChatMessagePF2e extends ChatMessage {
     #private;

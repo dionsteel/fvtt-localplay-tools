@@ -1,6 +1,6 @@
-import { UserVisibility } from "src/types/pf2e/module/scripts/ui/user-visibility.ts";
-import { DegreeOfSuccessString } from "src/types/pf2e/module/system/degree-of-success.ts";
-import { PredicatePF2e, RawPredicate } from "src/types/pf2e/module/system/predication.ts";
+import { UserVisibility } from "src/types/foundry/systems/pf2e/module/scripts/ui/user-visibility.ts";
+import { DegreeOfSuccessString } from "src/types/foundry/systems/pf2e/module/system/degree-of-success.ts";
+import { PredicatePF2e, RawPredicate } from "src/types/foundry/systems/pf2e/module/system/predication.ts";
 declare class RollNotePF2e {
     #private;
     /** The selector used to determine on which rolls the note will be shown for. */

@@ -1,4 +1,4 @@
-import { UserPF2e } from "src/types/pf2e/module/user/index.ts";
+import { UserPF2e } from "src/types/foundry/systems/pf2e/module/user/index.ts";
 export interface ItemTransferData {
     source: {
         tokenId?: string;

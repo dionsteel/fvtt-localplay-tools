@@ -1,4 +1,4 @@
-import { ActionCost } from "src/types/pf2e/module/item/data/base.ts";
+import { ActionCost } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
 /**
  * Given an array and a key function, create a map where the key is the value that
  * gets returned when each item is pushed into the function. Accumulate

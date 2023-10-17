@@ -1,4 +1,4 @@
-import { PreciousMaterialType } from "src/types/pf2e/module/item/physical/types.ts";
+import { PreciousMaterialType } from "src/types/foundry/systems/pf2e/module/item/physical/types.ts";
 import { MELEE_WEAPON_GROUPS, WEAPON_CATEGORIES, WEAPON_GROUPS, WEAPON_PROPERTY_RUNE_TYPES, WEAPON_RANGES } from "./values.ts";
 type WeaponPropertyRuneType = SetElement<typeof WEAPON_PROPERTY_RUNE_TYPES>;
 type WeaponCategory = SetElement<typeof WEAPON_CATEGORIES>;

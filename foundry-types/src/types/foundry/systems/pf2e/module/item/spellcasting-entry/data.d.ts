@@ -1,8 +1,8 @@
-import { AbilityString } from "src/types/pf2e/module/actor/types.ts";
-import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "src/types/pf2e/module/item/data/base.ts";
-import { MagicTradition } from "src/types/pf2e/module/item/spell/types.ts";
-import { OneToTen, ZeroToEleven, ZeroToFour } from "src/types/pf2e/module/data.ts";
-import { RollNotePF2e } from "src/types/pf2e/module/notes.ts";
+import { AbilityString } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { MagicTradition } from "src/types/foundry/systems/pf2e/module/item/spell/types.ts";
+import { OneToTen, ZeroToEleven, ZeroToFour } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { RollNotePF2e } from "src/types/foundry/systems/pf2e/module/notes.ts";
 import { SpellcastingCategory } from "./types.ts";
 type SlotKey = `slot${ZeroToEleven}`;
 type SpellcastingEntrySource = BaseItemSourcePF2e<"spellcastingEntry", SpellcastingEntrySystemSource>;

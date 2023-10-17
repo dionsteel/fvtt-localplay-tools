@@ -1,6 +1,6 @@
 /// <reference types="jquery" resolution-mode="require"/>
-import { CheckModifier } from "src/types/pf2e/module/actor/modifiers.ts";
-import { ChatMessagePF2e } from "src/types/pf2e/module/chat-message/index.ts";
+import { CheckModifier } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { ChatMessagePF2e } from "src/types/foundry/systems/pf2e/module/chat-message/index.ts";
 import { DegreeOfSuccessString } from "../degree-of-success.ts";
 import { CheckRoll } from "./roll.ts";
 import { CheckRollContext } from "./types.ts";

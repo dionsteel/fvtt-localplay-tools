@@ -1,5 +1,5 @@
-import { CharacterSystemData } from "src/types/pf2e/module/actor/character/data.ts";
-import { ActorSourcePF2e } from "src/types/pf2e/module/actor/data/index.ts";
+import { CharacterSystemData } from "src/types/foundry/systems/pf2e/module/actor/character/data.ts";
+import { ActorSourcePF2e } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
 import { MigrationBase } from "../base.ts";
 interface CharacterSystemDataOld extends CharacterSystemData {
     details: CharacterSystemData["details"] & {

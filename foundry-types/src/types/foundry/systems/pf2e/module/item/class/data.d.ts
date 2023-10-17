@@ -1,7 +1,7 @@
-import { AbilityString, SaveType } from "src/types/pf2e/module/actor/types.ts";
-import { ABCSystemSource } from "src/types/pf2e/module/item/abc/data.ts";
-import { BaseItemSourcePF2e, ItemTraits } from "src/types/pf2e/module/item/data/base.ts";
-import { ZeroToFour } from "src/types/pf2e/module/data.ts";
+import { AbilityString, SaveType } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ABCSystemSource } from "src/types/foundry/systems/pf2e/module/item/abc/data.ts";
+import { BaseItemSourcePF2e, ItemTraits } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { ZeroToFour } from "src/types/foundry/systems/pf2e/module/data.ts";
 import { CLASS_TRAITS } from "./values.ts";
 type ClassSource = BaseItemSourcePF2e<"class", ClassSystemSource>;
 interface ClassSystemSource extends ABCSystemSource {

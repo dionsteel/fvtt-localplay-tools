@@ -1,12 +1,12 @@
-import { CheckContext, CheckContextData, CheckContextOptions, CheckResultCallback } from "src/types/pf2e/module/system/action-macros/types.ts";
+import { CheckContext, CheckContextData, CheckContextOptions, CheckResultCallback } from "src/types/foundry/systems/pf2e/module/system/action-macros/types.ts";
 import { ActionUseOptions } from "./types.ts";
-import { ModifierPF2e, RawModifier } from "src/types/pf2e/module/actor/modifiers.ts";
-import { CheckDC } from "src/types/pf2e/module/system/degree-of-success.ts";
-import { Statistic } from "src/types/pf2e/module/system/statistic/index.ts";
-import { RollNoteSource } from "src/types/pf2e/module/notes.ts";
+import { ModifierPF2e, RawModifier } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { CheckDC } from "src/types/foundry/systems/pf2e/module/system/degree-of-success.ts";
+import { Statistic } from "src/types/foundry/systems/pf2e/module/system/statistic/index.ts";
+import { RollNoteSource } from "src/types/foundry/systems/pf2e/module/notes.ts";
 import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base.ts";
-import { ActorPF2e, CreaturePF2e } from "src/types/pf2e/module/actor";
-import { ItemPF2e } from "src/types/pf2e/module/item";
+import { ActorPF2e, CreaturePF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
 type SingleCheckActionRollNoteData = Omit<RollNoteSource, "selector"> & {
     selector?: string;
 };

@@ -1,9 +1,9 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ItemPF2e, PhysicalItemPF2e } from "src/types/pf2e/module/item";
-import { Price } from "src/types/pf2e/module/item/physical/data.ts";
-import { UserPF2e } from "src/types/pf2e/module/user/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ItemPF2e, PhysicalItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { Price } from "src/types/foundry/systems/pf2e/module/item/physical/data.ts";
+import { UserPF2e } from "src/types/foundry/systems/pf2e/module/user/index.ts";
 import { KitEntryData, KitSource, KitSystemData } from "./data.ts";
-import { Size } from "src/types/pf2e/module/data.ts";
+import { Size } from "src/types/foundry/systems/pf2e/module/data.ts";
 declare class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     get entries(): KitEntryData[];
     get price(): Price;

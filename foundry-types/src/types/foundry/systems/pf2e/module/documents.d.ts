@@ -1,4 +1,4 @@
-export { AmbientLightDocumentPF2e, MeasuredTemplateDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from "src/types/pf2e/module/scene";
+export { AmbientLightDocumentPF2e, MeasuredTemplateDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from "src/types/foundry/systems/pf2e/module/scene";
 export { ActiveEffectPF2e } from "./active-effect.ts";
 export { ActorPF2e } from "./actor/base.ts";
 export { ChatMessagePF2e } from "./chat-message/document.ts";

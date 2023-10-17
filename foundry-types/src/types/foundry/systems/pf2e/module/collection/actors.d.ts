@@ -1,4 +1,4 @@
-import { ActorPF2e, PartyPF2e } from "src/types/pf2e/module/actor";
+import { ActorPF2e, PartyPF2e } from "src/types/foundry/systems/pf2e/module/actor";
 export declare class ActorsPF2e<TActor extends ActorPF2e<null>> extends Actors<TActor> {
     /** The world's active party, if one exists */
     get party(): PartyPF2e<null> | null;

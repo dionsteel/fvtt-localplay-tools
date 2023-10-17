@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
 import { MigrationBase } from "../base.ts";
 /** Remove older AE-like REs that set properties in an actor's prototype token  */
 export declare class Migration792RemoveTokenAELikes extends MigrationBase {

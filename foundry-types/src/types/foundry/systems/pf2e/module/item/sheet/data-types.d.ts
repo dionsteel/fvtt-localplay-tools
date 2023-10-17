@@ -1,7 +1,7 @@
-import { ItemPF2e } from "src/types/pf2e/module/item";
-import { Rarity } from "src/types/pf2e/module/data.ts";
-import { RuleElementSource } from "src/types/pf2e/module/rules/index.ts";
-import { SheetOptions, TraitTagifyEntry } from "src/types/pf2e/module/sheet/helpers.ts";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { Rarity } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { RuleElementSource } from "src/types/foundry/systems/pf2e/module/rules/index.ts";
+import { SheetOptions, TraitTagifyEntry } from "src/types/foundry/systems/pf2e/module/sheet/helpers.ts";
 interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
     /** The item type label that shows at the top right (for example, "Feat" for "Feat 6") */
     itemType: string | null;

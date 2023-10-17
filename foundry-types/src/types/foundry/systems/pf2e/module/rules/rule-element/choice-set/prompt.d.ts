@@ -1,8 +1,8 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { PickableThing, PickAThingConstructorArgs, PickAThingPrompt, PromptTemplateData } from "src/types/pf2e/module/apps/pick-a-thing-prompt.ts";
-import { PredicatePF2e } from "src/types/pf2e/module/system/predication.ts";
+import { PickableThing, PickAThingConstructorArgs, PickAThingPrompt, PromptTemplateData } from "src/types/foundry/systems/pf2e/module/apps/pick-a-thing-prompt.ts";
+import { PredicatePF2e } from "src/types/foundry/systems/pf2e/module/system/predication.ts";
 /** Prompt the user for a selection among a set of options */
 export declare class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
     /** The prompt statement to present the user in this application's window */

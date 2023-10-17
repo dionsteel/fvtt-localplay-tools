@@ -1,10 +1,10 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { AbilityString } from "src/types/pf2e/module/actor/types.ts";
-import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "src/types/pf2e/module/item";
-import { ABCFeatureEntryData } from "src/types/pf2e/module/item/abc/data.ts";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "src/types/pf2e/module/item/sheet/index.ts";
+import { AbilityString } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ABCFeatureEntryData } from "src/types/foundry/systems/pf2e/module/item/abc/data.ts";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "src/types/foundry/systems/pf2e/module/item/sheet/index.ts";
 declare abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> {
     #private;
     static get defaultOptions(): DocumentSheetOptions;

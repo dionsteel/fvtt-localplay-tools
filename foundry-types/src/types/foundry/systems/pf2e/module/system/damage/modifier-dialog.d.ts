@@ -1,7 +1,7 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { DamageDicePF2e, ModifierPF2e } from "src/types/pf2e/module/actor/modifiers.ts";
+import { DamageDicePF2e, ModifierPF2e } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
 import { BaseDamageData, DamageCategoryUnique, DamageFormulaData, DamageRollContext, DamageType } from "./types.ts";
 /**
  * Dialog for excluding certain modifiers before rolling damage.

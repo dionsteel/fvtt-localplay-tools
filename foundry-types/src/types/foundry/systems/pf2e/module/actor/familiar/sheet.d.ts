@@ -1,11 +1,11 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { CharacterPF2e } from "src/types/pf2e/module/actor";
-import { CreatureSheetPF2e } from "src/types/pf2e/module/actor/creature/sheet.ts";
-import { FamiliarPF2e } from "src/types/pf2e/module/actor/familiar/index.ts";
-import { ActionItemPF2e } from "src/types/pf2e/module/item";
-import { CreatureSheetData } from "src/types/pf2e/module/actor/creature/index.ts";
+import { CharacterPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { CreatureSheetPF2e } from "src/types/foundry/systems/pf2e/module/actor/creature/sheet.ts";
+import { FamiliarPF2e } from "src/types/foundry/systems/pf2e/module/actor/familiar/index.ts";
+import { ActionItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { CreatureSheetData } from "src/types/foundry/systems/pf2e/module/actor/creature/index.ts";
 /**
  * @category Actor
  */

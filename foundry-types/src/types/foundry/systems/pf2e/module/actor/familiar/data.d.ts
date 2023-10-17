@@ -1,8 +1,8 @@
-import { BaseCreatureSource, CreatureAttributes, CreatureSystemData, CreatureSystemSource, CreatureTraitsData } from "src/types/pf2e/module/actor/creature/data.ts";
-import { CreatureSensePF2e } from "src/types/pf2e/module/actor/creature/sense.ts";
-import { Rollable } from "src/types/pf2e/module/actor/data/base.ts";
-import { StatisticModifier } from "src/types/pf2e/module/actor/modifiers.ts";
-import { AbilityString } from "src/types/pf2e/module/actor/types.ts";
+import { BaseCreatureSource, CreatureAttributes, CreatureSystemData, CreatureSystemSource, CreatureTraitsData } from "src/types/foundry/systems/pf2e/module/actor/creature/data.ts";
+import { CreatureSensePF2e } from "src/types/foundry/systems/pf2e/module/actor/creature/sense.ts";
+import { Rollable } from "src/types/foundry/systems/pf2e/module/actor/data/base.ts";
+import { StatisticModifier } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { AbilityString } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
 type FamiliarSource = BaseCreatureSource<"familiar", FamiliarSystemSource>;
 interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {
     details: {

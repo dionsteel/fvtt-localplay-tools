@@ -1,8 +1,8 @@
-import { CharacterPF2e } from "src/types/pf2e/module/actor";
-import { ActorType } from "src/types/pf2e/module/actor/data/index.ts";
+import { CharacterPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ActorType } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "../index.ts";
 import type { ArrayField, BooleanField, NumberField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { PredicateField } from "src/types/pf2e/module/system/schema-data-fields.ts";
+import { PredicateField } from "src/types/foundry/systems/pf2e/module/system/schema-data-fields.ts";
 import { ResolvableValueField } from "../data.ts";
 /**
  * @category RuleElement

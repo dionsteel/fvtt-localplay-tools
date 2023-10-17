@@ -1,5 +1,5 @@
-import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "src/types/pf2e/module/actor/types.ts";
-import { PredicatePF2e, PredicateStatement } from "src/types/pf2e/module/system/predication.ts";
+import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { PredicatePF2e, PredicateStatement } from "src/types/foundry/systems/pf2e/module/system/predication.ts";
 declare abstract class IWRData<TType extends IWRType> {
     readonly type: TType;
     readonly exceptions: TType[];

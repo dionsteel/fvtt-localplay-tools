@@ -1,9 +1,9 @@
-import { CharacterPF2e, NPCPF2e } from "src/types/pf2e/module/actor";
-import { ActorType } from "src/types/pf2e/module/actor/data/index.ts";
-import { AbilityString } from "src/types/pf2e/module/actor/types.ts";
-import { NPCAttackTrait } from "src/types/pf2e/module/item/melee/data.ts";
-import { BaseWeaponType, OtherWeaponTag, WeaponCategory, WeaponGroup } from "src/types/pf2e/module/item/weapon/types.ts";
-import { DamageDieSize, DamageType } from "src/types/pf2e/module/system/damage/index.ts";
+import { CharacterPF2e, NPCPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ActorType } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
+import { AbilityString } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { NPCAttackTrait } from "src/types/foundry/systems/pf2e/module/item/melee/data.ts";
+import { BaseWeaponType, OtherWeaponTag, WeaponCategory, WeaponGroup } from "src/types/foundry/systems/pf2e/module/item/weapon/types.ts";
+import { DamageDieSize, DamageType } from "src/types/foundry/systems/pf2e/module/system/damage/index.ts";
 import type { ArrayField, BooleanField, FilePathField, NumberField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 import { ResolvableValueField } from "./data.ts";

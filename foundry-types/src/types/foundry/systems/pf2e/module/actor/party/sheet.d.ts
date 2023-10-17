@@ -1,14 +1,14 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ActorSheetPF2e } from "src/types/pf2e/module/actor/sheet/base.ts";
-import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "src/types/pf2e/module/actor/sheet/data-types.ts";
-import { ItemPF2e } from "src/types/pf2e/module/item";
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
-import { Bulk } from "src/types/pf2e/module/item/physical/index.ts";
-import { ValueAndMax, ZeroToFour } from "src/types/pf2e/module/data.ts";
-import { SheetOptions } from "src/types/pf2e/module/sheet/helpers.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ActorSheetPF2e } from "src/types/foundry/systems/pf2e/module/actor/sheet/base.ts";
+import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "src/types/foundry/systems/pf2e/module/actor/sheet/data-types.ts";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { Bulk } from "src/types/foundry/systems/pf2e/module/item/physical/index.ts";
+import { ValueAndMax, ZeroToFour } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { SheetOptions } from "src/types/foundry/systems/pf2e/module/sheet/helpers.ts";
 import { PartyPF2e } from "./document.ts";
 interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;

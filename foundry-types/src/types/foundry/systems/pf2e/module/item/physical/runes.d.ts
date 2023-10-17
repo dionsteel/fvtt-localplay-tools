@@ -1,11 +1,11 @@
-import { DamageDicePF2e, DamageDiceParameters, ModifierAdjustment } from "src/types/pf2e/module/actor/modifiers.ts";
-import { ResistanceType } from "src/types/pf2e/module/actor/types.ts";
-import { ArmorPF2e, WeaponPF2e } from "src/types/pf2e/module/item";
-import type { ResilientRuneType } from "src/types/pf2e/module/item/armor/types.ts";
-import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "src/types/pf2e/module/item/weapon/types.ts";
-import { OneToFour, OneToThree, Rarity, ZeroToFour, ZeroToThree } from "src/types/pf2e/module/data.ts";
-import { RollNoteSource } from "src/types/pf2e/module/notes.ts";
-import { StrikeAdjustment } from "src/types/pf2e/module/rules/synthetics.ts";
+import { DamageDicePF2e, DamageDiceParameters, ModifierAdjustment } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { ResistanceType } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ArmorPF2e, WeaponPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import type { ResilientRuneType } from "src/types/foundry/systems/pf2e/module/item/armor/types.ts";
+import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "src/types/foundry/systems/pf2e/module/item/weapon/types.ts";
+import { OneToFour, OneToThree, Rarity, ZeroToFour, ZeroToThree } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { RollNoteSource } from "src/types/foundry/systems/pf2e/module/notes.ts";
+import { StrikeAdjustment } from "src/types/foundry/systems/pf2e/module/rules/synthetics.ts";
 declare function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour;
 declare function getPropertyRunes(item: WeaponPF2e | ArmorPF2e, slots: number): string[];
 declare function getStrikingDice(itemData: {

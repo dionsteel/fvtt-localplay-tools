@@ -1,5 +1,5 @@
 import { MigrationBase } from "../base.ts";
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
 /** Update the descriptions of several spells with new effect items */
 export declare class Migration720UpdateSpellDescriptions extends MigrationBase {
     static version: number;

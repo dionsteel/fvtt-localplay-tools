@@ -1,5 +1,5 @@
-import { CoinsPF2e, PhysicalItemSheetData, PhysicalItemSheetPF2e, PreparedMaterials } from "src/types/pf2e/module/item/physical/index.ts";
-import { SheetOptions } from "src/types/pf2e/module/sheet/helpers.ts";
+import { CoinsPF2e, PhysicalItemSheetData, PhysicalItemSheetPF2e, PreparedMaterials } from "src/types/foundry/systems/pf2e/module/item/physical/index.ts";
+import { SheetOptions } from "src/types/foundry/systems/pf2e/module/sheet/helpers.ts";
 import { ArmorCategory, ArmorGroup, ArmorPF2e, BaseArmorType } from "./index.ts";
 declare class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
     getData(options?: Partial<DocumentSheetOptions>): Promise<ArmorSheetData>;

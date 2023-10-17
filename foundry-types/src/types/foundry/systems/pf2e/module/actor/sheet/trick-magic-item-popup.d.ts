@@ -1,6 +1,6 @@
-import { ActorPF2e, CharacterPF2e } from "src/types/pf2e/module/actor";
-import { ConsumablePF2e } from "src/types/pf2e/module/item";
-import { TrickMagicItemDifficultyData } from "src/types/pf2e/module/item/consumable/spell-consumables.ts";
+import { ActorPF2e, CharacterPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ConsumablePF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { TrickMagicItemDifficultyData } from "src/types/foundry/systems/pf2e/module/item/consumable/spell-consumables.ts";
 export declare class TrickMagicItemPopup {
     #private;
     /** The wand or scroll being "tricked" */

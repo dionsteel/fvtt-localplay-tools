@@ -1,5 +1,5 @@
-import { ActorSourcePF2e } from "src/types/pf2e/module/actor/data/index.ts";
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
+import { ActorSourcePF2e } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
 import { MigrationBase } from "../base.ts";
 /** Certain actor specific spell properties moved to spell.location such as signature */
 export declare class Migration734SpellLocationPropsAndSignature extends MigrationBase {

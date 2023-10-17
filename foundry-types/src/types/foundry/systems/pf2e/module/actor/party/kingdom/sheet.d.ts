@@ -1,18 +1,18 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { FeatGroup } from "src/types/pf2e/module/actor/character/feats.ts";
-import { ActorSheetPF2e } from "src/types/pf2e/module/actor/sheet/base.ts";
-import { ActorSheetDataPF2e } from "src/types/pf2e/module/actor/sheet/data-types.ts";
-import { CampaignFeaturePF2e, ItemPF2e } from "src/types/pf2e/module/item";
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
-import { DropCanvasItemDataPF2e } from "src/types/pf2e/module/canvas/drop-canvas-data.ts";
-import { Statistic } from "src/types/pf2e/module/system/statistic/index.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { FeatGroup } from "src/types/foundry/systems/pf2e/module/actor/character/feats.ts";
+import { ActorSheetPF2e } from "src/types/foundry/systems/pf2e/module/actor/sheet/base.ts";
+import { ActorSheetDataPF2e } from "src/types/foundry/systems/pf2e/module/actor/sheet/data-types.ts";
+import { CampaignFeaturePF2e, ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { DropCanvasItemDataPF2e } from "src/types/foundry/systems/pf2e/module/canvas/drop-canvas-data.ts";
+import { Statistic } from "src/types/foundry/systems/pf2e/module/system/statistic/index.ts";
 import { PartyPF2e } from "../document.ts";
 import { KingdomAbilityData, KingdomCommodityData, KingdomData, KingdomLeadershipData } from "./types.ts";
 import { Kingdom } from "./model.ts";
-import { SheetOptions } from "src/types/pf2e/module/sheet/helpers.ts";
+import { SheetOptions } from "src/types/foundry/systems/pf2e/module/sheet/helpers.ts";
 declare const KINGDOM_TRAITS: string[];
 type KingdomTrait = (typeof KINGDOM_TRAITS)[number];
 declare class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {

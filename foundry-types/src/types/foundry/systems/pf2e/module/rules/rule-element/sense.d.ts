@@ -1,6 +1,6 @@
-import { CharacterPF2e, FamiliarPF2e } from "src/types/pf2e/module/actor";
-import { SenseAcuity, SenseType } from "src/types/pf2e/module/actor/creature/sense.ts";
-import { ActorType } from "src/types/pf2e/module/actor/data/index.ts";
+import { CharacterPF2e, FamiliarPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { SenseAcuity, SenseType } from "src/types/foundry/systems/pf2e/module/actor/creature/sense.ts";
+import { ActorType } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
 import { RuleElementOptions } from "./base.ts";
 import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";

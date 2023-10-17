@@ -1,8 +1,8 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ItemSummaryData } from "src/types/pf2e/module/item/data/index.ts";
-import { EquipmentTrait } from "src/types/pf2e/module/item/equipment/data.ts";
-import { PhysicalItemPF2e } from "src/types/pf2e/module/item/physical/index.ts";
-import { Bulk } from "src/types/pf2e/module/item/physical/bulk.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ItemSummaryData } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { EquipmentTrait } from "src/types/foundry/systems/pf2e/module/item/equipment/data.ts";
+import { PhysicalItemPF2e } from "src/types/foundry/systems/pf2e/module/item/physical/index.ts";
+import { Bulk } from "src/types/foundry/systems/pf2e/module/item/physical/bulk.ts";
 import { ContainerSource, ContainerSystemData } from "./data.ts";
 declare class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     /** This container's contents, reloaded every data preparation cycle */

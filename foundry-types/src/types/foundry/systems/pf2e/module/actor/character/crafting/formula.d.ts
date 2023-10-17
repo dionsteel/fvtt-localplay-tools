@@ -1,6 +1,6 @@
-import { PhysicalItemPF2e } from "src/types/pf2e/module/item";
-import { Coins, Price } from "src/types/pf2e/module/item/physical/data.ts";
-import { Rarity } from "src/types/pf2e/module/data.ts";
+import { PhysicalItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { Coins, Price } from "src/types/foundry/systems/pf2e/module/item/physical/data.ts";
+import { Rarity } from "src/types/foundry/systems/pf2e/module/data.ts";
 export declare class CraftingFormula implements CraftingFormulaData {
     item: PhysicalItemPF2e;
     /** The difficulty class to craft this item */

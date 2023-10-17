@@ -1,10 +1,10 @@
-import { ActorPF2e, ActorUpdateContext } from "src/types/pf2e/module/actor/base.ts";
-import { ActorSheetDataPF2e } from "src/types/pf2e/module/actor/sheet/data-types.ts";
-import { AbilityString, SaveType } from "src/types/pf2e/module/actor/types.ts";
-import { MeleePF2e, WeaponPF2e } from "src/types/pf2e/module/item";
-import { ZeroToFour } from "src/types/pf2e/module/data.ts";
-import { SheetOptions } from "src/types/pf2e/module/sheet/helpers.ts";
-import { TokenDocumentPF2e } from "src/types/pf2e/module/scene/index.ts";
+import { ActorPF2e, ActorUpdateContext } from "../../actor/base.ts";
+import { ActorSheetDataPF2e } from "../../actor/sheet/data-types.ts";
+import { AbilityString, SaveType } from "../../actor/types.ts";
+import { MeleePF2e, WeaponPF2e } from "../../item";
+import { ZeroToFour } from "../../data.ts";
+import { SheetOptions } from "../../sheet/helpers.ts";
+import { TokenDocumentPF2e } from "../../scene/index.ts";
 import { AbilityData, CreatureSystemData, SaveData, SkillData } from "./data.ts";
 import { CreaturePF2e } from "./document.ts";
 import { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values.ts";

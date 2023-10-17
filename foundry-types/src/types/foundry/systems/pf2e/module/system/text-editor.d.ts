@@ -1,6 +1,6 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { ItemPF2e } from "src/types/pf2e/module/item";
-import { UserVisibility } from "src/types/pf2e/module/scripts/ui/user-visibility.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { UserVisibility } from "src/types/foundry/systems/pf2e/module/scripts/ui/user-visibility.ts";
 /** Censor enriched HTML according to metagame knowledge settings */
 declare class TextEditorPF2e extends TextEditor {
     #private;

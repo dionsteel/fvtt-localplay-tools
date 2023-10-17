@@ -1,6 +1,6 @@
-import { ModifierType } from "src/types/pf2e/module/actor/modifiers.ts";
-import { AbilityString } from "src/types/pf2e/module/actor/types.ts";
-import { DamageCategoryUnique } from "src/types/pf2e/module/system/damage/types.ts";
+import { ModifierType } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { AbilityString } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { DamageCategoryUnique } from "src/types/foundry/systems/pf2e/module/system/damage/types.ts";
 import type { ArrayField, BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField, RuleValue } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";

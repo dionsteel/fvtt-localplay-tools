@@ -1,9 +1,9 @@
-import { ActorPF2e } from "src/types/pf2e/module/actor";
-import { KitPF2e, PhysicalItemPF2e } from "src/types/pf2e/module/item";
-import { Coins } from "src/types/pf2e/module/item/physical/data.ts";
-import { CoinsPF2e } from "src/types/pf2e/module/item/physical/helpers.ts";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { KitPF2e, PhysicalItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { Coins } from "src/types/foundry/systems/pf2e/module/item/physical/data.ts";
+import { CoinsPF2e } from "src/types/foundry/systems/pf2e/module/item/physical/helpers.ts";
 import { InventoryBulk } from "./bulk.ts";
-declare class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF2e<TActor>> {
+export declare class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF2e<TActor>> {
     readonly actor: TActor;
     constructor(actor: TActor, entries?: PhysicalItemPF2e<TActor>[]);
     get coins(): CoinsPF2e;

@@ -1,6 +1,6 @@
-import { ActorType } from "src/types/pf2e/module/actor/data/index.ts";
-import { ItemGrantDeleteAction } from "src/types/pf2e/module/item/data/base.ts";
-import { ItemSourcePF2e } from "src/types/pf2e/module/item/data/index.ts";
+import { ActorType } from "src/types/foundry/systems/pf2e/module/actor/data/index.ts";
+import { ItemGrantDeleteAction } from "src/types/foundry/systems/pf2e/module/item/data/base.ts";
+import { ItemSourcePF2e } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "../index.ts";
 import { GrantItemSchema } from "./schema.ts";
 declare class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {

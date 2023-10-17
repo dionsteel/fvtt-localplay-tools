@@ -1,6 +1,6 @@
-import { CharacterPF2e, CreaturePF2e } from "src/types/pf2e/module/actor";
-import { ItemType } from "src/types/pf2e/module/item/data/index.ts";
-import { TokenDocumentPF2e } from "src/types/pf2e/module/scene/index.ts";
+import { CharacterPF2e, CreaturePF2e } from "src/types/foundry/systems/pf2e/module/actor";
+import { ItemType } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { TokenDocumentPF2e } from "src/types/foundry/systems/pf2e/module/scene/index.ts";
 import { FamiliarSource, FamiliarSystemData } from "./data.ts";
 declare class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     get allowedItemTypes(): (ItemType | "physical")[];

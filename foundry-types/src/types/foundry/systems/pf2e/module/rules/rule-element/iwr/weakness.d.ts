@@ -1,5 +1,5 @@
-import { WeaknessData } from "src/types/pf2e/module/actor/data/iwr.ts";
-import { WeaknessType } from "src/types/pf2e/module/actor/types.ts";
+import { WeaknessData } from "src/types/foundry/systems/pf2e/module/actor/data/iwr.ts";
+import { WeaknessType } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
 import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField } from "../data.ts";
 import { IWRRuleElement, IWRRuleSchema } from "./base.ts";

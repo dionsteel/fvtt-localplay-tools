@@ -1,7 +1,7 @@
-import type { ActorPF2e } from "src/types/pf2e/module/actor/base.ts";
-import type { ItemPF2e } from "src/types/pf2e/module/item/base.ts";
-import { MigrationBase } from "src/types/pf2e/module/migration/base.ts";
-import { MigrationRunnerBase } from "src/types/pf2e/module/migration/runner/base.ts";
+import type { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor/base.ts";
+import type { ItemPF2e } from "src/types/foundry/systems/pf2e/module/item/base.ts";
+import { MigrationBase } from "src/types/foundry/systems/pf2e/module/migration/base.ts";
+import { MigrationRunnerBase } from "src/types/foundry/systems/pf2e/module/migration/runner/base.ts";
 export declare class MigrationRunner extends MigrationRunnerBase {
     #private;
     needsMigration(): boolean;

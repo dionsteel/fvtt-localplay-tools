@@ -1,6 +1,6 @@
-import { ConsumablePF2e, SpellPF2e } from "src/types/pf2e/module/item";
-import { ConsumableSource } from "src/types/pf2e/module/item/data/index.ts";
-import { DCOptions } from "src/types/pf2e/module/dc.ts";
+import { ConsumablePF2e, SpellPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { ConsumableSource } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { DCOptions } from "src/types/foundry/systems/pf2e/module/dc.ts";
 declare const SPELL_CONSUMABLE_ITEM_TYPE: Set<"scroll" | "wand" | "cantripDeck5">;
 type SpellConsumableItemType = SetElement<typeof SPELL_CONSUMABLE_ITEM_TYPE>;
 declare function isSpellConsumable(itemId: string): boolean;

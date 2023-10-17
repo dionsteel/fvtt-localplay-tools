@@ -20,6 +20,20 @@ export class ActorHelperPF2e extends ActorHelper<PF2eTypes> {
     // const auxAction = strike.auxiliaryActions[0]
     this.socket.next({ event: "playerRPC", action: "performStrikeAux", options: { strikeIdx, aux, ...options } });
   }
+
+  async performRPC(action: string, options: any = {}) {
+    this.socket.next({ event: "playerRPC", action, options });
+  }
+  async performAction(uuid: any, options: any = {}) {
+    // const strikeIdx = (await this.getActor())?.value?.system?.actions.findIndex(a=>a==strike);
+    // console.log("performStrike", strikeIdx, this.actor, variantIdx);
+    // this.performRPC("performAction", { strikeIdx, variantIdx, ...options });
+  }
+  async performGenericAction(uuid: any, options: any = {}) {
+    // const strikeIdx = (await this.getActor())?.value?.system?.actions.findIndex(a=>a==strike);
+    // console.log("performStrike", strikeIdx, this.actor, variantIdx);
+    this.performRPC("performSkillAction", { slug: uuid, ...options });
+  }
 }
 export class PF2eHelper extends SystemHelper<PF2eTypes> {
   declare actors: Record<string, ActorHelperPF2e>;

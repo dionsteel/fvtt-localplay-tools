@@ -1,6 +1,6 @@
-import { StatisticModifier } from "src/types/pf2e/module/actor/modifiers.ts";
-import { DCSlug } from "src/types/pf2e/module/actor/types.ts";
-import { ZeroToThree } from "src/types/pf2e/module/data.ts";
+import { StatisticModifier } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { DCSlug } from "src/types/foundry/systems/pf2e/module/actor/types.ts";
+import { ZeroToThree } from "src/types/foundry/systems/pf2e/module/data.ts";
 import { CheckRoll } from "./check/roll.ts";
 import { PredicatePF2e } from "./predication.ts";
 import { StatisticDifficultyClass } from "./statistic/index.ts";

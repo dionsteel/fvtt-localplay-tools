@@ -1,5 +1,7 @@
 // const { Actor5e } = require("../../../foundry-types/src/types/foundry/systems/dnd5e/module/documents/actor/actor.mjs");
 
+// const { ActionItemPF2e } = require("../../../foundry-types/src/types/foundry/systems/pf2e/module/item");
+
 /**
  *
  * @returns {import("../../../foundry-types/src/types/base").PathfinderGame}
@@ -39,7 +41,7 @@ function dnd5eactorsystem(actor) {
 /**
  *
  * @param {string} id
- * @returns {import("../../../foundry-types/src/types/foundry/systems/pf2e/module/actor").CharacterPF2e}
+ * @returns {import("../../../foundry-types/src/types/foundry/systems/pf2e/module/actor/character/index").CharacterPF2e}
  */
 function pf2eactor(id) {
   return game.actors.get(id);
@@ -147,9 +149,9 @@ const helpers = {
       try {
         const token = dnd5etoken(id);
         return { ...token };
-      } catch (e) { }
+      } catch (e) {}
     },
-    getItemData() { },
+    getItemData() {},
   },
   pf2e: {
     getActorData(id) {
@@ -160,7 +162,9 @@ const helpers = {
           // actor.prepareDerivedData();
           // actor.prepareEmbeddedDocuments();
           // actor.prepareMartialProficiencies();
-        } catch (e) { console.error(e); }
+        } catch (e) {
+          console.error(e);
+        }
         // const classDC = actor.prepareClassDC();
         // const strikes = actor.prepareStrikes();
         // const speed = actor.prepareSpeed();
@@ -267,7 +271,7 @@ const helpers = {
         data.system = { ...system };
         return data;
       } catch (e) {
-        console.error('Error Extracting pf2e actor details', e, id);
+        console.error("Error Extracting pf2e actor details", e, id);
         return null;
       }
     },
@@ -275,9 +279,9 @@ const helpers = {
       try {
         const token = pf2etoken(id);
         return { ...token };
-      } catch (e) { }
+      } catch (e) {}
     },
-    getItemData() { },
+    getItemData() {},
     /**
      * @returns {import("../../../foundry-types/src/types/foundry/systems/pf2e/module/actor/data/base").StrikeData}
      */
@@ -285,27 +289,83 @@ const helpers = {
       const actor = pf2eactor(actorid);
       return actor.system.actions[strikeIdx];
     },
+    /**
+     * @returns {import("../../../foundry-types/src/types/foundry/systems/pf2e/module/actor/data/base").StrikeData}
+     */
+    getAction(actorid, strikeIdx) {
+      const actor = pf2eactor(actorid);
+      return actor.system.actions[strikeIdx];
+    },
+    /**
+     *
+     * @param {string} actionSourceId
+     * @returns {ActionItemPF2e}
+     */
+    getCommonAction(actionId = "1OagaWtBpVXExToo") {
+      let ai = fromUuidSync("Compendium.pf2e.actionspf2e.Item." + actionId, a);
+
+      return ai;
+    },
+    /**
+     * @returns {import("../../../foundry-types/src/types/foundry/systems/pf2e/module/actor/data/base").StrikeData}
+     */
+    getSkillAction(actorid, strikeIdx) {
+      const actor = pf2eactor(actorid);
+      return ConfigPF2eF2e.PF2E.ItemLevel;
+    },
     performStrike(actorid, options = {}) {
       let { strikeIdx = 0, variantIdx = 0, targetId, altUsage } = options;
       const strike = this.getStrike(actorid, strikeIdx);
-      strike?.variants[variantIdx]?.roll({ target: targetId })
+      strike?.variants[variantIdx]?.roll({ target: targetId });
+    },
+
+    async performAction(actorId, actionId, options = {}) {
+      const actor = pf2eactor(actorId);
+      actor.getActiveTokens().forEach((t) => t.control(true));
+      const srcAction = this.getCommonAction(actionId);
+      let actorAction = actor.items.get(actionId);
+      if (!actorAction) {
+        await actor.inventory.add(srcAction);
+        actorAction = actor.items.get(actionId);
+      }
+      if (actorAction) {
+        actorAction.use({ ...options, actors: [actor] });
+      }
+    },
+
+    performSkillAction(actorid, slug, options = {}) {
+      const actor = pf2eactor(actorid);
+      actor.getActiveTokens().forEach((t) => t.control(true));
+      let { strikeIdx = 0, variantIdx = 0, actionId, targetId, altUsage } = options;
+
+      let action = pf2egame().pf2e.actions.get(slug);
+      let actionExec;
+      if (action) {
+        actionExec = (...a) => action.use(...a);
+      } else {
+        action = pf2egame().pf2e.actions[slug];
+        actionExec = (...a) => action(...a);
+      }
+      // const action = this.getCommonAction(uuid);
+
+      actionExec({ actors: [actor, ...(options.actors || [])], target: options.target, variant: options.variant });
     },
     performStrikeAux(actorid, options = {}) {
       let { strikeIdx = 0, aux = 0, targetId, altUsage } = options;
       const strike = this.getStrike(actorid, strikeIdx);
-      strike?.variants[aux]?.roll({ target: targetId })
+      strike?.variants[aux]?.roll({ target: targetId });
     },
     rollStrikeDamage(actorid, options = {}) {
-      console.log('Roll Strike Damage', actorid, options);
+      console.log("Roll Strike Damage", actorid, options);
       let { strikeIdx, critical, targetId, altUsage } = options;
       const strike = this.getStrike(actorid, strikeIdx);
-      console.log('strike:', strike);
+      console.log("strike:", strike);
       if (critical) {
         strike?.critical({ consumeAmmo: true, target: targetId, altUsage });
       } else {
-        strike?.damage({ consumeAmmo: true, target: targetId, altUsage })
+        strike?.damage({ consumeAmmo: true, target: targetId, altUsage });
       }
-    }
+    },
   },
 };
 

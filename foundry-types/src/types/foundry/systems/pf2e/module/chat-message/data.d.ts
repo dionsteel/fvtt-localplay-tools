@@ -1,11 +1,11 @@
-import { ItemType } from "src/types/pf2e/module/item/data/index.ts";
-import { MagicTradition } from "src/types/pf2e/module/item/spell/types.ts";
-import { BaseRawModifier } from "src/types/pf2e/module/actor/modifiers.ts";
-import { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "src/types/pf2e/module/system/degree-of-success.ts";
-import { RollNoteSource } from "src/types/pf2e/module/notes.ts";
-import { CheckRollContext } from "src/types/pf2e/module/system/check/index.ts";
-import { ZeroToTwo } from "src/types/pf2e/module/data.ts";
-import { DamageRollContext } from "src/types/pf2e/module/system/damage/types.ts";
+import { ItemType } from "src/types/foundry/systems/pf2e/module/item/data/index.ts";
+import { MagicTradition } from "src/types/foundry/systems/pf2e/module/item/spell/types.ts";
+import { BaseRawModifier } from "src/types/foundry/systems/pf2e/module/actor/modifiers.ts";
+import { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "src/types/foundry/systems/pf2e/module/system/degree-of-success.ts";
+import { RollNoteSource } from "src/types/foundry/systems/pf2e/module/notes.ts";
+import { CheckRollContext } from "src/types/foundry/systems/pf2e/module/system/check/index.ts";
+import { ZeroToTwo } from "src/types/foundry/systems/pf2e/module/data.ts";
+import { DamageRollContext } from "src/types/foundry/systems/pf2e/module/system/damage/types.ts";
 interface ChatMessageSourcePF2e extends foundry.documents.ChatMessageSource {
     flags: ChatMessageFlagsPF2e;
 }

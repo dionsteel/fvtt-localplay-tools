@@ -1,4 +1,4 @@
-import { ChatMessagePF2e } from "src/types/pf2e/module/chat-message/document.ts";
+import { ChatMessagePF2e } from "src/types/foundry/systems/pf2e/module/chat-message/document.ts";
 import { Action, ActionCost, ActionMessageOptions, ActionUseOptions, ActionVariant, ActionVariantUseOptions } from "./types.ts";
 interface BaseActionVariantData {
     cost?: ActionCost;

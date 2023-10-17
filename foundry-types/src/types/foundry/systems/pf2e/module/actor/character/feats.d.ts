@@ -1,8 +1,8 @@
-import { FeatPF2e, ItemPF2e } from "src/types/pf2e/module/item";
-import { FeatCategory } from "src/types/pf2e/module/item/feat/types.ts";
+import { FeatPF2e, ItemPF2e } from "src/types/foundry/systems/pf2e/module/item";
+import { FeatCategory } from "src/types/foundry/systems/pf2e/module/item/feat/types.ts";
 import { CharacterPF2e } from "./document.ts";
 import { BonusFeat, FeatLike, SlottedFeat } from "./data.ts";
-import { ActorPF2e } from "src/types/pf2e/module/actor";
+import { ActorPF2e } from "src/types/foundry/systems/pf2e/module/actor";
 type FeatSlotLevel = number | {
     id: string;
     label: string;
