@@ -197,7 +197,7 @@ const helpers = {
           inventory,
           itemTypes,
           items,
-          keyAbility,
+          keyAttribute,
           name,
           overrides,
           ownership,
@@ -241,7 +241,7 @@ const helpers = {
           // feats,
           // heritage,
           heroPoints,
-          keyAbility,
+          keyAttribute,
           // pfsBoons,
           // traditions,
           // speed,
@@ -288,6 +288,13 @@ const helpers = {
     getStrike(actorid, strikeIdx) {
       const actor = pf2eactor(actorid);
       return actor.system.actions[strikeIdx];
+    },
+    /**
+     * @returns {import("../../../foundry-types/src/types/foundry/systems/pf2e/module/actor/data/base").StrikeData}
+     */
+    getStrikeItem(actorid, identifier) {
+      const actor = pf2eactor(actorid);
+      return actor.items.get(identifier);
     },
     /**
      * @returns {import("../../../foundry-types/src/types/foundry/systems/pf2e/module/actor/data/base").StrikeData}
@@ -362,9 +369,12 @@ const helpers = {
       strike?.variants[aux]?.roll({ target: targetId });
     },
     rollStrikeDamage(actorid, options = {}) {
+      const actor = pf2eactor(actorid);
+      actor.getActiveTokens().forEach((t) => t.control(true));
+
       console.log("Roll Strike Damage", actorid, options);
-      let { strikeIdx, critical, targetId, altUsage } = options;
-      const strike = this.getStrike(actorid, strikeIdx);
+      let { identifier, critical, targetId, altUsage } = options;
+      const strike = this.getStrikeItem(actorid, identifier);
       console.log("strike:", strike);
       if (critical) {
         strike?.critical({ consumeAmmo: true, target: targetId, altUsage });

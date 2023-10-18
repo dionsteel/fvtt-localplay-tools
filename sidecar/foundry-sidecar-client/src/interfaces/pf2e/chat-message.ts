@@ -83,6 +83,8 @@ interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFl
   altUsage?: "thrown" | "melee" | null;
   notes: RollNoteSource[];
   options: string[];
+  identifier?: string;
+  action?:string;
 }
 interface DamageRollContextFlag extends Required<Omit<DamageRollContext, ContextFlagOmission | "self">> {
   actor: string | null;
@@ -92,6 +94,8 @@ interface DamageRollContextFlag extends Required<Omit<DamageRollContext, Context
   target: TargetFlag | null;
   notes: RollNoteSource[];
   options: string[];
+  identifier?: string;
+  action?:string;
 }
 interface SpellCastContextFlag {
   type: "spell-cast";
@@ -100,6 +104,8 @@ interface SpellCastContextFlag {
   outcome?: DegreeOfSuccessString;
   /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
   rollMode?: RollMode;
+  identifier?: string;
+  action?:string;
 }
 interface AppliedDamageFlag {
   uuid: ActorUUID;
@@ -114,10 +120,12 @@ interface AppliedDamageFlag {
     path: string;
     value: number;
   }[];
+  identifier?: string;
+  action?:string;
 }
 export interface ChatMessagePF2e {
   system?: ChatMessageSourcePF2e;
-  source?:ChatMessageSourcePF2e
+  source?: ChatMessageSourcePF2e;
 }
 export type {
   AppliedDamageFlag,

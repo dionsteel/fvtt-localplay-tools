@@ -387,6 +387,11 @@ function mountWebServer(app) {
         forwardEventOverWS({ event: "updateActor", actor: helper.getActorData(req.params.id) });
         // forwardEventOverWS({ event: "updateToken", token: currentToken() || {} });
         forwardEventOverWS({ event: "updateCombat", combat: currentCombat() || {} });
+
+        const usrmsg = game.messages._getVisibleTreeContents();
+        for (let msg of usrmsg) {
+          forwardEventOverWS({ event: "renderChatMessage", message: msg, html: msg.flavor, source: msg._source });
+        }
       } catch (e) {
         console.log("failed on initial sendings");
       }

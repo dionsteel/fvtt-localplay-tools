@@ -12,8 +12,8 @@ export class ActorHelperPF2e extends ActorHelper<PF2eTypes> {
     this.socket.next({ event: "playerRPC", action: "performStrike", options: { strikeIdx, variantIdx, ...options } });
   }
 
-  async rollStrikeDamage(strikeIdx: number, critical: boolean = false, options: any = {}) {
-    this.socket.next({ event: "playerRPC", action: "rollStrikeDamage", options: { strikeIdx, critical, ...options } });
+  async rollStrikeDamage(identifier:string, critical: boolean = false, options: any = {}) {
+    this.socket.next({ event: "playerRPC", action: "rollStrikeDamage", options: { identifier, critical, ...options } });
   }
   async performStrikeAux(strikeIdx: number, aux?: number, options: any = {}) {
     // const strikeIdx = (await this.getActor()).value?.system?.actions?.findIndex((a) => a == strike);
