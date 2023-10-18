@@ -295,7 +295,7 @@ const helpers = {
      */
     getStrikeItem(actorid, identifier) {
       const actor = pf2eactor(actorid);
-      return actor.items.get(identifier);
+      return actor.items.get(identifier.split('.').shift());
     },
     /**
      * @returns {import("../../../foundry-types/src/types/foundry/systems/pf2e/module/actor/data/base").StrikeData}
