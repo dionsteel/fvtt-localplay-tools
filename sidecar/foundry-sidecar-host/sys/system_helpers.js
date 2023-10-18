@@ -315,7 +315,7 @@ const helpers = {
      * @returns {ActionItemPF2e}
      */
     async getCommonAction(actionId = "1OagaWtBpVXExToo") {
-      let ai = fromUuid("Compendium.pf2e.actionspf2e.Item." + actionId, a);
+      let ai = fromUuid("Compendium.pf2e.actionspf2e.Item." + actionId);
 
       return ai;
     },
