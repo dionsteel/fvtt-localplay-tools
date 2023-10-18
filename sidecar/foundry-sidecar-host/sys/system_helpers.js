@@ -287,6 +287,7 @@ const helpers = {
      */
     getStrike(actorid, strikeIdx) {
       const actor = pf2eactor(actorid);
+
       return actor.system.actions[strikeIdx];
     },
     /**
@@ -321,6 +322,9 @@ const helpers = {
       return ConfigPF2eF2e.PF2E.ItemLevel;
     },
     performStrike(actorid, options = {}) {
+      const actor = pf2eactor(actorid);
+      const controlled = this.controlActorToken(actor);
+
       let { strikeIdx = 0, variantIdx = 0, targetId, altUsage } = options;
       const strike = this.getStrike(actorid, strikeIdx);
       strike?.variants[variantIdx]?.roll({ target: targetId });
@@ -330,7 +334,8 @@ const helpers = {
       let { actionId, slug, variant } = options;
 
       const actor = pf2eactor(actorId);
-      actor.getActiveTokens().forEach((t) => t.control(true));
+      const controlled = this.controlActorToken(actor);
+
       const srcAction = await this.getCommonAction(actionId);
       let actorAction = actor.items.get(actionId);
       if (!actorAction) {
@@ -344,7 +349,8 @@ const helpers = {
 
     performSkillAction(actorid, options = {}) {
       const actor = pf2eactor(actorid);
-      actor.getActiveTokens().forEach((t) => t.control(true));
+      const controlled = this.controlActorToken(actor);
+
       let { slug, variant } = options;
 
       let action = pf2egame().pf2e.actions.get(slug);
@@ -363,16 +369,26 @@ const helpers = {
         console.error("error doing skill action", slug, action, actionExec, actor, options);
       }
     },
+    controlActorToken(actor) {
+      let worked = false;
+      actor.getActiveTokens(true, false).forEach((t) => {
+        console.log("controlling actor token", actor, t);
+        worked = t.control(true);
+      });
+      return worked;
+    },
     performStrikeAux(actorid, options = {}) {
+      const actor = pf2eactor(actorid);
+      const controlled = this.controlActorToken(actor);
+
       let { strikeIdx = 0, aux = 0, targetId, altUsage } = options;
       const strike = this.getStrike(actorid, strikeIdx);
       strike?.variants[aux]?.roll({ target: targetId });
     },
     rollStrikeDamage(actorid, options = {}) {
       const actor = pf2eactor(actorid);
-      actor.getActiveTokens().forEach((t) => t.control(true));
-
-      console.log("Roll Strike Damage", actorid, options);
+      const controlled = this.controlActorToken(actor);
+      console.log("Roll Strike Damage", actorid, options, controlled);
       let { identifier, critical, targetId, altUsage } = options;
       const strike = this.getStrikeItem(actorid, identifier);
       console.log("strike:", strike);
