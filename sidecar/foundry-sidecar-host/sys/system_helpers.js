@@ -361,7 +361,7 @@ const helpers = {
           console.log("id changed??", actorAction, srcAction);
         }
       } catch (e) {
-        console.error("Error performing action: ", options, actorId, actorAction, srcAction);
+        console.error("Error performing action: ",e, options, actorId, actorAction, srcAction);
       }
     },
 
