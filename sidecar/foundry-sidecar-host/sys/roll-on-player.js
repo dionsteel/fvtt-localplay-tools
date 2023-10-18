@@ -273,7 +273,19 @@ class RemoteRollPromptProxy {
     this.actors = tamap;
     console.log("RemoteRollProxy.construct", "finished");
   }
-
+  distributeRoll(total, count) {
+    const results = [];
+    // If a total input was defined and given, it overrides everything else.
+    let base = 0;
+    // Append dice with the base average of the total.
+    for (let c = 0; c < count - 1; c++) {
+      base = Math.ceil(total / (count - results.length));
+      total -= base;
+      results.push(base);
+    }
+    results.push(total);
+    return results;
+  }
   async render(force, options) {
     if (this._terms.length == 0) return;
     // socketlib render manual roll form on remote
@@ -305,7 +317,8 @@ class RemoteRollPromptProxy {
       // If a total input was defined and given, it overrides everything else.
       if (total !== undefined && total !== null) {
         const value = parseInt(total);
-        results.push(...RollPrompt.distributeRoll(value, x.term.number));
+        console.log("found a total, distributing", total, value);
+        results.push(...this.distributeRoll(value, x.term.number));
         if (PlayerRolls.flagged) x.term.options.flavor = (x.term.options.flavor || "") + "[MRT]";
       } else {
         const flags = [];
@@ -329,7 +342,7 @@ class RemoteRollPromptProxy {
       x.res(results);
     }
     this._rolled = true;
-    console.log("RemoteRollProxy.receiveUpdate", "end");
+    console.log("RemoteRollProxy.receiveUpdate", "end", this._rolled);
     return undefined;
   }
 
