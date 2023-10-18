@@ -319,7 +319,9 @@ const helpers = {
       strike?.variants[variantIdx]?.roll({ target: targetId });
     },
 
-    async performAction(actorId, actionId, options = {}) {
+    async performAction(actorId, options = {}) {
+      let { actionId, slug, variant } = options;
+
       const actor = pf2eactor(actorId);
       actor.getActiveTokens().forEach((t) => t.control(true));
       const srcAction = await this.getCommonAction(actionId);
@@ -333,10 +335,10 @@ const helpers = {
       }
     },
 
-    performSkillAction(actorid, slug, options = {}) {
+    performSkillAction(actorid, options = {}) {
       const actor = pf2eactor(actorid);
       actor.getActiveTokens().forEach((t) => t.control(true));
-      let { strikeIdx = 0, variantIdx = 0, actionId, targetId, altUsage } = options;
+      let { slug, variant } = options;
 
       let action = pf2egame().pf2e.actions.get(slug);
       let actionExec;
