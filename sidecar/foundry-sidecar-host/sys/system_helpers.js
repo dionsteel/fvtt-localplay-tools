@@ -340,15 +340,19 @@ const helpers = {
 
       let action = pf2egame().pf2e.actions.get(slug);
       let actionExec;
-      if (action) {
-        actionExec = (...a) => action.use(...a);
-      } else {
-        action = pf2egame().pf2e.actions[slug];
-        actionExec = (...a) => action(...a);
-      }
-      // const action = this.getCommonAction(uuid);
+      try {
+        if (action) {
+          actionExec = (...a) => action.use(...a);
+        } else {
+          action = pf2egame().pf2e.actions[slug];
+          actionExec = (...a) => action(...a);
+        }
+        // const action = this.getCommonAction(uuid);
 
-      actionExec({ actors: [actor, ...(options.actors || [])], target: options.target, variant: options.variant });
+        actionExec({ actors: [actor, ...(options.actors || [])], target: options.target, variant: options.variant });
+      } catch (e) {
+        console.error("error doing skill action", slug, action, actionExec, actor, options);
+      }
     },
     performStrikeAux(actorid, options = {}) {
       let { strikeIdx = 0, aux = 0, targetId, altUsage } = options;
