@@ -302,9 +302,10 @@ class RemoteRollPromptProxy {
     //   })
     // );
     console.log("RemoteRollProxy.render", "result", result);
-    if (result.success) {
+    try {
       await this.receiveUpdate(new Event("response"), result);
-    } else {
+    } catch (e) {
+      console.error(e);
       await this.close();
     }
     // return r.success;
