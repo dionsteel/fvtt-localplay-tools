@@ -13,7 +13,7 @@ const SETTINGS = new Map([
 ]);
 SETTINGS.MOD_NAME = "foundry-sidecar";
 
-export function getControlled(additionalActorIds = []) {
+function getControlled(additionalActorIds = []) {
   const tokens = canvas.tokens.controlled.filter((t) => !!t);
   let actorids = [];
   console.log("controlled tokens:", tokens);
@@ -436,3 +436,4 @@ exports.displayFormRemotely = requestRemoteRoll;
 exports.requestRemoteRoll = requestRemoteRoll;
 // exports.PlayerSlaveForm = PlayerSlaveForm;
 exports.PlayerRolls = PlayerRolls;
+exports.getControlled = getControlled;
