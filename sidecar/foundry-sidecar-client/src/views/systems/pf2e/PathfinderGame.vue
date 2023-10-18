@@ -177,11 +177,13 @@ function handleChatCardClicks(event: MouseEvent, msg: SocketEventMap<PF2eTypes>[
   switch (data.action || "") {
     case "strike-damage":
     case "strike-critical":
-      const strike = msg?.message?.flags?.pf2e?.strike as StrikeLookupData;
-      console.log(strike);
-      if (strike) {
-        helper.rollStrikeDamage(strike.index, data.action?.endsWith("critical"));
+    const context = msg?.message?.flags?.pf2e?.context;
+      console.log(context, msg);
+      if (context) {
+        helper.rollStrikeDamage(context.identifier || "", data.action?.endsWith("critical"));
         // data.
+      } else {
+        console.log("WHERE IS MY CONTEXT!?", msg, msg.message.flags?.pf2e.context);
       }
   }
 }
