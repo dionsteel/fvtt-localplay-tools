@@ -30,7 +30,7 @@ function handleChatCardClicks(event: MouseEvent, msg: SocketEventMap<PF2eTypes>[
     case "strike-damage":
     case "strike-critical":
       const context = msg?.message?.flags?.pf2e?.context;
-      console.log(context || msg);
+      console.log(context,msg);
       if (context) {
         helper.rollStrikeDamage(context.identifier || "", data.action?.endsWith("critical"));
         // data.
