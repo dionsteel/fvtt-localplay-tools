@@ -349,7 +349,9 @@ const helpers = {
       }
       try {
         if (actorAction) {
+          console.log('got action', {actorAction,srcAction})
           actorAction.use({ ...options, actors: [actor] });
+          actorAction.toChatMessage();
         } else {
           console.log("id changed??", actorAction, srcAction);
         }
