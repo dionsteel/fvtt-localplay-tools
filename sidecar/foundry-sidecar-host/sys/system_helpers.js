@@ -347,8 +347,14 @@ const helpers = {
         await actor.inventory.add(srcAction);
         actorAction = actor.items.get(actionId);
       }
-      if (actorAction) {
-        actorAction.use({ ...options, actors: [actor] });
+      try {
+        if (actorAction) {
+          actorAction.use({ ...options, actors: [actor] });
+        } else {
+          console.log("id changed??", actorAction, srcAction);
+        }
+      } catch (e) {
+        console.error("Error performing action: ", options, actorId, actorAction, srcAction);
       }
     },
 
