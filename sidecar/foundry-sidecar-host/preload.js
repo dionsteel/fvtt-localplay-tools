@@ -15,9 +15,10 @@ const httpsServer = https.createServer(
     ca: fs.readFileSync("./fullchain.pem", "utf8"),
     insecureHTTPParser: true,
   },
-  _app
+  // _app
 );
 const { app } = expressws(_app, httpsServer);
+httpsServer.addListener('request',app)
 const { createProxyMiddleware, fixRequestBody, responseInterceptor } = require("http-proxy-middleware");
 const proxy = require("express-http-proxy");
 // const jsonc = require("jsonc");

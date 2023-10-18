@@ -310,7 +310,7 @@ function mountWebServer(app) {
           }
         }
       }
-      PlayerRolls.enableForPlayer(req.params.id);
+      PlayerRolls.enableForActor(req.params.id);
       function handlePlayerRPC(msg) {
         switch (msg.action) {
           case "performStrike":
