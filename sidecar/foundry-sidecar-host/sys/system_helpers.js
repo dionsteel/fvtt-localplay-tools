@@ -344,9 +344,13 @@ const helpers = {
       const srcAction = await this.getCommonAction(actionId);
       let actorAction = actor.items.get(actionId);
       if (!actorAction) {
-        await actor.items.set(actionId,srcAction);
-        actorAction = actor.items.get(actionId);
-        // actorAction = actor.items.find((a) => a.slug == srcAction.slug);
+        try {
+          await actor.items.set(actionId, srcAction);
+          actorAction = actor.items.get(actionId);
+          // actorAction = actor.items.find((a) => a.slug == srcAction.slug);
+        } catch (e) {
+          console.error("Error adding action to actor", e, { actionId,actorAction, srcAction });
+        }
       }
       try {
         if (actorAction) {
