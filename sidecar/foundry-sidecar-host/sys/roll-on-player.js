@@ -291,7 +291,7 @@ class RemoteRollPromptProxy {
     // );
     console.log("RemoteRollProxy.render", "result", result);
     if (result.success) {
-      await this.receiveUpdate(new Event("response"), result.formData);
+      await this.receiveUpdate(new Event("response"), result);
     } else {
       await this.close();
     }
