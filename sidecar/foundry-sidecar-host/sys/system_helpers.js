@@ -344,12 +344,13 @@ const helpers = {
       const srcAction = await this.getCommonAction(actionId);
       let actorAction = actor.items.get(actionId);
       if (!actorAction) {
-        await actor.inventory.add(srcAction);
+        await actor.items.add(srcAction);
         actorAction = actor.items.get(actionId);
+        // actorAction = actor.items.find((a) => a.slug == srcAction.slug);
       }
       try {
         if (actorAction) {
-          console.log('got action', {actorAction,srcAction})
+          console.log("got action", { actorAction, srcAction });
           actorAction.use({ ...options, actors: [actor] });
           actorAction.toChatMessage();
         } else {
