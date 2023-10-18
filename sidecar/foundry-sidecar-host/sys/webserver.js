@@ -388,7 +388,7 @@ function mountWebServer(app) {
         // forwardEventOverWS({ event: "updateToken", token: currentToken() || {} });
         forwardEventOverWS({ event: "updateCombat", combat: currentCombat() || {} });
 
-        const usrmsg = game.messages._getVisibleTreeContents();
+        const usrmsg = game.messages._getVisibleTreeContents().slice(-25);
         for (let msg of usrmsg) {
           forwardEventOverWS({ event: "renderChatMessage", message: msg, html: msg.flavor, source: msg._source });
         }
