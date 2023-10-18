@@ -312,7 +312,7 @@ const helpers = {
     /**
      *
      * @param {string} actionSourceId
-     * @returns {ActionItemPF2e}
+     * @returns {import("../../../foundry-types/src/types/foundry/systems/pf2e/module/item/action/document").ActionItemPF2e}
      */
     async getCommonAction(actionId = "1OagaWtBpVXExToo") {
       let ai = fromUuid("Compendium.pf2e.actionspf2e.Item." + actionId);
@@ -356,7 +356,8 @@ const helpers = {
         if (actorAction) {
           console.log("got action", { actorAction, srcAction });
           actorAction.use({ ...options, actors: [actor] });
-          actorAction.toChatMessage();
+          actorAction.toChat();
+          
         } else {
           console.log("id changed??", actorAction, srcAction);
         }

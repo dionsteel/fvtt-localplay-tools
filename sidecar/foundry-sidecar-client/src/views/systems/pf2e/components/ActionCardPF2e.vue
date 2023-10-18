@@ -176,9 +176,9 @@ function mf(t: number) {
         {{ (action.macro?.statistic || action.macro.name || action.macro.title || "Use").toUpperCase() ?? "" }}
         {{ action.macro.statistic ? mf(actorStats[action.macro.statistic || ""]?.value || 0) : "" }}
       </IonButton>
-      <template v-if="!action.macro">
+      <!-- <template v-if="!action.macro">
         <IonButton @click.preventDefault="actorHelper?.performAction(action._id) && false">Use</IonButton>
-      </template>
+      </template> -->
     </IonCard>
   </IonAccordion>
 </template>
