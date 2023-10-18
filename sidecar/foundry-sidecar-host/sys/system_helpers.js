@@ -295,7 +295,12 @@ const helpers = {
      */
     getStrikeItem(actorid, identifier) {
       const actor = pf2eactor(actorid);
-      return actor.items.get(identifier.split('.').shift());
+      const [itemId, slug] = identifier.split(".", 2);
+      let action = actor.system.actions.find((a) => a.slug == slug);
+      if (!action) {
+        actor.system.actions.find((a) => a.item._id == itemId);
+      }
+      return action;
     },
     /**
      * @returns {import("../../../foundry-types/src/types/foundry/systems/pf2e/module/actor/data/base").StrikeData}
