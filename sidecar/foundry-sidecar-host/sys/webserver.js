@@ -441,6 +441,7 @@ function mountWebServer(app) {
                     console.error(e);
                   }
                 }
+                e.strike = { ...e._strike };
                 // return true;
                 if (e.message.speaker?.alias == "Gamemaster") {
                   return true;
