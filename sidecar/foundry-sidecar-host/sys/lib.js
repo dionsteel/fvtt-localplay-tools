@@ -4,7 +4,7 @@ const { map, filter, reduce, scan, share, tap } = require("rxjs/operators");
 const { PlayerRolls } = require("./roll-on-player");
 
 const debugHooks = false;
-const gmlogin = true;
+const gmlogin = false;
 const autologin = true;
 const creds = {
   coventry: {
