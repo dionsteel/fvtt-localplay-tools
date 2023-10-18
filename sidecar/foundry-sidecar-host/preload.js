@@ -78,7 +78,15 @@ function mountWebServer5e(_game) {
   app.put("/actor/:id/tools/:item_id", (req, res) => res.json(_game.actors.get(req.params.id).items.get(req.params.item_id).importFromJSON(req.body)));
   app.put("/actor/:id/loots/:item_id", (req, res) => res.json(_game.actors.get(req.params.id).items.get(req.params.item_id).importFromJSON(req.body)));
 }
-const httpsServer = https.createServer({ cert: fs.readFileSync("./cert.pem", "utf8"), key: fs.readFileSync("./privkey.pem", "utf8"), insecureHTTPParser: true }, app);
+const httpsServer = https.createServer(
+  {
+    cert: fs.readFileSync("./cert.pem", "utf8"),
+    key: fs.readFileSync("./privkey.pem", "utf8"),
+    ca: fs.readFileSync("./fullchain.pem", "utf8"),
+    insecureHTTPParser: true,
+  },
+  app
+);
 httpsServer.on("error", (e) => console.error(e));
 httpsServer.listen(3000, () => console.log("Listening on https://192.168.8.127:3000/"));
 // app.listen(3000);

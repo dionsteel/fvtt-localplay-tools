@@ -60,10 +60,10 @@ export function dereference<T>(input: any): T {
 export const useConfigStore = defineStore('config', {
   state() {
     return {
-      // SidecarServer: "192.168.8.115:3000",
-      // SidecarUrl: `http://192.168.8.115:3000`,
-      SidecarServer: "https://192.168.8.127:3000", 
-      SidecarUrl: `https://192.168.8.127:3000`,
+      SidecarServer: "127.0.0.1:3000",
+      SidecarUrl: `https://127.0.0.1:3000`,
+      // SidecarServer: "https://192.168.8.127:3000", 
+      // SidecarUrl: `https://192.168.8.127:3000`,
       SelectedActors: [] as Array<{ actorId: string; worldId: string; listing?: ActorListing }>,
       chatMessages: [] as Array<SocketEventMap['renderChatMessage'] & { eventSource: any }>
     }
