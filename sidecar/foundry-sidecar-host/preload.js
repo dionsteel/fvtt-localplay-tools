@@ -1,7 +1,8 @@
 // import { ActorPF2e } from "../../foundry-types/src/types/foundry/systems/pf2e/module/documents";
 const path = require("path");
 const fs = require("fs");
-
+const http = require("http");
+const https = require("https");
 const express = require("express");
 const expressws = require("express-ws");
 const cors = require("cors");
@@ -77,6 +78,6 @@ function mountWebServer5e(_game) {
   app.put("/actor/:id/tools/:item_id", (req, res) => res.json(_game.actors.get(req.params.id).items.get(req.params.item_id).importFromJSON(req.body)));
   app.put("/actor/:id/loots/:item_id", (req, res) => res.json(_game.actors.get(req.params.id).items.get(req.params.item_id).importFromJSON(req.body)));
 }
-
-app.listen(3000);
+https.createServer({ cert: fs.readFileSync("./cert.pem", "utf8"), key: fs.readFileSync("./key.pem", "utf8") }, app).listen({ port: 3000 });
+// app.listen(3000);
 //# sourceMappingURL=preload.js.map
