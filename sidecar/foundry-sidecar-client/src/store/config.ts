@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import url from "url";
+// import url from "url";
 import { Ref, computed, ref } from "vue";
 import { Observable, ObservableInput, Subject, map } from "rxjs";
 import { fromFetch } from "rxjs/fetch";
@@ -57,28 +57,30 @@ export function dereference<T>(input: any): T {
   return output;
 }
 
-export const useConfigStore = defineStore('config', {
+export const useConfigStore = defineStore("config", {
   state() {
     return {
       // SidecarServer: "127.0.0.1:3000",
       // SidecarUrl: `https://127.0.0.1:3000`,
-      SidecarServer: "https://192.168.8.127:3000", 
+      SidecarServer: "https://192.168.8.127:3000",
       SidecarUrl: `https://192.168.8.127:3000`,
       SelectedActors: [] as Array<{ actorId: string; worldId: string; listing?: ActorListing }>,
-      chatMessages: [] as Array<SocketEventMap['renderChatMessage'] & { eventSource: any }>
-    }
+      chatMessages: [] as Array<SocketEventMap["renderChatMessage"] & { eventSource: any }>,
+    };
   },
   getters: {
     websocketBaseUrl: (state) => {
-      const purl = url.parse(state.SidecarUrl);
-      let proto = purl.protocol == "https" ? "wss" : "ws";
-      let host = purl.hostname;
-      let port = purl.port != "80" ? ":" + purl.port : "";
-      return `${proto}://${host}${port}`;
-    }
-  }, actions: {
+      // const purl = state.SidecarUrl.replace(/^http/,'ws')
+      return state.SidecarUrl.replace(/^http/, "ws");
+      // let proto = purl.protocol == "https" ? "wss" : "ws";
+      // let host = purl.hostname;
+      // let port = purl.port != "80" ? ":" + purl.port : "";
+      // return `${proto}://${host}${port}`;
+    },
+  },
+  actions: {
     getAPIUrl(suffix: string) {
-      return url.resolve(this.SidecarUrl, suffix);
+      return `${this.SidecarUrl}/${suffix.replace(/^\//, "")}`;
     },
     getWebsocketUrl(suffix: string) {
       console.log("websocketBaseUrl.value", this.websocketBaseUrl);
@@ -92,9 +94,11 @@ export const useConfigStore = defineStore('config', {
     ): Observable<T> {
       return fromFetch(this.getAPIUrl(input), { selector: (response) => response.json() }).pipe(map((j) => dereference(j))); //.pipe(mergeMap((r) => r.json()));
     },
-    
+
     fetchJson<T>(input: string): Promise<T> {
-      return fetch(this.getAPIUrl(input)).then(r => r.json()).then(d => dereference(d));
+      return fetch(this.getAPIUrl(input))
+        .then((r) => r.json())
+        .then((d) => dereference(d));
     },
 
     getSocketSubject<T>(input: string) {
@@ -102,8 +106,8 @@ export const useConfigStore = defineStore('config', {
       return webSocket<T>({ url });
     },
   },
-  persist: true
-})
+  persist: true,
+});
 
 // defineStore("config", {
 //   // const SidecarServer = ref("localhost:3000");
