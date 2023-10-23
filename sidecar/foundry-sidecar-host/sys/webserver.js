@@ -613,7 +613,9 @@ function mountWebServer(app) {
       )
       .catch((e) => console.error(e));
   });
-
+  app.get("/journals", (req, res) => {
+    res.json(helper.getJournals());
+  })
   // if (isPathfinderGame(game)) {
   //   mountWebServerPF2e(game);
   // } else if (isDnD5eGame(game)) {
@@ -647,7 +649,7 @@ function mountWebServer(app) {
         next("route");
       } else {
         const dirname = path.dirname(__dirname);
-        console.log("serving file from ",dirname);
+        console.log("serving file from ", dirname);
         res
           .sendFile(
             "foundry-sidecar-client/dist/index.html",
