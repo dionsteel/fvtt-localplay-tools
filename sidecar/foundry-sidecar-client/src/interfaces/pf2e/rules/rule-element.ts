@@ -8,18 +8,18 @@ export type PredicateField = any;
 export type SchemaField<A, B, C, D, E, F> = any;
 // import type { BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d";
 type RuleElementSource = {
-  key?: unknown;
-  data?: unknown;
-  value?: unknown;
-  label?: unknown;
-  slug?: unknown;
+  key?: string;
+  data?: any;
+  value?: any;
+  label?: string;
+  slug?: unknown;toggleable?:boolean;
   predicate?: unknown;
   /** The place in order of application (ascending), among an actor's list of rule elements */
   priority?: number;
-  ignored?: unknown;
-  requiresInvestment?: unknown;
-  requiresEquipped?: unknown;
-  removeUponCreate?: unknown;
+  ignored?: boolean;
+  requiresInvestment?: boolean;
+  requiresEquipped?: boolean;
+  removeUponCreate?: boolean;
 };
 type RuleValue = string | number | boolean | object | BracketedValue | null;
 interface Bracket<T extends object | number | string> {

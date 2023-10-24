@@ -69,7 +69,7 @@ export interface ActorSocketEvent<S extends SystemTypeMap = SystemTypeMap, K ext
 }
 
 export type ActorUpdateEvent<S extends SystemTypeMap = SystemTypeMap> = ActorSocketEvent<S, "updateActor">;
-
+export type ItemDeleteEvent<S extends SystemTypeMap = SystemTypeMap> = SocketEventMap<S>["deleteItem"];
 export interface CharacterUpdateEvent<S extends SystemTypeMap = SystemTypeMap> extends ActorUpdateEvent<S> {
   event: "updateActor";
   actor: Partial<Character>;
@@ -136,11 +136,21 @@ export class ActorHelper<S extends SystemTypeMap = SystemTypeMap> {
         applyDeep(this.actor?.value as any, (e.actor || e.data) as any);
       }
     });
+    this.events.pipe<ItemDeleteEvent<S>>(filter<any>((e) => e.event == "deleteItem")).subscribe((e) => {
+      let eidx = this.actor.value.items.findIndex((i) => i._id == e?.item?._id);
+      if (eidx >= 0) {
+        this.actor.value.items.splice(eidx, 1);
+        eidx = (this.actor.value as any).itemTypes[e.item.type].findIndex((i: any) => i._id == e.item._id);
+        if (eidx >= 0) {
+          (this.actor.value as any).itemTypes[e.item.type].splice(eidx, 1);
+        }
+      }
+    });
   }
 
   async load() {
     this.actor.value = await this.world.getActorData(this.id, false);
-    return !!this.actor.value?.system
+    return !!this.actor.value?.system;
   }
 
   applyChanges(partial: Partial<Character<S>>) {
@@ -219,7 +229,7 @@ export class SystemHelper<S extends SystemTypeMap = SystemTypeMap> {
   allEvents = new Subject<ActorSocketEvent<S>>();
 
   chat$ = this.allEvents.pipe(
-    filter((e) => e.event == "renderChatMessage"),
+    filter((e) => e.event == "renderChatMessage")
     // scan(
     //   (a, c) => {
     //     a.push(c as any);

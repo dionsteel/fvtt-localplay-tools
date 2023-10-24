@@ -138,11 +138,7 @@ interface CreatureAttributes extends ActorAttributes {
     /** Its reach for the purpose of manipulate actions, usually the same as its base reach */
     manipulate: number;
   };
-  senses:
-    | {
-        value: string;
-      }
-    | CreatureSensePF2e[];
+  senses: CreatureSensePF2e[];
   shield?: HeldShieldData;
   speed: CreatureSpeeds;
   /** The current dying level (and maximum) for this creature. */

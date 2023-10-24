@@ -23,7 +23,7 @@ const shieldTextColours = {
 };
 
 const armourGroup = computed(() => {
-  const domains = props?.ac?.modifiers?.filter((m) => m.enabled).map((m) => m.type);
+  const domains = (props?.ac?.modifiers || []).filter((m) => m.enabled).map((m) => m.type);
   let armourGroup = "flat";
   if (domains.includes("ability")) armourGroup = "natural";
   if (domains.includes("proficiency")) armourGroup = "natural";

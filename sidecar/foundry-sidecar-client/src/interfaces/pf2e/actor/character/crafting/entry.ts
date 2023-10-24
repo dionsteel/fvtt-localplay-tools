@@ -1,6 +1,6 @@
 import { ImageFilePath } from "@/lib/utils";
 import { ActorPF2e } from "../../../actor";
-import { CharacterPF2e } from "../../../actor/character";
+import { CharacterPF2e } from "../../CharacterPF2e";
 import { ItemPF2e } from "../../../item";
 import { PredicatePF2e, RawPredicate } from "../../../system/predication";
 import { CraftingFormula } from "./formula";

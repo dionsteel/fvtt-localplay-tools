@@ -9,9 +9,11 @@ import { LootSystemData } from "./actor/loot";
 import { NPCSystemData } from "./actor/npc";
 import { VehicleSystemData } from "./actor/vehicle";
 import { SpellPF2e } from "./item";
+import { ActionSystemData } from "./item/action";
 import { AncestrySystemData } from "./item/ancestry";
 import { BackgroundSystemData } from "./item/background";
 import { ClassSystemData } from "./item/class";
+import { ConditionSystemData } from "./item/condition";
 import { EquipmentSystemData } from "./item/equipment";
 import { FeatSystemData } from "./item/feat";
 import { HeritageSystemData } from "./item/heritage";
@@ -31,6 +33,7 @@ export interface PF2eTypes extends SystemTypeMap {
   ActorSystemType: ActorSystemData;
   BaseItemData: ItemSystemData;
   ItemDataTypes: {
+    action:ActionSystemData;
     ancestry: AncestrySystemData;
     background: BackgroundSystemData;
     class: ClassSystemData;
@@ -42,6 +45,7 @@ export interface PF2eTypes extends SystemTypeMap {
     equipment: EquipmentSystemData;
     heritage: HeritageSystemData;
     classfeature: FeatSystemData;
+    condition: ConditionSystemData;
   };
 }
 

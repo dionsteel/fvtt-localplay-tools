@@ -26,6 +26,8 @@ interface ConditionSystemSource extends AbstractEffectSystemSource {
   };
   duration: {
     value: number;
+    expiry?:any;
+    unit?:string;
   };
   persistent?: PersistentSourceData;
   group: string | null;
@@ -42,6 +44,7 @@ interface PersistentSourceData {
 }
 interface ConditionSystemData extends Omit<ConditionSystemSource, "fromSpell">, Omit<AbstractEffectSystemData, "level" | "slug" | "traits"> {
   persistent?: PersistentDamageData;
+  expiry?:any;
 }
 interface PersistentDamageData extends PersistentSourceData, ItemSystemSource {
   damage: DamageRoll;

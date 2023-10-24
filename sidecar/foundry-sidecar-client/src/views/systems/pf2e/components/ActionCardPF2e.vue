@@ -24,6 +24,9 @@ import {
   IonSelectOption,
   IonText,
   IonHeader,
+  IonGrid,
+  IonCol,
+  IonRow,
 } from "@ionic/vue";
 import { capitalize, computed, inject } from "vue";
 import DynamicComponent from "@/lib/DynamicComponent.vue";
@@ -85,26 +88,49 @@ function mf(t: number) {
 <template>
   <IonAccordion>
     <IonItem slot="header">
-      <IonImg class="action-icon" :src="game.world.config.getAPIUrl(action.img)"></IonImg>
-      <IonLabel>{{ action.name }}</IonLabel>
-      <template v-if="action.macro">
-        <IonButton
-          size="small"
-          class="ion-text-wrap"
-          style="max-width: 130px"
-          v-if="(action.macro.variants?.length || 0) > 0"
-          v-for="variant in action.macro.variants"
-          @click.stop.prevent="actorHelper?.performGenericAction(action.macro.slug, { variant: variant.slug })">
-          {{ variant.title || variant.name || variant.statistic?.toUpperCase() }} {{ mf(actorStats[variant.statistic || action.macro.statistic || ""]?.value || 0) }}
-        </IonButton>
-        <IonButton class="ion-text-wrap" style="max-width: 130px" size="small" v-else @click.stop.prevent="actorHelper?.performGenericAction(action.macro.slug)">
-          {{ (action.macro?.statistic || action.macro.name || action.macro.title || "Use").toUpperCase() ?? "" }}
-          {{ action.macro.statistic ? mf(actorStats[action.macro.statistic || ""]?.value || 0) : "" }}
-        </IonButton>
-      </template>
-      <template v-else>
+      <IonGrid>
+        <IonRow>
+          <IonCol size="auto">
+            <IonImg class="action-icon" :src="game.world.config.getAPIUrl(action.img)"></IonImg>
+          </IonCol>
+          <IonCol>
+            <IonRow>
+              <IonLabel>{{ action.name }}</IonLabel>
+            </IonRow>
+            <IonRow v-if="action.macro">
+              <IonButton
+                size="small"
+                class="ion-text-wrap"
+                v-if="(action.macro.variants?.length || 0) > 0"
+                v-for="variant in action.macro.variants"
+                @click.stop.prevent="actorHelper?.performGenericAction(action.macro.slug, { variant: variant.slug })">
+                {{ variant.title || variant.name || variant.statistic?.toUpperCase() }} {{ mf(actorStats[variant.statistic || action.macro.statistic || ""]?.value || 0) }}
+              </IonButton>
+              <IonButton class="ion-text-wrap" size="small" v-else @click.stop.prevent="actorHelper?.performGenericAction(action.macro.slug)">
+                {{ (action.macro?.statistic || action.macro.name || action.macro.title || "Use").toUpperCase() ?? "" }}
+                {{ action.macro.statistic ? mf(actorStats[action.macro.statistic || ""]?.value || 0) : "" }}
+              </IonButton>
+            </IonRow>
+            <IonRow v-else>
+              <IonButton class="ion-text-wrap" size="small" @click.stop="actorHelper?.performAction(action._id)">
+                {{ "Use" }}
+              </IonButton>
+            </IonRow>
+          </IonCol>
+        </IonRow>
+        <IonRow class="ion-padding">
+          <span style="padding: 3px; border: 1px solid #666; color: #999; font-size: 0.7em; margin-right: 1px" v-for="trait of action?.system?.traits?.value">
+            {{ capitalize(trait || "") }}
+          </span>
+          <span style="padding: 3px; border: 1px solid #666; color: #999; font-size: 0.7em; margin-right: 1px" color="tertiary" v-if="action?.system?.traits?.rarity">
+            {{ capitalize(action?.system?.traits?.rarity || "") }}
+          </span>
+        </IonRow>
+      </IonGrid>
+
+      <!-- <template v-else>
         <IonButton class="ion-text-wrap" style="max-width: 130px" @click.stop.prevent="actorHelper?.performAction(action._id) && false">Use</IonButton>
-      </template>
+      </template> -->
       <!-- <IonLabel>
         <IonBadge slot="end" color="secondary" v-if="action.system.actionType.value">
           <span v-if="action.system.actions.value">{{ action.system.actions.value }}</span>

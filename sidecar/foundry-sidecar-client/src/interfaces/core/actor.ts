@@ -3,6 +3,7 @@ import { ActivatedEffect5e } from "../dnd5e/item/mixins/activated-effect";
 import { BaseActorSystemData, BaseTokenSystemData, Flags, Ownership } from "./flags";
 import { Item, ItemSystemData } from "./items/item";
 import { ItemTypes } from "./items/itemTypes";
+import { CharacterPF2e } from "../pf2e";
 
 /*
 
@@ -13,6 +14,13 @@ export interface SystemTypeMap {
   ActorTypes: string; // "character" | "npc" | "vehicle" | "loot" | "hazard";
   ActorDataTypes: {
     character: BaseActorSystemData;
+    npc: BaseActorSystemData;
+    vehicle?: BaseActorSystemData;
+    loot?: BaseActorSystemData;
+    hazard?: BaseActorSystemData;
+  };
+  ActorContainerTypes: {
+    character: CharacterPF2e;
     npc: BaseActorSystemData;
     vehicle?: BaseActorSystemData;
     loot?: BaseActorSystemData;

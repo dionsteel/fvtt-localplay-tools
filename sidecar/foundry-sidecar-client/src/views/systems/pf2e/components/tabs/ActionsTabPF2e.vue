@@ -15,6 +15,8 @@ import {
   IonContent,
   IonImg,
   IonItem,
+  IonItemDivider,
+  IonItemGroup,
   IonList,
   IonPage,
   IonSelect,
@@ -24,6 +26,7 @@ import { capitalize, computed, inject } from "vue";
 import DynamicComponent from "@/lib/DynamicComponent.vue";
 import ActionCardPF2e from "../ActionCardPF2e.vue";
 import StrikeCardPF2e from "../StrikeCardPF2e.vue";
+import { i18n } from "@/interfaces/pf2e/lang/all";
 
 const game = usePF2eGame();
 const helper = game.helper;
@@ -87,13 +90,14 @@ function allTraitsAllowed(action: ActionItemPF2e) {
   return false;
   return allowedRarities.includes(action.system.traits.rarity || "") && action.system.traits.value.every((t) => allowedTraits.includes(t));
 }
+const toggleItems = computed(() => actor?.items?.filter((i) => i.system.rules.filter((r) => r.toggleable).length > 0));
 </script>
 
 <template>
   <IonPage>
     <IonContent>
       <IonList>
-        <IonItem>
+        <!-- <IonItem>
           <IonSelect aria-label="Filter Traits" :multiple="true" :label="'Filter Traits'" :value="allowedTraits">
             <IonSelectOption v-for="tag in allTraits" :value="tag">
               {{ capitalize(tag) }}
@@ -102,52 +106,58 @@ function allTraitsAllowed(action: ActionItemPF2e) {
         </IonItem>
 
         <IonItem>In-Combat Actions </IonItem>
-        <IonItem>Your Actions</IonItem>
-        <IonAccordionGroup>
-          <IonItem> Strikes</IonItem>
-          <StrikeCardPF2e v-for="(strike, strikeIdx) in actor?.system.actions" :strike="strike" :strikeIdx="strikeIdx"> </StrikeCardPF2e>
-          <ActionCardPF2e v-for="action in actorActions" :action="action"></ActionCardPF2e>
+        <IonItem>Your Actions</IonItem> -->
+        <IonItemGroup>
+          <IonItemDivider> Toggles </IonItemDivider>
+          <IonItem v-for="item in toggleItems">
+            <template v-for="rt in item.system.rules.filter((r) => r.toggleable)">
+              <IonCheckbox label-placement="end" :checked="rt.value"> {{ i18n(rt.label || "") }}</IonCheckbox>
+            </template>
+          </IonItem>
+          <IonItemDivider> Strikes</IonItemDivider>
+          <IonAccordionGroup>
+            <StrikeCardPF2e v-for="(strike, strikeIdx) in actor?.system.actions" :strike="strike" :strikeIdx="strikeIdx"> </StrikeCardPF2e>
+            <IonItemDivider>Your Actions</IonItemDivider>
+            <ActionCardPF2e v-for="action in actorActions" :action="action"></ActionCardPF2e>
 
-          <IonAccordion>
-            <IonItem slot="header">General Actions</IonItem>
-            <IonAccordionGroup slot="content">
+            <IonItemDivider>General Actions</IonItemDivider>
+            <IonAccordionGroup>
               <ActionCardPF2e v-for="action in generalActions" :action="action"></ActionCardPF2e>
             </IonAccordionGroup>
-          </IonAccordion>
-          <IonAccordion>
-            <IonItem slot="header">Skill Actions</IonItem>
-            <IonAccordionGroup slot="content">
+
+            <IonItemDivider>Skill Actions</IonItemDivider>
+            <IonAccordionGroup>
               <ActionCardPF2e v-for="action in skillActionCategories.action" :action="action"></ActionCardPF2e>
               <ActionCardPF2e v-for="action in skillActionCategories.offensive" :action="action"></ActionCardPF2e>
               <ActionCardPF2e v-for="action in skillActionCategories.defensive" :action="action"></ActionCardPF2e>
               <ActionCardPF2e v-for="action in skillActionCategories.interaction" :action="action"></ActionCardPF2e>
             </IonAccordionGroup>
-          </IonAccordion>
-        </IonAccordionGroup>
+          </IonAccordionGroup>
 
-        <IonItem> Exploration Actions </IonItem>
-        <IonAccordionGroup>
-          <IonAccordion v-for="(actions, cat) in explorationActionCategories">
-            <IonItem slot="header">
-              {{ capitalize(cat) }}
-            </IonItem>
-            <IonAccordionGroup slot="content">
-              <ActionCardPF2e v-for="action in actions" :action="action"></ActionCardPF2e>
-            </IonAccordionGroup>
-          </IonAccordion>
-        </IonAccordionGroup>
+          <IonItemDivider> Exploration Actions </IonItemDivider>
+          <IonAccordionGroup>
+            <IonAccordion v-for="(actions, cat) in explorationActionCategories">
+              <IonItem slot="header">
+                {{ capitalize(cat) }}
+              </IonItem>
+              <IonAccordionGroup slot="content">
+                <ActionCardPF2e v-for="action in actions" :action="action"></ActionCardPF2e>
+              </IonAccordionGroup>
+            </IonAccordion>
+          </IonAccordionGroup>
 
-        <IonItem> Downtime Actions </IonItem>
-        <IonAccordionGroup>
-          <IonAccordion v-for="(actions, cat) in downtimeActionCategories">
-            <IonItem slot="header">
-              {{ capitalize(cat) }}
-            </IonItem>
-            <IonAccordionGroup slot="content">
-              <ActionCardPF2e v-for="action in actions" :action="action"></ActionCardPF2e>
-            </IonAccordionGroup>
-          </IonAccordion>
-        </IonAccordionGroup>
+          <IonItem> Downtime Actions </IonItem>
+          <IonAccordionGroup>
+            <IonAccordion v-for="(actions, cat) in downtimeActionCategories">
+              <IonItem slot="header">
+                {{ capitalize(cat) }}
+              </IonItem>
+              <IonAccordionGroup slot="content">
+                <ActionCardPF2e v-for="action in actions" :action="action"></ActionCardPF2e>
+              </IonAccordionGroup>
+            </IonAccordion>
+          </IonAccordionGroup>
+        </IonItemGroup>
       </IonList>
     </IonContent>
   </IonPage>
