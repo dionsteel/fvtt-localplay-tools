@@ -613,7 +613,9 @@ function mountWebServer(app) {
       )
       .catch((e) => console.error(e));
   });
-
+  app.get("/journals", (req, res) => {
+    res.json(helper.getJournals());
+  })
   // if (isPathfinderGame(game)) {
   //   mountWebServerPF2e(game);
   // } else if (isDnD5eGame(game)) {
@@ -641,13 +643,13 @@ function mountWebServer(app) {
     try {
       if (
         proxy_paths.filter((p) => req.path.startsWith(p) || req.path.startsWith("/" + p)).length > 0 ||
-        req.path.match(/\.(jpg|jpeg|png|webp|webm|gif|mp4|mp3|mp[\deg]{1,2}|avi|css|json|js|mjs|woff2|ttf|wof.*|svg|hbs)$/i)
+        req.path.match(/\.(jpg|jpeg|png|webp|webm|gif|mp4|mp3|mp[\deg]{1,2}|avi|css|json|js|mjs|woff2|ttf|wof[\w\d]*|svg|hbs)$/i)
       ) {
         // console.log("forwarding to next");
         next("route");
       } else {
-        // console.log("serving file");
         const dirname = path.dirname(__dirname);
+        console.log("serving file from ", dirname);
         res
           .sendFile(
             "foundry-sidecar-client/dist/index.html",

@@ -37,13 +37,19 @@ export interface CharacterClient {
   updates: Observable<CharacterUpdateEvent>;
 }
 
-export const usePF2eGame = defineStore("pf2e", () => {
-  const world = useWorldStore();
-  // const actors: Record<string, CharacterClient> = {};
-  const helper = new PF2eHelper();
-  const allEvents = helper.allEvents;
-  return { world, config: world.config, helper, events: allEvents };
-});
+export const usePF2eGame = defineStore("pf2e",
+  {
+    state() {
+      const world = useWorldStore();
+      // const actors: Record<string, CharacterClient> = {};
+      const helper = new PF2eHelper();
+      const allEvents = helper.allEvents;
+      return { world, config: world.config, helper, events: allEvents, journals: [] };
+    },
+    actions: {},
+    getters: {},
+    persist: true
+  });
 
 /*
 

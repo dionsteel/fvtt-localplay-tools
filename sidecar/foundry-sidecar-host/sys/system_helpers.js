@@ -417,6 +417,10 @@ const helpers = {
         strike?.damage({ consumeAmmo: true, target: targetId, altUsage });
       }
     },
+
+    getJournals(options){
+      return pf2egame().journal.tree()
+    }
   },
 };
 
