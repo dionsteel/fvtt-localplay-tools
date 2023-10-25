@@ -38,12 +38,18 @@ export class ActorHelperPF2e extends ActorHelper<PF2eTypes> {
   async rollSkillCheck(options: any = {}) {
     this.performRPC("rollSkillCheck", options);
   }
-  async setItemToggle(options: any = {}) {
+  async rollPerceptionCheck(options: any = {}) {
+    this.performRPC("rollPerceptionCheck", options);
+  }
+  async rollInitiative(options: any = {}) {
+    this.performRPC("rollInitiative", options);
+  }
+  setItemToggle(options: any = {}) {
     this.performRPC("setItemToggle", options);
   }
 
   async setInitiativeStat(options: any = {}) {
-    this.performRPC("setInitiativeStat", options);
+    this.performRPC("setInitiative", options);
   }
 
   async castSpell(options: any = {}) {

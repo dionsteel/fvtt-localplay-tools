@@ -382,11 +382,42 @@ const helpers = {
         console.error("error setting toggle", actorId, options);
       }
     },
+    setInitiative(actorid, options = {}) {
+      try {
+        const { slug, } = options;
+        const actor = pf2eactor(actorid);
+        if (actor.skills[slug]) {
+          actor.initiative.statistic = actor.skills[slug];
+        }
+      } catch (e) {
+        console.error("error setting toggle", actorId, options);
+      }
+    },
     rollSkillCheck(actorId, options = {}) {
       try {
         const { skill, shortForm } = options;
         const actor = pf2eactor(actorid);
         actor?.skills[skill]?.check?.roll();
+      } catch (e) {
+        console.error("error doing skill check", actorId, options);
+      }
+    },
+    rollPerceptionCheck(actorId, options = {}) {
+      try {
+        const { skill, shortForm } = options;
+        const actor = pf2eactor(actorid);
+        actor.perception.check.roll();
+        // actor?.skills[skill]?.check?.roll();
+      } catch (e) {
+        console.error("error doing skill check", actorId, options);
+      }
+    },
+    rollInitiative(actorId, options = {}) {
+      try {
+        const { skill, shortForm } = options;
+        const actor = pf2eactor(actorid);
+        actor.rollInitiative();
+        // actor?.skills[skill]?.check?.roll();
       } catch (e) {
         console.error("error doing skill check", actorId, options);
       }

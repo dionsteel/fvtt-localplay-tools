@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CharacterPF2e } from "@/interfaces/pf2e";
+import { ActorHelperPF2e, CharacterPF2e } from "@/interfaces/pf2e";
 import { ActionsPF2e } from "@/interfaces/pf2e/actions_pf2e";
 import { ActionMacroDescription, ActionMacros } from "@/interfaces/pf2e/action-macros";
 import { ActionItemPF2e } from "@/interfaces/pf2e/item";
@@ -31,6 +31,7 @@ import { i18n } from "@/interfaces/pf2e/lang/all";
 const game = usePF2eGame();
 const helper = game.helper;
 const actor = inject<CharacterPF2e>("actor");
+const actorHelper = inject<ActorHelperPF2e>("actorHelper");
 function categorise<T = any>(actions: any[]): Record<string, T[]> {
   return Object.fromEntries(
     Object.entries(
@@ -109,10 +110,13 @@ const toggleItems = computed(() => actor?.items?.filter((i) => i.system.rules.fi
         <IonItem>Your Actions</IonItem> -->
         <IonItemGroup>
           <IonItemDivider> Toggles </IonItemDivider>
-          <IonItem v-for="item in toggleItems">
-            <template v-for="rt in item.system.rules.filter((r) => r.toggleable)">
-              <IonCheckbox label-placement="end" :checked="rt.value"> {{ i18n(rt.label || "") }}</IonCheckbox>
-            </template>
+          <IonItem v-for="item in actor?.synthetics?.toggles">
+            <!-- <template v-for="rt in item.system.rules.filter((r) => r.toggleable)"> -->
+            <IonCheckbox :onIonChange="(e) => actorHelper?.setItemToggle({ itemId: item.itemId, enabled: e.target.checked })" label-placement="end" :checked="item.checked">
+              {{ item.label }}
+            </IonCheckbox>
+
+            <!-- </template> -->
           </IonItem>
           <IonItemDivider> Strikes</IonItemDivider>
           <IonAccordionGroup>
