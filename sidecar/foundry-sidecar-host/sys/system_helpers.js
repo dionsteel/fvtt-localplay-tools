@@ -336,33 +336,38 @@ const helpers = {
     },
 
     async performAction(actorId, options = {}) {
-      let { actionId, slug, variant } = options;
+      let { actionId, slug, variant, force } = options;
 
       const actor = pf2eactor(actorId);
-      const controlled = this.controlActorToken(actor);
+      if (actor) {
+        const controlled = this.controlActorToken(actor);
 
-      const srcAction = await this.getCommonAction(actionId);
-      let actorAction = actor.items.get(actionId);
-      if (!actorAction) {
-        try {
-          await actor.items.set(actionId, srcAction);
-          actorAction = actor.items.get(actionId);
-          // actorAction = actor.items.find((a) => a.slug == srcAction.slug);
-        } catch (e) {
-          console.error("Error adding action to actor", e, { actionId,actorAction, srcAction });
-        }
-      }
-      try {
-        if (actorAction) {
-          console.log("got action", { actorAction, srcAction });
-          actorAction.use({ ...options, actors: [actor] });
-          // actorAction.toChat();
-          
+        let actorAction = actor.items.get(actionId);
+        if (!actorAction && force) {
+          try {
+            const srcAction = await this.getCommonAction(actionId);
+            await actor.items.set(actionId, srcAction);
+            actorAction = actor.items.get(actionId);
+            // actorAction = actor.items.find((a) => a.slug == srcAction.slug);
+          } catch (e) {
+            console.error("Error adding action to actor", e, { actionId, actorAction, srcAction });
+          }
         } else {
-          console.log("id changed??", actorAction, srcAction);
+          console.error(`Couldn't find action ${actionId} on actor ${actorId}`, options, actorAction, actor, controlled);
         }
-      } catch (e) {
-        console.error("Error performing action: ",e, options, actorId, actorAction, srcAction);
+        try {
+          if (actorAction) {
+            console.log("got action", { actorAction });
+            actorAction.use({ ...options, actors: [actor] });
+            // actorAction.toChat();
+          } else {
+            console.log("id changed??", actorAction, { actorId, options });
+          }
+        } catch (e) {
+          console.error("Error performing action: ", e, options, actorId, actorAction, srcAction);
+        }
+      } else {
+        console.error(`Couldn' find actor`, actorId, options);
       }
     },
 
@@ -390,10 +395,18 @@ const helpers = {
     },
     controlActorToken(actor) {
       let worked = false;
-      actor.getActiveTokens(true, false).forEach((t) => {
-        console.log("controlling actor token", actor, t);
-        worked = t.control(true);
-      });
+      try {
+        actor.getActiveTokens(true, false).forEach((t) => {
+          try {
+            console.log("controlling actor token", actor, t);
+            worked = t.control(true);
+          } catch (e) {
+            console.error("controlActorToken", e);
+          }
+        });
+      } catch (e) {
+        console.error("controlActorToken", e);
+      }
       return worked;
     },
     performStrikeAux(actorid, options = {}) {
@@ -418,9 +431,9 @@ const helpers = {
       }
     },
 
-    getJournals(options){
-      return pf2egame().journal.tree()
-    }
+    getJournals(options) {
+      return pf2egame().journal.tree();
+    },
   },
 };
 
