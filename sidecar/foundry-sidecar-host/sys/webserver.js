@@ -338,6 +338,13 @@ function mountWebServer(app) {
             // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();
             break;
           default:
+            if (helper[msg.action]) {
+              try {
+                helper[msg.action](tgtActor._id, msg.options);
+              } catch (e) {
+                console.error(e);
+              }
+            }
             break;
         }
       }
@@ -615,7 +622,7 @@ function mountWebServer(app) {
   });
   app.get("/journals", (req, res) => {
     res.json(helper.getJournals());
-  })
+  });
   // if (isPathfinderGame(game)) {
   //   mountWebServerPF2e(game);
   // } else if (isDnD5eGame(game)) {

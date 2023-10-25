@@ -370,7 +370,36 @@ const helpers = {
         console.error(`Couldn' find actor`, actorId, options);
       }
     },
-
+    setRuleToggle(actorid, options = {}) {
+      try {
+        const { slug, itemId, enabled } = options;
+        const actor = pf2eactor(actorid);
+        let tgl = actor.synthetics.toggles.find((t) => t.itemId == itemId);
+        if (tgl) {
+          tgl.checked = enabled;
+        }
+      } catch (e) {
+        console.error("error setting toggle", actorId, options);
+      }
+    },
+    rollSkillCheck(actorId, options = {}) {
+      try {
+        const { skill, shortForm } = options;
+        const actor = pf2eactor(actorid);
+        actor?.skills[skill]?.check?.roll();
+      } catch (e) {
+        console.error("error doing skill check", actorId, options);
+      }
+    },
+    rollSavingThrow(actorId, options = { save: "reflex" }) {
+      try {
+        const { save, shortForm } = options;
+        const actor = pf2eactor(actorid);
+        actor?.saves[save].roll();
+      } catch (e) {
+        console.error("error rolling saving throw", actorId, options);
+      }
+    },
     performSkillAction(actorid, options = {}) {
       const actor = pf2eactor(actorid);
       const controlled = this.controlActorToken(actor);

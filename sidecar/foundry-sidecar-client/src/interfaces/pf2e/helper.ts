@@ -12,7 +12,7 @@ export class ActorHelperPF2e extends ActorHelper<PF2eTypes> {
     this.socket.next({ event: "playerRPC", action: "performStrike", options: { strikeIdx, variantIdx, ...options } });
   }
 
-  async rollStrikeDamage(identifier:string, critical: boolean = false, options: any = {}) {
+  async rollStrikeDamage(identifier: string, critical: boolean = false, options: any = {}) {
     this.socket.next({ event: "playerRPC", action: "rollStrikeDamage", options: { identifier, critical, ...options } });
   }
   async performStrikeAux(strikeIdx: number, aux?: number, options: any = {}) {
@@ -25,14 +25,29 @@ export class ActorHelperPF2e extends ActorHelper<PF2eTypes> {
     this.socket.next({ event: "playerRPC", action, options });
   }
   async performAction(actionId: any, options: any = {}) {
-    // const strikeIdx = (await this.getActor())?.value?.system?.actions.findIndex(a=>a==strike);
-    // console.log("performStrike", strikeIdx, this.actor, variantIdx);
-    this.performRPC("performAction", { actionId, ...options }); 
+    this.performRPC("performAction", { actionId, ...options });
   }
   async performGenericAction(slug: any, options: any = {}) {
     // const strikeIdx = (await this.getActor())?.value?.system?.actions.findIndex(a=>a==strike);
     // console.log("performStrike", strikeIdx, this.actor, variantIdx);
     this.performRPC("performSkillAction", { slug, ...options });
+  }
+  async rollSavingThrow(options: any = {}) {
+    this.performRPC("rollSavingThrow", options);
+  }
+  async rollSkillCheck(options: any = {}) {
+    this.performRPC("rollSkillCheck", options);
+  }
+  async setItemToggle(options: any = {}) {
+    this.performRPC("setItemToggle", options);
+  }
+
+  async setInitiativeStat(options: any = {}) {
+    this.performRPC("setInitiativeStat", options);
+  }
+
+  async castSpell(options: any = {}) {
+    this.performRPC("castSpell", options);
   }
 }
 export class PF2eHelper extends SystemHelper<PF2eTypes> {

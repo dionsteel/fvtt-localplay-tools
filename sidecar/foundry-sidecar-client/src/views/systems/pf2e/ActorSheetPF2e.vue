@@ -209,37 +209,71 @@ const profColours = ["", "primary", "secondary", "tertiary"];
                 <IonLabel style="font-weight: bold">Saves</IonLabel>
               </IonCol> -->
               <IonCol>
-                <IonButton fill="outline" :color="profColours[actor.system.saves.reflex.rank]" size="small"
-                  >Reflex: {{ ["", "T", "E", "M", "L"][actor.system.saves.reflex.rank] + " " }}+{{ actor.system.saves.reflex.totalModifier }}
+                <IonButton id="rolls_savingthrow" size="small" fill="outline"> <IonIcon :icon="diceSharp" slot="start"></IonIcon>Saving Throw</IonButton>
+                <IonPopover trigger="rolls_savingthrow">
+                  <div class="ion-padding">
+                    <IonButton fill="outline" :color="profColours[actor.system.saves.reflex.rank]" size="small"
+                      >Reflex: {{ ["", "T", "E", "M", "L"][actor.system.saves.reflex.rank] + " " }}+{{ actor.system.saves.reflex.totalModifier }}
+                    </IonButton>
+                    <IonButton fill="outline" :color="profColours[actor.system.saves.will.rank]" size="small"
+                      >Will: {{ ["", "T", "E", "M", "L"][actor.system.saves.will.rank] + " " }}+{{ actor.system.saves.will.totalModifier }}
+                    </IonButton>
+                    <IonButton fill="outline" :color="profColours[actor.system.saves.fortitude.rank]" size="small"
+                      >Fortitude: {{ ["", "T", "E", "M", "L"][actor.system.saves.fortitude.rank] + " " }}+{{ actor.system.saves.fortitude.totalModifier }}
+                    </IonButton>
+                  </div>
+                </IonPopover>
+              </IonCol>
+              <IonCol>
+                <IonButton id="rolls_skillcheck" size="small" fill="outline"> <IonIcon :icon="diceSharp" slot="start"></IonIcon>Skill Check</IonButton>
+                <IonPopover alignment="center" side="bottom" trigger="rolls_skillcheck">
+                  <!-- <IonContent class="ion-padding"> -->
+                  <IonList>
+                    <IonItem :button="true" lines="full" :title="actor.system.attributes.perception.breakdown">
+                      <IonIcon slot="start" :color="profColours[actor.system.attributes.perception.rank]" :icon="diceSharp"></IonIcon>
+                      Perception
+                      <IonLabel slot="end">
+                        {{ ["", "T", "E", "M", "L"][actor.system.attributes.perception.rank] }}
+                        {{ (actor.system.attributes.perception.value ? "+" : "") + actor.system.attributes.perception.value }}
+                      </IonLabel>
+                      <!-- </IonButton> -->
+                    </IonItem>
+                    <template v-for="skill of actor.system.skills">
+                      <IonItem v-if="skill.rank" lines="full" :button="true" :title="skill.breakdown">
+                        <IonIcon :color="profColours[skill.rank]" slot="start" :icon="diceSharp"></IonIcon>
+                        {{ skill.label }}
+                        <IonLabel slot="end">
+                          {{ ["", "T", "E", "M", "L"][skill.rank] }}
+                          {{ (skill.value ? "+" : "") + skill.value }}
+                        </IonLabel>
+                        <!-- </IonButton> -->
+                      </IonItem>
+                    </template>
+                  </IonList>
+                  <!-- </IonContent> -->
+                </IonPopover>
+              </IonCol>
+              <IonCol>
+                <IonButton id="rolls_initiative" lines="none" size="small" fill="outline" :title="actor.system.attributes.initiative.breakdown">
+                  <IonIcon :icon="diceSharp"></IonIcon>Initiative
                 </IonButton>
-                <IonButton fill="outline" :color="profColours[actor.system.saves.will.rank]" size="small"
-                  >Will: {{ ["", "T", "E", "M", "L"][actor.system.saves.will.rank] + " " }}+{{ actor.system.saves.will.totalModifier }}
-                </IonButton>
-                <IonButton fill="outline" :color="profColours[actor.system.saves.fortitude.rank]" size="small"
-                  >Fortitude: {{ ["", "T", "E", "M", "L"][actor.system.saves.fortitude.rank] + " " }}+{{ actor.system.saves.fortitude.totalModifier }}
-                </IonButton>
-                <IonButton
-                  :color="profColours[actor.system.attributes.perception.rank]"
-                  size="small"
-                  fill="outline"
-                  lines="none"
-                  :title="actor.system.attributes.perception.breakdown">
-                  <IonIcon :icon="diceSharp"></IonIcon>Perception:
-                  {{ ["", "T", "E", "M", "L"][actor.system.attributes.perception.rank] }}
-                  {{ (actor.system.attributes.perception.value ? "+" : "") + actor.system.attributes.perception.value }}
-                </IonButton>
-                <IonButton lines="none" size="small" fill="outline" :title="actor.system.attributes.initiative.breakdown">
-                  <IonIcon :icon="diceSharp"></IonIcon>Initiative {{ (actor.system.attributes.initiative.value ? "+" : "") + actor.system.attributes.initiative.value }}
-                </IonButton>
+                <IonPopover trigger="rolls_initiative" class="ion-padding">
+                  <div class="ion-padding">
+                    <IonSelect label="Set Initiative" :value="actor.system.attributes.initiative.statistic">
+                      <IonSelectOption key="perception" value="perception"
+                        >Perception {{ (actor.system.attributes.perception.value ? "+" : "") + actor.system.attributes.perception.value }}</IonSelectOption
+                      >
+                      <IonSelectOption v-for="skill of actor.system.skills" :key="skill.slug" :value="skill.slug"
+                        >{{ skill.label }}{{ (skill.value ? "+" : "") + skill.value }}</IonSelectOption
+                      >
+                    </IonSelect>
+                    <IonButton>
+                      Roll Initiative
+                      {{ (actor.system.attributes.initiative.value ? "+" : "") + actor.system.attributes.initiative.value }}
+                    </IonButton>
+                  </div>
+                </IonPopover>
                 <!-- <IonCol>
-                <IonSelect :value="actor.system.attributes.initiative.statistic">
-                  <IonSelectOption key="perception" value="perception"
-                    >Perception {{ (actor.system.attributes.perception.value ? "+" : "") + actor.system.attributes.perception.value }}</IonSelectOption
-                  >
-                  <IonSelectOption v-for="skill of actor.system.skills" :key="skill.slug" :value="skill.slug"
-                    >{{ skill.label }}{{ (skill.value ? "+" : "") + skill.value }}</IonSelectOption
-                  >
-                </IonSelect>
               </IonCol> -->
               </IonCol>
             </IonRow>
