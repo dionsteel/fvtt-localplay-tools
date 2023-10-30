@@ -456,7 +456,7 @@ const helpers = {
     controlActorToken(actor) {
       let worked = false;
       try {
-        actor.getActiveTokens(true, false).forEach((t) => {
+        actor?.getActiveTokens(true, false).forEach((t) => {
           try {
             console.log("controlling actor token", actor, t);
             worked = t.control(true);

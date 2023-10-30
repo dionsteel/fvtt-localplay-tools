@@ -158,6 +158,7 @@ class PlayerRolls {
       if (playerTokens.length > 0) {
         flavor = `${playerTokens[0].token.name}: ${flavor || ""}`;
         userId = playerTokens[0].activeOwners[0].id || "";
+        actorId = playerTokens[0].actor?.id;
       }
     }
     /****** THIS IS CAPTURED DIRECTLY FROM Roll.prototype._evaluate ******/
@@ -183,7 +184,7 @@ class PlayerRolls {
     this.terms = this.constructor.simplifyTerms(this.terms);
     /****** DF MANUAL ROLLS MODIFICATION ******/
     // @ts-ignore
-    const rollPrompt = new RemoteRollPromptProxy(userId, this, flavor ? { title: flavor } : {});
+    const rollPrompt = new RemoteRollPromptProxy(userId, this, { ...(this.options || {}), title: flavor });
 
     for (const term of this.terms) {
       if (!(term instanceof DiceTerm)) continue;
@@ -365,7 +366,7 @@ class RemoteRollPromptProxy {
         });
       }
     }
-    return { terms: data, controlled: this.controlled };
+    return { terms: data, controlled: this.controlled, title: this.options.title };
   }
   async close(options) {
     console.log("RemoteRollProxy.close", options, "rolled?", this._rolled);

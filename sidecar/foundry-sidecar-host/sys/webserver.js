@@ -294,7 +294,8 @@ function mountWebServer(app) {
   /** Websocket Handler */
   app.ws("/actor/:id", (ws, req) => {
     try {
-      const tgtActor = game.actors.get(req.params.id);
+      const requestId = req.params.id;
+      const tgtActor = game.actors.get(requestId);
       // let oldOnUpdate = tgtActor.onUpdate;
       // tgtActor.onUpdate = function (...args) {
       //   console.log("actor.onUpdate", args, this);
@@ -310,7 +311,7 @@ function mountWebServer(app) {
           }
         }
       }
-      PlayerRolls.enableForActor(req.params.id);
+      PlayerRolls.enableForActor(requestId);
       function handlePlayerRPC(msg) {
         switch (msg.action) {
           case "performStrike":
@@ -372,7 +373,7 @@ function mountWebServer(app) {
       }
 
       /** @type {()=>Token<TokenDocument<Scene>>} */
-      let currentToken = () => tgtActor.getActiveTokens().shift();
+      let currentToken = () => tgtActor?.getActiveTokens()?.shift();
       /** @type {()=>Combat} */
       let currentCombat = () =>
         game.combat || {
@@ -422,29 +423,29 @@ function mountWebServer(app) {
             switch (e.event) {
               case "controlToken":
               case "targetToken":
-                return currentToken().controlled || (e.token.actor?.id || e.token.actor?._id) == req.params.id;
+                return currentToken()?.controlled || (e.token.actor?.id || e.token.actor?._id) == requestId;
               case "updateToken":
               case "createToken":
               case "deleteToken":
-                return (e.token.actor?.id || e.token.actor?._id) == req.params.id;
+                return (e.token.actor?.id || e.token.actor?._id) == requestId;
               case "createActor":
               case "deleteActor":
               case "updateActor":
-                return (e.actor.id || e.actor._id) == req.params.id;
+                return (e.actor.id || e.actor._id) == requestId;
               case "createItem":
               case "updateItem":
               case "deleteItem":
                 owner = e.item.actor || e.item.parent;
-                return owner && (owner.id || owner._id) == req.params.id;
+                return owner && (owner.id || owner._id) == requestId;
               case "createActiveEffect":
               case "updateActiveEffect":
               case "deleteActiveEffect":
                 owner = e.effect.actor || e.effect.parent;
-                return owner && (owner.id || owner._id) == req.params.id;
+                return owner && (owner.id || owner._id) == requestId;
               case "deleteCombat":
               case "updateCombat":
               case "createCombat":
-                return e.combat.combatants.has(currentToken().id || currentToken()._id);
+                return e.combat.combatants.has(currentToken()?.id || currentToken()?._id);
               case "renderChatMessage":
                 if (e.html && e.html.html) {
                   try {
@@ -459,10 +460,10 @@ function mountWebServer(app) {
                   return true;
                 }
                 if (e.message.speaker.actor) {
-                  return e.message.speaker.actor == req.params.id;
+                  return e.message.speaker.actor == requestId;
                 }
                 if (e.message.speaker.token) {
-                  return e.message.speaker.token == currentToken().id;
+                  return e.message.speaker.token == currentToken()?.id;
                 }
                 if (e.message.flags["monks-tokenbar"]) {
                   const tbflags = e.message.flags["monks-tokenbar"];
