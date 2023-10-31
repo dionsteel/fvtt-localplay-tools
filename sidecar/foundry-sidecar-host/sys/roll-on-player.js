@@ -1,6 +1,5 @@
 const { Subject, tap, concatMap, firstValueFrom } = require("rxjs");
 const { getControlledTokens } = require("./lib");
-const { Roll } = require("../../../foundry-types/src/types/foundry/client/roll");
 
 String.prototype.dfmr_replaceAll = function (token, replacement) {
   return this.split(token).join(replacement);
