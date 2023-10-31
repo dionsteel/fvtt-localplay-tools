@@ -357,7 +357,13 @@ const helpers = {
           try {
             if (actorAction) {
               console.log("got action, using", { actorAction });
-              actorAction.use({ ...options, actors: [actor] });
+              if (actorAction.use) {
+                actorAction.use({ ...options, actors: [actor] });
+              } else if (actorAction.hasMacro && actorAction.hasMacro()) {
+                actorAction.executeMacro();
+              } else {
+                if (actorAction.toChat) { actorAction.toChat(); }
+              }
               // actorAction.toChat();
             } else {
               console.log("id changed??", actorAction, { actorId, options });
