@@ -345,6 +345,7 @@ const helpers = {
         let actorAction = actor.items.get(actionId);
         if (!actorAction && force) {
           try {
+            console.warn(`Couldn't find action ${actionId} on actor ${actorId} - Adding from compendium`, options, actorAction, actor, controlled);
             const srcAction = await this.getCommonAction(actionId);
             await actor.items.set(actionId, srcAction);
             actorAction = actor.items.get(actionId);
@@ -353,18 +354,17 @@ const helpers = {
             console.error("Error adding action to actor", e, { actionId, actorAction, srcAction });
           }
         } else {
-          console.error(`Couldn't find action ${actionId} on actor ${actorId}`, options, actorAction, actor, controlled);
-        }
-        try {
-          if (actorAction) {
-            console.log("got action", { actorAction });
-            actorAction.use({ ...options, actors: [actor] });
-            // actorAction.toChat();
-          } else {
-            console.log("id changed??", actorAction, { actorId, options });
+          try {
+            if (actorAction) {
+              console.log("got action, using", { actorAction });
+              actorAction.use({ ...options, actors: [actor] });
+              // actorAction.toChat();
+            } else {
+              console.log("id changed??", actorAction, { actorId, options });
+            }
+          } catch (e) {
+            console.error("Error performing action: ", e, options, actorId, actorAction);
           }
-        } catch (e) {
-          console.error("Error performing action: ", e, options, actorId, actorAction, srcAction);
         }
       } else {
         console.error(`Couldn' find actor`, actorId, options, "\n", e);
