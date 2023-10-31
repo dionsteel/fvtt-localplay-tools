@@ -313,67 +313,76 @@ function mountWebServer(app) {
       }
       PlayerRolls.enableForActor(requestId);
       function handlePlayerRPC(msg) {
-        switch (msg.action) {
-          case "performStrike":
-            helper.performStrike(tgtActor._id, msg.options);
-            // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();
-            break;
-          case "performStrikeAux":
-            helper.performStrikeAux(tgtActor._id, msg.options);
-            // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();
-            break;
-          case "rollStrikeDamage":
-            helper.rollStrikeDamage(tgtActor._id, msg.options);
-            break;
-          case "performItemAction":
-            helper.performItemAction(tgtActor._id, msg.options);
-            // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();
-            break;
-          case "performAction":
-            helper.performAction(tgtActor._id, msg.options);
-            // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();
-            break;
-          case "performSkillAction":
-            console.log(msg);
-            helper.performSkillAction(tgtActor._id, msg.options);
-            // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();
-            break;
-          default:
-            if (helper[msg.action]) {
-              try {
-                helper[msg.action](tgtActor._id, msg.options);
-              } catch (e) {
-                console.error(e);
+        try {
+          switch (msg.action) {
+            case "performStrike":
+              helper.performStrike(tgtActor._id, msg.options);
+              // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();
+              break;
+            case "performStrikeAux":
+              helper.performStrikeAux(tgtActor._id, msg.options);
+              // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();
+              break;
+            case "rollStrikeDamage":
+              helper.rollStrikeDamage(tgtActor._id, msg.options);
+              break;
+            case "performItemAction":
+              helper.performItemAction(tgtActor._id, msg.options);
+              // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();
+              break;
+            case "performAction":
+              helper.performAction(tgtActor._id, msg.options);
+              // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();
+              break;
+            case "performSkillAction":
+              console.log(msg);
+              helper.performSkillAction(tgtActor._id, msg.options);
+              // tgtActor.system.actions[msg.options.strikeIdx].variants[msg.options.variantIdx].roll();
+              break;
+            default:
+              if (helper[msg.action]) {
+                try {
+                  helper[msg.action](tgtActor._id, msg.options);
+                } catch (e) {
+                  console.error(e);
+                }
               }
-            }
-            break;
+              break;
+          }
+        } catch (e) {
+          console.error(e);
         }
       }
+
       function handleActorMessage(msg) {
-        switch (msg.event) {
-          case "rollReply":
-            console.log("handing roll reply", msg, pendingRolls);
-            const rollIdx = pendingRolls.findIndex((r) => r.id == msg.rollId);
-            console.log("handing roll reply: found roll idx?", rollIdx);
-            if (rollIdx >= 0) {
-              const roll = pendingRolls[rollIdx];
-              console.log("found roll", roll);
-              if (roll) {
-                roll.reply.next(msg.formData || msg.data.formData || msg.data || msg);
-                pendingRolls.splice(rollIdx, 1);
+        try {
+          switch (msg.event) {
+            case "rollReply":
+              console.log("handing roll reply", msg, pendingRolls);
+              const rollIdx = pendingRolls.findIndex((r) => r.id == msg.rollId);
+              console.log("handing roll reply: found roll idx?", rollIdx);
+              if (rollIdx >= 0) {
+                const roll = pendingRolls[rollIdx];
+                console.log("found roll", roll);
+                if (roll) {
+                  roll.reply.next(msg.formData || msg.data.formData || msg.data || msg);
+                  pendingRolls.splice(rollIdx, 1);
+                }
               }
-            }
-            break;
-          case "playerRPC":
-            console.log("handling player rpc", msg);
-            handlePlayerRPC(msg);
-            break;
+              break;
+            case "playerRPC":
+              console.log("handling player rpc", msg);
+              handlePlayerRPC(msg);
+              break;
+          }
+        } catch (error) {
+          console.error("Error handling actor message for", tgtActor?.name, requestId, error);
         }
         return [];
       }
 
       /** @type {()=>Token<TokenDocument<Scene>>} */
-      let currentToken = () => (tgtActor?.getActiveTokens()||[])[0];
+      let currentToken = () => (tgtActor?.getActiveTokens() || [])[0];
       /** @type {()=>Combat} */
       let currentCombat = () =>
         game.combat || {

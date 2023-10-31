@@ -367,7 +367,7 @@ const helpers = {
           console.error("Error performing action: ", e, options, actorId, actorAction, srcAction);
         }
       } else {
-        console.error(`Couldn' find actor`, actorId, options);
+        console.error(`Couldn' find actor`, actorId, options, "\n", e);
       }
     },
     setRuleToggle(actorid, options = {}) {
@@ -379,67 +379,71 @@ const helpers = {
           tgl.checked = enabled;
         }
       } catch (e) {
-        console.error("error setting toggle", actorId, options);
+        console.error("error setting toggle", actorId, options, "\n", e);
       }
     },
     setInitiative(actorid, options = {}) {
       try {
-        const { slug, } = options;
+        const { slug } = options;
         const actor = pf2eactor(actorid);
         if (actor.skills[slug]) {
           actor.initiative.statistic = actor.skills[slug];
         }
       } catch (e) {
-        console.error("error setting toggle", actorId, options);
+        console.error("error setting toggle", actorId, options, "\n", e);
       }
     },
     rollSkillCheck(actorId, options = {}) {
       try {
         const { skill, shortForm } = options;
         const actor = pf2eactor(actorid);
+        this.controlActorToken(actor);
         actor?.skills[skill]?.check?.roll();
       } catch (e) {
-        console.error("error doing skill check", actorId, options);
+        console.error("error doing skill check", actorId, options, "\n", e);
       }
     },
     rollPerceptionCheck(actorId, options = {}) {
       try {
         const { skill, shortForm } = options;
         const actor = pf2eactor(actorid);
+        this.controlActorToken(actor);
         actor.perception.check.roll();
         // actor?.skills[skill]?.check?.roll();
       } catch (e) {
-        console.error("error doing skill check", actorId, options);
+        console.error("error doing skill check", actorId, options, "\n", e);
       }
     },
     rollInitiative(actorId, options = {}) {
       try {
         const { skill, shortForm } = options;
         const actor = pf2eactor(actorid);
+        this.controlActorToken(actor);
         actor.rollInitiative();
         // actor?.skills[skill]?.check?.roll();
       } catch (e) {
-        console.error("error doing skill check", actorId, options);
+        console.error("error doing skill check", actorId, options, "\n", e);
       }
     },
     rollSavingThrow(actorId, options = { save: "reflex" }) {
       try {
         const { save, shortForm } = options;
         const actor = pf2eactor(actorid);
-        actor?.saves[save].roll();
+        this.controlActorToken(actor);
+        actor?.saves[save]?.roll();
       } catch (e) {
-        console.error("error rolling saving throw", actorId, options);
+        console.error("error rolling saving throw", actorId, options, "\n", e);
       }
     },
     performSkillAction(actorid, options = {}) {
-      const actor = pf2eactor(actorid);
-      const controlled = this.controlActorToken(actor);
-
-      let { slug, variant } = options;
-
-      let action = pf2egame().pf2e.actions.get(slug);
-      let actionExec;
       try {
+        const actor = pf2eactor(actorid);
+        const controlled = this.controlActorToken(actor);
+
+        let { slug, variant } = options;
+
+        let action = pf2egame().pf2e.actions.get(slug);
+        let actionExec;
         if (action) {
           actionExec = (...a) => action.use(...a);
         } else {
@@ -450,7 +454,7 @@ const helpers = {
 
         actionExec({ actors: [actor, ...(options.actors || [])], target: options.target, variant: options.variant });
       } catch (e) {
-        console.error("error doing skill action", slug, action, actionExec, actor, options);
+        console.error("Error performing skill action", actorid, options, e);
       }
     },
     controlActorToken(actor) {
@@ -461,33 +465,41 @@ const helpers = {
             console.log("controlling actor token", actor, t);
             worked = t.control(true);
           } catch (e) {
-            console.error("controlActorToken", e);
+            console.error("controlActorToken", actor, e);
           }
         });
       } catch (e) {
-        console.error("controlActorToken", e);
+        console.error("controlActorToken", actor, e);
       }
       return worked;
     },
     performStrikeAux(actorid, options = {}) {
-      const actor = pf2eactor(actorid);
-      const controlled = this.controlActorToken(actor);
+      try {
+        const actor = pf2eactor(actorid);
+        const controlled = this.controlActorToken(actor);
 
-      let { strikeIdx = 0, aux = 0, targetId, altUsage } = options;
-      const strike = this.getStrike(actorid, strikeIdx);
-      strike?.variants[aux]?.roll({ target: targetId });
+        let { strikeIdx = 0, aux = 0, targetId, altUsage } = options;
+        const strike = this.getStrike(actorid, strikeIdx);
+        strike?.variants[aux]?.roll({ target: targetId });
+      } catch (e) {
+        console.error("Error performing strike", { actorid, options }, e);
+      }
     },
     rollStrikeDamage(actorid, options = {}) {
-      const actor = pf2eactor(actorid);
-      const controlled = this.controlActorToken(actor);
-      console.log("Roll Strike Damage", actorid, options, controlled);
-      let { identifier, critical, targetId, altUsage } = options;
-      const strike = this.getStrikeItem(actorid, identifier);
-      console.log("strike:", strike);
-      if (critical) {
-        strike?.critical({ consumeAmmo: true, target: targetId, altUsage });
-      } else {
-        strike?.damage({ consumeAmmo: true, target: targetId, altUsage });
+      try {
+        const actor = pf2eactor(actorid);
+        const controlled = this.controlActorToken(actor);
+        console.log("Roll Strike Damage", actorid, options, controlled);
+        let { identifier, critical, targetId, altUsage } = options;
+        const strike = this.getStrikeItem(actorid, identifier);
+        console.log("strike:", strike);
+        if (critical) {
+          strike?.critical({ consumeAmmo: true, target: targetId, altUsage });
+        } else {
+          strike?.damage({ consumeAmmo: true, target: targetId, altUsage });
+        }
+      } catch (e) {
+        console.error("Error rolling strike damage", { actorid, options }, e);
       }
     },
 
