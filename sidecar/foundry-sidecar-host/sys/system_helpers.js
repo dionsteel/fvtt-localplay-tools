@@ -149,9 +149,9 @@ const helpers = {
       try {
         const token = dnd5etoken(id);
         return { ...token };
-      } catch (e) {}
+      } catch (e) { }
     },
-    getItemData() {},
+    getItemData() { },
   },
   pf2e: {
     getActorData(id) {
@@ -279,22 +279,22 @@ const helpers = {
       try {
         const token = pf2etoken(id);
         return { ...token };
-      } catch (e) {}
+      } catch (e) { }
     },
-    getItemData() {},
+    getItemData() { },
     /**
      * @returns {import("../../../foundry-types/src/types/foundry/systems/pf2e/module/actor/data/base").StrikeData}
      */
-    getStrike(actorid, strikeIdx) {
-      const actor = pf2eactor(actorid);
+    getStrike(actorId, strikeIdx) {
+      const actor = pf2eactor(actorId);
 
       return actor.system.actions[strikeIdx];
     },
     /**
      * @returns {import("../../../foundry-types/src/types/foundry/systems/pf2e/module/actor/data/base").StrikeData}
      */
-    getStrikeItem(actorid, identifier) {
-      const actor = pf2eactor(actorid);
+    getStrikeItem(actorId, identifier) {
+      const actor = pf2eactor(actorId);
       const [itemId, slug] = identifier.split(".", 2);
       let action = actor.system.actions.find((a) => a.slug == slug);
       if (!action) {
@@ -305,8 +305,8 @@ const helpers = {
     /**
      * @returns {import("../../../foundry-types/src/types/foundry/systems/pf2e/module/actor/data/base").StrikeData}
      */
-    getAction(actorid, strikeIdx) {
-      const actor = pf2eactor(actorid);
+    getAction(actorId, strikeIdx) {
+      const actor = pf2eactor(actorId);
       return actor.system.actions[strikeIdx];
     },
     /**
@@ -322,16 +322,16 @@ const helpers = {
     /**
      * @returns {import("../../../foundry-types/src/types/foundry/systems/pf2e/module/actor/data/base").StrikeData}
      */
-    getSkillAction(actorid, strikeIdx) {
-      const actor = pf2eactor(actorid);
+    getSkillAction(actorId, strikeIdx) {
+      const actor = pf2eactor(actorId);
       return ConfigPF2eF2e.PF2E.ItemLevel;
     },
-    performStrike(actorid, options = {}) {
-      const actor = pf2eactor(actorid);
+    performStrike(actorId, options = {}) {
+      const actor = pf2eactor(actorId);
       const controlled = this.controlActorToken(actor);
 
       let { strikeIdx = 0, variantIdx = 0, targetId, altUsage } = options;
-      const strike = this.getStrike(actorid, strikeIdx);
+      const strike = this.getStrike(actorId, strikeIdx);
       strike?.variants[variantIdx]?.roll({ target: targetId });
     },
 
@@ -370,10 +370,10 @@ const helpers = {
         console.error(`Couldn' find actor`, actorId, options, "\n", e);
       }
     },
-    setRuleToggle(actorid, options = {}) {
+    setRuleToggle(actorId, options = {}) {
       try {
         const { slug, itemId, enabled } = options;
-        const actor = pf2eactor(actorid);
+        const actor = pf2eactor(actorId);
         let tgl = actor.synthetics.toggles.find((t) => t.itemId == itemId);
         if (tgl) {
           tgl.checked = enabled;
@@ -382,10 +382,10 @@ const helpers = {
         console.error("error setting toggle", actorId, options, "\n", e);
       }
     },
-    setInitiative(actorid, options = {}) {
+    setInitiative(actorId, options = {}) {
       try {
         const { slug } = options;
-        const actor = pf2eactor(actorid);
+        const actor = pf2eactor(actorId);
         if (actor.skills[slug]) {
           actor.initiative.statistic = actor.skills[slug];
         }
@@ -396,7 +396,7 @@ const helpers = {
     rollSkillCheck(actorId, options = {}) {
       try {
         const { skill, shortForm } = options;
-        const actor = pf2eactor(actorid);
+        const actor = pf2eactor(actorId);
         this.controlActorToken(actor);
         actor?.skills[skill]?.check?.roll();
       } catch (e) {
@@ -406,7 +406,7 @@ const helpers = {
     rollPerceptionCheck(actorId, options = {}) {
       try {
         const { skill, shortForm } = options;
-        const actor = pf2eactor(actorid);
+        const actor = pf2eactor(actorId);
         this.controlActorToken(actor);
         actor.perception.check.roll();
         // actor?.skills[skill]?.check?.roll();
@@ -417,7 +417,7 @@ const helpers = {
     rollInitiative(actorId, options = {}) {
       try {
         const { skill, shortForm } = options;
-        const actor = pf2eactor(actorid);
+        const actor = pf2eactor(actorId);
         this.controlActorToken(actor);
         actor.rollInitiative();
         // actor?.skills[skill]?.check?.roll();
@@ -428,16 +428,16 @@ const helpers = {
     rollSavingThrow(actorId, options = { save: "reflex" }) {
       try {
         const { save, shortForm } = options;
-        const actor = pf2eactor(actorid);
+        const actor = pf2eactor(actorId);
         this.controlActorToken(actor);
         actor?.saves[save]?.roll();
       } catch (e) {
         console.error("error rolling saving throw", actorId, options, "\n", e);
       }
     },
-    performSkillAction(actorid, options = {}) {
+    performSkillAction(actorId, options = {}) {
       try {
-        const actor = pf2eactor(actorid);
+        const actor = pf2eactor(actorId);
         const controlled = this.controlActorToken(actor);
 
         let { slug, variant } = options;
@@ -454,7 +454,7 @@ const helpers = {
 
         actionExec({ actors: [actor, ...(options.actors || [])], target: options.target, variant: options.variant });
       } catch (e) {
-        console.error("Error performing skill action", actorid, options, e);
+        console.error("Error performing skill action", actorId, options, e);
       }
     },
     controlActorToken(actor) {
@@ -473,25 +473,25 @@ const helpers = {
       }
       return worked;
     },
-    performStrikeAux(actorid, options = {}) {
+    performStrikeAux(actorId, options = {}) {
       try {
-        const actor = pf2eactor(actorid);
+        const actor = pf2eactor(actorId);
         const controlled = this.controlActorToken(actor);
 
         let { strikeIdx = 0, aux = 0, targetId, altUsage } = options;
-        const strike = this.getStrike(actorid, strikeIdx);
+        const strike = this.getStrike(actorId, strikeIdx);
         strike?.variants[aux]?.roll({ target: targetId });
       } catch (e) {
-        console.error("Error performing strike", { actorid, options }, e);
+        console.error("Error performing strike", { actorId, options }, e);
       }
     },
-    rollStrikeDamage(actorid, options = {}) {
+    rollStrikeDamage(actorId, options = {}) {
       try {
-        const actor = pf2eactor(actorid);
+        const actor = pf2eactor(actorId);
         const controlled = this.controlActorToken(actor);
-        console.log("Roll Strike Damage", actorid, options, controlled);
+        console.log("Roll Strike Damage", actorId, options, controlled);
         let { identifier, critical, targetId, altUsage } = options;
-        const strike = this.getStrikeItem(actorid, identifier);
+        const strike = this.getStrikeItem(actorId, identifier);
         console.log("strike:", strike);
         if (critical) {
           strike?.critical({ consumeAmmo: true, target: targetId, altUsage });
@@ -499,7 +499,7 @@ const helpers = {
           strike?.damage({ consumeAmmo: true, target: targetId, altUsage });
         }
       } catch (e) {
-        console.error("Error rolling strike damage", { actorid, options }, e);
+        console.error("Error rolling strike damage", { actorId, options }, e);
       }
     },
 
