@@ -373,7 +373,7 @@ function mountWebServer(app) {
       }
 
       /** @type {()=>Token<TokenDocument<Scene>>} */
-      let currentToken = () => tgtActor?.getActiveTokens()?.shift();
+      let currentToken = () => (tgtActor?.getActiveTokens()||[])[0];
       /** @type {()=>Combat} */
       let currentCombat = () =>
         game.combat || {
@@ -392,7 +392,7 @@ function mountWebServer(app) {
       });
 
       try {
-        forwardEventOverWS({ event: "updateActor", actor: helper.getActorData(req.params.id) });
+        forwardEventOverWS({ event: "updateActor", actor: helper.getActorData(requestId) });
         // forwardEventOverWS({ event: "updateToken", token: currentToken() || {} });
         forwardEventOverWS({ event: "updateCombat", combat: currentCombat() || {} });
 
@@ -427,21 +427,21 @@ function mountWebServer(app) {
               case "updateToken":
               case "createToken":
               case "deleteToken":
-                return (e.token.actor?.id || e.token.actor?._id) == requestId;
+                return (e.token?.actor?.id || e.token?.actor?._id) == requestId;
               case "createActor":
               case "deleteActor":
               case "updateActor":
-                return (e.actor.id || e.actor._id) == requestId;
+                return (e.actor?.id || e.actor?._id) == requestId;
               case "createItem":
               case "updateItem":
               case "deleteItem":
-                owner = e.item.actor || e.item.parent;
-                return owner && (owner.id || owner._id) == requestId;
+                owner = e.item?.actor || e.item?.parent;
+                return owner && (owner?.id || owner?._id) == requestId;
               case "createActiveEffect":
               case "updateActiveEffect":
               case "deleteActiveEffect":
-                owner = e.effect.actor || e.effect.parent;
-                return owner && (owner.id || owner._id) == requestId;
+                owner = e.effect?.actor || e.effect?.parent;
+                return owner && (owner?.id || owner?._id) == requestId;
               case "deleteCombat":
               case "updateCombat":
               case "createCombat":
@@ -469,13 +469,13 @@ function mountWebServer(app) {
                   const tbflags = e.message.flags["monks-tokenbar"];
                   let { dc, modename, name, options, requests, rollmode, showAdvantage, what, ...tokens } = tbflags;
                   const actorids = Object.values(tokens).map((v) => v.actorid);
-                  return actorids.includes(req.params.id);
+                  return actorids.includes(requestId);
                 }
                 return e.message.speaker.alias || e.message.speaker.scene;
               case "rollRequest":
                 console.log("rollRequest filter", e);
                 // pendingRolls.push({id:rollId(),data:e.data})
-                return e.controlled.actors.includes(req.params.id) || e.controlled.tokens.includes(currentToken().id);
+                return e.controlled.actors.includes(requestId) || e.controlled.tokens.includes(currentToken()?.id);
               case "createScene":
               case "deleteScene":
               case "updateScene":
@@ -500,7 +500,7 @@ function mountWebServer(app) {
               case "createActiveEffect":
               case "updateActiveEffect":
               case "deleteActiveEffect":
-                forwardEventOverWS({ event: "updateActor", actor: helper.getActorData(req.params.id) });
+                forwardEventOverWS({ event: "updateActor", actor: helper.getActorData(requestId) });
                 break;
               case "rollRequest":
                 let nrId = e?.id || rollId();
@@ -539,7 +539,7 @@ function mountWebServer(app) {
 
       ws.on("disconnect", () => {
         aeSub.unsubscribe();
-        PlayerRolls.disableForPlayer(req.params.id);
+        PlayerRolls.disableForPlayer(requestId);
       });
       // actorUpdates
       //   .pipe(

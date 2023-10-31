@@ -1,5 +1,6 @@
 const { Subject, tap, concatMap, firstValueFrom } = require("rxjs");
 const { getControlledTokens } = require("./lib");
+const { Roll } = require("../../../foundry-types/src/types/foundry/client/roll");
 
 String.prototype.dfmr_replaceAll = function (token, replacement) {
   return this.split(token).join(replacement);
@@ -152,13 +153,14 @@ class PlayerRolls {
       return wrapper({ minimize, maximize });
     }
     let flavor = this.options.flavor;
-    let userId = "";
+    let userId = "",
+      actorId = "";
+    const playerTokens = PlayerRolls.getSelectedPlayerTokens();
     if (shouldRollOnPlayer) {
-      const playerTokens = PlayerRolls.getSelectedPlayerTokens();
       if (playerTokens.length > 0) {
-        flavor = `${playerTokens[0].token.name}: ${flavor || ""}`;
-        userId = playerTokens[0].activeOwners[0].id || "";
-        actorId = playerTokens[0].actor?.id;
+        flavor = `${playerTokens[0]?.token?.name}: ${flavor || ""}`;
+        userId = playerTokens[0]?.activeOwners[0]?.id || "";
+        actorId = playerTokens[0]?.actor?.id;
       }
     }
     /****** THIS IS CAPTURED DIRECTLY FROM Roll.prototype._evaluate ******/
@@ -184,7 +186,7 @@ class PlayerRolls {
     this.terms = this.constructor.simplifyTerms(this.terms);
     /****** DF MANUAL ROLLS MODIFICATION ******/
     // @ts-ignore
-    const rollPrompt = new RemoteRollPromptProxy(userId, this, { ...(this.options || {}), title: flavor });
+    const rollPrompt = new RemoteRollPromptProxy(userId, this, { ...(this.options || {}), ...(this.data || {}), title: flavor });
 
     for (const term of this.terms) {
       if (!(term instanceof DiceTerm)) continue;
@@ -269,6 +271,9 @@ class RemoteRollPromptProxy {
     const controlledActorIds = tamap ? Object.keys(tamap) : actorids;
     if (object?.data?.actorId) {
       controlledActorIds.push(object.data.actorId);
+    }
+    if (options?.actorId) {
+      controlledActorIds.push(options?.actorId);
     }
     this.controlled = { tokens: controlledTokenIds, actors: controlledActorIds };
     this.actors = tamap;
@@ -366,7 +371,7 @@ class RemoteRollPromptProxy {
         });
       }
     }
-    return { terms: data, controlled: this.controlled, title: this.options.title };
+    return { terms: data, controlled: this.controlled, title: this.options.title, options: this.options, data: this.object.data };
   }
   async close(options) {
     console.log("RemoteRollProxy.close", options, "rolled?", this._rolled);
