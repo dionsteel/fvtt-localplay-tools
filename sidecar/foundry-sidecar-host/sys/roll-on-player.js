@@ -333,7 +333,7 @@ class RemoteRollPromptProxy {
           const roll = `${formData[`${x.id}-${c}`]}`;
           let value = parseInt(roll);
           if (isNaN(value)) {
-            value = Math.ceil(CONFIG.Dice.randomUniform() * x.term.faces);
+            value = Math.min(x.term.faces, Math.max(1, Math.ceil(CONFIG.Dice.randomUniform() * x.term.faces)));
             flags.push("RN");
           } else {
             flags.push("MR");

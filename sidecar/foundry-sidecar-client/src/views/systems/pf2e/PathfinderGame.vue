@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useWorldStore } from "@/store/world";
 import { useRouter, useRoute } from "vue-router";
+import { ActorSocketEvent } from "@/interfaces/core/helper";
 import { usePF2eGame } from "@/store/pf2e";
 import {
   IonIcon,
@@ -25,7 +26,8 @@ import {
   IonButton,
   AlertInput,
   IonSegment,
-  IonSegmentButton, menuController,
+  IonSegmentButton,
+  menuController,
   IonHeader,
 } from "@ionic/vue";
 import { ComponentPublicInstance, Suspense, provide, ref, watch } from "vue";
@@ -62,7 +64,7 @@ import {
 import { useConfigStore } from "@/store/config";
 import { Observable, Subject, firstValueFrom } from "rxjs";
 import { filter, map, tap, reduce, scan, share } from "rxjs/operators";
-import { SocketEventMap } from "@/interfaces/core/helper";
+import { SocketEvent, SocketEventMap } from "@/interfaces/core/helper";
 import { PF2eTypes, ActorHelperPF2e } from "@/interfaces/pf2e";
 import { StrikeLookupData } from "@/interfaces/pf2e/chat-message";
 import DynamicComponent from "@/lib/DynamicComponent.vue";
@@ -127,20 +129,22 @@ watch(
 updateSelectedIndex();
 
 game.helper.allEvents
-  .pipe(
+  .pipe<ActorSocketEvent<PF2eTypes, "rollRequest">>(
     // tap((e) => console.log("helper allevents", e)),
-    filter((e) => e.event == "rollRequest")
+    filter((e: any) => e.event == "rollRequest")
   )
   .subscribe((e) => {
     const alert = alertController.create({
       header: "Roll Request",
-      message: "Enter Manual Rolls",
+      message: e.data.title || "Enter Manual Rolls",
       buttons: ["ROLL"],
       mode: "md",
       animated: true,
       keyboardClose: true,
+      backdropDismiss: false,
+      subHeader: e.eventSource?.actor.value.name,
       inputs: e.data.terms.map((t: any) => {
-        let x: AlertInput = { label: t.faces, placeholder: t.faces, id: `${t.id}-total`, name: `${t.id}-total`, min: 1 };
+        let x: AlertInput = { label: t.faces, placeholder: t.faces, type: "number", id: `${t.id}-total`, name: `${t.id}-total`, min: 1 };
         return x;
       }),
     });
@@ -158,13 +162,12 @@ game.helper.allEvents
 
 let showChat = ref(0);
 
-
 // let chatMessages = config.chatMessages; //ref([] as Array<SocketEventMap<PF2eTypes>["renderChatMessage"] & { eventSource: ActorHelperPF2e }>);
 
 game.helper.chat$.subscribe((m) => {
   console.log("New Chat message", m);
   config.chatMessages.push(m as any);
-  showChatMenu()
+  showChatMenu();
 });
 const transformHtml = (html: string) => {
   return html.replace(/(src|href)=\"([^\"]+)\"/gi, (all, attr, uri) => `${attr}="${store.config.getAPIUrl(uri)}"`);
@@ -177,7 +180,7 @@ function handleChatCardClicks(event: MouseEvent, msg: SocketEventMap<PF2eTypes>[
   switch (data.action || "") {
     case "strike-damage":
     case "strike-critical":
-    const context = msg?.message?.flags?.pf2e?.context;
+      const context = msg?.message?.flags?.pf2e?.context;
       console.log(context, msg);
       if (context) {
         helper.rollStrikeDamage(context.identifier || "", data.action?.endsWith("critical"));
@@ -188,15 +191,17 @@ function handleChatCardClicks(event: MouseEvent, msg: SocketEventMap<PF2eTypes>[
   }
 }
 async function showChatMenu() {
-
-  await menuController.enable(true, 'chat-menu');
-  await menuController.open('chat-menu')
+  await menuController.enable(true, "chat-menu");
+  await menuController.open("chat-menu");
   chatlog.value?.$el.scrollToBottom(300);
 }
 
 const chatlog = ref<ComponentPublicInstance | null>(null);
 
-watch(()=>config.chatMessages, ()=>showChatMenu())
+watch(
+  () => config.chatMessages,
+  () => showChatMenu()
+);
 </script>
 
 <template>
@@ -205,7 +210,6 @@ watch(()=>config.chatMessages, ()=>showChatMenu())
     <link rel="stylesheet" :href="game.config.getAPIUrl(`systems/pf2e/styles/pf2e.css`)" />
     <ion-content>
       <Suspense>
-
         <ion-split-pane content-id="system-content" class="pf2e-content">
           <ion-menu content-id="system-content" class="pf2e-content" type="overlay">
             <ion-content>
@@ -215,8 +219,14 @@ watch(()=>config.chatMessages, ()=>showChatMenu())
                   <ion-note>{{ store.activeGame?.system.title }}</ion-note>
 
                   <ion-menu-toggle :auto-hide="false" v-for="(p, i) in appPages" :key="i">
-                    <ion-item @click="selectedIndex = i" router-direction="root" :router-link="p.url" lines="none"
-                      :detail="false" class="hydrated" :class="{ selected: selectedIndex === i }">
+                    <ion-item
+                      @click="selectedIndex = i"
+                      router-direction="root"
+                      :router-link="p.url"
+                      lines="none"
+                      :detail="false"
+                      class="hydrated"
+                      :class="{ selected: selectedIndex === i }">
                       <ion-icon aria-hidden="true" slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
                       <ion-label>{{ p.title }}</ion-label>
                     </ion-item>
@@ -224,12 +234,8 @@ watch(()=>config.chatMessages, ()=>showChatMenu())
                 </ion-list>
 
                 <IonSegment :value="showChat">
-                  <IonSegmentButton :value="0" @click="showChat = 0">
-                    Characters
-                  </IonSegmentButton>
-                  <IonSegmentButton :value="1" @click="showChatMenu()">
-                    Chat
-                  </IonSegmentButton>
+                  <IonSegmentButton :value="0" @click="showChat = 0"> Characters </IonSegmentButton>
+                  <IonSegmentButton :value="1" @click="showChatMenu()"> Chat </IonSegmentButton>
                 </IonSegment>
               </IonHeader>
               <ion-list id="labels-list">
@@ -237,17 +243,23 @@ watch(()=>config.chatMessages, ()=>showChatMenu())
                 </ion-list-header> -->
 
                 <ion-item
-                  v-for="(actor, index) in store?.allSelectedActors.filter(a => a.worldId == store.worldId && a.listing).map(a => a.listing)"
-                  lines="none" :key="index" router-direction="forward"
+                  v-for="(actor, index) in store?.allSelectedActors.filter((a) => a.worldId == store.worldId && a.listing).map((a) => a.listing)"
+                  lines="none"
+                  :key="index"
+                  router-direction="forward"
                   :router-link="'/' + store.activeGame?.world.system + '/actors/' + actor?.id"
                   :class="{ selected: router.currentRoute.value.fullPath.endsWith(actor?.id || '') }">
-                  <ion-icon v-if="actor?.image.endsWith('.svg')" aria-hidden="true" slot="start" :ios="bookmarkOutline"
-                    :md="bookmarkSharp" :src="game.config.getAPIUrl(actor?.image)"></ion-icon>
+                  <ion-icon
+                    v-if="actor?.image.endsWith('.svg')"
+                    aria-hidden="true"
+                    slot="start"
+                    :ios="bookmarkOutline"
+                    :md="bookmarkSharp"
+                    :src="game.config.getAPIUrl(actor?.image)"></ion-icon>
                   <img v-else width="32" slot="start" :src="game.config.getAPIUrl(actor?.image || '')" />
                   <ion-label>{{ actor?.name }}</ion-label>
                 </ion-item>
               </ion-list>
-
             </ion-content>
           </ion-menu>
           <ion-menu menu-id="chat-menu" :disabled="false" side="end" content-id="system-content">
@@ -256,20 +268,16 @@ watch(()=>config.chatMessages, ()=>showChatMenu())
                 <!-- <IonListHeader><IonTitle></IonTitle></IonListHeader> -->
                 <IonItem v-for="(msg, idx) in config.chatMessages" :id="'chatmsg-' + idx">
                   <div class="ion-padding chat-message" style="flex-direction: column">
-                    <DynamicComponent @click.capture="handleChatCardClicks($event, msg as any)"
-                      :html="transformHtml(msg?.html || '')"></DynamicComponent>
+                    <DynamicComponent @click.capture="handleChatCardClicks($event, msg as any)" :html="transformHtml(msg?.html || '')"></DynamicComponent>
                     <!-- {{ msg. }} -->
                   </div>
                 </IonItem>
               </IonList>
-
             </IonContent>
           </ion-menu>
           <ion-router-outlet id="system-content" class="pf2e-content"></ion-router-outlet>
         </ion-split-pane>
       </Suspense>
-
-
     </ion-content>
   </ion-page>
 </template>

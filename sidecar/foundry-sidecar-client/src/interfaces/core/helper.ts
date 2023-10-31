@@ -30,11 +30,33 @@ export interface TermJSON {
   term: any;
 }
 
-export type SocketEventNames = keyof SocketEventMap;
+export type SocketEventNames =
+  | "createActor"
+  | "updateActor"
+  | "deleteActor"
+  | "createToken"
+  | "deleteToken"
+  | "updateToken"
+  | "controlToken"
+  | "targetToken"
+  | "createItem"
+  | "deleteItem"
+  | "updateItem"
+  | "createActiveEffect"
+  | "deleteActiveEffect"
+  | "updateActiveEffect"
+  | "createCombat"
+  | "deleteCombat"
+  | "updateCombat"
+  | "rollRequest"
+  | "rollReply"
+  | "renderChatMessage"
+  | "playerRPC";
 
 export type SocketEvent<N, T> = { event: N; eventSource?: ActorHelper } & T;
 
 export interface SocketEventMap<S extends SystemTypeMap = SystemTypeMap, TokenType = S["TokenSystemType"], ActorType = S["ActorSystemType"], ItemType = S["ItemDataTypes"]> {
+  [event: string]: SocketEvent<SocketEventNames, any>;
   createActor: SocketEvent<"createActor", { actor: Partial<Actor<S>> }>;
   updateActor: SocketEvent<"updateActor", { actor: Partial<Actor<S>> }>;
   deleteActor: SocketEvent<"deleteActor", { actor: Partial<Actor<S>> }>;
@@ -54,19 +76,24 @@ export interface SocketEventMap<S extends SystemTypeMap = SystemTypeMap, TokenTy
   updateCombat: SocketEvent<"updateCombat", { data: any }>;
   rollRequest: SocketEvent<
     "rollRequest",
-    { id: string; data: { terms: TermJSON[]; controlled: { actor: string[]; token: string[] } }; controlled: { actor: string[]; token: string[] } }
+    {
+      id: string;
+      data: { terms: TermJSON[]; controlled: { actor: string[]; token: string[] }; title: string; options: any; data: any };
+      controlled: { actor: string[]; token: string[] };
+    }
   >;
   rollReply: SocketEvent<"rollReply", { rollId: string; data: (TermJSON & any)[] }>;
   renderChatMessage: SocketEvent<"renderChatMessage", { message: Partial<ChatMessageSourcePF2e>; html: string; source: ChatMessageSourcePF2e }>;
   playerRPC: SocketEvent<"playerRPC", { action: "useItem" | "performStrike" | string; options?: any }>;
 }
+export type MappedSocketEvent<K extends SocketEventNames, S extends SystemTypeMap = SystemTypeMap> = SocketEventMap<S>[K];
 
-export interface ActorSocketEvent<S extends SystemTypeMap = SystemTypeMap, K extends SocketEventNames = SocketEventNames> extends SocketEvent<K, any> {
-  event: K;
+export type ActorSocketEvent<S extends SystemTypeMap = SystemTypeMap, K extends SocketEventNames = SocketEventNames> = MappedSocketEvent<K, S> & {
+  // event: K;
   // data: SocketEventMap<S>[K]["data"];
   target?: any;
   eventSource?: ActorHelper<S>;
-}
+};
 
 export type ActorUpdateEvent<S extends SystemTypeMap = SystemTypeMap> = ActorSocketEvent<S, "updateActor">;
 export type ItemDeleteEvent<S extends SystemTypeMap = SystemTypeMap> = SocketEventMap<S>["deleteItem"];
@@ -133,7 +160,7 @@ export class ActorHelper<S extends SystemTypeMap = SystemTypeMap> {
     this.updates = this.events.pipe<CharacterUpdateEvent<S>>(filter<any>((e) => e.event == "updateActor"));
     this.updates.subscribe((e) => {
       if (typeof this.actor?.value !== "undefined") {
-        applyDeep(this.actor?.value as any, (e.actor || e.data) as any);
+        applyDeep(this.actor?.value as any, e.actor as any);
       }
     });
     this.events.pipe<ItemDeleteEvent<S>>(filter<any>((e) => e.event == "deleteItem")).subscribe((e) => {
