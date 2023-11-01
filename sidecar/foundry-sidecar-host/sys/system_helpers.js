@@ -380,7 +380,7 @@ const helpers = {
       try {
         const { slug, itemId, enabled, value, domain, option, suboption } = options;
         const actor = pf2eactor(actorId);
-        actor.toggleRollOption(domain, option, value, suboption).then(r => console.log(actor.name, 'set toggle', option, 'to', value, suboption));
+        actor.toggleRollOption(domain, option, itemId, value, suboption).then(r => console.log(actor.name, 'set toggle', option, 'to', value, suboption));
         // let tgl = actor.synthetics.toggles.find((t) => t.itemId == itemId);
         // if (tgl) {
         //   tgl.checked = enabled;

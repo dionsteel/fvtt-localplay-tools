@@ -111,16 +111,34 @@ const toggleItems = computed(() => actor?.items?.filter((i) => i.system.rules.fi
         <IonItemGroup>
           <IonItemDivider> Toggles </IonItemDivider>
           <IonItem v-for="item in actor?.synthetics?.toggles">
-            <!-- <template v-for="rt in item.system.rules.filter((r) => r.toggleable)"> -->
-            <IonCheckbox :onIonChange="(e) => actorHelper?.setItemToggle({ itemId: item.itemId, enabled: e.target.checked })" label-placement="end" :checked="item.checked">
-              {{ item.label }}
-            </IonCheckbox>
+            <template v-if="item.suboptions?.length > 0">
+              <IonSelect :label="item.label" :value="item.suboptions.find(s => s.selected)?.value"
+                :onIonChange="(e) => actorHelper?.setItemToggle({ itemId: item.itemId, value: e.target.value, domain: item.domain, option: item.option, suboption: e.target.value })">
+                <IonSelectOption v-for="suboption in item.suboptions" :value="suboption.value">{{
+                  i18n(suboption.label) || suboption.label }}</IonSelectOption>
+              </IonSelect>
+              <!-- <IonCheckbox v-for="suboption in item.suboptions"
+                :onIonChange="(e) => actorHelper?.setItemToggle({ itemId: item.itemId, value: e.target.checked, domain: item.domain, option: item.option, suboption })"
+                label-placement="end" :checked="item.checked">
+                {{ item.label }}:{{ suboption }}
+              </IonCheckbox> -->
+            </template>
+            <template v-else>
+
+              <!-- <template v-for="rt in item.system.rules.filter((r) => r.toggleable)"> -->
+              <IonCheckbox
+                :onIonChange="(e) => actorHelper?.setItemToggle({ itemId: item.itemId, value: e.target.checked, domain: item.domain, option: item.option })"
+                label-placement="end" :checked="item.checked">
+                {{ item.label }}
+              </IonCheckbox>
+            </template>
 
             <!-- </template> -->
           </IonItem>
           <IonItemDivider> Strikes</IonItemDivider>
           <IonAccordionGroup>
-            <StrikeCardPF2e v-for="(strike, strikeIdx) in actor?.system.actions" :strike="strike" :strikeIdx="strikeIdx"> </StrikeCardPF2e>
+            <StrikeCardPF2e v-for="(strike, strikeIdx) in actor?.system.actions" :strike="strike" :strikeIdx="strikeIdx">
+            </StrikeCardPF2e>
             <IonItemDivider>Your Actions</IonItemDivider>
             <ActionCardPF2e v-for="action in actorActions" :action="action"></ActionCardPF2e>
 

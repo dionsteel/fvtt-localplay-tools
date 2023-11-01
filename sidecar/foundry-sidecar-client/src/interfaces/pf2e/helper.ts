@@ -45,7 +45,7 @@ export class ActorHelperPF2e extends ActorHelper<PF2eTypes> {
     this.performRPC("rollInitiative", options);
   }
   setItemToggle(options: any = {}) {
-    this.performRPC("setItemToggle", options);
+    this.performRPC("setRuleToggle", options);
   }
 
   async setInitiativeStat(options: any = {}) {

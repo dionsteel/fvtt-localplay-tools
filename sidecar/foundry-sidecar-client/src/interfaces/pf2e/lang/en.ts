@@ -6067,4 +6067,4 @@ const en = {
     },
   },
 };
-export default en;
+export default en; 

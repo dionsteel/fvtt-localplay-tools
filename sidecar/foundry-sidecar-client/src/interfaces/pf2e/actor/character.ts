@@ -44,16 +44,16 @@ type RuleValueTypes =
   | number
   | string
   | {
-      animation: {
-        intensity: number;
-        speed: number;
-        type: string;
-      };
-      bright: number;
-      color: string;
-      dim: number;
-      shadows: number;
+    animation: {
+      intensity: number;
+      speed: number;
+      type: string;
     };
+    bright: number;
+    color: string;
+    dim: number;
+    shadows: number;
+  };
 
 export interface CharacterPF2e extends CreaturePF2e {
   system: CharacterSystemData;
@@ -1359,7 +1359,7 @@ export interface CharacterPF2e extends CreaturePF2e {
       usage: {
         value: string;
       };
-      
+
     }>;
     feat: Array<{
       img: string;
@@ -2280,7 +2280,7 @@ export interface CharacterPF2e extends CreaturePF2e {
       placement: string;
       domain: string;
       option: string;
-      suboptions: "undefined";
+      suboptions: { label: string; value: any; predicate: PredicatePF2e[]; selected: boolean }[];
       alwaysActive: boolean;
       checked: boolean;
       enabled: boolean;
