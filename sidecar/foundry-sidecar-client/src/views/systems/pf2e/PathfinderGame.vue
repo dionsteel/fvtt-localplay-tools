@@ -225,17 +225,17 @@ watch(
               <ion-list id="labels-list">
                 <!-- <ion-list-header>
                 </ion-list-header> -->
-
-                <ion-item
-                  v-for="(actor, index) in store?.allSelectedActors.filter((a) => a.worldId == store.worldId && a.listing).map((a) => a.listing)"
-                  lines="none" :key="index" router-direction="forward"
-                  :router-link="'/' + store.activeGame?.world.system + '/actors/' + actor?.id"
-                  :class="{ selected: router.currentRoute.value.fullPath.endsWith(actor?.id || '') }">
-                  <ion-icon v-if="actor?.image.endsWith('.svg')" aria-hidden="true" slot="start" :ios="bookmarkOutline"
-                    :md="bookmarkSharp" :src="game.config.getAPIUrl(actor?.image)"></ion-icon>
-                  <img v-else width="32" slot="start" :src="game.config.getAPIUrl(actor?.image || '')" />
-                  <ion-label>{{ actor?.name }}</ion-label>
-                </ion-item>
+                <template v-for="(actor, index) in store?.allSelectedActors">
+                  <ion-item v-if="actor.worldId == store.worldId" lines="none" :key="index" router-direction="forward"
+                    :router-link="'/' + store.activeGame?.world.system + '/actors/' + actor?.listing?.id"
+                    :class="{ selected: router.currentRoute.value.fullPath.endsWith(actor?.listing?.id || '') }">
+                    <ion-icon v-if="actor?.listing?.image.endsWith('.svg')" aria-hidden="true" slot="start"
+                      :ios="bookmarkOutline" :md="bookmarkSharp"
+                      :src="game.config.getAPIUrl(actor?.listing?.image || '')"></ion-icon>
+                    <img v-else width="32" slot="start" :src="game.config.getAPIUrl(actor?.listing?.image || '')" />
+                    <ion-label>{{ actor?.listing?.name }}</ion-label>
+                  </ion-item>
+                </template>
               </ion-list>
             </ion-content>
           </ion-menu>

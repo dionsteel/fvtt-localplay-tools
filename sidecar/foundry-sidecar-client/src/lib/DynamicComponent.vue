@@ -6,6 +6,7 @@ import markdownItRegex from "markdown-it-regex";
 import UUIDLink from "./UUIDLink.vue";
 import FoundryLink from "./FoundryLink.vue";
 import Formula from "./Formula.vue";
+import { useConfigStore } from "@/store/config";
 
 export default {
   components: {
@@ -29,6 +30,24 @@ export default {
   // },
   setup(props, context) {
     const md = markdown({ html: true });
+    const store = useConfigStore();
+
+    // md.use(markdownItRegex, {
+    //   name: 'image-source',
+    //   regex: /\<img src=".*"\/\>/gi,
+    //   replace: (image: string) => {
+    //     try {
+    //       console.log('replace image url', image);
+    //       const [a, newUrl] = image.match(/src="([^\"]+)"/) || []
+    //       console.log('replace image url', image, newUrl, a);
+    //       return `src="${image.replace(/src=\"([^"]+])\"/i, (a, u) => `src="${store.getAPIUrl(u)}"`)} title="edited"`;
+    //     } catch (e) {
+    //       console.error('image rename error. ', image, e);
+    //       return 'pox';
+    //     }
+    //   }
+    // });
+
     md.use(markdownItRegex, {
       name: "uuid",
       regex: /(@UUID\[[^\]]+\]\{[^\}]+\})/,
@@ -168,16 +187,16 @@ export default {
         return `<FoundryLink link-type="${elementTag}" ${attrs}></FoundryLink>`;
       },
     });
-    md.use(markdownItRegex, {
-      name: "chatcommand",
-      regex: /\[\[([^\]]+)\]\]/,
-      replace: (cmd: string) => `<Formula style="border: 1px solid #333;" formula="${cmd}" class="formula"></Formula>`,
-    });
+    // md.use(markdownItRegex, {
+    //   name: "chatcommand",
+    //   regex: /\[\[([^\]]+)\]\]/,
+    //   replace: (cmd: string) => `<Formula style="border: 1px solid #333;" formula="${cmd}" class="formula"></Formula>`,
+    // });
     // return (...a) => (compile(props.html, {}) as any)(...a);
-    let contents: RenderFunction = compile(md.renderInline(props.html));
+    let contents: RenderFunction = compile(md.renderInline(props.html).replace(/src="([^"]+)"/gi, (a, src) => `src="${store.getAPIUrl(src||'')}"`)); 
     let compiled = (...args: any[]) => {
       if (contents && typeof contents == "function") {
-        return h("div", {class: 'dynamic-content'},[(contents as any)(...args)]);
+        return h("div", { class: 'dynamic-content' }, [(contents as any)(...args)]);
       }
       return h("div", ["Loading..."]);
     }; // = compile(props.html || "",{});
