@@ -378,12 +378,13 @@ const helpers = {
     },
     setRuleToggle(actorId, options = {}) {
       try {
-        const { slug, itemId, enabled } = options;
+        const { slug, itemId, enabled, value, domain, option, suboption } = options;
         const actor = pf2eactor(actorId);
-        let tgl = actor.synthetics.toggles.find((t) => t.itemId == itemId);
-        if (tgl) {
-          tgl.checked = enabled;
-        }
+        actor.toggleRollOption(domain, option, value, suboption).then(r => console.log(actor.name, 'set toggle', option, 'to', value, suboption));
+        // let tgl = actor.synthetics.toggles.find((t) => t.itemId == itemId);
+        // if (tgl) {
+        //   tgl.checked = enabled;
+        // } else { console.warn(`Couldn't find toggle for ${itemId} on ${actor.name} (${actor.id})`) }
       } catch (e) {
         console.error("error setting toggle", actorId, options, "\n", e);
       }
@@ -510,7 +511,7 @@ const helpers = {
     },
 
     getJournals(options) {
-      return pf2egame().journal.tree();
+      return pf2egame().journal.tree;
     },
   },
 };

@@ -112,7 +112,7 @@ function mf(t: number) {
               </IonButton>
             </IonRow>
             <IonRow v-else>
-              <IonButton class="ion-text-wrap" size="small" @click.stop="actorHelper?.performAction(action._id)">
+              <IonButton class="ion-text-wrap" size="small" @click.stop="actorHelper?.performAction(action._id,{force: true})">
                 {{ "Use" }}
               </IonButton>
             </IonRow>

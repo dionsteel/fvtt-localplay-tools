@@ -44,9 +44,10 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       { path: "", redirect: "/pf2e/world" },
       { path: "world", component: () => import("../views/systems/pf2e/GameWorldPF2e.vue") },
-      { path: "chat", component: () => import("../views/systems/pf2e/ChatPF2e.vue") },
-      { path: "combat", component: () => import("../views/systems/pf2e/CombatPF2e.vue") },
-      { path: "dice", component: () => import("../views/systems/pf2e/DicePF2e.vue") },
+      // { path: "chat", component: () => import("../views/systems/pf2e/ChatPF2e.vue") },
+      // { path: "combat", component: () => import("../views/systems/pf2e/CombatPF2e.vue") },
+      // { path: "dice", component: () => import("../views/systems/pf2e/DicePF2e.vue") },
+      { path: "journals", component: () => import("../views/systems/pf2e/journals/JournalFolderPF2e.vue") },
       { path: "actors", component: () => import("../views/systems/pf2e/CharactersPF2e.vue") },
       {
         path: "actors/:id",
