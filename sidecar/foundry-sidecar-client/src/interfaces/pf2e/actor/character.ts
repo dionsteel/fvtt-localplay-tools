@@ -34,7 +34,7 @@ import { StatisticTraceData } from "@/interfaces/pf2e/system/statistic/data";
 // import { CharacterSheetTabVisibility } from "./sheet";
 import { ItemSystemData } from "@/interfaces/pf2e/item/data/base";
 import { ActorPF2e } from "@/interfaces/pf2e/actor";
-import { PartialDeep } from "@/lib/utils";
+import { ImageFilePath, PartialDeep } from "@/lib/utils";
 import { RuleElementPF2e } from "../rules";
 import { Ownership } from "@/interfaces/core/flags";
 // import { FeatGroup } from "./character/";
@@ -1831,14 +1831,26 @@ export interface CharacterPF2e extends CreaturePF2e {
         faces: number;
       };
       highestWeaponDamageDice: number;
-    };
-    "xdy-pf2e-workbench": {
-      dyingLastApplied: number;
-    };
-    sequencer: {
-      effects: "undefined";
+      kineticist?: {
+        "elementalBlast": Record<'earth' | "air" | "water" | "fire" | "metal" | "wood", {
+          "damageTypes": DamageType[];
+          "dieFaces": number;
+          "element": "earth" | "air" | "water" | "fire" | "metal" | "wood";
+          "img": ImageFilePath;// "systems/pf2e/icons/actions/elemental-blast/earth.webp",;
+          "label": string;
+          "range": number;
+        }>;
+        "auraRadius": number;
+      };
     };
   };
+  "xdy-pf2e-workbench": {
+    dyingLastApplied: number;
+  };
+  sequencer: {
+    effects: "undefined";
+  };
+  // };
   hitPoints: {
     value: number;
     max: number;

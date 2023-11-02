@@ -27,6 +27,7 @@ import DynamicComponent from "@/lib/DynamicComponent.vue";
 import ActionCardPF2e from "../ActionCardPF2e.vue";
 import StrikeCardPF2e from "../StrikeCardPF2e.vue";
 import { i18n } from "@/interfaces/pf2e/lang/all";
+import ElementalBlastCard from '../ElementalBlastCard.vue';
 
 const game = usePF2eGame();
 const helper = game.helper;
@@ -115,7 +116,7 @@ const toggleItems = computed(() => actor?.items?.filter((i) => i.system.rules.fi
               <IonSelect :label="item.label" :value="item.suboptions.find(s => s.selected)?.value"
                 :onIonChange="(e) => actorHelper?.setItemToggle({ itemId: item.itemId, value: e.target.value, domain: item.domain, option: item.option, suboption: e.target.value })">
                 <IonSelectOption v-for="suboption in item.suboptions" :value="suboption.value">{{
-                  i18n(suboption.label) || suboption.label }}</IonSelectOption>
+                  i18n(suboption.label) || suboption.label.split(/\./g).pop() }}</IonSelectOption>
               </IonSelect>
               <!-- <IonCheckbox v-for="suboption in item.suboptions"
                 :onIonChange="(e) => actorHelper?.setItemToggle({ itemId: item.itemId, value: e.target.checked, domain: item.domain, option: item.option, suboption })"
@@ -140,8 +141,10 @@ const toggleItems = computed(() => actor?.items?.filter((i) => i.system.rules.fi
             <StrikeCardPF2e v-for="(strike, strikeIdx) in actor?.system.actions" :strike="strike" :strikeIdx="strikeIdx">
             </StrikeCardPF2e>
             <IonItemDivider>Your Actions</IonItemDivider>
-            <ActionCardPF2e v-for="action in actorActions" :action="action"></ActionCardPF2e>
-
+            <template v-for="action in actorActions">
+              <ElementalBlastCard v-if="action.system.slug == 'elemental-blast'" :action="action"></ElementalBlastCard>
+              <ActionCardPF2e v-else :action="action"></ActionCardPF2e>
+            </template>
             <IonItemDivider>General Actions</IonItemDivider>
             <IonAccordionGroup>
               <ActionCardPF2e v-for="action in generalActions" :action="action"></ActionCardPF2e>

@@ -10024,13 +10024,14 @@ export const config = {
   },
 };
 
-export function i18n(path:string){
-  const parts=path.split(/\./g);
-  let cur:any=config;
+export function i18n(path: string) {
+  const parts = path.split(/\./g);
+  let cur: any = config;
   let k;
-  while(k=parts.shift()){
-    cur=cur[k];
-    if(typeof cur!='object'){break;}
+
+  while (k = parts.shift()) {
+    cur = cur[k];
+    if (typeof cur != 'object') { break; }
   }
   return cur;
 }
