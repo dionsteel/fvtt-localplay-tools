@@ -61,7 +61,7 @@ import {
   globeOutline,
   globeSharp,
   bookOutline,
-  bookSharp,
+  bookSharp, librarySharp
 } from "ionicons/icons";
 import { useConfigStore } from "@/store/config";
 import { Observable, Subject, firstValueFrom } from "rxjs";
@@ -88,6 +88,15 @@ const appPages = [
     iosIcon: globeOutline,
     mdIcon: globeSharp,
   },
+
+  {
+    
+    title: "Select Characters",
+    url: "/pf2e/actors",
+    iosIcon: personOutline,
+    mdIcon: personSharp,
+  },
+
   {
     title: "Journals",
     url: "/pf2e/journals",
@@ -95,10 +104,10 @@ const appPages = [
     mdIcon: bookSharp
   },
   {
-    title: "Select Characters",
-    url: "/pf2e/actors",
-    iosIcon: personOutline,
-    mdIcon: personSharp,
+    title: "Packs",
+    url: "/pf2e/packs",
+    iosIcon: librarySharp,
+    mdIcon: librarySharp
   },
 ];
 const background = store.activeGame?.world.background ? `url(/${game.config.getAPIUrl(store.activeGame?.world.background)})` : "";
@@ -180,6 +189,7 @@ function handleChatCardClicks(event: MouseEvent, msg: SocketEventMap<PF2eTypes>[
       }
   }
 }
+
 async function showChatMenu() {
   await menuController.enable(true, "chat-menu");
   await menuController.open("chat-menu");

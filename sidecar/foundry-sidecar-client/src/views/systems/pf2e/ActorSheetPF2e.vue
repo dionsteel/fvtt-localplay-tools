@@ -295,7 +295,7 @@ const profColours = ["", "primary", "secondary", "tertiary"];
           </IonGrid>
           <!-- <CharacterHeaderPF2e :actor="actor"></CharacterHeaderPF2e> -->
         </IonToolbar>
-        <IonTabBar slot="top">
+        <IonTabBar slot="top" style="overflow-x: scroll; display: flex;">
           <IonTabButton v-for="tab in tabs" :tab="tab.name" :href="tab.path" :router-direction="'root'">{{ tab.name }} </IonTabButton>
         </IonTabBar>
 
