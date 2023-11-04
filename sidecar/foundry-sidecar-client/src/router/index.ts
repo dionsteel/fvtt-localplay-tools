@@ -50,8 +50,8 @@ const routes: Array<RouteRecordRaw> = [
       { path: "journals", component: () => import("../views/systems/pf2e/journals/JournalPagePF2e.vue") },
       { path: "packs", component: () => import("../views/systems/pf2e/journals/PacksPage.vue") },
       { path: "pack/:packId", component: () => import("../views/systems/pf2e/journals/PackPage.vue") },
-      { path: "compendium/:packType/:uuid", component: () => import("../views/systems/pf2e/journals/UUIDItem.vue") },
-      { path: "uuid/:uuid", component: () => import("../views/systems/pf2e/journals/UUIDItem.vue") },
+      { path: "compendium/:packType/:uuid", component: () => import("../views/systems/pf2e/journals/UUIDPage.vue") },
+      { path: "uuid/:uuid", component: () => import("../views/systems/pf2e/journals/UUIDPage.vue") },
       { path: "actors", component: () => import("../views/systems/pf2e/CharactersPF2e.vue") },
       {
         path: "actors/:id",

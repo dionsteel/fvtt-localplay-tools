@@ -24,10 +24,10 @@ import {
 } from "@ionic/vue";
 import { capitalize, computed, inject } from "vue";
 import DynamicComponent from "@/lib/DynamicComponent.vue";
-import ActionCardPF2e from "../ActionCardPF2e.vue";
-import StrikeCardPF2e from "../StrikeCardPF2e.vue";
+import ActionCardPF2e from "../cards/ActionCardPF2e.vue";
+import StrikeCardPF2e from "../cards/StrikeCardPF2e.vue";
 import { i18n } from "@/interfaces/pf2e/lang/all";
-import ElementalBlastCard from '../ElementalBlastCard.vue';
+import ElementalBlastCard from '../cards/ElementalBlastCard.vue';
 
 const game = usePF2eGame();
 const helper = game.helper;

@@ -79,7 +79,7 @@ interface NPCAttributesSource extends Required<ActorAttributesSource> {
     value: string;
   };
 }
-interface NPCDetailsSource extends Omit<CreatureDetails, "creature"> {
+export interface NPCDetailsSource extends Omit<CreatureDetails, "creature"> {
   level: {
     value: number;
   };

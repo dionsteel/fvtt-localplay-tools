@@ -11,7 +11,9 @@ import { ActorPF2e } from "../../actor";
 import { CreaturePF2e } from "../creature";
 // import { TraitTagifyEntry } from "@/interfaces/pf2e/";
 // import { ArmorClassTraceData } from "@/interfaces/pf2e/system/statistic";
-export interface NPCPF2e extends CreaturePF2e {}
+export interface NPCPF2e extends CreaturePF2e {
+  system:NPCSystemData;
+}
 
 type ArmorClassTraceData = any;
 type InitiativeTraceData = any;

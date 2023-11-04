@@ -20,7 +20,7 @@ import { JournalEntry as IJournalEntry, TreeEntry } from "./interfaces";
 import JournalTree from "./JournalTree.vue";
 import { ItemFlagsPF2e } from "@/interfaces/pf2e/item/data/base";
 import { useRoute } from "vue-router";
-import ItemCardPF2e from "../components/ItemCardPF2e.vue";
+import ItemCardPF2e from "../components/cards/ItemCardPF2e.vue";
 import { ItemPF2e } from "@/interfaces/pf2e/item";
 import JournalEntry from "./JournalEntry.vue";
 interface CompendiumPackMetadata {
@@ -96,7 +96,7 @@ function scrollAccordionHeader(e: AccordionGroupCustomEvent) {
             <ItemCardPF2e v-for="entry in packValues" :item="entry"></ItemCardPF2e>
           </template>
           <template v-if="pack.metadata.type == 'JournalEntry'">
-            <JournalEntry v-for="entry in packValues" :entry="(entry as any as IJournalEntry)"></JournalEntry>
+            <JournalEntry v-for="entry in packValues" :entry="entry as any as IJournalEntry"></JournalEntry>
           </template>
         </IonAccordionGroup>
       </IonList>

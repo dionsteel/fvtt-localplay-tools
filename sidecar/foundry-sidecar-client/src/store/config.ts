@@ -80,6 +80,7 @@ export const useConfigStore = defineStore("config", {
   },
   actions: {
     getAPIUrl(suffix: string = "") {
+      if(!suffix)return '';
       return `${this.SidecarUrl}/${suffix.replace(/^\//, "")}`;
     },
     getWebsocketUrl(suffix: string = "") {

@@ -1,5 +1,5 @@
 export interface JournalFolder { name: string; };
-export interface JournalEntry { name: string; _id: string; title: string; contents: string; pages: JournalPage[] };
+export interface JournalEntry { name: string; _id: string; title: string; contents: string; pages: JournalPage[]; type: string; };
 export interface TreeEntry {
     entries: JournalEntry[];
     children: TreeEntry[];
