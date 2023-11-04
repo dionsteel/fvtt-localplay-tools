@@ -11,6 +11,7 @@ import { ItemPF2e } from "@/interfaces/pf2e/item";
 import ItemCardPF2e from "../components/cards/ItemCardPF2e.vue";
 import { PackItemListing } from "./PackItemListing";
 import { CompendiumPackMetadata } from "./CompendiumPackMetadata";
+import UUIDCard from "../components/cards/UUIDCard.vue";
 
 interface CompendiumPack {
   metadata: CompendiumPackMetadata;
@@ -24,23 +25,23 @@ interface PackItem {}
 const route$ = useRoute();
 const { packType = "item", uuid } = route$.params;
 const game = usePF2eGame();
-let item = await game.config.fetchJson<PackItem>(`/uuid/${route$.params.uuid}`);
+// let item = await game.config.fetchJson<PackItem>(`/uuid/${route$.params.uuid}`);
 const typesmap = {
-  item: ["ancestry", "action","class", "feature", "classfeature", "weapon", "consumable", "container", "backpack", "heritage", "background", "feat"],
+  item: ["ancestry", "action", "class", "feature", "classfeature", "weapon", "consumable", "container", "backpack", "heritage", "background", "feat"],
   actor: ["creature", "npc", "actor", "character", "monster"],
 };
 </script>
 
 <template>
   <IonPage>
-    <IonHeader :translucent="true">
+    <!-- <IonHeader :translucent="true">
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-menu-button color="primary"></ion-menu-button>
         </ion-buttons>
         <IonTitle> Test </IonTitle>
       </ion-toolbar>
-    </IonHeader>
+    </IonHeader> -->
     <IonContent class="ion-padding">
       <!-- <JournalTree :entry="journals"></JournalTree> -->
       <!-- <IonList>
@@ -48,7 +49,7 @@ const typesmap = {
           {{ entry.name }} <small>({{ entry.type }})</small>
         </IonItem>
       </IonList> -->
-
+      <!-- 
       <template v-if="typesmap.item.includes(`${packType}`)">
         <IonAccordionGroup>
           <ItemCardPF2e :item="(item as ItemPF2e)"></ItemCardPF2e>
@@ -59,7 +60,9 @@ const typesmap = {
         <pre>
           {{ item }}
         </pre>
-      </template>
+      </template> -->
+
+      <UUIDCard :packType="`${packType}`" :uuid="`${route$.params.uuid}`"></UUIDCard>
     </IonContent>
   </IonPage>
 </template>

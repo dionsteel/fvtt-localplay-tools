@@ -1,12 +1,15 @@
-import { ActorAttributes, ActorAttributesSource, ActorDetails, ActorSystemData, ActorSystemSource, BaseActorSourcePF2e } from "@/interfaces/pf2e/actor/data/base";
+import { ActorAttributes, ActorAttributesSource, ActorDetails, ActorDetailsSource, ActorSystemData, ActorSystemSource, BaseActorSourcePF2e } from "@/interfaces/pf2e/actor/data/base";
+import { UUID } from "@/lib/utils";
+
 type PartySource = BaseActorSourcePF2e<"party", PartySystemSource>;
-type ActorUUID = string;
+
 interface PartySystemSource extends ActorSystemSource {
     attributes: PartyAttributesSource;
     details: PartyDetailsSource;
     traits?: never;
     campaign?: PartyCampaignSource;
 }
+
 interface PartyAttributesSource extends ActorAttributesSource {
     hp?: never;
     ac?: never;
@@ -15,31 +18,39 @@ interface PartyAttributesSource extends ActorAttributesSource {
     weaknesses?: never;
     resistances?: never;
 }
-interface PartyDetailsSource {
+
+interface PartyDetailsSource extends ActorDetailsSource {
     description: string;
-    level: {
-        value: number;
-    };
     members: MemberData[];
+    readonly alliance?: never;
+    readonly level?: never;
 }
+
 interface MemberData {
-    uuid: ActorUUID;
+    uuid: UUID;
 }
-interface PartySystemData extends Omit<PartySystemSource, "attributes">, Omit<ActorSystemData, "traits"> {
+
+interface PartySystemData
+    extends Omit<PartySystemSource, "attributes" | "campaign" | "details">,
+        Omit<ActorSystemData, "traits"> {
     attributes: PartyAttributes;
     details: PartyDetails;
+    campaign: PartyCampaignSource;
 }
-interface PartyAttributes extends Omit<PartyAttributesSource, "immunities" | "weaknesses" | "resistances">, Omit<ActorAttributes, "initiative" | "ac" | "hp"> {
+
+interface PartyAttributes
+    extends Omit<PartyAttributesSource, "immunities" | "weaknesses" | "resistances">,
+        Omit<ActorAttributes, "initiative" | "ac" | "hp"> {
     immunities: never[];
     weaknesses: never[];
     resistances: never[];
-    speed: {
-        value: number;
-    };
+    speed: { total: number };
 }
-interface PartyDetails extends PartyDetailsSource, ActorDetails {
+
+interface PartyDetails extends Omit<PartyDetailsSource, "alliance" | "level">, ActorDetails {
+    level: { value: number };
 }
-type PartyCampaignSource = {
-    type: string;
-} & Record<string, unknown>;
+
+type PartyCampaignSource = { type: string } & Record<string, unknown>;
+
 export type { MemberData, PartyCampaignSource, PartySource, PartySystemData };

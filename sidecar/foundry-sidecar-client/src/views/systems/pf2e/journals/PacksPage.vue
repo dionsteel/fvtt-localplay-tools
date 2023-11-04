@@ -24,7 +24,8 @@ interface CompendiumPackMetadata {
 }
 
 const game = usePF2eGame();
-const packs = await game.config.fetchJson<CompendiumPackMetadata[]>(`/system/packs`);
+const packs = await game.config.fetchJson<CompendiumPackMetadata[]>(`/packs`);
+const packFilters = ref({ type: ["Actor", "Item", "JournalEntry"] });
 </script>
 
 <template>
@@ -41,7 +42,7 @@ const packs = await game.config.fetchJson<CompendiumPackMetadata[]>(`/system/pac
       <!-- <JournalTree :entry="journals"></JournalTree> -->
       <IonList>
         <template v-for="pack in packs">
-          <IonItem v-if="pack.type != 'Actor'" :button="true" :detail="true" :router-link="`/pf2e/pack/${pack.id}`" router-direction="forward"
+          <IonItem v-if="packFilters.type.includes(pack.type)" :button="true" :detail="true" :title="pack.path" :router-link="`/pf2e/pack/${pack.id}`" router-direction="forward"
             >{{ pack.label }} <small>({{ pack.type }})</small></IonItem
           >
         </template>
