@@ -48,12 +48,17 @@ const routes: Array<RouteRecordRaw> = [
       // { path: "combat", component: () => import("../views/systems/pf2e/CombatPF2e.vue") },
       // { path: "dice", component: () => import("../views/systems/pf2e/DicePF2e.vue") },
       { path: "journals", component: () => import("../views/systems/pf2e/journals/JournalPagePF2e.vue") },
+      { path: "packs", component: () => import("../views/systems/pf2e/journals/PacksPage.vue") },
+      { path: "pack/:packId", component: () => import("../views/systems/pf2e/journals/PackPage.vue") },
+      { path: "compendium/:packType/:uuid", component: () => import("../views/systems/pf2e/journals/UUIDItem.vue") },
+      { path: "uuid/:uuid", component: () => import("../views/systems/pf2e/journals/UUIDItem.vue") },
       { path: "actors", component: () => import("../views/systems/pf2e/CharactersPF2e.vue") },
       {
         path: "actors/:id",
         component: () => import("../views/systems/pf2e/ActorSheetPF2e.vue"),
         props: true,
         children: [
+          { path: "", component: () => import("@/views/systems/pf2e/components/tabs/AttributesTabPF2e.vue") },
           { path: "actions", component: () => import("@/views/systems/pf2e/components/tabs/ActionsTabPF2e.vue") },
           { path: "attributes", component: () => import("@/views/systems/pf2e/components/tabs/AttributesTabPF2e.vue") },
           { path: "abilities", component: () => import("@/views/systems/pf2e/components/tabs/AbilitiesTabPF2e.vue") },

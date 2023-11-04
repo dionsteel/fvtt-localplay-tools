@@ -56,11 +56,11 @@ function removeSelectedActor(actor: ActorListing) {
     <ion-content>
       <ion-list id="actors-list">
         <ion-list-header>Selected Characters</ion-list-header>
-        <IonItem v-for="actor of store.currentWorldActors" :router-link="actor?.id" router-direction="forward">
+        <IonItem v-for="actor in store.currentWorldActors" :router-link="actor?.id" router-direction="forward">
           <!-- <ActorSummaryCardPF2e :actor="store" -->
-          <img class="actorPortrait" :src="getAPIUrl(actor?.image)" slot="start" />
+          <img class="actorPortrait" :src="getAPIUrl(actor?.image||'')" slot="start" />
           <ion-label>{{ actor?.name }}</ion-label>
-          <IonButton @click="removeSelectedActor(actor)" slot="end"><IonIcon :icon="removeSharp"></IonIcon></IonButton>
+          <IonButton v-if="actor" @click="removeSelectedActor(actor)" slot="end"><IonIcon :icon="removeSharp"></IonIcon></IonButton>
         </IonItem>
       </ion-list>
       <ion-list id="actors-list">

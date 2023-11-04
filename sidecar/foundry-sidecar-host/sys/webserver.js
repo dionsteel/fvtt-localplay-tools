@@ -606,7 +606,7 @@ function mountWebServer(app) {
   // })
 
   app.get("/packs", (req, res) => {
-    res.json([...game.packs.keys()]);
+    res.json([...game.packs.values()].map(p=>p.metadata));
   });
   app.get("/pack/:key", (req, res) => {
     let pack = game.packs.get(req.params.key);
@@ -614,10 +614,10 @@ function mountWebServer(app) {
     res.json(extractFullData(pack));
   });
   app.get("/system", (req, res) => {
-    res.json([...game.system.packs.keys()]);
+    res.json(game.system);
   });
   app.get("/system/packs", (req, res) => {
-    res.json([...game.system.packs.keys()]);
+    res.json([...game.system.packs.values()].map(p=>p.metadata));
   });
   app.get("/system/pack/:key", (req, res) => {
     res.json(game.packs.get(game.system.id + "." + req.params.key).toJSON());

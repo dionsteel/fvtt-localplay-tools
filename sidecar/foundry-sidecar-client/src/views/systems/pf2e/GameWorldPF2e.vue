@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useWorldStore } from "@/store/world";
-import { IonContent, IonToolbar, IonButtons, IonMenuButton, IonHeader, IonLabel, IonPage, IonTitle } from "@ionic/vue";
+import { IonContent, IonToolbar, IonButtons, IonMenuButton, IonHeader, IonLabel, IonPage, IonTitle, IonItem } from "@ionic/vue";
 import { capitalize } from "vue";
 
 const store = useWorldStore();
@@ -20,9 +20,9 @@ const gameSystem = game?.system;
       </ion-toolbar>
     </ion-header>
     <IonContent>
-      <div class="world-info" v-for="(prop, pk) in game?.world">
+      <IonItem class="world-info" v-for="(prop, pk) in game?.world">
         <IonLabel>{{ capitalize(pk) }}</IonLabel> {{ prop }}
-      </div>
+      </IonItem>
     </IonContent>
   </IonPage>
 </template>

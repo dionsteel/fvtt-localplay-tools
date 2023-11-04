@@ -79,7 +79,7 @@ const actorStats = Object.fromEntries(Object.entries(skillAbbrvMap).map(([k, v])
 //     return actorHelper?.actor?.value?.system?.skills[skill] || actorHelper?.actor?.value?.system?.skills;
 //   }); //?.totalModifier;
 // }
-console.log(actorStats, actor);
+// console.log(actorStats, actor);
 function mf(t: number) {
   return `${t >= 0 ? "+" : ""}${t}`;
 }

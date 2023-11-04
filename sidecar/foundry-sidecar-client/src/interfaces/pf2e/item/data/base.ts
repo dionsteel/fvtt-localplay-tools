@@ -8,6 +8,7 @@ import { ItemType } from "./index";
 import { KingmakerTrait } from "@/interfaces/pf2e/item/campaign-feature/index";
 import { ConfigPF2e } from "../../config";
 import { PartialDeep as DeepPartial } from "@/lib/utils";
+import { Flags } from "@/interfaces/core/flags";
 interface BaseItemSourcePF2e<TType extends ItemType, TSystemSource extends ItemSystemSource = ItemSystemSource> {
   flags: ItemSourceFlagsPF2e;
   // [k: string]: any;
@@ -22,7 +23,8 @@ interface ItemTraits<T extends ItemTrait = ItemTrait> {
   value: T[];
   rarity?: Rarity;
 }
-interface ItemFlagsPF2e extends Record<string, any> {
+interface ItemFlagsPF2e extends Flags {
+  //} Record<string, any> {
   pf2e: {
     rulesSelections: Record<string, string | number | object>;
     itemGrants: Record<string, ItemGrantData>;
@@ -30,7 +32,8 @@ interface ItemFlagsPF2e extends Record<string, any> {
     [key: string]: unknown;
   };
 }
-interface ItemSourceFlagsPF2e extends Record<string, any> {
+interface ItemSourceFlagsPF2e extends Flags {
+  //Record<string, any> {
   pf2e?: {
     rulesSelections?: Record<string, string | number | object>;
     itemGrants?: Record<string, ItemGrantSource>;
@@ -54,6 +57,12 @@ interface ItemSystemSource {
   };
   source: {
     value: string;
+  };
+  publication?: {
+    title?: string;
+    authors?: string;
+    license?: string;
+    remaster?: boolean;
   };
   traits?: ItemTraits;
   options?: {

@@ -152,7 +152,7 @@ export class ActorHelper<S extends SystemTypeMap = SystemTypeMap> {
       map((e) => {
         let output: any = dereference(e);
         output.eventSource = this; //`/actor/${this.id}`;
-        console.log(output);
+        // console.log(output); 
         return output;
       }),
       share()
@@ -310,7 +310,7 @@ export class SystemHelper<S extends SystemTypeMap = SystemTypeMap> {
   }
   async getActorHelper(id: string) {
     // await this.getActor(id);
-    console.log("getting Actor helper", id, this.actors);
+    // console.log("getting Actor helper", id, this.actors);
     if (!this.actors || !this.actors) {
       this.actors = {};
     }

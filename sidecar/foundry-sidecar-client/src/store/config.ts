@@ -79,10 +79,10 @@ export const useConfigStore = defineStore("config", {
     },
   },
   actions: {
-    getAPIUrl(suffix: string) {
+    getAPIUrl(suffix: string = "") {
       return `${this.SidecarUrl}/${suffix.replace(/^\//, "")}`;
     },
-    getWebsocketUrl(suffix: string) {
+    getWebsocketUrl(suffix: string = "") {
       console.log("websocketBaseUrl.value", this.websocketBaseUrl);
       return `${this.websocketBaseUrl}${suffix}`;
     },
@@ -93,6 +93,23 @@ export const useConfigStore = defineStore("config", {
       }
     ): Observable<T> {
       return fromFetch(this.getAPIUrl(input), { selector: (response) => response.json() }).pipe(map((j) => dereference(j))); //.pipe(mergeMap((r) => r.json()));
+    },
+    addSelectedActor(actorId: string, worldId: string, listing: any) {
+      let existingIdx = this.SelectedActors.findIndex((a) => a.actorId == actorId);
+      // const listing = unref(ownedActors.value?.find((l) => l.id == actorId));
+      if (listing) {
+        this.SelectedActors.push({ worldId, actorId, listing: { ...listing } });
+        if (existingIdx < 0) {
+          console.log("adding selected actor id", actorId, this.SelectedActors);
+        } else {
+          this.SelectedActors[existingIdx].listing = listing;
+          console.error("failed to add", actorId);
+        }
+        this.$persist();
+        console.log(this);
+      } else {
+        console.error("no listing");
+      }
     },
 
     fetchJson<T>(input: string): Promise<T> {

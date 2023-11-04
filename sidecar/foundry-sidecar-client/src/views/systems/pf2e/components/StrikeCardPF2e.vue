@@ -57,7 +57,7 @@ function doStrikeAux(action: number, auxIdx: number) {
         <IonCol>
           <IonRow>
             <IonCol size="auto">
-              <IonImg class="action-icon" :src="game.world.config.getAPIUrl(strike.imageUrl)"></IonImg>
+              <IonImg class="action-icon" :src="game.world.config.getAPIUrl(strike.img || strike.imageUrl || strike.item.img)"></IonImg>
             </IonCol>
             <IonCol>
               <IonRow>
@@ -76,8 +76,8 @@ function doStrikeAux(action: number, auxIdx: number) {
             </template>
             <!-- <template v-else>
             </template> -->
-            <IonButton fill="outline" color="medium" style="border-radius: 10%" v-for="(aux, auxIdx) in strike.auxiliaryActions" @click.stop="doStrikeAux(strikeIdx, auxIdx)"
-              >{{ aux?.action }}: {{ aux?.fullPurpose }}</IonButton
+            <IonButton fill="outline" color="medium" style="border-radius: 10%" v-for="(aux, auxIdx) in strike.auxiliaryActions" @click.stop="doStrikeAux(strikeIdx, auxIdx)">
+              {{ aux?.fullPurpose }}</IonButton
             >
           </IonRow>
           <IonRow size="auto" class="ion-nowrap">

@@ -2563,6 +2563,7 @@ export type WeaponAuxiliaryAction = any;
 /** The full data for a character strike */
 interface CharacterStrike extends StrikeData {
   item: WeaponPF2e;
+  img?:string;
   /** Whether this attack is visible on the sheet */
   visible: boolean;
   /** Domains/selectors from which modifiers are drawn */

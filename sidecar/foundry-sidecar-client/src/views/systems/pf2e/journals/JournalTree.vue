@@ -22,7 +22,7 @@ const level = props.level || 0;
       </IonItem>
       <div slot="content">
         <IonList>
-          <IonAccordionGroup :multiple="true" :expand="level > 0 ? 'inset' : 'compact'">
+          <IonAccordionGroup :multiple="true" :expand="'compact'">
             <JournalTree v-for="child in props.entry.children" :entry="child" :level="level + 1"></JournalTree>
             <JournalEntry v-for="jrnEntry in  props.entry.entries " :entry="jrnEntry"> </JournalEntry>
           </IonAccordionGroup>
@@ -34,7 +34,7 @@ const level = props.level || 0;
 
   <template v-else>
     <IonList>
-      <IonListHeader>Root</IonListHeader>
+      <!-- <IonListHeader>Root</IonListHeader> -->
       <IonAccordionGroup :multiple="true" :expand="level > 0 ? 'inset' : 'compact'">
         <JournalTree v-for="child in props.entry.children" :entry="child" :level="level + 1"></JournalTree>
         <JournalEntry v-for="jrnEntry in  props.entry.entries " :entry="jrnEntry"> </JournalEntry>
