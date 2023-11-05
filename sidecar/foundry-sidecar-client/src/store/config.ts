@@ -56,6 +56,11 @@ export function dereference<T>(input: any): T {
   delete (output as any)["_refs"];
   return output;
 }
+export interface ActorSelection {
+  actorId: string;
+  worldId: string;
+  listing?: ActorListing;
+}
 
 export const useConfigStore = defineStore("config", {
   state() {
@@ -64,7 +69,7 @@ export const useConfigStore = defineStore("config", {
       // SidecarUrl: `https://127.0.0.1:3000`,
       SidecarServer: "https://foundry.rpgtable.quest:3000",
       SidecarUrl: `https://foundry.rpgtable.quest:3000`,
-      SelectedActors: [] as Array<{ actorId: string; worldId: string; listing?: ActorListing }>,
+      SelectedActors: [] as ActorSelection[],
       chatMessages: [] as Array<SocketEventMap["renderChatMessage"] & { eventSource: any }>,
     };
   },
@@ -80,7 +85,7 @@ export const useConfigStore = defineStore("config", {
   },
   actions: {
     getAPIUrl(suffix: string = "") {
-      if(!suffix)return '';
+      if (!suffix) return "";
       return `${this.SidecarUrl}/${suffix.replace(/^\//, "")}`;
     },
     getWebsocketUrl(suffix: string = "") {
@@ -99,7 +104,7 @@ export const useConfigStore = defineStore("config", {
       let existingIdx = this.SelectedActors.findIndex((a) => a.actorId == actorId);
       // const listing = unref(ownedActors.value?.find((l) => l.id == actorId));
       if (listing) {
-        this.SelectedActors.push({ worldId, actorId, listing: { ...listing } });
+        this.SelectedActors = [...this.SelectedActors, { worldId, actorId, listing: { ...listing } }];
         if (existingIdx < 0) {
           console.log("adding selected actor id", actorId, this.SelectedActors);
         } else {

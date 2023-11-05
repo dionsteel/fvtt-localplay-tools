@@ -144,16 +144,19 @@ const elementDamageTypes = ref<Record<string, Record<"melee" | "ranged", DamageT
             <IonRow>
               <IonLabel>{{ action.name }}</IonLabel>
             </IonRow>
+          </IonCol> </IonRow
+        ><IonRow>
+          <IonCol>
             <IonRow v-for="(variant, varIdx) of actor?.flags.pf2e.kineticist?.elementalBlast" :title="capitalize(variant.element)">
-              <IonCol size="auto">
-                <img width="32" height="32" :src="game.config.getAPIUrl(variant.img || '')" />
-                {{ capitalize(variant.element) }}
-              </IonCol>
+              <!-- <IonCol size="auto">
+              </IonCol> -->
               <IonCol>
                 <IonRow v-for="ranged in ['melee', 'ranged']">
-                  <IonCol size="8">
+                  <IonCol size="auto" style="vertical-align: top; align-items: start;">
+                    <img class="ion-hidden-sm" width="32" height="32" :src="game.config.getAPIUrl(variant.img || '')" /> &nbsp;
+                    <span class="ion-hide-md-down" style="vertical-align: top;">  {{ capitalize(variant.element) }}  </span>  &nbsp;
                     <IonButton
-                      @click="
+                      @click.stop="
                         actorHelper?.performElementalBlast({
                           element: variant.element,
                           melee: ranged == 'melee',
@@ -163,12 +166,12 @@ const elementDamageTypes = ref<Record<string, Record<"melee" | "ranged", DamageT
                       "
                       fill="outline"
                       color="dark"
-                      style="border-radius: 10%"
+                      style="border-radius: 10%; vertical-align: top; margin-top: 0px; margin-bottom:0px;"
                       >{{ capitalize(ranged) }}
                     </IonButton>
                     <IonButton
                       v-for="n in 2"
-                      @click="
+                      @click.stop="
                         actorHelper?.performElementalBlast({
                           element: variant.element,
                           mapIncreases: n,
@@ -178,14 +181,14 @@ const elementDamageTypes = ref<Record<string, Record<"melee" | "ranged", DamageT
                       "
                       fill="outline"
                       color="dark"
-                      style="border-radius: 10%">
+                      style="border-radius: 10%; vertical-align: top; margin-top: 0px; margin-bottom:0px">
                       <!-- {{ i18n(variant.label) }} -->
                       MAP{{ n }}
                     </IonButton>
                   </IonCol>
-                  <IonCol size="4">
-                    <IonSegment @click.stop="" class="damage-type-selector" :value="elementDamageTypes[variant.element][ranged as 'melee' | 'ranged']">
-                      <IonSegmentButton class="damage-type-button" layout="label-hide" v-for="dt in variant.damageTypes" :value="dt">
+                  <IonCol size="auto">
+                    <IonSegment style="vertical-align: top;" @click.stop="" class="damage-type-selector" v-model="elementDamageTypes[variant.element][ranged as 'melee' | 'ranged']">
+                      <IonSegmentButton class="damage-type-button" layout="label-hide" :title="capitalize(dt)" v-for="dt in variant.damageTypes" :value="dt">
                         <IonIcon size="small" :icon="dticons[dt]"></IonIcon>
                       </IonSegmentButton>
                     </IonSegment>
@@ -312,7 +315,7 @@ ion-img.action-icon {
 .damage-type-selector {
   --padding: 2px;
   --ion-padding: 2px;
-  /* width: 5em; */
+  width: 6em;
   --padding-end: 0px;
   --padding-start: 0px;
 

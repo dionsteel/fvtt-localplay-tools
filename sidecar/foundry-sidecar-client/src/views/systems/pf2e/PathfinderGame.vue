@@ -210,7 +210,7 @@ watch(
     <link rel="stylesheet" :href="game.config.getAPIUrl(`systems/pf2e/styles/pf2e.css`)" />
     <ion-content>
       <Suspense>
-        <ion-split-pane content-id="system-content" class="pf2e-content">
+        <ion-split-pane when="(min-width: 1600px)" content-id="system-content" class="pf2e-content">
           <ion-menu content-id="system-content" class="pf2e-content" type="overlay">
             <ion-content>
               <IonHeader>
@@ -419,5 +419,9 @@ ion-note {
 
 ion-item.selected {
   --color: var(--ion-color-primary);
+}
+
+ion-split-pane {
+  --side-max-width: 350px;
 }
 </style>
