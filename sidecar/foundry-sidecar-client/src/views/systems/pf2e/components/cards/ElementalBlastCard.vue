@@ -33,15 +33,16 @@ import {
   IonRadioGroup,
   IonRadio,
 } from "@ionic/vue";
-import { capitalize, computed, inject } from "vue";
+import { capitalize, computed, inject, ref } from "vue";
 import DynamicComponent from "@/lib/DynamicComponent.vue";
 import { ActorHelperPF2e } from "@/interfaces/pf2e/helper";
 import { ActionMacroDescription } from "@/interfaces/pf2e/action-macros";
 import { SkillAbbreviation } from "@/interfaces/pf2e/actor/creature";
 import { CharacterPF2e } from "@/interfaces/pf2e";
 import { i18n, config } from "@/interfaces/pf2e/lang/all";
-import { hammer, navigate, skull, flame, snow, cloud, flash, flask, } from "ionicons/icons";
-
+import { hammer, navigate, skull, flame, snow, cloud, flash, flask } from "ionicons/icons";
+import { DAMAGE_TYPES } from "@/interfaces/pf2e/system/damage/values";
+import { DamageType } from "@/interfaces/pf2e/system/damage";
 const game = usePF2eGame();
 
 const { action } = defineProps<{ action: ActionItemPF2e & { macro?: ActionMacroDescription } }>();
@@ -53,7 +54,9 @@ const doActionVariant = (action: number, variant: number): void => {
 
   actorHelper?.performAction(action, variant);
 };
-function getBlastLabel(element: string, damageType: string) { return (config.PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.BlastLabels as any)[capitalize(element) + capitalize(damageType)]; }
+function getBlastLabel(element: string, damageType: string) {
+  return (config.PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.BlastLabels as any)[capitalize(element) + capitalize(damageType)];
+}
 function doActionAux(action: number, auxIdx: number) {
   console.log({ action, auxIdx });
   // actorHelper?.performActionAux(action, auxIdx);
@@ -99,8 +102,34 @@ const dticons: any = {
   air: cloud,
   poison: skull,
   lightning: flash,
-  acid: flask
-}
+  acid: flask,
+};
+const elementDamageTypes = ref<Record<string, Record<"melee" | "ranged", DamageType>>>({
+  water: {
+    melee: "cold",
+    ranged: "cold",
+  },
+  fire: {
+    melee: "fire",
+    ranged: "fire",
+  },
+  air: {
+    melee: "electricity",
+    ranged: "electricity",
+  },
+  wood: {
+    melee: "bludgeoning",
+    ranged: "bludgeoning",
+  },
+  earth: {
+    melee: "bludgeoning",
+    ranged: "bludgeoning",
+  },
+  metal: {
+    melee: "piercing",
+    ranged: "piercing",
+  },
+});
 </script>
 
 <template>
@@ -115,34 +144,62 @@ const dticons: any = {
             <IonRow>
               <IonLabel>{{ action.name }}</IonLabel>
             </IonRow>
-            <IonRow v-if="action.macro">
-              <IonButton size="small" class="ion-text-wrap" v-if="(action.macro.variants?.length || 0) > 0"
-                v-for="variant in action.macro.variants"
-                @click.stop.prevent="actorHelper?.performGenericAction(action.macro.slug, { variant: variant.slug })">
-                {{ variant.title || variant.name || variant.statistic?.toUpperCase() }} {{ mf(actorStats[variant.statistic
-                  || action.macro.statistic || ""]?.value || 0) }}
-              </IonButton>
-              <IonButton class="ion-text-wrap" size="small" v-else
-                @click.stop.prevent="actorHelper?.performGenericAction(action.macro.slug)">
-                {{ (action.macro?.statistic || action.macro.name || action.macro.title || "Use").toUpperCase() ?? "" }}
-                {{ action.macro.statistic ? mf(actorStats[action.macro.statistic || ""]?.value || 0) : "" }}
-              </IonButton>
-            </IonRow>
-            <IonRow v-else>
-              <IonButton class="ion-text-wrap" size="small"
-                @click.stop="actorHelper?.performAction(action._id, { force: true })">
-                {{ "Use" }}
-              </IonButton>
+            <IonRow v-for="(variant, varIdx) of actor?.flags.pf2e.kineticist?.elementalBlast" :title="capitalize(variant.element)">
+              <IonCol size="auto">
+                <img width="32" height="32" :src="game.config.getAPIUrl(variant.img || '')" />
+                {{ capitalize(variant.element) }}
+              </IonCol>
+              <IonCol>
+                <IonRow v-for="ranged in ['melee', 'ranged']">
+                  <IonCol size="8">
+                    <IonButton
+                      @click="
+                        actorHelper?.performElementalBlast({
+                          element: variant.element,
+                          melee: ranged == 'melee',
+                          mapIncreases: 0,
+                          damageType: elementDamageTypes[variant.element][ranged as 'melee' | 'ranged'],
+                        })
+                      "
+                      fill="outline"
+                      color="dark"
+                      style="border-radius: 10%"
+                      >{{ capitalize(ranged) }}
+                    </IonButton>
+                    <IonButton
+                      v-for="n in 2"
+                      @click="
+                        actorHelper?.performElementalBlast({
+                          element: variant.element,
+                          mapIncreases: n,
+                          melee: ranged == 'melee',
+                          damageType: elementDamageTypes[variant.element][ranged as 'melee' | 'ranged'],
+                        })
+                      "
+                      fill="outline"
+                      color="dark"
+                      style="border-radius: 10%">
+                      <!-- {{ i18n(variant.label) }} -->
+                      MAP{{ n }}
+                    </IonButton>
+                  </IonCol>
+                  <IonCol size="4">
+                    <IonSegment @click.stop="" class="damage-type-selector" :value="elementDamageTypes[variant.element][ranged as 'melee' | 'ranged']">
+                      <IonSegmentButton class="damage-type-button" layout="label-hide" v-for="dt in variant.damageTypes" :value="dt">
+                        <IonIcon size="small" :icon="dticons[dt]"></IonIcon>
+                      </IonSegmentButton>
+                    </IonSegment>
+                  </IonCol>
+                </IonRow>
+              </IonCol>
             </IonRow>
           </IonCol>
         </IonRow>
         <IonRow class="ion-padding">
-          <span style="padding: 3px; border: 1px solid #666; color: #999; font-size: 0.7em; margin-right: 1px"
-            v-for="trait of action?.system?.traits?.value">
+          <span style="padding: 3px; border: 1px solid #666; color: #999; font-size: 0.7em; margin-right: 1px" v-for="trait of action?.system?.traits?.value">
             {{ capitalize(trait || "") }}
           </span>
-          <span style="padding: 3px; border: 1px solid #666; color: #999; font-size: 0.7em; margin-right: 1px"
-            color="tertiary" v-if="action?.system?.traits?.rarity">
+          <span style="padding: 3px; border: 1px solid #666; color: #999; font-size: 0.7em; margin-right: 1px" color="tertiary" v-if="action?.system?.traits?.rarity">
             {{ capitalize(action?.system?.traits?.rarity || "") }}
           </span>
         </IonRow>
@@ -174,10 +231,8 @@ const dticons: any = {
         </IonCardTitle> -->
         <IonCardSubtitle>
           <IonLabel>
-            <IonBadge justify="space-between" v-for="trait of action?.system?.traits?.value">{{ capitalize(trait || "") }}
-            </IonBadge>
-            <IonBadge justify="space-between" color="tertiary" v-if="action?.system?.traits?.rarity">{{
-              capitalize(action?.system?.traits?.rarity || "") }}</IonBadge>
+            <IonBadge justify="space-between" v-for="trait of action?.system?.traits?.value">{{ capitalize(trait || "") }} </IonBadge>
+            <IonBadge justify="space-between" color="tertiary" v-if="action?.system?.traits?.rarity">{{ capitalize(action?.system?.traits?.rarity || "") }}</IonBadge>
           </IonLabel>
         </IonCardSubtitle>
         <!-- <IonCardSubtitle v-if="action.macro">
@@ -186,36 +241,6 @@ const dticons: any = {
         </IonCardSubtitle> -->
       </IonCardHeader>
       <IonCardContent>
-
-        <IonItem v-for="(variant, varIdx) of actor?.flags.pf2e.kineticist?.elementalBlast"
-          :title="capitalize(variant.element)">
-          <img width="48" slot="start" :src="game.config.getAPIUrl(variant.img || '')" />
-
-          <IonGrid>
-            <IonCol size="auto">
-              {{ capitalize(variant.element) }}
-            </IonCol>
-            <IonCol>
-              <IonRow v-for="ranged in [false, true]">
-                <IonCol>
-                  <IonButton fill="outline" color="dark" style="border-radius: 10%">{{ ranged ? 'Ranged' : 'Melee' }}
-                  </IonButton>
-                  <IonButton v-for="n in 2" fill="outline" color="dark" style="border-radius: 10%">
-                    <!-- {{ i18n(variant.label) }} -->
-                    MAP{{ n }}
-                  </IonButton>
-                </IonCol>
-                <IonCol>
-                  <IonRadioGroup>
-                    <IonRadio v-for="dt in variant.damageTypes" :value="dt">
-                      <IonIcon :icon="dticons[dt]"></IonIcon>
-                    </IonRadio>
-                  </IonRadioGroup>
-                </IonCol>
-              </IonRow>
-            </IonCol>
-          </IonGrid>
-        </IonItem>
         <!-- 
         <template v-for="rule of action.system.rules">
           <template v-if="rule.key == 'ActiveEffectLike'">
@@ -231,14 +256,12 @@ const dticons: any = {
           </template>
         </template> -->
 
-        <DynamicComponent v-if="!((action.macro?.variants?.filter((v) => v.description).length || 0) > 0)"
-          :html="action.system.description.value"></DynamicComponent>
+        <DynamicComponent v-if="!((action.macro?.variants?.filter((v) => v.description).length || 0) > 0)" :html="action.system.description.value"></DynamicComponent>
 
         <template v-if="action.macro && action.macro.variants">
           <!-- <DynamicComponent :html="action.macro.description"></DynamicComponent> -->
           <IonList :inset="false">
-            <IonItem :detail="false" v-if="(action.macro.variants?.length || 0) > 0"
-              v-for="variant in action.macro.variants">
+            <IonItem :detail="false" v-if="(action.macro.variants?.length || 0) > 0" v-for="variant in action.macro.variants">
               <IonText v-if="variant.description">
                 <IonLabel>
                   <b>{{ variant.title || variant.name }}</b>
@@ -249,9 +272,7 @@ const dticons: any = {
               </IonNote> -->
               </IonText>
               <IonButton @click="actorHelper?.performGenericAction(action.macro.slug, { variant: variant.slug })">
-                {{ variant.title || variant.name || variant.statistic?.toUpperCase() }} {{
-                  mf(actorStats[variant.statistic
-                    || action.macro.statistic || ""]?.value || 0) }}
+                {{ variant.title || variant.name || variant.statistic?.toUpperCase() }} {{ mf(actorStats[variant.statistic || action.macro.statistic || ""]?.value || 0) }}
               </IonButton>
             </IonItem>
           </IonList>
@@ -259,21 +280,17 @@ const dticons: any = {
         <!-- <template v-if="!action.macro">{{ action }}</template> -->
         <!-- <template v-else> -->
         <IonLabel v-if="action.system.source?.value">Source: {{ action.system.source.value }}<br /> </IonLabel>
-        <span v-if="action.system.requirements?.value"> Requirements: {{ action.system.requirements.value }}<br />
-        </span>
+        <span v-if="action.system.requirements?.value"> Requirements: {{ action.system.requirements.value }}<br /> </span>
         <span v-if="action.system.trigger?.value"> Trigger: {{ action.system.trigger.value }}<br /></span>
-        <span v-if="action.system.rules && action.system.rules.length > 0"> Rules: {{ action.system.rules }}
-        </span><br />
+        <span v-if="action.system.rules && action.system.rules.length > 0"> Rules: {{ action.system.rules }} </span><br />
         <span v-if="action.system.frequency">
-          Frequency: {{ action.system.frequency?.max ? `Max. ${action.system.frequency?.max} ` :
-            action.system.frequency?.value }}
+          Frequency: {{ action.system.frequency?.max ? `Max. ${action.system.frequency?.max} ` : action.system.frequency?.value }}
           {{ action.system.frequency?.per ? `per ${action.system.frequency?.per}` : `` }}
         </span>
         <pre v-if="(action.system?.options?.value?.length || 0) > 0">{{ action.system.options?.value }}</pre>
         <!-- </template> -->
       </IonCardContent>
-      <IonButton v-if="action.macro && (action.macro.variants?.length || 0) < 1"
-        @click="actorHelper?.performGenericAction(action.macro.slug)">
+      <IonButton v-if="action.macro && (action.macro.variants?.length || 0) < 1" @click="actorHelper?.performGenericAction(action.macro.slug)">
         {{ (action.macro?.statistic || action.macro.name || action.macro.title || "Use").toUpperCase() ?? "" }}
         {{ action.macro.statistic ? mf(actorStats[action.macro.statistic || ""]?.value || 0) : "" }}
       </IonButton>
@@ -290,5 +307,28 @@ ion-img.action-icon {
   width: 32px;
   height: 32px;
   margin: 1px 5px;
+}
+
+.damage-type-selector {
+  --padding: 2px;
+  --ion-padding: 2px;
+  /* width: 5em; */
+  --padding-end: 0px;
+  --padding-start: 0px;
+
+  --margin-end: 0px;
+  --margin-start: 0px;
+}
+.damage-type-button {
+  --padding: 2px;
+  --ion-padding: 2px;
+  width: 2em;
+  --padding-end: 0px;
+  --padding-start: 0px;
+  width: 2em;
+  --margin-end: 0px;
+  --margin-start: 0px;
+  min-width: 30px;
+  font-size: 16px;
 }
 </style>

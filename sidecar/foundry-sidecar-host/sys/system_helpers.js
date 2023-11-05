@@ -149,9 +149,9 @@ const helpers = {
       try {
         const token = dnd5etoken(id);
         return { ...token };
-      } catch (e) { }
+      } catch (e) {}
     },
-    getItemData() { },
+    getItemData() {},
   },
   pf2e: {
     getActorData(id) {
@@ -279,9 +279,9 @@ const helpers = {
       try {
         const token = pf2etoken(id);
         return { ...token };
-      } catch (e) { }
+      } catch (e) {}
     },
-    getItemData() { },
+    getItemData() {},
     /**
      * @returns {import("../../../foundry-types/src/types/foundry/systems/pf2e/module/actor/data/base").StrikeData}
      */
@@ -362,7 +362,9 @@ const helpers = {
               } else if (actorAction.hasMacro && actorAction.hasMacro()) {
                 actorAction.executeMacro();
               } else {
-                if (actorAction.toChat) { actorAction.toChat(); }
+                if (actorAction.toChat) {
+                  actorAction.toChat();
+                }
               }
               // actorAction.toChat();
             } else {
@@ -380,7 +382,7 @@ const helpers = {
       try {
         const { slug, itemId, enabled, value, domain, option, suboption } = options;
         const actor = pf2eactor(actorId);
-        actor.toggleRollOption(domain, option, itemId, value, suboption).then(r => console.log(actor.name, 'set toggle', option, 'to', value, suboption));
+        actor.toggleRollOption(domain, option, itemId, value, suboption).then((r) => console.log(actor.name, "set toggle", option, "to", value, suboption));
         // let tgl = actor.synthetics.toggles.find((t) => t.itemId == itemId);
         // if (tgl) {
         //   tgl.checked = enabled;
@@ -490,6 +492,15 @@ const helpers = {
         strike?.variants[aux]?.roll({ target: targetId });
       } catch (e) {
         console.error("Error performing strike", { actorId, options }, e);
+      }
+    },
+    performElementalBlast(actorId, options = {}) {
+      try {
+        const actor = pf2eactor(actorId);
+        const blast = (actor.elementalBlast = actor.elementalBlast || new game.pf2e.ElementalBlast(actor));
+        blast.attack(options);
+      } catch (e) {
+        console.error("Error doing elemental blast. ", actorId, options, e);
       }
     },
     rollStrikeDamage(actorId, options = {}) {
