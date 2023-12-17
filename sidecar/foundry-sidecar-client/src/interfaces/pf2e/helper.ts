@@ -111,9 +111,9 @@ export class ActorHelperPF2e extends ActorHelper<PF2eTypes> {
     this.performRPC("setRuleToggle", options);
   }
 
-  async setInitiativeStat(options: any = {}) {
-    this.performRPC("setInitiative", options);
-  }
+  // async setInitiativeStat(options: any = {}) {
+  //   this.performRPC("setInitiative", options);
+  // }
 
   async castSpell(options: any = {}) {
     this.performRPC("castSpell", options);

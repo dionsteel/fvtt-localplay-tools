@@ -391,17 +391,17 @@ const helpers = {
         console.error("error setting toggle", actorId, options, "\n", e);
       }
     },
-    setInitiative(actorId, options = {}) {
-      try {
-        const { slug } = options;
-        const actor = pf2eactor(actorId);
-        if (actor.skills[slug]) {
-          actor.initiative.statistic = actor.skills[slug];
-        }
-      } catch (e) {
-        console.error("error setting toggle", actorId, options, "\n", e);
-      }
-    },
+    // setInitiative(actorId, options = {}) {
+    //   try {
+    //     const { slug } = options;
+    //     const actor = pf2eactor(actorId);
+    //     if (actor.skills[slug]) {
+    //       actor.initiative.statistic = actor.skills[slug];
+    //     }
+    //   } catch (e) {
+    //     console.error("error setting toggle", actorId, options, "\n", e);
+    //   }
+    // },
     rollSkillCheck(actorId, options = {}) {
       try {
         const { skill, shortForm } = options;

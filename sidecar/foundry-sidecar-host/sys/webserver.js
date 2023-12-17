@@ -9,7 +9,7 @@ const express = require("express");
 const _ = require("lodash");
 const { isGameInitialised, performAutoLogin, creds, systemDescriptions, observeHookEvents, createEventListeners } = require("./lib");
 const { fromEvent } = require("rxjs");
-const { PlayerRolls } = require("./roll-on-player");
+// const { PlayerRolls } = require("./roll-on-player");
 const helpers = require("./system_helpers");
 let excludeKeys = ["canvas", "parent", "transform", "children", "tint", "model", "scene", "actor", "model"];
 function getAllPropertyNames(item) {
@@ -241,7 +241,7 @@ function mountWebServer(app) {
   // Hooks.on('renderChatMessage', (message,html, source)=>{
 
   // })
-  PlayerRolls.patch();
+  // PlayerRolls.patch();
   function getActorItems(actor_id, type) {
     return game.actors.get(actor_id).itemTypes[type].map((i) => extractFullData(i));
   }
@@ -311,7 +311,7 @@ function mountWebServer(app) {
           }
         }
       }
-      PlayerRolls.enableForActor(requestId);
+      // PlayerRolls.enableForActor(requestId);
       function handlePlayerRPC(msg) {
         try {
           switch (msg.action) {
@@ -548,7 +548,7 @@ function mountWebServer(app) {
 
       ws.on("disconnect", () => {
         aeSub.unsubscribe();
-        PlayerRolls.disableForPlayer(requestId);
+        // PlayerRolls.disableForPlayer(requestId);
       });
       // actorUpdates
       //   .pipe(

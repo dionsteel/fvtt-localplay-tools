@@ -256,10 +256,11 @@ const profColours = ["", "primary", "secondary", "tertiary"];
                 </IonPopover>
                 <!-- </IonCol>
               <IonCol> -->
-                <IonButton id="rolls_initiative" lines="none" size="small" fill="outline" :title="actor.system.attributes.initiative.breakdown">
-                  <IonIcon :icon="diceSharp"></IonIcon>Initiative
+                <IonButton @click="actorHelper.rollInitiative()" id="rolls_initiative" lines="none" size="small" fill="outline" :title="actor.system.attributes.initiative.breakdown">
+                  <IonIcon :icon="diceSharp"></IonIcon>  Roll Initiative
+                      {{ (actor.system.attributes.initiative.value ? "+" : "") + actor.system.attributes.initiative.value }}
                 </IonButton>
-                <IonPopover trigger="rolls_initiative" class="ion-padding">
+                <!-- <IonPopover trigger="rolls_initiative" class="ion-padding">
                   <div class="ion-padding">
                     <IonSelect
                       @ion-change="(e) => actorHelper.setInitiativeStat({ slug: e.target.value })"
@@ -272,12 +273,11 @@ const profColours = ["", "primary", "secondary", "tertiary"];
                         >{{ skill.label }}{{ (skill.value ? "+" : "") + skill.value }}</IonSelectOption
                       >
                     </IonSelect>
-                    <IonButton @click="actorHelper.rollInitiative()">
-                      Roll Initiative
-                      {{ (actor.system.attributes.initiative.value ? "+" : "") + actor.system.attributes.initiative.value }}
+                    <IonButton>
+                     
                     </IonButton>
                   </div>
-                </IonPopover>
+                </IonPopover> -->
                 <!-- <IonCol>
               </IonCol> -->
               </IonCol>

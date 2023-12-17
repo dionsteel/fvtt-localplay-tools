@@ -1,7 +1,7 @@
 const { Observable, merge, Subject } = require("rxjs");
 const { map, filter, reduce, scan, share, tap } = require("rxjs/operators");
 // const { TokenDocumentPF2e } = require("../../../foundry-types/src/types/foundry/systems/pf2e/module/scene");
-const { PlayerRolls } = require("./roll-on-player");
+// const { PlayerRolls } = require("./roll-on-player");
 
 const debugHooks = false;
 const gmlogin = false;
@@ -222,7 +222,7 @@ function createEventListeners() {
     createActiveEffect: observeHookEvents("createActiveEffect", "effect", "options", "userId"),
     deleteActiveEffect: observeHookEvents("deleteActiveEffect", "effect", "options", "userId"),
     updateActiveEffect: observeHookEvents("updateActiveEffect", "effect", "options", "userId"),
-    rollRequest: PlayerRolls.requests,
+    // rollRequest: PlayerRolls.requests,
   };
 
   return merge(...Object.values(eventSources));
